@@ -1,0 +1,460 @@
+Animal/Monster Handler,"Responsible For The Safe Keeping, Dietary Care, And Exercise Of Animals Or Monsters."
+Arborist,"Maintains And Cares For Trees, Often By Surgically Removing Dying Limbs."
+Baler,"Bales Hay, Or In The Mills, Wool And Cotton Goods."
+Beekeeper,"Owns And Breeds Bees, Especially For Their Honey."
+Breeder,"Breeds Livestock, Animals, Or Monsters."
+Cowherd,Supervises Grazing Cattle.
+Dairyboy/Dairymaid,Milks Cows And Makes Cheese And Butter.
+Falconer,"Keeps, Trains, And Hunts With Falcons, Hawks, Or Other Birds Of Prey."
+Farmer,Operates A Farm Or Cultivates Land.
+Fisher,Catches Fish.
+Florist,Grows And Arranges Plants And Cut Flowers.
+Forager,Searches For Food In The Wild.
+Forester,Supervises The Wellbeing Of A Forest.
+Fowler,Catches Or Ensnares Birds.
+Gamekeeper,"Breeds And Protects Game, Typically For A Large Estate."
+Groom,"Cleans And Brushes The Coats Horses, Dogs, Or Other Animals."
+Herder,"Supervises A Herd Of Livestock Or Makes A Living From Keeping Livestock, Especially In Open Country."
+Horse Trainer,Tends To Horses And Teaches Them Different Disciplines.
+Hunter,Hunts Game Or Other Wild Animals.
+Lumberjack,"Fells Trees, Cuts Them Into Logs, And Transports Them To A Sawmill."
+Master-of-Horses,Supervises And Commands All Horses Under A Jurisdiction.
+Master-of-Hounds,"Maintains A Pack Of Hounds And Their Associated Staff, Equipment, And Hunting Arrangements."
+Miller,Owns Or Works In A Grain Mill.
+Miner,"Works Underground In Mines In Order To Obtain Minerals Such As Coal, Diamonds, Or Gold."
+Pathfinder,Scouts Ahead And Discovers A Path Or Way For Others.
+Plumer,Hunts Birds For Their Plumes.
+Prospector,"Searches For Mineral Deposits, Especially By Drilling And Excavation."
+Ranger,Wanders Or Ranges Over A Particular Area Or Domain.
+Renderer,Converts Waste Animal Tissue Into Usable Materials.
+Shepherd,"Herds, Tends, And Guards Sheep."
+Stablehand,Works In A Stable.
+Thresher,Separates Grain From The Plants By Beating.
+Trapper,"Traps Wild Animals, Especially For Their Fur."
+Vintner,"Engages In Winemaking, Especially With Monitoring And Harvesting The Grapes."
+Zookeeper,Maintains And Cares For Animals Or Monsters In A Zoo.
+,
+Architect,Designs Buildings Or Landscapes And In Many Cases Supervises Their Construction.
+Brickmaker,"Crafts Bricks From Clay, Stone, Or Other Materials."
+Brickmason,"Builds With Mineral Products Such As Stones, Bricks, Cinder Blocks, Or Tiles, Usually With The Use Of Mortar As A Bonding Agent."
+Carpenter,Makes And Repairs Wooden Objects And Structures.
+Construction Worker,A Laborer In The Physical Construction Of A Built Environment And Its Infrastructure.
+General Contractor,"Supervises A Construction Site, Manages Its Vendors And Trades, And Communicates Information To All Involved Parties."
+Glazier,Fits Glass Into Windows And Doors.
+Plasterer,"Applies Plaster To Walls, Ceilings, Or Other Surfaces."
+Roadlayer/Streetlayer,Paves Roads Or Streets.
+Roofer/Thatcher,Builds And Repairs Roofs.
+Stonemason,Cuts And Prepares Stone For Use In Construction.
+Acrobat,Performs Spectacular Gymnastic Feats.
+Actor,"Impersonates Characters, Typically On Stage In A Theatrical Production."
+Aerialist/Trapezist,Performs Acrobatics High Above The Ground On A Tightrope Or Trapeze.
+Arranger,Adapts A Musical Composition For Performance.
+Athlete,Proficient In Sports And Other Forms Of Physical Exercise.
+Busker/Street Musician,"Performs In A Public Place, Often For Money."
+Celebrity,A Famous Person.
+Chef,A Professional Cook Trained In The Culinary Arts.
+Choirmaster,Trains A Choir And Orchestrates Their Singing When They Perform.
+Clown,Comic Entertainer Who Wears A Traditional Costume And Exaggerated Makeup.
+Comedian,Entertainer Whose Act Is Designed To Make An Audience Laugh.
+Conductor,Directs The Performance Of An Orchestra.
+Contortionist,Twists And Bends Their Body Into Strange And Unnatural Positions.
+Curator,Keeper And Custodian Of A Museum Or Other Collections Of Precious Items.
+Costumer,Makes Theatrical Costumes.
+Dancer,Moves Their Body Rhythmically With Or Without Musical Accompaniment.
+Equilibrist,Performs Balancing Feats.
+Fashion Designer,"Applies Design, Aesthetics And Natural Beauty To Garments And Their Accessories."
+Gladiator,"Fights Against Other People, Wild Animals, Or Monsters In An Arena."
+Glasspainter,Produces Colorful Designs On Or In Glass.
+Jester,"Professional Joker Or “Fool” At Court, Typically Wearing A Cap With Bells On It And Carrying A Mock Scepter."
+Juggler,Keeps Several Objects In Motion In The Air At The Same Time By Alternately Tossing And Catching Them.
+Illuminator,Paints And Calligraphs To Adorn Or Enlighten Scrolls And Manuscripts.
+Limner,Paints Portraits Or Miniatures.
+Makeup Artist,"Applies Cosmetics To Models, Actors, Nobles, Etc."
+Minstrel,Recites Lyric Or Heroic Poetry For Nobility.
+Model,"Poses As A Subject For An Artist, Fashion Designer, Or Sculptor."
+Musician,Plays A Musical Instrument.
+Painter,Paints Pictures.
+Playwright,Writes Plays Or Musicals.
+Poet,"Writes Ballads, Epics, Sonnets, Or Other Forms Of Poetry."
+Ringmaster/Ringmistress,Master Of Ceremony Who Introduces The Circus Acts To The Audience.
+Ropewalker,Walks Along A Tightrope To Entertain Others.
+Sculptor,"Crafts Art By Carving Or Casting Blocks Of Marble, Stones, Or Other Hardened Minerals."
+Singer/Soprano,Sings With Or Without Instrumental Accompaniment.
+Skald,Composes And Recites Poems Honoring Heroes And Their Deeds.
+Stage Magician,Deceives Their Audience With Seemingly Impossible Feats While Using Only Natural Means.
+Stuntman/Stuntwoman,Performs Dangerous Stunts For Their Audience.
+Tattooist,"Illustrates The Skin With Indelible Patterns, Pictures, Legends, Etc."
+Theater Director,Supervises And Orchestrates The Mounting Of A Theatre Production By Unifying Various Endeavors And Aspects Of Production.
+Wrestler,Performs In Matches Involving Grappling And Grappling-Type Techniques.
+Writer,"Commits His Or Her Thoughts, Ideas, Etc., Into Written Language."
+Accountant,Keeps And Inspects Financial Accounts.
+Actuary,Compiles And Analyzes Statistics And Uses Them To Calculate Risk.
+Animal Collector/Monster Collector,Collects And Deals In Rare And Exotic Animals And Monsters.
+Business Owner,Owns A Business Entity In An Attempt To Profit From Its Successful Operations.
+Debt Collector,Recovers Money Owed On Delinquent Accounts.
+Draper,An Alcohol Merchant.
+Appraiser,Assesses The Monetary Value Of Something.
+Auctioneer,Conducts Auctions By Accepting Bids And Declaring Goods Sold.
+Banker,An Officer Or Owner Of A Bank Or Group Of Banks.
+Bagniokeeper,Owner Of A Bath House Or Brothel.
+Bookkeeper,Keeps Records Of Financial Affairs.
+Chandler,Deals In Provisions And Supplies.
+Collector,"Collects Things Of A Specified Type, Professionally Or As A Hobby."
+Entrepreneur,"Organizes And Operates A Business Or Businesses, Taking On Greater Than Normal Financial Risks In Order To Do So."
+Grocer,A Food Merchant.
+Guild Master,"Leads An Economically Independent Producer (A “Guild,” An Association Of Craftsmen Or Merchants That Often Holds Considerable Bureaucratic Power)."
+Innkeeper,Owns And Runs An Inn.
+Land Surveyor,Establishes Maps And Boundaries For Ownership Or Other Purposes Required By Government Or Civil Law.
+Merchant,Sells And Trades Goods.
+Moneychanger,Exchanges One Currency For Another.
+Moneylender,Lends Money To Others Who Pay Interest.
+Peddler,Travels From Place To Place Selling Assorted Items.
+Pimp/Madame,"Controls Prostitutes And Arranges Clients For Them, Taking Part Of Their Earnings In Return."
+Plantation Owner,"An Owner Of An Estate On Which Crops Are Cultivated By Resident Labor, Typically Slave Labor."
+Speculator,"Invests In Stocks, Property, Or Other Ventures In The Hope Of Making A Profit."
+Thriftdealer,Deals In Secondhand Items.
+Tradesman,Deals Exclusively In Bartering.
+Vendor,Deals Items In The Street.
+Billboardposter,"A Person Who Puts Up Notices, Signs And Advertisements."
+Courier,Transports Packages And Documents.
+Herald,A Messenger Who Carries Important News.
+Interpreter,"Interprets Language And Its Meaning, Especially Within Ancient Manuscripts."
+Linguist,"Studies The Essence Of Communication, Including The Units, Nature, Structure, And Modification Of Language."
+Messenger,Carries Messages Between Recipients.
+Town Crier,Makes Public Announcements In The Streets Or Marketplace.
+Translator,Translates Between Languages.
+Accoutrementer/Coinsmith,Makes Currency For The Government.
+Armorer,Specializes In Making And Repairing Armor.
+Blacksmith,"Forges And Repairs Things In Metal, Including Weapons, Armor, Utensils, Etc."
+Bladesmith,"Specializes In Making And Repairing Bladed Weapons, Especially Swords And Daggers."
+Bookbinder,Binds Books And Wraps Scrolls.
+Bottler,Bottles Drinks And Other Liquids.
+Bowyer,Makes Bows And Crossbows.
+Brewer,Brews Ale.
+Broom Maker,Makes Brooms And Brushes.
+Candlemaker,Makes Candles And Wax From Honey And Tallow.
+Cartwright,Makes And Repairs Carts And Wagons.
+Cobbler,Makes And Repairs Footwear.
+Cooper/Hooper,Makes And Repairs Casks And Barrels.
+Cutler,Makes Cutlery.
+Dyer,Dyes Cloth And Other Materials.
+Embroiderer,Ornaments With Needlework.
+Engraver,Incises A Design Onto A Hard Surface By Cutting Grooves Into It.
+Farrier,Trims And Shoes Horses’ Hooves.
+Fletcher,Makes And Repairs Arrows.
+Furniture Artisan,Makes And Repairs Furniture.
+Furrier,Prepares Furs For Adornment.
+Glassworker,Blows Glass Planes And Items.
+Glovemaker,Makes And Repairs Gloves.
+Goldsmith/Silversmith,A Smith Who Specializes In Precious Metals.
+Hatter/Milliner,Makes And Repairs Headwear.
+Instrument Maker,Makes And Repairs Musical Instruments.
+Lapidary,"Turns Stone, Minerals, Or Gemstones Into Decorative Items Such As Cabochons, Engraved Gems, And Faceted Designs."
+Leatherworker,"Makes Items From Leather Such As Pouches, Scabbards, Straps, Etc."
+Jeweler,"Designs, Makes, And Repairs Necklaces, Bracelets, Watches, Etc., Often Containing Jewels."
+Locksmith,Makes And Repairs Locks.
+Luthier,Makes And Repairs Stringed Instruments.
+Mercer,"Weaves Textile Fabrics, Especially Silks, Velvets, And Other Fine Materials."
+Optician,Makes And Repairs Eyeglasses.
+Potter,"Makes Pots, Bowls, Plates, Etc., Out Of Clay."
+Printer,"A Person Who Applies Pressure To An Inked Surface Resting Upon A Print Medium (Such As Paper Or Cloth), Thereby Transferring The Ink To Manufacture A Text."
+Restorer,Repairs Or Renovates A Work Of Art So As To Return It To Its Original Condition.
+Ropemaker,Braids Rope.
+Rugmaker,"Makes And Repairs Rugs By Braiding, Hooking, Weaving, Etc."
+Saddler,Makes And Repairs Saddlery.
+Seamstress/Tailor,"Makes, Alters, Repairs, As Well As Occasionally Designing Garments."
+Soaper,"Makes Soap From Accumulated Mutton Fat, Wood Ash, And Natural Soda."
+Tanner,Treats The Skins And Hides Of Animals To Produce Leather.
+Taxidermist,"Prepares, Stuffs, And Mounts The Skins Of Animals."
+Tinker,Travels From Place To Place Mending Utensils.
+Toymaker,Makes And Repairs Toys.
+Watchmaker,Makes And Repairs Watches And Clocks.
+Weaponsmith,Specializes In Making And Repairing Weapons.
+Weaver,Makes Fabric By Weaving Fiber Together.
+Wheelwright,Makes And Repairs Wooden Wheels.
+Whittler/Woodcarver,Fashions Wood Into Various Shapes.
+Assassin,"Murders Through Stealth For Reasons Pertaining To Money, Politics, Or Religion."
+Bandit,A Robber Or Outlaw Belonging To A Gang And Typically Operating In An Isolated Or Lawless Area.
+Burglar,Illegally Enters Buildings And Steals Things.
+Charlatan/Conman,Tricks People By Gaining Their Trust And Persuading Them To Believe Something That Is Not True In Order To Benefit From The Encounter.
+Cockfighter/Gamefighter,"Engages In Arena Matches In Which Animals Or Monsters Are Pitted Against One Another, Typically To The Death."
+Crime Boss,Controls And Supervises A Criminal Organization.
+Cutpurse,A Pickpocket Or Thief.
+Drug Dealer,Dealer Of Illegal Substances.
+Drug Lord,Controls A Network Of Persons Involved In The Illegal Drugs Trade And Transactions.
+Extortioner,Extorts Money From Someone By Threatening To Expose Embarrassing Information About Them.
+Fence,Deals In Stolen Goods.
+Forger,Produces Fraudulent Copies Or Imitations.
+Fugitive,"A Person Who Has Escaped From A Place Or Is In Hiding, Especially To Avoid Arrest Or Persecution."
+Highwayman,Robs Travelers On A Road.
+Kidnapper,"Abducts People And Holds Them Captive, Typically To Obtain A Ransom."
+Loan Shark,"Charges Extremely High Rates Of Interest For Moneylending, Typically Under Illegal Conditions."
+Pirate,Attacks And Robs Ships At Sea.
+Poacher,Hunts Illegal Game.
+Poisoner,Makes Poisons To Harm Or Kill.
+Raider/Marauder,"Makes Sudden, Unprompted Attacks Against Defenseless Or Near-Defenseless Settlements."
+Smuggler,"Manages The Import Or Export Of Goods Secretly, In Violation Of The Law, Especially Without Payment Of Legal Duty."
+Thief,"Steals People’S Property, Especially By Stealth And Without Using Force Or Violence."
+Affeeror,Determines The Values Of Fines And Amercements.
+Agister,Affords Pasture To The Livestock Of Others For A Price.
+Alderman,A Civic Dignitary In The Local Council Ranked Below The Mayor.
+Alienist,Assesses The Competence Of A Defendant In A Court Of Law.
+Assay Master,Oversees The Testing Of Currency.
+Baron/Baroness,A Member Of The Lowest Order Of The British Nobility.
+Chancellor,A Senior State Or Legal Official.
+Chief,Leads Or Rules A People Or Clan.
+Conservationist,Advocates For The Protection And Preservation Of The Environment And Wildlife.
+Count/Earl/Countess,A Nobleperson Ranking Above A Viscount And Below A Marquess.
+Courtier,Attends Court As A Companion Or Adviser To The King Or Queen.
+Diplomat,An Official Representing A Country Abroad.
+Duke/Duchess,Rules Over A Duchy And Is Of The Highest Rank Below The Monarch.
+Emperor/Empress,The Supreme Sovereign Ruler Of An Extensive Group Of States Or Countries Under A Single Authority.
+Judge,Decides Cases In A Court Of Law.
+King/Queen,The Ruler Of An Independent State And Its People.
+Knight,Serves His Or Her Sovereign After Being Bestowed A Rank Of Royal Honor.
+Lady-in-Waiting,"Attends A Queen, Princess, Or Other High-Ranking Feminine Nobleperson."
+Lawyer/Advocate,"Practices Or Studies Law, Typically An Attorney Or A Counselor."
+Marquess/Marchioness,A Nobleperson Ranking Above A Count And Below A Duke.
+Master-of-Coin,"Supervises The Royal Treasury, Advises The Monarch On Financial Matters, And Is Responsible For Raising Money Through Taxation."
+Master-of-the-Revels,Responsible For Overseeing Royal Festivities.
+Minister,Assists With The Administration Of Business.
+Noble/Aristocrat,A Person Belonging To A Class With High Social Or Political Status.
+Notary,"Performs Certain Legal Formalities, Especially To Draw Up Or Certify Contracts, Deeds, And Other Documents For Use In Other Jurisdictions."
+Orator/Spokesman,Makes Statements On Behalf Of A Group Or Individual Nobleperson.
+Page,A Young Attendant To A Person Of Noble Rank.
+Prince/Princess,The Direct Descendant Of A Monarch.
+Senator,Partakes In Governmental Decision-Making After Being Elected.
+Sheriff,"The Chief Executive Officer In A County, Having Various Administrative And Judicial Functions."
+Spymaster,"Directs A Network Of Subordinate Espionage Agents For A State, Kingdom, Or Empire."
+Steward,Supervises Both The Estate And Household Of His Lord Or Lady While They Are Away.
+Squire,Acts As An Attendant To A Knight Before Attempting To Become A Knight Themselves.
+Tax Collector,"Collects Unpaid Taxes From People, Guilds, Or Businesses."
+Viscount/Viscountess,A Nobleperson Ranking Above A Baron And Below A Count.
+Ward,A Member Of A Noble House Who Has Been Taken In By Another Noble Family To Be Raised For A Time.
+Acater,Provides And Prepares Foodstuffs Or Delicacies For Events Such As Festivals.
+Tunner,Fills Casks In A Brewery Or Winery.
+Baker,Bakes Bread And Cakes.
+Barber,Cuts Hair And Shaves Or Trims Beards.
+Barkeep,Works And Serves Drinks In A Bar.
+Barmaid/Barboy,Serves Drinks And Food In A Bar As Well As Engaging With Customers.
+Butcher,Cuts Up And Sells Meat.
+Butler,The Chief Servant Of A Household.
+Caregiver,"Looks After A Sick, Elderly, Or Disabled Person."
+Charcoal Maker,Manufactures Charcoal By Carbonizing Wood In A Kiln.
+Chatelaine/Majordomo,A Person In Charge Of A Large Household.
+Chimney Sweeper,"A Small Person, Typically A Child, Who Ascends Chimneys To Clean Them."
+Clerk,Undertakes Routine Administrative Duties In A Business Or Bank.
+Cook,Prepares Food For Eating.
+Copyist,Makes Copies Of Handwritten Documents Or Music.
+Croupier,Runs A Gaming Table By Gathering In And Paying Out Money Or Tokens.
+Exterminator,Exterminates Unwanted Rodents And Insects.
+Food & Drink Taster,Ingests Food That Was Prepared For Someone Else To Confirm It Is Safe To Eat.
+Gardener/Landscaper,Tends And Cultivates A Garden.
+Gongfarmer,Digs Out And Removes Excrement From Privies And Cesspits.
+Gravedigger,Digs Graves For The Purposes Of A Funeral Ceremony.
+Groundskeeper,"Maintains An Athletic Field, A Park, Or The Grounds Of A Graveyard Or Other Institution."
+Kitchen Drudge,Performs Menial Work In A Kitchen.
+Knacker,Disposes Of Dead Or Unwanted Animals.
+Lamplighter,Lights Street Or Road Lights At Dusk.
+Laundry Worker,"A Laborer Who Takes Part In The Washing, Drying, And Ironing Of Clothes And Other Fabric Items."
+Lector,Reads To Others While They Work For Entertainment.
+Longshoreman,Loads And Unloads Ships In A Port.
+Maid,A Domestic Servant Of A Household.
+Nanny/Nursemaid,A Servant Employed To Look After A Young Child Or Children.
+Operator,"A Laborer Who Operates Equipment, Typically In Construction."
+Pastry Chef,"Makes Desserts, Especially Cakes And Pastries."
+Plumber,Installs And Repairs The Fittings Of Water Supply And Sanitation.
+Porter,Carries Luggage And Other Loads.
+Prostitute,Engages In Sexual Activity For Payment.
+Quarryman/Quarrywoman,Quarries Stone.
+Servant,"Performs Duties For Others, Especially A Person Employed In A House Or As A Personal Attendant."
+Stagehand,Moves Scenery Or Props Before Or During The Performance Of A Theatrical Production.
+Street Cleaner,Cleans Streets And Alleyways After Dark.
+Talent Scout,Searches For Talented Individuals Who Can Be Employed Or Promoted.
+Trainer,"Trains Someone In A Particular Skill, Usually Physical, For Money."
+Water Bearer,"Brings Water From Rivers, Wells, And Lakes Back To Their Settlement."
+Wet Nurse,A Woman Employed To Suckle Another Woman’S Child.
+Abjurer,A Mage Focused In Protective Spells.
+Alchemist,Transforms Or Creates Something Within Nature Through (Usually) Ritualist Magic.
+Archmage,An Extremely Powerful Mage.
+Artificer,Unlocks Magic In Everyday Objects As Well As Being An Inventor.
+Bard,Uses Their Artistic Talents To Induce Magical Effects.
+Conjuror,Conjures Spirits Or Familiars.
+Druid,"A Mage Attuned To The Magical Forces Of Nature, Able To Shapeshift, Call On The Elements, Communicate With Flora And Fauna, Etc."
+Elementalist,Manipulates Nature’S Elements To Their Will.
+Enchanter/Enchantress,Uses Sorcery To Put Someone Or Something Under A Spell.
+Evoker,Manipulates Energy Or Taps Into An Unseen Source Of Power In Order To Produce A Desired Kinetic End.
+Healer,Able To Cure A Disease Or Injury Using Magic.
+Hearth Witch/Hearth Wizard,Incorporates Spells And Enchantments In Cooking.
+Illusionist,Performs Tricks And Spells That Deceive The Senses.
+Mage,A Magic-User.
+Medium,"Uses Extrasensory Perception, Magic, Or Divine Powers To Identify Information Hidden From The Normal Senses."
+Meteorologist,Forecasts And Manipulates Weather.
+Necromancer,Communicates With And Conjures The Spirits Of The Dead.
+Ritualist,Practices Or Advocates The Observance Of Ritual (Formula Intended To Trigger A Magical Effect On A Person Or Objects).
+Runecaster,Uses Special Alphabets To Create Runes (Symbols Possessing Magical Effects Capable Of Being Used Multiple Times).
+Sage,A Wise And Experienced Magic-User.
+Seer/Oracle,Able To See What The Future Holds Through Supernatural Insight.
+Shaman,Accesses And Influences The World Of Good And Evil Spirits.
+Shapeshifter,A Person With The Ability To Change Their Physical Form.
+Sorcerer/Sorceress,Derives Their Magical Abilities Innately Rather Than Through Study.
+Summoner,"A Mage Able To Summon Forth Magical Beasts, Creatures, And Monsters."
+Transmuter,"Alters Matter In Form, Appearance, Or Nature."
+Warlock,A Mage Who Has Gained Their Abilities By Forming A Pact With An Otherworldly Being.
+Witchdoctor,"A Tribal Mage With Powers Of Healing, Divination, And Protection Against The Magic Of Others."
+Witch,"A Woman Who Has Supernatural Powers And Practices Sorcery, Typically In Solitude."
+Wizard,Derives Their Magical Abilities Through Study.
+Wordsmith,Draws Their Power From Language And Casts By Dictation.
+Admiral,Commands A Fleet Or Naval Squadron.
+Bailiff,Looks After Prisoners.
+Bodyguard,"Escorts And Protects Another Person, Especially A Dignitary."
+Bouncer,Prevents Troublemakers From Entering Or To Eject Them From The Premises Of An Establishment.
+Captain,An Army Officer Of High Rank In Charge Of Commanding Squadrons Of Soldiers.
+Castellan,The Governor Of A Castle.
+Cavalryman/Cavalier,A Skilled Horseback Rider.
+City Watch,An Officer Of Law Enforcement Who Resides In Larger Towns Or Cities.
+Commissar,Teaches Principles And Policies To Military Units.
+Constable,"An Officer With Limited Policing Authority, Typically In A Small Town."
+Detective/Investigator,Investigates And Solves Crimes.
+Drummer/Fifer,A Non-Combatant Foot Soldier Who Sounds Signals For Changes In Formation In Combat.
+Duelist,Skilled In One-On-One Combat.
+Executioner,Carries Out A Sentence Of Death On A Legally Condemned Person.
+Firefighter,Extinguishes Fires.
+Guard/Sentinel,"A Person Who Keeps Watch, Especially A Soldier Or Other Person Formally Assigned To Protect A Person Or To Control Access To A Place."
+General,The Chief Commander Of An Army.
+Inspection Officer,Responsible For The Inspection Of Military Units To Ensure They Meet Appropriate Standards Of Training And Efficiency.
+Intelligence Officer,"Collects, Compiles And Organizes Information About The Enemy."
+Jailer,Supervises A Jail And The Prisoners In It.
+Lieutenant,An Officer Of Middle Rank In The Armed Forces.
+Marksman/Archer,"In Long-Range Weapons, Such As The Bow, Crossbow, Sling, Etc. To Inflict Damage From Afar."
+Marshall,Has The Charge Of The Cavalry In The Household Of A Monarch.
+Medic,A Medical Practitioner Equipped For The Battlefield.
+Mercenary,"A Soldier Without Allegiance Who Works For Money, Typically A Member Of A Company Or Guild."
+Privateer,Engages In Maritime Warfare Under A Commission Of War.
+Quartermaster,"Responsible For Providing Quarters, Rations, Clothing, And Other Supplies."
+Royal Guard,Responsible For The Protection Of A Royal Person.
+Runner,Carries Information Between Lines In Wartime.
+Sapper,"A Soldier Responsible For Tasks Such As Building And Repairing Roads And Bridges, Laying And Clearing Mines, Etc."
+Sergeant,"An Officer Instructed With A Protective Duty, Typically Worth “Half A Knight” In Regard."
+Sergeant-at-Arms,"Charged With Keeping Order During Meetings And, If Necessary, Participates In Battle."
+Scout,"Sent Ahead Of A Main Force So As To Gather Information About The Enemy’S Position, Strength, Or Movements."
+Siege Artillerist,Works The Artillery Machines Of An Army.
+Slave Driver,Oversees And Urges On Slaves At Work.
+Soldier/Man-at-Arms,Serves In An Army.
+Special Force Soldier,Carries Out Special Operations.
+Spy,"Secretly Collects And Reports Information On The Activities, Movements, And Plans Of An Enemy Or Competitor."
+Tactician,Uses A Carefully Planned Military Strategy To Achieve A Specific End.
+Tollkeeper,"Collects Tolls At A Bridge, Road Etc. Where A Charge Is Made."
+Torturer,Inflicts Severe Pain On Someone As A Punishment Or In Order To Force Them To Do Or Say Something.
+Warden,Responsible For The Supervision Of A Particular Place Or Thing Or For Ensuring That Regulations Associated With It Are Obeyed.
+Warmage,A Soldier Skilled In Destructive Battle Magic.
+Abbot/Abbess,The Head Of An Abbey Of Monks.
+Acolyte,Assists The Celebrant In A Religious Service Or Procession.
+Almoner,Distributes Money And Food To Poor People.
+Archbishop,"Responsible For An Archdiocese, Their Surrounding District."
+Bishop,"A Senior Member Of The Clergy, Usually In Charge Of A Diocese And Empowered To Confer Holy Orders."
+Cantor,Sings Liturgical Music And Leads Prayer In A Synagogue.
+Cardinal,"A Leading Dignitary Of A Church, Nominated By The Highest Official."
+Chaplain,"A Member Of The Clergy Attached To A Private Chapel, Institution, Ship, Branch Of The Armed Forces, Etc."
+Cleric,"Has Devoted Their Entire Being To The Will Of Their God, Thus Gaining Magical Powers."
+Confessor,Hears Confessions And Gives Absolution And Spiritual Counsel.
+Cultist,A Member Of A Cult Who Generally Lives Outside Of Conventional Society And Worships An Unorthodox Patron.
+Cult Leader,The Organizational Leader Of A Cult Who Is Occasionally Also The Founder.
+Deacon,An Ordained Minister Of An Order Ranking Below That Of Priest.
+Diviner,Seeks Ultimate Divination In Order To Further Understand Or Meet Godly Substance.
+Exorcist,Expels Or Attempts To Expel Evil Spirits From A Person Or Place.
+High Priest/Pope,The Chief Priest Of A Religion.
+Inquisitor,Seeks To Eliminate Heresy And Other Things Contrary To The Doctrine Or Teachings Of Their Faith.
+Missionary,Goes On A Religious Mission To Promote Their Faith In A Foreign Place.
+Monk,"Able To Manifest Their Spirituality Through A Calm, Centered Being And Thus Gain Abilities Which Function Similarly To Magic."
+Nun,"A Member Of A Religious Community Of Women, Especially A Cloistered One, Living Under Vows Of Poverty, Chastity, And Obedience."
+Paladin,A Holy Knight And Divine Spellcaster Crusading In The Name Of Good And Order.
+Pardoner,Raises Money For Religious Works By Soliciting Offerings And Granting Indulgences.
+Priest,Has The Authority To Perform Certain Rites And Administer Certain Sacraments.
+Prophet,Regarded As An Inspired Teacher Or Proclaimer Of The Will Of God.
+Sexton,"Looks After A Church And Churchyard, Sometimes Acting As Bell-Ringer And Formerly As A Gravedigger."
+Templar,Fights In A Religious Military Order.
+Abecedarian,Teaches The Illiterate.
+Accoucheur/Obstetrician/Midwife,Assists In Childbirth And The Care Of Women Giving Birth.
+Anthropologist,"Studies The Customs, Beliefs, And Relationships Of Humanoids And Intellectually And Culturally Advanced Creatures."
+Apothecary,"Prepares And Sells Medicines, Drugs, And Potions."
+Apprentice,Studies A Trade Under A Skilled Employer.
+Archaeologist,Studies Humanoid History And Prehistory Through The Excavation Of Sites And The Analysis Of Artifacts And Other Physical Remains.
+Archivist,Maintains And Is In Charge Of Archives.
+Assayer,"Determiner Of The Proportions Of Metal In Ore And The Amount Of Copper, Silver, Gold, Or Platinum In Coins."
+Astrologer,Uses Astrology To Tell Others About Their Character Or To Predict Their Future.
+Astronomer,Makes Observations Of Celestial And Scientific Phenomena Within The Material Plane.
+Bloodletter,Surgically Removes Some Of A Patient’S Blood For Therapeutic Purposes.
+Botanist,An Expert In Or Student Of The Scientific Study Of Plants.
+Cartographer,A Scholar And Illustrator Of Maps.
+Chemist,Engaged In Chemical Research Or Experiments.
+Dean,The Head Of A College Or University.
+Doctor/Physician,A Qualified Practitioner Of Medicine.
+Drakologist,Studies Or Is An Expert In The Branch Of Zoology Concerned With Dragons.
+Engineer,Designer Of A Machine Or Structure.
+Entomologist,Studies Or Is An Expert In The Branch Of Zoology Concerned With Insects.
+Herbalist,Practices Healing By The Use Of Herbs.
+Historian,"An Expert In Or Student Of History, Especially That Of A Particular Period, Geographical Region, Or Social Phenomenon."
+Horologist,A Scholar Of Time And Entropy.
+Librarian,Administers Or Assists In A Library.
+Mathematician,"A Scholar Of The Abstract Science Of Number, Quantity, And Space."
+Mortician,Prepares Dead Bodies For Burial Or Cremation And Makes Arrangements For Funerals.
+Nurse,"Cares For The Sick Or Infirm, Especially In A Hospital."
+Optometrist,Examines The Eyes For Visual Defects And Prescribes Eyeglasses.
+Philosopher,"A Scholar Of The Fundamental Nature Of Knowledge, Reality, And Existence."
+Professor,A Teacher Of The Highest Rank In A College Or University.
+Scholar/Researcher,A Specialist In A Particular Branch Of Study Who Pursues The Acquisition Of Knowledge.
+Scribe,Copies Out Manuscripts.
+Student,Attends School Or Learns Under Other To Enter And Pursue A Particular Subject.
+Surgeon/Chirurgeon,Practices Surgery.
+Taxonomist,Groups Organisms Into Categories.
+Teacher,Instructs On A Particular Skill Or Subject.
+Theologian,Engages In The Study Of The Nature Of God And Religious Belief.
+Tutor,Charged With The Instruction And Guidance Of Another.
+Veterinarian,Treats Diseased Or Injured Animals.
+Zoologist,"An Expert In Or A Student Of The Behavior, Physiology, Classification, And Distribution Of Animals."
+Boatman,Mans A Small Seacraft.
+Bosun,In Charge Of Organizing The Equipment And Crew Of A Ship.
+Cabbie/Wagoner,Drives A Horse-Drawn Wagon.
+Cabin Boy/Cabin Girl,Waits On The Orders Of A Ship’S Officers And Passengers.
+Caravaneer,Travels Or Lives In A Caravan.
+Charioteer,Drives A Chariot.
+Carter,Transports Goods By Cart.
+Ferryman,Operates A Ferry.
+First Mate,The Deck Officer Second In Command To The Master Of A Ship.
+Helmsman,Steers A Ship Or Boat.
+Navigator,"Directs The Route Or Course Of A Ship Or Other Form Of Transportation, Especially By Using Instruments And Maps."
+Purser,"Keeps The Accounts Of A Ship, Especially As The Head Steward On A Passenger Vessel."
+Sailor,Works As A Member Of The Crew Of A Commercial Or Naval Ship Or Boat.
+Sea Captain,Commands A Ship.
+Shipwright,A Carpenter Skilled In Ship Construction And Repair.
+Adventurer,"Wanders The World In Search Of Knowledge, Treasure, Fame, Glory Or A Multitude Of Additional Wants And Desires."
+Beggar/Pauper,Lives By Asking For Money Or Food.
+Blood Hunter/Monster Hunter,Takes On Jobs To Hunt Down And Kill Or Capture Dangerous Creatures.
+Bounty Hunter,Pursues A Criminal Or Fugitive For Whom A Reward Is Offered.
+Crossing Sweeper,Sweeps A Path Ahead Of People Crossing Dirty Urban Streets In Exchange For A Gratuity.
+Deserter,A Member Of The Armed Forces Who Has Deserted.
+Disgraced Noble,"A Person Of High Birth Who Has Since Loss Their Respect, Honor, Or Esteem In Some Or All Noble Circles."
+Drunkard,A Person Who Is Habitually Drunk And Considers Themselves A Professional In The Task.
+Dungeon Delver,Navigates Underground Labyrinths In Search Of Any Treasure They May Find.
+Elder,"A Person Of A Greater Age, Especially One With A Respected Position In Society."
+Exile,"Lives Away From Their Native Country, Either From Choice Or Compulsion."
+Explorer,Explores Unfamiliar Areas In Search Of Geographical Or Scientific Information.
+Ex-Criminal,"A Person Who Has Been Convicted Of A Crime And Has Since Served Their Sentence, Or Who Has Preemptively Given Up Their Life Of Crime."
+Folk Hero,A Celebrity Who Is Greatly Admired By Many People Of A Particular Kind Or In A Particular Place.
+Gambler,"Bets Money On Sports, Card Games, Or Games Of Chance In The Hope Of A Profit."
+Grave Robber/Tomb Raider,Steals Valuables From Graves And Tombs.
+Heretic,Differs In Opinion From Established Religious Dogma.
+Hermit,"Lives In Solitude, Typically As A Religious Or Spiritual Discipline."
+Housewife/Househusband,Cares For His Or Her Family By Managing Household Affairs And Completing Housework.
+Pilgrim,"Journeys To Some Sacred Place As An Act Of Religious Devotion, Occasionally To Settle There."
+Prisoner,Held In Confinement As A Punishment For Crimes They Have Been Convicted Of.
+Rag-and-Bone Man,Collects Unwanted Household Items And Sells Them To Merchants.
+Rebel/Political Dissident,Rises In Opposition Or Armed Resistance Against An Established Government Or Ruler.
+Refugee,"Leaves Their Home In Order To Escape War, Persecution, Or Natural Disaster."
+Runaway Slave,A Slave Who Has Left Their Master And Traveled Without Authorization.
+Scavenger/Mudlark/Tosher,Searches For And Collects Discarded Items.
+Slave,A Person Who Is The Legal Property Of Another And Forced To Obey Them.
+Squatter,Unlawfully Occupies An Uninhabited Building Or Unused Land.
+Traveler/Wanderer/Vagabond,Wanders From Place To Place Without A Permanent Home Or Job.
+Urchin,"A Child Who Lives Or Spends Most Of Their Time In The Streets, Occasionally Working As A Thief Or Pickpocket."

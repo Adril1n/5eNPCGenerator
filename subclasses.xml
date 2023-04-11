@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<subclasses>
+	<subclass name="Alchemist" class="Artificer">
+		<datadict>
+			<dataval key="bonus proficiency" value="Proficient in Alchemist's Supplies" req="lvl3">
+			<dataval key="spells" value="dict" req="lvl3">
+				<spell key="lvl3" value="Healing Word:Ray of Sickness"/>
+				<spell key="lvl5" value="Flaming Sphere:Melf's Acid Arrow"/>
+				<spell key="lvl9" value="gaseous form:mass healing word"/>
+				<spell key="lvl13" value="blight:death ward"/>
+				<spell key="lvl17" value="cloudkill:raise dead"/>
+			</dataval>
+			<dataval key="Alchemical Savant" value="INT bonus to healing or damage rolls:INT" req="lvl5"/>
+			<dataval key="Restorative Reagents" value="Lesser Restoration" req="lvl9"/>
+			<dataval key="Chemical Mastery" value="You gain resistance to acid damage and poison damage, and you are immune to the poisoned condition. 1/day each: Greater Restoration and Heal" req="lvl15"/>
+		</datadict>
+	</subclass>
+</subclasses>
