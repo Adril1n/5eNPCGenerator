@@ -52,7 +52,7 @@ class MainFrame(tk.Frame):
 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
 		self.canvas.place(relx=0, rely=0, anchor='nw')
 
-		self.text_lbls = {}
+		self.texts = {}
 
 		for var in self.vars_list:
 			lbl = tk.Label(self, text=var, font=('gothic', 18))
@@ -65,10 +65,9 @@ class MainFrame(tk.Frame):
 			opt_m.config(font=('gothic', 18), width=20)
 			opt_m.place(relx=0.1, rely=(0.1 + self.vars_list.index(var)/8), anchor='c')
 
-			lbl2 = tk.Label(self, text=f"{var}: ?", font=('gothic', 18))
-			lbl2.place(relx=0.23, rely=(0.1 + 0.05*(self.vars_list.index(var))), anchor='w')
+			self.txt = self.canvas.create_text(350, 50+50*self.vars_list.index(var), anchor='w', text="?", font=('gothic', 18))
 
-			self.text_lbls[var] = lbl2
+			self.texts[var] = self.txt
 
 		self.canvas.create_line(300, 0, 300, 800, fill="black", width=20)
 
@@ -139,7 +138,17 @@ class Generator():
 
 			vars_dict[opt_var] = var
 
-			child.text_lbls[opt_var].config(text=f"{opt_var}: {var}")
+		for key in child.texts.keys():
+			txt = child.texts[key]
+			values = list(vars_dict.values())
+			child.canvas.itemconfigure(txt, text=f"{key}: {values[txt-1]}")
+
+		# child.text_lbls['Level'].configure(text="Level: %s" %vars_dict['Level'])
+		# child.text_lbls['Occupation'].configure(text="Occupation: %s" %vars_dict['Occupation'])
+		# child.text_lbls['Race'].configure(text="Race: %s" %vars_dict['Race'])
+		# child.text_lbls['Sex'].configure(text="Sex: %s" %vars_dict['Sex'])
+		# child.text_lbls['Uncapped Abilities'].configure(text="Uncapped Abilities: %s" %vars_dict['Uncapped Abilities'])
+
 			# lbl = tk.Label(child., text=f"{opt_var}: {vars_dict[opt_var]}", font=('gothic', 18)).place(x=350, y=50+(75*(list(child.var_choices.keys()).index(opt_var))), anchor='w')
 			
 			# child.text_canvas.create_text(350, 50+(75*(list(child.var_choices.keys()).index(opt_var))), text=f"{opt_var}: {vars_dict[opt_var]}", anchor='w')
