@@ -27,6 +27,24 @@ class ResourceLoader():
 
 		return list_
 
+	def get_occupation_description(self, occ_id):
+		occupations = self.get_xml_root('occupations')
+		
+		for occupation in occupations:
+			if occupation.get('name') == occ_id:
+				return occupation.get('description')
+
+		return "Nothing"
+
+	def get_subrace(self, rng, race_id):
+		races = self.get_xml_root('races')
+
+		for race in races:
+			if race.get('name') == race_id:
+				return race.findall('type')[np.floor(rng.random()*(len(race.findall('type')))).astype('int')].get('name')
+
+		return "None"
+ 
 
 class MainFrame(tk.Frame):
 	def __init__(self, controller, parent):
@@ -52,8 +70,6 @@ class MainFrame(tk.Frame):
 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
 		self.canvas.place(relx=0, rely=0, anchor='nw')
 
-		self.texts = {}
-
 		for var in self.vars_list:
 			lbl = tk.Label(self, text=var, font=('gothic', 18))
 			lbl.place(relx=0.1, rely=((0.1 + self.vars_list.index(var)/8)-0.035), anchor='c')
@@ -65,11 +81,10 @@ class MainFrame(tk.Frame):
 			opt_m.config(font=('gothic', 18), width=20)
 			opt_m.place(relx=0.1, rely=(0.1 + self.vars_list.index(var)/8), anchor='c')
 
-			self.txt = self.canvas.create_text(350, 50+50*self.vars_list.index(var), anchor='w', text="?", font=('gothic', 18))
-
-			self.texts[var] = self.txt
+		self.description = self.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n", font=('gothic', 18), width=500) 
 
 		self.canvas.create_line(300, 0, 300, 800, fill="black", width=20)
+		self.canvas.create_line(900, 0, 900, 800, fill="#750E00", width=10)
 
 		gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg='#9b0707', relief='groove', command=self.controller.generate)
 		gen_btn.place(relx=0.1, rely=0.9, anchor='c')
@@ -106,7 +121,7 @@ class Generator():
 
 		child = self.frames['MainFrame']
 
-		vars_dict = {}
+		self.vars_dict = {}
 
 		for opt_var in child.vars_list:
 			str_var = child.string_vars[opt_var].get()
@@ -122,36 +137,44 @@ class Generator():
 
 			else:				
 				if opt_var == 'Level':
-					levels = {'L':(3, 1), 'M':(4, 5), 'H':(10, 10)}
-					if str_var[2] in levels.keys():
-						var = round(self.rng.random()*levels[str_var[2]][0]+levels[str_var[2]][1])
+					levels = {'L':(4, 1), 'M':(5, 5), 'H':(11, 10)}
+
+					if len(str_var) >= 2:
+						if str_var[2] in levels.keys():
+							var = np.floor(self.rng.random()*levels[str_var[2]][0]+levels[str_var[2]][1]).astype('int')
+						else:
+							var = str_var
 					else:
 						var = str_var
 				
-				if opt_var == 'Occupation':
+				elif opt_var == 'Occupation':
 					if str_var == '--CLASSES--':
 						var = self.rng.choice(sorted(self.resource_loader.get_list('classes')))
 					elif str_var == '--JOBS--':
 						var = self.rng.choice(sorted(self.resource_loader.get_list('occupations')))
 					else:
 						var = str_var
+				
+				else:
+					var = str_var
 
-			vars_dict[opt_var] = var
+			self.vars_dict[opt_var] = var
 
-		for key in child.texts.keys():
-			txt = child.texts[key]
-			values = list(vars_dict.values())
-			child.canvas.itemconfigure(txt, text=f"{key}: {values[txt-1]}")
+		
+		s = ""
 
-		# child.text_lbls['Level'].configure(text="Level: %s" %vars_dict['Level'])
-		# child.text_lbls['Occupation'].configure(text="Occupation: %s" %vars_dict['Occupation'])
-		# child.text_lbls['Race'].configure(text="Race: %s" %vars_dict['Race'])
-		# child.text_lbls['Sex'].configure(text="Sex: %s" %vars_dict['Sex'])
-		# child.text_lbls['Uncapped Abilities'].configure(text="Uncapped Abilities: %s" %vars_dict['Uncapped Abilities'])
+		for item in self.vars_dict.items():
+			s += f"{item[0]}: {item[1]}\n"
 
-			# lbl = tk.Label(child., text=f"{opt_var}: {vars_dict[opt_var]}", font=('gothic', 18)).place(x=350, y=50+(75*(list(child.var_choices.keys()).index(opt_var))), anchor='w')
-			
-			# child.text_canvas.create_text(350, 50+(75*(list(child.var_choices.keys()).index(opt_var))), text=f"{opt_var}: {vars_dict[opt_var]}", anchor='w')
+		s += f"\nOccupation Description: {self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[0]}{self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[1:].lower()}\n"
+
+		s += f"Subrace: {self.resource_loader.get_subrace(self.rng, self.vars_dict['Race'])}\n"
+
+
+
+		child.canvas.delete(child.description)
+		child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('gothic', 18), width=500) 
+
 
 
 	def show_frame(self, frame_name):
