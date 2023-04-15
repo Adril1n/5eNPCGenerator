@@ -6,30 +6,13 @@
 			<dataval key="proficiencies" value="dict">
 				<proficiency key="armor" value="light:medium:shield"/>
 				<proficiency key="weapons" value="simple"/>
-				<proficiency key="tools" value="thieves':tinker's:1;
-												Alchemist's; 
-												Brewer's; 
-												Calligrapher's; 
-												Carpenter's; 
-												Cartographer's; 
-												Cobbler's; 
-												Cook's; 
-												Glassblower's; 
-												Jeweler's; 
-												Leatherworker's; 
-												Mason's; 
-												Painter's; 
-												Potter's; 
-												Smith's; 
-												Tinker's; 
-												Weaver's; 
-												Woodcarver's"/>
+				<proficiency key="tools" value="Thieves':Tinker's:1;Alchemist's;Brewer's;Calligrapher's;Carpenter's;Cartographer's;Cobbler's;Cook's;Glassblower's;Jeweler's;Leatherworker's;Mason's;Painter's;Potter's;Smith's;Weaver's;Woodcarver's"/>
 				<proficiency key="saving throws" value="CON:INT"/>
 				<proficiency key="skills" value="2;Arcana;History;Investigation;Medicine;Nature;Perception;Sleight of Hand"/>
 			</dataval>
 
 			<dataval key="features" value="dict">
-				<feature req="lvl1" key="Magical Tinkering" value="At 1st level, you learn how to invest a spark of magic into mundane objects. To use this ability, you must have thieves' tools or artisan's tools in hand. You then touch a Tiny nonmagical object as an action and give it one of the following magical properties of your choice:
+				<feature req="1" key="Magical Tinkering" value="At 1st level, you learn how to invest a spark of magic into mundane objects. To use this ability, you must have thieves' tools or artisan's tools in hand. You then touch a Tiny nonmagical object as an action and give it one of the following magical properties of your choice:
 					
 					The object sheds bright light in a 5-foot radius and dim light for an additional 5 feet.
 
@@ -43,25 +26,25 @@
 
 				You can bestow magic on multiple objects, touching one object each time you use this feature, though a single object can only bear one property at a time. The maximum number of objects you can affect with this feature at one time is equal to your Intelligence modifier (minimum of one object). If you try to exceed your maximum, the oldest property immediately ends, and then the new property applies."/>
 				
-				<feature req="lvl1" key="Spellcasting" value="INT"/>
+				<feature req="1" key="Spellcasting" value="INT"/>
 				
-				<feature req="lvl2" key="Infuse Item" value="4;Armor of Magical Strength;Enhanced Arcane Focus;Enhanced Defense;Enhanced Weapon;Homunculus Servant;Mind Sharpener;Repeating Shot;Replicate Magic Item;Returning Weapon"/>
-				<feature req="lvl6" key="Additional Influse Item (lvl 6)" value="Boots of the Winding Path:Radiant Weapon:Repulsion Shield:Resistant Armor:Spell-Refueling Ring"/>
-				<feature req="lvl10" key="Additional Influse Item (lvl 10)" value="Helm of Awareness"/>
-				<feature req="lvl14" key="Additional Influse Item (lvl 14)" value="Arcane Propulsion Armor"/>
+				<feature req="2" key="Infuse Item" value="4;Armor of Magical Strength;Enhanced Arcane Focus;Enhanced Defense;Enhanced Weapon;Homunculus Servant;Mind Sharpener;Repeating Shot;Replicate Magic Item;Returning Weapon"/>
+				<feature req="6" key="Additional Influse Item (lvl 6)" value="Boots of the Winding Path:Radiant Weapon:Repulsion Shield:Resistant Armor:Spell-Refueling Ring"/>
+				<feature req="10" key="Additional Influse Item (lvl 10)" value="Helm of Awareness"/>
+				<feature req="14" key="Additional Influse Item (lvl 14)" value="Arcane Propulsion Armor"/>
 
-				<feature req="lvl3" key="Artificer Specialist" value="1;Alchemist;Armorer;Artillerist;Battle Smith"/>
-				<feature req="lvl4" key="Ability Score Improvement (lvl 4)" value="random"/>
-				<feature req="lvl5" key="Artificer Specialist Feature (lvl 5)" value="Artificer Specialist"/>
-				<feature req="lvl6" key="Tool Expertise" value="Your proficiency bonus is doubled for any ability check you make that uses your proficiency with a tool."/>
-				<feature req="lvl7" key="Flash of Genius" value="When you or another creature you can see within 30 feet of you makes an ability check or a saving throw, you can use your reaction to add your Intelligence modifier to the roll."/>
-				<feature req="lvl8" key="Ability Score Improvement (lvl 8)" value="random"/>
-				<feature req="lvl11" key="Spell-Storing Item" value="Random Item with Spell Stored"/>
-				<feature req="lvl12" key="Ability Score Improvement (lvl 12)" value="random"/>
-				<feature req="lvl15" key="Artificer Specialist Feature (lvl 15)" value="Artificer Specialist"/>
-				<feature req="lvl16" key="Ability Score Improvement (lvl 16)" value="random"/>
-				<feature req="lvl19" key="Ability Score Improvement (lvl 19)" value="random"/>
-				<feature req="lvl20" key="Soul of Artifice" value="You gain a +1 bonus to all saving throws per magic item you are currently attuned to.
+				<feature req="3" key="Artificer Specialist" value="1;Alchemist;Armorer;Artillerist;Battle Smith"/>
+				<feature req="4" key="Ability Score Improvement (lvl 4)" value="random"/>
+				<feature req="5" key="Artificer Specialist Feature (lvl 5)" value="Artificer Specialist"/>
+				<feature req="6" key="Tool Expertise" value="Your proficiency bonus is doubled for any ability check you make that uses your proficiency with a tool."/>
+				<feature req="7" key="Flash of Genius" value="When you or another creature you can see within 30 feet of you makes an ability check or a saving throw, you can use your reaction to add your Intelligence modifier to the roll."/>
+				<feature req="8" key="Ability Score Improvement (lvl 8)" value="random"/>
+				<feature req="11" key="Spell-Storing Item" value="Random Item with Spell Stored"/>
+				<feature req="12" key="Ability Score Improvement (lvl 12)" value="random"/>
+				<feature req="15" key="Artificer Specialist Feature (lvl 15)" value="Artificer Specialist"/>
+				<feature req="16" key="Ability Score Improvement (lvl 16)" value="random"/>
+				<feature req="19" key="Ability Score Improvement (lvl 19)" value="random"/>
+				<feature req="20" key="Soul of Artifice" value="You gain a +1 bonus to all saving throws per magic item you are currently attuned to.
 If you're reduced to 0 hit points but not killed outright, you can use your reaction to end one of your artificer infusions, causing you to drop to 1 hit point instead of 0."/>
 			</dataval>
 		</datadict>

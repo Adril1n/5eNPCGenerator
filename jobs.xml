@@ -1,0 +1,451 @@
+<jobs>
+	<job name="Animal/Monster Handler" description="Responsible For The Safe Keeping, Dietary Care, And Exercise Of Animals Or Monsters." />
+	<job name="Arborist" description="Maintains And Cares For Trees, Often By Surgically Removing Dying Limbs." />
+	<job name="Baler" description="Bales Hay, Or In The Mills, Wool And Cotton Goods." />
+	<job name="Beekeeper" description="Owns And Breeds Bees, Especially For Their Honey." />
+	<job name="Breeder" description="Breeds Livestock, Animals, Or Monsters." />
+	<job name="Cowherd" description="Supervises Grazing Cattle." />
+	<job name="Dairyboy/Dairymaid" description="Milks Cows And Makes Cheese And Butter." />
+	<job name="Falconer" description="Keeps, Trains, And Hunts With Falcons, Hawks, Or Other Birds Of Prey." />
+	<job name="Farmer" description="Operates A Farm Or Cultivates Land." />
+	<job name="Fisher" description="Catches Fish." />
+	<job name="Florist" description="Grows And Arranges Plants And Cut Flowers." />
+	<job name="Forager" description="Searches For Food In The Wild." />
+	<job name="Forester" description="Supervises The Wellbeing Of A Forest." />
+	<job name="Fowler" description="Catches Or Ensnares Birds." />
+	<job name="Gamekeeper" description="Breeds And Protects Game, Typically For A Large Estate." />
+	<job name="Groom" description="Cleans And Brushes The Coats Horses, Dogs, Or Other Animals." />
+	<job name="Herder" description="Supervises A Herd Of Livestock Or Makes A Living From Keeping Livestock, Especially In Open Country." />
+	<job name="Horse Trainer" description="Tends To Horses And Teaches Them Different Disciplines." />
+	<job name="Hunter" description="Hunts Game Or Other Wild Animals." />
+	<job name="Lumberjack" description="Fells Trees, Cuts Them Into Logs, And Transports Them To A Sawmill." />
+	<job name="Master-of-Horses" description="Supervises And Commands All Horses Under A Jurisdiction." />
+	<job name="Master-of-Hounds" description="Maintains A Pack Of Hounds And Their Associated Staff, Equipment, And Hunting Arrangements." />
+	<job name="Miller" description="Owns Or Works In A Grain Mill." />
+	<job name="Miner" description="Works Underground In Mines In Order To Obtain Minerals Such As Coal, Diamonds, Or Gold." />
+	<job name="Pathfinder" description="Scouts Ahead And Discovers A Path Or Way For Others." />
+	<job name="Plumer" description="Hunts Birds For Their Plumes." />
+	<job name="Prospector" description="Searches For Mineral Deposits, Especially By Drilling And Excavation." />
+	<job name="Renderer" description="Converts Waste Animal Tissue Into Usable Materials." />
+	<job name="Shepherd" description="Herds, Tends, And Guards Sheep." />
+	<job name="Stablehand" description="Works In A Stable." />
+	<job name="Thresher" description="Separates Grain From The Plants By Beating." />
+	<job name="Trapper" description="Traps Wild Animals, Especially For Their Fur." />
+	<job name="Vintner" description="Engages In Winemaking, Especially With Monitoring And Harvesting The Grapes." />
+	<job name="Zookeeper" description="Maintains And Cares For Animals Or Monsters In A Zoo." />
+	<job name="Architect" description="Designs Buildings Or Landscapes And In Many Cases Supervises Their Construction." />
+	<job name="Brickmaker" description="Crafts Bricks From Clay, Stone, Or Other Materials." />
+	<job name="Brickmason" description="Builds With Mineral Products Such As Stones, Bricks, Cinder Blocks, Or Tiles, Usually With The Use Of Mortar As A Bonding Agent." />
+	<job name="Carpenter" description="Makes And Repairs Wooden Objects And Structures." />
+	<job name="Construction Worker" description="A Laborer In The Physical Construction Of A Built Environment And Its Infrastructure." />
+	<job name="General Contractor" description="Supervises A Construction Site, Manages Its Vendors And Trades, And Communicates Information To All Involved Parties." />
+	<job name="Glazier" description="Fits Glass Into Windows And Doors." />
+	<job name="Plasterer" description="Applies Plaster To Walls, Ceilings, Or Other Surfaces." />
+	<job name="Roadlayer/Streetlayer" description="Paves Roads Or Streets." />
+	<job name="Roofer/Thatcher" description="Builds And Repairs Roofs." />
+	<job name="Stonemason" description="Cuts And Prepares Stone For Use In Construction." />
+	<job name="Acrobat" description="Performs Spectacular Gymnastic Feats." />
+	<job name="Actor" description="Impersonates Characters, Typically On Stage In A Theatrical Production." />
+	<job name="Aerialist/Trapezist" description="Performs Acrobatics High Above The Ground On A Tightrope Or Trapeze." />
+	<job name="Arranger" description="Adapts A Musical Composition For Performance." />
+	<job name="Athlete" description="Proficient In Sports And Other Forms Of Physical Exercise." />
+	<job name="Busker/Street Musician" description="Performs In A Public Place, Often For Money." />
+	<job name="Celebrity" description="A Famous Person." />
+	<job name="Chef" description="A Professional Cook Trained In The Culinary Arts." />
+	<job name="Choirmaster" description="Trains A Choir And Orchestrates Their Singing When They Perform." />
+	<job name="Clown" description="Comic Entertainer Who Wears A Traditional Costume And Exaggerated Makeup." />
+	<job name="Comedian" description="Entertainer Whose Act Is Designed To Make An Audience Laugh." />
+	<job name="Conductor" description="Directs The Performance Of An Orchestra." />
+	<job name="Contortionist" description="Twists And Bends Their Body Into Strange And Unnatural Positions." />
+	<job name="Curator" description="Keeper And Custodian Of A Museum Or Other Collections Of Precious Items." />
+	<job name="Costumer" description="Makes Theatrical Costumes." />
+	<job name="Dancer" description="Moves Their Body Rhythmically With Or Without Musical Accompaniment." />
+	<job name="Equilibrist" description="Performs Balancing Feats." />
+	<job name="Fashion Designer" description="Applies Design, Aesthetics And Natural Beauty To Garments And Their Accessories." />
+	<job name="Gladiator" description="Fights Against Other People, Wild Animals, Or Monsters In An Arena." />
+	<job name="Glasspainter" description="Produces Colorful Designs On Or In Glass." />
+	<job name="Jester" description="Professional Joker Or “Fool” At Court, Typically Wearing A Cap With Bells On It And Carrying A Mock Scepter." />
+	<job name="Juggler" description="Keeps Several Objects In Motion In The Air At The Same Time By Alternately Tossing And Catching Them." />
+	<job name="Illuminator" description="Paints And Calligraphs To Adorn Or Enlighten Scrolls And Manuscripts." />
+	<job name="Limner" description="Paints Portraits Or Miniatures." />
+	<job name="Makeup Artist" description="Applies Cosmetics To Models, Actors, Nobles, Etc." />
+	<job name="Minstrel" description="Recites Lyric Or Heroic Poetry For Nobility." />
+	<job name="Model" description="Poses As A Subject For An Artist, Fashion Designer, Or Sculptor." />
+	<job name="Musician" description="Plays A Musical Instrument." />
+	<job name="Painter" description="Paints Pictures." />
+	<job name="Playwright" description="Writes Plays Or Musicals." />
+	<job name="Poet" description="Writes Ballads, Epics, Sonnets, Or Other Forms Of Poetry." />
+	<job name="Ringmaster/Ringmistress" description="Master Of Ceremony Who Introduces The Circus Acts To The Audience." />
+	<job name="Ropewalker" description="Walks Along A Tightrope To Entertain Others." />
+	<job name="Sculptor" description="Crafts Art By Carving Or Casting Blocks Of Marble, Stones, Or Other Hardened Minerals." />
+	<job name="Singer/Soprano" description="Sings With Or Without Instrumental Accompaniment." />
+	<job name="Skald" description="Composes And Recites Poems Honoring Heroes And Their Deeds." />
+	<job name="Stage Magician" description="Deceives Their Audience With Seemingly Impossible Feats While Using Only Natural Means." />
+	<job name="Stuntman/Stuntwoman" description="Performs Dangerous Stunts For Their Audience." />
+	<job name="Tattooist" description="Illustrates The Skin With Indelible Patterns, Pictures, Legends, Etc." />
+	<job name="Theater Director" description="Supervises And Orchestrates The Mounting Of A Theatre Production By Unifying Various Endeavors And Aspects Of Production." />
+	<job name="Wrestler" description="Performs In Matches Involving Grappling And Grappling-Type Techniques." />
+	<job name="Writer" description="Commits His Or Her Thoughts, Ideas, Etc., Into Written Language." />
+	<job name="Accountant" description="Keeps And Inspects Financial Accounts." />
+	<job name="Actuary" description="Compiles And Analyzes Statistics And Uses Them To Calculate Risk." />
+	<job name="Animal Collector/Monster Collector" description="Collects And Deals In Rare And Exotic Animals And Monsters." />
+	<job name="Business Owner" description="Owns A Business Entity In An Attempt To Profit From Its Successful Operations." />
+	<job name="Debt Collector" description="Recovers Money Owed On Delinquent Accounts." />
+	<job name="Draper" description="An Alcohol Merchant." />
+	<job name="Appraiser" description="Assesses The Monetary Value Of Something." />
+	<job name="Auctioneer" description="Conducts Auctions By Accepting Bids And Declaring Goods Sold." />
+	<job name="Banker" description="An Officer Or Owner Of A Bank Or Group Of Banks." />
+	<job name="Bagniokeeper" description="Owner Of A Bath House Or Brothel." />
+	<job name="Bookkeeper" description="Keeps Records Of Financial Affairs." />
+	<job name="Chandler" description="Deals In Provisions And Supplies." />
+	<job name="Collector" description="Collects Things Of A Specified Type, Professionally Or As A Hobby." />
+	<job name="Entrepreneur" description="Organizes And Operates A Business Or Businesses, Taking On Greater Than Normal Financial Risks In Order To Do So." />
+	<job name="Grocer" description="A Food Merchant." />
+	<job name="Guild Master" description="Leads An Economically Independent Producer (A “Guild,” An Association Of Craftsmen Or Merchants That Often Holds Considerable Bureaucratic Power)." />
+	<job name="Innkeeper" description="Owns And Runs An Inn." />
+	<job name="Land Surveyor" description="Establishes Maps And Boundaries For Ownership Or Other Purposes Required By Government Or Civil Law." />
+	<job name="Merchant" description="Sells And Trades Goods." />
+	<job name="Moneychanger" description="Exchanges One Currency For Another." />
+	<job name="Moneylender" description="Lends Money To Others Who Pay Interest." />
+	<job name="Peddler" description="Travels From Place To Place Selling Assorted Items." />
+	<job name="Pimp/Madame" description="Controls Prostitutes And Arranges Clients For Them, Taking Part Of Their Earnings In Return." />
+	<job name="Plantation Owner" description="An Owner Of An Estate On Which Crops Are Cultivated By Resident Labor, Typically Slave Labor." />
+	<job name="Speculator" description="Invests In Stocks, Property, Or Other Ventures In The Hope Of Making A Profit." />
+	<job name="Thriftdealer" description="Deals In Secondhand Items." />
+	<job name="Tradesman" description="Deals Exclusively In Bartering." />
+	<job name="Vendor" description="Deals Items In The Street." />
+	<job name="Billboardposter" description="A Person Who Puts Up Notices, Signs And Advertisements." />
+	<job name="Courier" description="Transports Packages And Documents." />
+	<job name="Herald" description="A Messenger Who Carries Important News." />
+	<job name="Interpreter" description="Interprets Language And Its Meaning, Especially Within Ancient Manuscripts." />
+	<job name="Linguist" description="Studies The Essence Of Communication, Including The Units, Nature, Structure, And Modification Of Language." />
+	<job name="Messenger" description="Carries Messages Between Recipients." />
+	<job name="Town Crier" description="Makes Public Announcements In The Streets Or Marketplace." />
+	<job name="Translator" description="Translates Between Languages." />
+	<job name="Accoutrementer/Coinsmith" description="Makes Currency For The Government." />
+	<job name="Armorer" description="Specializes In Making And Repairing Armor." />
+	<job name="Blacksmith" description="Forges And Repairs Things In Metal, Including Weapons, Armor, Utensils, Etc." />
+	<job name="Bladesmith" description="Specializes In Making And Repairing Bladed Weapons, Especially Swords And Daggers." />
+	<job name="Bookbinder" description="Binds Books And Wraps Scrolls." />
+	<job name="Bottler" description="Bottles Drinks And Other Liquids." />
+	<job name="Bowyer" description="Makes Bows And Crossbows." />
+	<job name="Brewer" description="Brews Ale." />
+	<job name="Broom Maker" description="Makes Brooms And Brushes." />
+	<job name="Candlemaker" description="Makes Candles And Wax From Honey And Tallow." />
+	<job name="Cartwright" description="Makes And Repairs Carts And Wagons." />
+	<job name="Cobbler" description="Makes And Repairs Footwear." />
+	<job name="Cooper/Hooper" description="Makes And Repairs Casks And Barrels." />
+	<job name="Cutler" description="Makes Cutlery." />
+	<job name="Dyer" description="Dyes Cloth And Other Materials." />
+	<job name="Embroiderer" description="Ornaments With Needlework." />
+	<job name="Engraver" description="Incises A Design Onto A Hard Surface By Cutting Grooves Into It." />
+	<job name="Farrier" description="Trims And Shoes Horses’ Hooves." />
+	<job name="Fletcher" description="Makes And Repairs Arrows." />
+	<job name="Furniture Artisan" description="Makes And Repairs Furniture." />
+	<job name="Furrier" description="Prepares Furs For Adornment." />
+	<job name="Glassworker" description="Blows Glass Planes And Items." />
+	<job name="Glovemaker" description="Makes And Repairs Gloves." />
+	<job name="Goldsmith/Silversmith" description="A Smith Who Specializes In Precious Metals." />
+	<job name="Hatter/Milliner" description="Makes And Repairs Headwear." />
+	<job name="Instrument Maker" description="Makes And Repairs Musical Instruments." />
+	<job name="Lapidary" description="Turns Stone, Minerals, Or Gemstones Into Decorative Items Such As Cabochons, Engraved Gems, And Faceted Designs." />
+	<job name="Leatherworker" description="Makes Items From Leather Such As Pouches, Scabbards, Straps, Etc." />
+	<job name="Jeweler" description="Designs, Makes, And Repairs Necklaces, Bracelets, Watches, Etc., Often Containing Jewels." />
+	<job name="Locksmith" description="Makes And Repairs Locks." />
+	<job name="Luthier" description="Makes And Repairs Stringed Instruments." />
+	<job name="Mercer" description="Weaves Textile Fabrics, Especially Silks, Velvets, And Other Fine Materials." />
+	<job name="Optician" description="Makes And Repairs Eyeglasses." />
+	<job name="Potter" description="Makes Pots, Bowls, Plates, Etc., Out Of Clay." />
+	<job name="Printer" description="A Person Who Applies Pressure To An Inked Surface Resting Upon A Print Medium (Such As Paper Or Cloth), Thereby Transferring The Ink To Manufacture A Text." />
+	<job name="Restorer" description="Repairs Or Renovates A Work Of Art So As To Return It To Its Original Condition." />
+	<job name="Ropemaker" description="Braids Rope." />
+	<job name="Rugmaker" description="Makes And Repairs Rugs By Braiding, Hooking, Weaving, Etc." />
+	<job name="Saddler" description="Makes And Repairs Saddlery." />
+	<job name="Seamstress/Tailor" description="Makes, Alters, Repairs, As Well As Occasionally Designing Garments." />
+	<job name="Soaper" description="Makes Soap From Accumulated Mutton Fat, Wood Ash, And Natural Soda." />
+	<job name="Tanner" description="Treats The Skins And Hides Of Animals To Produce Leather." />
+	<job name="Taxidermist" description="Prepares, Stuffs, And Mounts The Skins Of Animals." />
+	<job name="Tinker" description="Travels From Place To Place Mending Utensils." />
+	<job name="Toymaker" description="Makes And Repairs Toys." />
+	<job name="Watchmaker" description="Makes And Repairs Watches And Clocks." />
+	<job name="Weaponsmith" description="Specializes In Making And Repairing Weapons." />
+	<job name="Weaver" description="Makes Fabric By Weaving Fiber Together." />
+	<job name="Wheelwright" description="Makes And Repairs Wooden Wheels." />
+	<job name="Whittler/Woodcarver" description="Fashions Wood Into Various Shapes." />
+	<job name="Assassin" description="Murders Through Stealth For Reasons Pertaining To Money, Politics, Or Religion." />
+	<job name="Bandit" description="A Robber Or Outlaw Belonging To A Gang And Typically Operating In An Isolated Or Lawless Area." />
+	<job name="Burglar" description="Illegally Enters Buildings And Steals Things." />
+	<job name="Charlatan/Conman" description="Tricks People By Gaining Their Trust And Persuading Them To Believe Something That Is Not True In Order To Benefit From The Encounter." />
+	<job name="Cockfighter/Gamefighter" description="Engages In Arena Matches In Which Animals Or Monsters Are Pitted Against One Another, Typically To The Death." />
+	<job name="Crime Boss" description="Controls And Supervises A Criminal Organization." />
+	<job name="Cutpurse" description="A Pickpocket Or Thief." />
+	<job name="Drug Dealer" description="Dealer Of Illegal Substances." />
+	<job name="Drug Lord" description="Controls A Network Of Persons Involved In The Illegal Drugs Trade And Transactions." />
+	<job name="Extortioner" description="Extorts Money From Someone By Threatening To Expose Embarrassing Information About Them." />
+	<job name="Fence" description="Deals In Stolen Goods." />
+	<job name="Forger" description="Produces Fraudulent Copies Or Imitations." />
+	<job name="Fugitive" description="A Person Who Has Escaped From A Place Or Is In Hiding, Especially To Avoid Arrest Or Persecution." />
+	<job name="Highwayman" description="Robs Travelers On A Road." />
+	<job name="Kidnapper" description="Abducts People And Holds Them Captive, Typically To Obtain A Ransom." />
+	<job name="Loan Shark" description="Charges Extremely High Rates Of Interest For Moneylending, Typically Under Illegal Conditions." />
+	<job name="Pirate" description="Attacks And Robs Ships At Sea." />
+	<job name="Poacher" description="Hunts Illegal Game." />
+	<job name="Poisoner" description="Makes Poisons To Harm Or Kill." />
+	<job name="Raider/Marauder" description="Makes Sudden, Unprompted Attacks Against Defenseless Or Near-Defenseless Settlements." />
+	<job name="Smuggler" description="Manages The Import Or Export Of Goods Secretly, In Violation Of The Law, Especially Without Payment Of Legal Duty." />
+	<job name="Thief" description="Steals People’S Property, Especially By Stealth And Without Using Force Or Violence." />
+	<job name="Affeeror" description="Determines The Values Of Fines And Amercements." />
+	<job name="Agister" description="Affords Pasture To The Livestock Of Others For A Price." />
+	<job name="Alderman" description="A Civic Dignitary In The Local Council Ranked Below The Mayor." />
+	<job name="Alienist" description="Assesses The Competence Of A Defendant In A Court Of Law." />
+	<job name="Assay Master" description="Oversees The Testing Of Currency." />
+	<job name="Baron/Baroness" description="A Member Of The Lowest Order Of The British Nobility." />
+	<job name="Chancellor" description="A Senior State Or Legal Official." />
+	<job name="Chief" description="Leads Or Rules A People Or Clan." />
+	<job name="Conservationist" description="Advocates For The Protection And Preservation Of The Environment And Wildlife." />
+	<job name="Count/Earl/Countess" description="A Nobleperson Ranking Above A Viscount And Below A Marquess." />
+	<job name="Courtier" description="Attends Court As A Companion Or Adviser To The King Or Queen." />
+	<job name="Diplomat" description="An Official Representing A Country Abroad." />
+	<job name="Duke/Duchess" description="Rules Over A Duchy And Is Of The Highest Rank Below The Monarch." />
+	<job name="Emperor/Empress" description="The Supreme Sovereign Ruler Of An Extensive Group Of States Or Countries Under A Single Authority." />
+	<job name="Judge" description="Decides Cases In A Court Of Law." />
+	<job name="King/Queen" description="The Ruler Of An Independent State And Its People." />
+	<job name="Knight" description="Serves His Or Her Sovereign After Being Bestowed A Rank Of Royal Honor." />
+	<job name="Lady-in-Waiting" description="Attends A Queen, Princess, Or Other High-Ranking Feminine Nobleperson." />
+	<job name="Lawyer/Advocate" description="Practices Or Studies Law, Typically An Attorney Or A Counselor." />
+	<job name="Marquess/Marchioness" description="A Nobleperson Ranking Above A Count And Below A Duke." />
+	<job name="Master-of-Coin" description="Supervises The Royal Treasury, Advises The Monarch On Financial Matters, And Is Responsible For Raising Money Through Taxation." />
+	<job name="Master-of-the-Revels" description="Responsible For Overseeing Royal Festivities." />
+	<job name="Minister" description="Assists With The Administration Of Business." />
+	<job name="Noble/Aristocrat" description="A Person Belonging To A Class With High Social Or Political Status." />
+	<job name="Notary" description="Performs Certain Legal Formalities, Especially To Draw Up Or Certify Contracts, Deeds, And Other Documents For Use In Other Jurisdictions." />
+	<job name="Orator/Spokesman" description="Makes Statements On Behalf Of A Group Or Individual Nobleperson." />
+	<job name="Page" description="A Young Attendant To A Person Of Noble Rank." />
+	<job name="Prince/Princess" description="The Direct Descendant Of A Monarch." />
+	<job name="Senator" description="Partakes In Governmental Decision-Making After Being Elected." />
+	<job name="Sheriff" description="The Chief Executive Officer In A County, Having Various Administrative And Judicial Functions." />
+	<job name="Spymaster" description="Directs A Network Of Subordinate Espionage Agents For A State, Kingdom, Or Empire." />
+	<job name="Steward" description="Supervises Both The Estate And Household Of His Lord Or Lady While They Are Away." />
+	<job name="Squire" description="Acts As An Attendant To A Knight Before Attempting To Become A Knight Themselves." />
+	<job name="Tax Collector" description="Collects Unpaid Taxes From People, Guilds, Or Businesses." />
+	<job name="Viscount/Viscountess" description="A Nobleperson Ranking Above A Baron And Below A Count." />
+	<job name="Ward" description="A Member Of A Noble House Who Has Been Taken In By Another Noble Family To Be Raised For A Time." />
+	<job name="Acater" description="Provides And Prepares Foodstuffs Or Delicacies For Events Such As Festivals." />
+	<job name="Tunner" description="Fills Casks In A Brewery Or Winery." />
+	<job name="Baker" description="Bakes Bread And Cakes." />
+	<job name="Barber" description="Cuts Hair And Shaves Or Trims Beards." />
+	<job name="Barkeep" description="Works And Serves Drinks In A Bar." />
+	<job name="Barmaid/Barboy" description="Serves Drinks And Food In A Bar As Well As Engaging With Customers." />
+	<job name="Butcher" description="Cuts Up And Sells Meat." />
+	<job name="Butler" description="The Chief Servant Of A Household." />
+	<job name="Caregiver" description="Looks After A Sick, Elderly, Or Disabled Person." />
+	<job name="Charcoal Maker" description="Manufactures Charcoal By Carbonizing Wood In A Kiln." />
+	<job name="Chatelaine/Majordomo" description="A Person In Charge Of A Large Household." />
+	<job name="Chimney Sweeper" description="A Small Person, Typically A Child, Who Ascends Chimneys To Clean Them." />
+	<job name="Clerk" description="Undertakes Routine Administrative Duties In A Business Or Bank." />
+	<job name="Cook" description="Prepares Food For Eating." />
+	<job name="Copyist" description="Makes Copies Of Handwritten Documents Or Music." />
+	<job name="Croupier" description="Runs A Gaming Table By Gathering In And Paying Out Money Or Tokens." />
+	<job name="Exterminator" description="Exterminates Unwanted Rodents And Insects." />
+	<job name="Food &amp; Drink Taster" description="Ingests Food That Was Prepared For Someone Else To Confirm It Is Safe To Eat." />
+	<job name="Gardener/Landscaper" description="Tends And Cultivates A Garden." />
+	<job name="Gongfarmer" description="Digs Out And Removes Excrement From Privies And Cesspits." />
+	<job name="Gravedigger" description="Digs Graves For The Purposes Of A Funeral Ceremony." />
+	<job name="Groundskeeper" description="Maintains An Athletic Field, A Park, Or The Grounds Of A Graveyard Or Other Institution." />
+	<job name="Kitchen Drudge" description="Performs Menial Work In A Kitchen." />
+	<job name="Knacker" description="Disposes Of Dead Or Unwanted Animals." />
+	<job name="Lamplighter" description="Lights Street Or Road Lights At Dusk." />
+	<job name="Laundry Worker" description="A Laborer Who Takes Part In The Washing, Drying, And Ironing Of Clothes And Other Fabric Items." />
+	<job name="Lector" description="Reads To Others While They Work For Entertainment." />
+	<job name="Longshoreman" description="Loads And Unloads Ships In A Port." />
+	<job name="Maid" description="A Domestic Servant Of A Household." />
+	<job name="Nanny/Nursemaid" description="A Servant Employed To Look After A Young Child Or Children." />
+	<job name="Operator" description="A Laborer Who Operates Equipment, Typically In Construction." />
+	<job name="Pastry Chef" description="Makes Desserts, Especially Cakes And Pastries." />
+	<job name="Plumber" description="Installs And Repairs The Fittings Of Water Supply And Sanitation." />
+	<job name="Porter" description="Carries Luggage And Other Loads." />
+	<job name="Prostitute" description="Engages In Sexual Activity For Payment." />
+	<job name="Quarryman/Quarrywoman" description="Quarries Stone." />
+	<job name="Servant" description="Performs Duties For Others, Especially A Person Employed In A House Or As A Personal Attendant." />
+	<job name="Stagehand" description="Moves Scenery Or Props Before Or During The Performance Of A Theatrical Production." />
+	<job name="Street Cleaner" description="Cleans Streets And Alleyways After Dark." />
+	<job name="Talent Scout" description="Searches For Talented Individuals Who Can Be Employed Or Promoted." />
+	<job name="Trainer" description="Trains Someone In A Particular Skill, Usually Physical, For Money." />
+	<job name="Water Bearer" description="Brings Water From Rivers, Wells, And Lakes Back To Their Settlement." />
+	<job name="Wet Nurse" description="A Woman Employed To Suckle Another Woman’S Child." />
+	<job name="Abjurer" description="A Mage Focused In Protective Spells." />
+	<job name="Alchemist" description="Transforms Or Creates Something Within Nature Through (Usually) Ritualist Magic." />
+	<job name="Archmage" description="An Extremely Powerful Mage." />
+	<job name="Conjuror" description="Conjures Spirits Or Familiars." />
+	<job name="Elementalist" description="Manipulates Nature’S Elements To Their Will." />
+	<job name="Enchanter/Enchantress" description="Uses Sorcery To Put Someone Or Something Under A Spell." />
+	<job name="Evoker" description="Manipulates Energy Or Taps Into An Unseen Source Of Power In Order To Produce A Desired Kinetic End." />
+	<job name="Healer" description="Able To Cure A Disease Or Injury Using Magic." />
+	<job name="Hearth Witch/Hearth Wizard" description="Incorporates Spells And Enchantments In Cooking." />
+	<job name="Illusionist" description="Performs Tricks And Spells That Deceive The Senses." />
+	<job name="Mage" description="A Magic-User." />
+	<job name="Medium" description="Uses Extrasensory Perception, Magic, Or Divine Powers To Identify Information Hidden From The Normal Senses." />
+	<job name="Meteorologist" description="Forecasts And Manipulates Weather." />
+	<job name="Necromancer" description="Communicates With And Conjures The Spirits Of The Dead." />
+	<job name="Ritualist" description="Practices Or Advocates The Observance Of Ritual (Formula Intended To Trigger A Magical Effect On A Person Or Objects)." />
+	<job name="Runecaster" description="Uses Special Alphabets To Create Runes (Symbols Possessing Magical Effects Capable Of Being Used Multiple Times)." />
+	<job name="Sage" description="A Wise And Experienced Magic-User." />
+	<job name="Seer/Oracle" description="Able To See What The Future Holds Through Supernatural Insight." />
+	<job name="Shaman" description="Accesses And Influences The World Of Good And Evil Spirits." />
+	<job name="Shapeshifter" description="A Person With The Ability To Change Their Physical Form." />
+	<job name="Summoner" description="A Mage Able To Summon Forth Magical Beasts, Creatures, And Monsters." />
+	<job name="Transmuter" description="Alters Matter In Form, Appearance, Or Nature." />
+	<job name="Witchdoctor" description="A Tribal Mage With Powers Of Healing, Divination, And Protection Against The Magic Of Others." />
+	<job name="Witch" description="A Woman Who Has Supernatural Powers And Practices Sorcery, Typically In Solitude." />
+	<job name="Wordsmith" description="Draws Their Power From Language And Casts By Dictation." />
+	<job name="Admiral" description="Commands A Fleet Or Naval Squadron." />
+	<job name="Bailiff" description="Looks After Prisoners." />
+	<job name="Bodyguard" description="Escorts And Protects Another Person, Especially A Dignitary." />
+	<job name="Bouncer" description="Prevents Troublemakers From Entering Or To Eject Them From The Premises Of An Establishment." />
+	<job name="Captain" description="An Army Officer Of High Rank In Charge Of Commanding Squadrons Of Soldiers." />
+	<job name="Castellan" description="The Governor Of A Castle." />
+	<job name="Cavalryman/Cavalier" description="A Skilled Horseback Rider." />
+	<job name="City Watch" description="An Officer Of Law Enforcement Who Resides In Larger Towns Or Cities." />
+	<job name="Commissar" description="Teaches Principles And Policies To Military Units." />
+	<job name="Constable" description="An Officer With Limited Policing Authority, Typically In A Small Town." />
+	<job name="Detective/Investigator" description="Investigates And Solves Crimes." />
+	<job name="Drummer/Fifer" description="A Non-Combatant Foot Soldier Who Sounds Signals For Changes In Formation In Combat." />
+	<job name="Duelist" description="Skilled In One-On-One Combat." />
+	<job name="Executioner" description="Carries Out A Sentence Of Death On A Legally Condemned Person." />
+	<job name="Firefighter" description="Extinguishes Fires." />
+	<job name="Guard/Sentinel" description="A Person Who Keeps Watch, Especially A Soldier Or Other Person Formally Assigned To Protect A Person Or To Control Access To A Place." />
+	<job name="General" description="The Chief Commander Of An Army." />
+	<job name="Inspection Officer" description="Responsible For The Inspection Of Military Units To Ensure They Meet Appropriate Standards Of Training And Efficiency." />
+	<job name="Intelligence Officer" description="Collects, Compiles And Organizes Information About The Enemy." />
+	<job name="Jailer" description="Supervises A Jail And The Prisoners In It." />
+	<job name="Lieutenant" description="An Officer Of Middle Rank In The Armed Forces." />
+	<job name="Marksman/Archer" description="In Long-Range Weapons, Such As The Bow, Crossbow, Sling, Etc. To Inflict Damage From Afar." />
+	<job name="Marshall" description="Has The Charge Of The Cavalry In The Household Of A Monarch." />
+	<job name="Medic" description="A Medical Practitioner Equipped For The Battlefield." />
+	<job name="Mercenary" description="A Soldier Without Allegiance Who Works For Money, Typically A Member Of A Company Or Guild." />
+	<job name="Privateer" description="Engages In Maritime Warfare Under A Commission Of War." />
+	<job name="Quartermaster" description="Responsible For Providing Quarters, Rations, Clothing, And Other Supplies." />
+	<job name="Royal Guard" description="Responsible For The Protection Of A Royal Person." />
+	<job name="Runner" description="Carries Information Between Lines In Wartime." />
+	<job name="Sapper" description="A Soldier Responsible For Tasks Such As Building And Repairing Roads And Bridges, Laying And Clearing Mines, Etc." />
+	<job name="Sergeant" description="An Officer Instructed With A Protective Duty, Typically Worth “Half A Knight” In Regard." />
+	<job name="Sergeant-at-Arms" description="Charged With Keeping Order During Meetings And, If Necessary, Participates In Battle." />
+	<job name="Scout" description="Sent Ahead Of A Main Force So As To Gather Information About The Enemy’S Position, Strength, Or Movements." />
+	<job name="Siege Artillerist" description="Works The Artillery Machines Of An Army." />
+	<job name="Slave Driver" description="Oversees And Urges On Slaves At Work." />
+	<job name="Soldier/Man-at-Arms" description="Serves In An Army." />
+	<job name="Special Force Soldier" description="Carries Out Special Operations." />
+	<job name="Spy" description="Secretly Collects And Reports Information On The Activities, Movements, And Plans Of An Enemy Or Competitor." />
+	<job name="Tactician" description="Uses A Carefully Planned Military Strategy To Achieve A Specific End." />
+	<job name="Tollkeeper" description="Collects Tolls At A Bridge, Road Etc. Where A Charge Is Made." />
+	<job name="Torturer" description="Inflicts Severe Pain On Someone As A Punishment Or In Order To Force Them To Do Or Say Something." />
+	<job name="Warden" description="Responsible For The Supervision Of A Particular Place Or Thing Or For Ensuring That Regulations Associated With It Are Obeyed." />
+	<job name="Warmage" description="A Soldier Skilled In Destructive Battle Magic." />
+	<job name="Abbot/Abbess" description="The Head Of An Abbey Of Monks." />
+	<job name="Acolyte" description="Assists The Celebrant In A Religious Service Or Procession." />
+	<job name="Almoner" description="Distributes Money And Food To Poor People." />
+	<job name="Archbishop" description="Responsible For An Archdiocese, Their Surrounding District." />
+	<job name="Bishop" description="A Senior Member Of The Clergy, Usually In Charge Of A Diocese And Empowered To Confer Holy Orders." />
+	<job name="Cantor" description="Sings Liturgical Music And Leads Prayer In A Synagogue." />
+	<job name="Cardinal" description="A Leading Dignitary Of A Church, Nominated By The Highest Official." />
+	<job name="Chaplain" description="A Member Of The Clergy Attached To A Private Chapel, Institution, Ship, Branch Of The Armed Forces, Etc." />
+	<job name="Confessor" description="Hears Confessions And Gives Absolution And Spiritual Counsel." />
+	<job name="Cultist" description="A Member Of A Cult Who Generally Lives Outside Of Conventional Society And Worships An Unorthodox Patron." />
+	<job name="Cult Leader" description="The Organizational Leader Of A Cult Who Is Occasionally Also The Founder." />
+	<job name="Deacon" description="An Ordained Minister Of An Order Ranking Below That Of Priest." />
+	<job name="Diviner" description="Seeks Ultimate Divination In Order To Further Understand Or Meet Godly Substance." />
+	<job name="Exorcist" description="Expels Or Attempts To Expel Evil Spirits From A Person Or Place." />
+	<job name="High Priest/Pope" description="The Chief Priest Of A Religion." />
+	<job name="Inquisitor" description="Seeks To Eliminate Heresy And Other Things Contrary To The Doctrine Or Teachings Of Their Faith." />
+	<job name="Missionary" description="Goes On A Religious Mission To Promote Their Faith In A Foreign Place." />
+	<job name="Nun" description="A Member Of A Religious Community Of Women, Especially A Cloistered One, Living Under Vows Of Poverty, Chastity, And Obedience." />
+	<job name="Pardoner" description="Raises Money For Religious Works By Soliciting Offerings And Granting Indulgences." />
+	<job name="Priest" description="Has The Authority To Perform Certain Rites And Administer Certain Sacraments." />
+	<job name="Prophet" description="Regarded As An Inspired Teacher Or Proclaimer Of The Will Of God." />
+	<job name="Sexton" description="Looks After A Church And Churchyard, Sometimes Acting As Bell-Ringer And Formerly As A Gravedigger." />
+	<job name="Templar" description="Fights In A Religious Military Order." />
+	<job name="Abecedarian" description="Teaches The Illiterate." />
+	<job name="Accoucheur/Obstetrician/Midwife" description="Assists In Childbirth And The Care Of Women Giving Birth." />
+	<job name="Anthropologist" description="Studies The Customs, Beliefs, And Relationships Of Humanoids And Intellectually And Culturally Advanced Creatures." />
+	<job name="Apothecary" description="Prepares And Sells Medicines, Drugs, And Potions." />
+	<job name="Apprentice" description="Studies A Trade Under A Skilled Employer." />
+	<job name="Archaeologist" description="Studies Humanoid History And Prehistory Through The Excavation Of Sites And The Analysis Of Artifacts And Other Physical Remains." />
+	<job name="Archivist" description="Maintains And Is In Charge Of Archives." />
+	<job name="Assayer" description="Determiner Of The Proportions Of Metal In Ore And The Amount Of Copper, Silver, Gold, Or Platinum In Coins." />
+	<job name="Astrologer" description="Uses Astrology To Tell Others About Their Character Or To Predict Their Future." />
+	<job name="Astronomer" description="Makes Observations Of Celestial And Scientific Phenomena Within The Material Plane." />
+	<job name="Bloodletter" description="Surgically Removes Some Of A Patient’S Blood For Therapeutic Purposes." />
+	<job name="Botanist" description="An Expert In Or Student Of The Scientific Study Of Plants." />
+	<job name="Cartographer" description="A Scholar And Illustrator Of Maps." />
+	<job name="Chemist" description="Engaged In Chemical Research Or Experiments." />
+	<job name="Dean" description="The Head Of A College Or University." />
+	<job name="Doctor/Physician" description="A Qualified Practitioner Of Medicine." />
+	<job name="Drakologist" description="Studies Or Is An Expert In The Branch Of Zoology Concerned With Dragons." />
+	<job name="Engineer" description="Designer Of A Machine Or Structure." />
+	<job name="Entomologist" description="Studies Or Is An Expert In The Branch Of Zoology Concerned With Insects." />
+	<job name="Herbalist" description="Practices Healing By The Use Of Herbs." />
+	<job name="Historian" description="An Expert In Or Student Of History, Especially That Of A Particular Period, Geographical Region, Or Social Phenomenon." />
+	<job name="Horologist" description="A Scholar Of Time And Entropy." />
+	<job name="Librarian" description="Administers Or Assists In A Library." />
+	<job name="Mathematician" description="A Scholar Of The Abstract Science Of Number, Quantity, And Space." />
+	<job name="Mortician" description="Prepares Dead Bodies For Burial Or Cremation And Makes Arrangements For Funerals." />
+	<job name="Nurse" description="Cares For The Sick Or Infirm, Especially In A Hospital." />
+	<job name="Optometrist" description="Examines The Eyes For Visual Defects And Prescribes Eyeglasses." />
+	<job name="Philosopher" description="A Scholar Of The Fundamental Nature Of Knowledge, Reality, And Existence." />
+	<job name="Professor" description="A Teacher Of The Highest Rank In A College Or University." />
+	<job name="Scholar/Researcher" description="A Specialist In A Particular Branch Of Study Who Pursues The Acquisition Of Knowledge." />
+	<job name="Scribe" description="Copies Out Manuscripts." />
+	<job name="Student" description="Attends School Or Learns Under Other To Enter And Pursue A Particular Subject." />
+	<job name="Surgeon/Chirurgeon" description="Practices Surgery." />
+	<job name="Taxonomist" description="Groups Organisms Into Categories." />
+	<job name="Teacher" description="Instructs On A Particular Skill Or Subject." />
+	<job name="Theologian" description="Engages In The Study Of The Nature Of God And Religious Belief." />
+	<job name="Tutor" description="Charged With The Instruction And Guidance Of Another." />
+	<job name="Veterinarian" description="Treats Diseased Or Injured Animals." />
+	<job name="Zoologist" description="An Expert In Or A Student Of The Behavior, Physiology, Classification, And Distribution Of Animals." />
+	<job name="Boatman" description="Mans A Small Seacraft." />
+	<job name="Bosun" description="In Charge Of Organizing The Equipment And Crew Of A Ship." />
+	<job name="Cabbie/Wagoner" description="Drives A Horse-Drawn Wagon." />
+	<job name="Cabin Boy/Cabin Girl" description="Waits On The Orders Of A Ship’S Officers And Passengers." />
+	<job name="Caravaneer" description="Travels Or Lives In A Caravan." />
+	<job name="Charioteer" description="Drives A Chariot." />
+	<job name="Carter" description="Transports Goods By Cart." />
+	<job name="Ferryman" description="Operates A Ferry." />
+	<job name="First Mate" description="The Deck Officer Second In Command To The Master Of A Ship." />
+	<job name="Helmsman" description="Steers A Ship Or Boat." />
+	<job name="Navigator" description="Directs The Route Or Course Of A Ship Or Other Form Of Transportation, Especially By Using Instruments And Maps." />
+	<job name="Purser" description="Keeps The Accounts Of A Ship, Especially As The Head Steward On A Passenger Vessel." />
+	<job name="Sailor" description="Works As A Member Of The Crew Of A Commercial Or Naval Ship Or Boat." />
+	<job name="Sea Captain" description="Commands A Ship." />
+	<job name="Shipwright" description="A Carpenter Skilled In Ship Construction And Repair." />
+	<job name="Adventurer" description="Wanders The World In Search Of Knowledge, Treasure, Fame, Glory Or A Multitude Of Additional Wants And Desires." />
+	<job name="Beggar/Pauper" description="Lives By Asking For Money Or Food." />
+	<job name="Blood Hunter/Monster Hunter" description="Takes On Jobs To Hunt Down And Kill Or Capture Dangerous Creatures." />
+	<job name="Bounty Hunter" description="Pursues A Criminal Or Fugitive For Whom A Reward Is Offered." />
+	<job name="Crossing Sweeper" description="Sweeps A Path Ahead Of People Crossing Dirty Urban Streets In Exchange For A Gratuity." />
+	<job name="Deserter" description="A Member Of The Armed Forces Who Has Deserted." />
+	<job name="Disgraced Noble" description="A Person Of High Birth Who Has Since Loss Their Respect, Honor, Or Esteem In Some Or All Noble Circles." />
+	<job name="Drunkard" description="A Person Who Is Habitually Drunk And Considers Themselves A Professional In The Task." />
+	<job name="Dungeon Delver" description="Navigates Underground Labyrinths In Search Of Any Treasure They May Find." />
+	<job name="Elder" description="A Person Of A Greater Age, Especially One With A Respected Position In Society." />
+	<job name="Exile" description="Lives Away From Their Native Country, Either From Choice Or Compulsion." />
+	<job name="Explorer" description="Explores Unfamiliar Areas In Search Of Geographical Or Scientific Information." />
+	<job name="Ex-Criminal" description="A Person Who Has Been Convicted Of A Crime And Has Since Served Their Sentence, Or Who Has Preemptively Given Up Their Life Of Crime." />
+	<job name="Folk Hero" description="A Celebrity Who Is Greatly Admired By Many People Of A Particular Kind Or In A Particular Place." />
+	<job name="Gambler" description="Bets Money On Sports, Card Games, Or Games Of Chance In The Hope Of A Profit." />
+	<job name="Grave Robber/Tomb Raider" description="Steals Valuables From Graves And Tombs." />
+	<job name="Heretic" description="Differs In Opinion From Established Religious Dogma." />
+	<job name="Hermit" description="Lives In Solitude, Typically As A Religious Or Spiritual Discipline." />
+	<job name="Housewife/Househusband" description="Cares For His Or Her Family By Managing Household Affairs And Completing Housework." />
+	<job name="Pilgrim" description="Journeys To Some Sacred Place As An Act Of Religious Devotion, Occasionally To Settle There." />
+	<job name="Prisoner" description="Held In Confinement As A Punishment For Crimes They Have Been Convicted Of." />
+	<job name="Rag-and-Bone Man" description="Collects Unwanted Household Items And Sells Them To Merchants." />
+	<job name="Rebel/Political Dissident" description="Rises In Opposition Or Armed Resistance Against An Established Government Or Ruler." />
+	<job name="Refugee" description="Leaves Their Home In Order To Escape War, Persecution, Or Natural Disaster." />
+	<job name="Runaway Slave" description="A Slave Who Has Left Their Master And Traveled Without Authorization." />
+	<job name="Scavenger/Mudlark/Tosher" description="Searches For And Collects Discarded Items." />
+	<job name="Slave" description="A Person Who Is The Legal Property Of Another And Forced To Obey Them." />
+	<job name="Squatter" description="Unlawfully Occupies An Uninhabited Building Or Unused Land." />
+	<job name="Traveler/Wanderer/Vagabond" description="Wanders From Place To Place Without A Permanent Home Or Job." />
+	<job name="Urchin" description="A Child Who Lives Or Spends Most Of Their Time In The Streets, Occasionally Working As A Thief Or Pickpocket." />
+</jobs>

@@ -1,0 +1,14 @@
+<armors>
+	<armor name="Leather" ac="11" str_req="0" stealth_dis="0" type="light" />
+	<armor name="Studded Leather" ac="12" str_req="0" stealth_dis="0" type="light" />
+	<armor name="Padded" ac="11" str_req="0" stealth_dis="1" type="light" />
+	<armor name="Hide" ac="12" str_req="0" stealth_dis="0" type="medium" />
+	<armor name="Breastplate" ac="14" str_req="0" stealth_dis="0" type="medium" />
+	<armor name="Chain Shirt" ac="13" str_req="0" stealth_dis="0" type="medium" />
+	<armor name="Half Plate" ac="15" str_req="0" stealth_dis="1" type="medium" />
+	<armor name="Scale Mail" ac="14" str_req="0" stealth_dis="1" type="medium" />
+	<armor name="Ring Mail" ac="14" str_req="0" stealth_dis="1" type="medium" />
+	<armor name="Chain Mail" ac="16" str_req="13" stealth_dis="1" type="heavy" />
+	<armor name="Splint" ac="17" str_req="15" stealth_dis="1" type="heavy" />
+	<armor name="Plate" ac="18" str_req="15" stealth_dis="1" type="heavy" />
+</armors>

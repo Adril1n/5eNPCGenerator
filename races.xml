@@ -6,12 +6,23 @@
 	<race name="Aarakocra">
 		<type name="Aarakocra (DMG)">
 			<datadict>
-				<dataval key="age" value="3;30"/>
-				<dataval key="size" value="medium"/>
-				<dataval key="height_base" value="132"/>
-				<dataval key="height_mod" value="1;6"/>
-				<dataval key="weight_base" value="41"/>
-				<dataval key="weight_mod" value="1;6"/>
+				<dataval key="abilities" value="dict">
+					<ability key="DEX" value="2"/>
+					<ability key="WIS" value="2"/>
+				</dataval>
+				
+				<dataval key="appearances" value="dict">
+					<appearance key="age" value="3-30"/>
+					<appearance key="size" value="medium"/>
+					<appearance key="skin_type" value="feathers"/>
+					<appearance key="skin_color" value="exotic"/>
+					<appearance key="eye_color" value="dark_basic"/>
+					
+					<appearance key="height_base" value="132"/>
+					<appearance key="height_mod" value="1-6"/>
+					<appearance key="weight_base" value="41"/>
+					<appearance key="weight_mod" value="1-6"/>
+				</dataval>
 
 				<dataval key="languages" value="dict">
 					<language key="Auran" value="speak, read, and write"/>
@@ -21,33 +32,28 @@
 					<speed key="walking" value="20"/>
 					<speed key="flying" value="50"/>
 				</dataval>
-
-				<dataval key="appearances" value="dict">
-					<appearance key="Skin Type: " value="feathers"/>
-					<appearance key="Skin Color: " value="white;red;yellow;silver;blue;brown;black;orange;grey"/>
-					<appearance key="Eye Color: " value="dark:basic"/>
-				</dataval>
-
-				<dataval key="abilities" value="dict">
-					<ability key="DEX" value="2"/>
-					<ability key="WIS" value="2"/>
-				</dataval>
-
-<!-- 				<dataval key="traits" value="dict">
-					<ability key="Dive Attack" value="If you are flying and dive at least 30 ft. straight toward a target and then hit it with a melee weapon attack, the attack deals an extra 1d6 damage to the target."/>
-					<ability key="Talons" value="You are proficient with your unarmed strikes, which deal 1d4 slashing damage on a hit."/>
-				</dataval> -->
 			</datadict>
 		</type>
 
 		<type name="Aarakocra (EEPC)">
 			<datadict>
-				<dataval key="age" value="3;30"/>
-				<dataval key="size" value="medium"/>
-				<dataval key="height_base" value="132"/>
-				<dataval key="height_mod" value="1;6"/>
-				<dataval key="weight_base" value="41"/>
-				<dataval key="weight_mod" value="1;6"/>
+				<dataval key="abilities" value="dict">
+					<ability key="DEX" value="2"/>
+					<ability key="WIS" value="1"/>
+				</dataval>
+
+				<dataval key="appearances" value="dict">
+					<appearance key="age" value="3-30"/>
+					<appearance key="size" value="medium"/>
+					<appearance key="skin_type" value="feathers"/>
+					<appearance key="skin_color" value="exotic"/>
+					<appearance key="eye_color" value="dark_basic"/>
+					
+					<appearance key="height_base" value="132"/>
+					<appearance key="height_mod" value="1-6"/>
+					<appearance key="weight_base" value="41"/>
+					<appearance key="weight_mod" value="1-6"/>
+				</dataval>
 
 				<dataval key="languages" value="dict">
 					<language key="Common" value="speak, read, and write"/>
@@ -59,33 +65,28 @@
 					<speed key="walking" value="25"/>
 					<speed key="flying" value="50"/>
 				</dataval>
-
-				<dataval key="appearances" value="dict">
-					<appearance key="Skin Type: " value="feathers"/>
-					<appearance key="Skin Color: " value="white;red;yellow;silver;blue;brown;black;orange;grey"/>
-					<appearance key="Eye Color: " value="dark:basic"/>
-				</dataval>
-
-				<dataval key="abilities" value="dict">
-					<ability key="DEX" value="2"/>
-					<ability key="WIS" value="1"/>
-				</dataval>
-
-<!-- 				<dataval key="traits" value="dict">
-					<ability key="Flight" value="You have a flying speed of 50 feet. To use this speed, you can't be wearing medium or heavy armor."/>
-					<ability key="Talons" value="Your talons are natural weapons, which you can use to make unarmed strikes. If you hit with them, you deal slashing damage equal to 1d4 + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike."/>
-				</dataval> -->
 			</datadict>
 		</type>
 
 		<type name="Aarakocra (MPMM)">
 			<datadict>
-				<dataval key="age" value="3;30"/>
-				<dataval key="size" value="medium"/>
-				<dataval key="height_base" value="132"/>
-				<dataval key="height_mod" value="1;6"/>
-				<dataval key="weight_base" value="41"/>
-				<dataval key="weight_mod" value="1;6"/>
+				<dataval key="abilities" value="dict_choice">
+					<ability key="random_a" value="2:1"/>
+					<ability key="random_b" value="1:1:1"/>
+				</dataval>
+
+				<dataval key="appearances" value="dict">
+					<appearance key="age" value="3-30"/>
+					<appearance key="size" value="medium"/>
+					<appearance key="skin_type" value="feathers"/>
+					<appearance key="skin_color" value="exotic"/>
+					<appearance key="eye_color" value="dark_basic"/>
+					
+					<appearance key="height_base" value="132"/>
+					<appearance key="height_mod" value="1-6"/>
+					<appearance key="weight_base" value="41"/>
+					<appearance key="weight_mod" value="1-6"/>
+				</dataval>
 
 				<dataval key="languages" value="dict">
 					<language key="Common" value="speak, read, and write"/>
@@ -96,24 +97,6 @@
 					<speed key="walking" value="30"/>
 					<speed key="flying" value="30"/>
 				</dataval>
-
-				<dataval key="appearances" value="dict">
-					<appearance key="Skin Type: " value="feathers"/>
-					<appearance key="Skin Color: " value="white;red;yellow;silver;blue;brown;black;orange;grey"/>
-					<appearance key="Eye Color: " value="dark:basic"/>
-				</dataval>
-
-				<dataval key="abilities" value="dict_choice">
-					<ability key="random_a" value="2;1"/>
-					<ability key="random_b" value="1;1;1"/>
-				</dataval>
-
-<!-- 				<dataval key="traits" value="dict">
-					<ability key="Flight" value="Because of your wings, you have a flying speed equal to your walking speed. You can't use this flying speed if you're wearing medium or heavy armor."/>
-					<ability key="Talons" value="You have talons that you can use to make unarmed strikes. When you hit with them, the strike deals 1d6 + your Strength modifier slashing damage, instead of the bludgeoning damage normal for an unarmed strike."/>
-					<ability key="Wind Caller" value="You can cast the Gust of Wind spell with this trait, without requiring a material component. Once you cast the spell with this trait, you can't do so again until you finish a long rest. You can also cast the spell using any spell slots you have of 2nd level or higher.
-					Intelligence, Wisdom, or Charisma is your spellcasting ability for when you cast gust of wind with this trait." req="lvl3"/>
-				</dataval> -->
 			</datadict>
 		</type>
 	</race>
