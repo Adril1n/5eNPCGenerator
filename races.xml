@@ -14,9 +14,9 @@
 				<dataval key="appearances" value="dict">
 					<appearance key="age" value="3-30"/>
 					<appearance key="size" value="medium"/>
-					<appearance key="skin_type" value="feathers"/>
+					<!-- <appearance key="skin_type" value="feathers"/>
 					<appearance key="skin_color" value="exotic"/>
-					<appearance key="eye_color" value="dark_basic"/>
+					<appearance key="eye_color" value="dark_basic"/> -->
 					
 					<appearance key="height_base" value="132"/>
 					<appearance key="height_mod" value="1-6"/>
@@ -45,9 +45,6 @@
 				<dataval key="appearances" value="dict">
 					<appearance key="age" value="3-30"/>
 					<appearance key="size" value="medium"/>
-					<appearance key="skin_type" value="feathers"/>
-					<appearance key="skin_color" value="exotic"/>
-					<appearance key="eye_color" value="dark_basic"/>
 					
 					<appearance key="height_base" value="132"/>
 					<appearance key="height_mod" value="1-6"/>
@@ -78,9 +75,6 @@
 				<dataval key="appearances" value="dict">
 					<appearance key="age" value="3-30"/>
 					<appearance key="size" value="medium"/>
-					<appearance key="skin_type" value="feathers"/>
-					<appearance key="skin_color" value="exotic"/>
-					<appearance key="eye_color" value="dark_basic"/>
 					
 					<appearance key="height_base" value="132"/>
 					<appearance key="height_mod" value="1-6"/>

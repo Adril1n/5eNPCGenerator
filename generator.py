@@ -265,7 +265,7 @@ class MainFrame(tk.Frame):
 								'Race':sorted(self.controller.resource_loader.get_list('races')), 
 								'Sex':['Male', 'Female'], 
 								'Occupation':['--CLASSES--', *sorted(self.controller.resource_loader.get_list('classes')), '--JOBS--', *sorted(self.controller.resource_loader.get_list('jobs'))],
-								'Level':[*list(map((str), np.arange(1, 21))), '--Low (1-4)--', '--Medium (5-9)--', '--High (10-20)--'],
+								'Level':[*list(map((str), np.arange(1, 21))), '--Low (1-4)--', '--Medium (5-9)--', '--High (10-20)--', '--Unlimited (21-100)--'],
 								'Uncapped Abilities':['True', 'False']
 							}
 
@@ -345,7 +345,7 @@ class Generator():
 			else:				
 				if str_var[0] == "-":
 					if opt_var == 'Level':	
-						levels = {'L':(4, 1), 'M':(5, 5), 'H':(11, 10)}
+						levels = {'L':(4, 1), 'M':(5, 5), 'H':(11, 10), 'U':(100, 21)}
 						var = np.floor(rng.random()*levels[str_var[2]][0]+levels[str_var[2]][1]).astype('int')
 					elif opt_var == 'Occupation':
 						var = rng.choice(sorted(self.resource_loader.get_list(str_var[2:-2].lower())))
@@ -443,13 +443,13 @@ class Generator():
 		race_url = [x for x in npc.get_tag('Subrace') if x not in ('(', ')')]
 		# child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
 		
-		# hsv = [rng.random() for _ in range(3)]
-		hsv = [0.91, *[rng.random() for _ in range(1)], 0.5]
-		rgb = list(map(lambda x: hex(int(x*255))[2:].zfill(2), colorsys.hsv_to_rgb(*hsv)))
-		clr = "#" + "".join(rgb)
+		# hsv = [*[rng.random() for _ in range(2)], min(rng.random()+0.4, 1)]
+		# hsv = [rng.random(), 0.5, rng.random()]
+		# rgb = list(map(lambda x: hex(int(x*255))[2:].zfill(2), colorsys.hsv_to_rgb(*hsv)))
+		# clr = "#" + "".join(rgb)
 
-		print(hsv, rgb, clr)
-		a = child.canvas.create_rectangle(1200, 500, 1420, 600, fill=clr)
+		# print(hsv, rgb, clr)
+		# a = child.canvas.create_rectangle(1200, 500, 1420, 600, fill=clr)
 
 
 		
@@ -474,7 +474,7 @@ class Generator():
 		bonuses = self.resource_loader.get_race_ability_bonuses(abilities, rng, npc.get_tag('Race'), npc.get_tag('Subrace'))
 		
 		for ability in abilities:
-			if not npc.get_tag('class_bool'):
+			if npc.get_tag('class_bool'):
 				scores = sorted(rng.choice(6, 4)+1)[1:]
 			else:
 				scores = rng.choice(6, 3)+1
