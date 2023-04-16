@@ -1,10 +1,11 @@
 import tkinter as tk
 from numpy.random import default_rng, SeedSequence
 import numpy as np
-import xml.etree.ElementTree as ET
 from PIL import Image, ImageTk
 import webbrowser
 import colorsys
+
+from resource_loader import ResourceLoader
 
 class Rng():
 	def __init__(self):
@@ -17,223 +18,6 @@ class Rng():
 	def get_seed(self):
 		return self.seed
 
-class ResourceLoader():
-	def __init__(self):
-		self.xml_files = {}
-
-	def get_xml_root(self, xml_name):
-		filename = xml_name + '.xml'
-		try: 
-			root = self.xml_files[xml_name]
-		except KeyError:
-			tree = ET.parse(filename)
-			root = tree.getroot()
-			self.xml_files[xml_name] = root
-		return root
-
-	def get_list(self, xml):
-		root = self.get_xml_root(xml)
-		list_ = []
-
-		for obj in root:
-			list_.append(obj.get('name'))
-
-		return list_
-
-	def get_occupation_description(self, occ_id):
-		jobs = self.get_xml_root('jobs')
-		
-		for job in jobs:
-			if job.get('name') == occ_id:
-				return job.get('description')
-
-		return "Nothing"
-
-	def get_subrace(self, rng, race_id):
-		races = self.get_xml_root('races')
-
-		for race in races:
-			if race.get('name') == race_id:
-				return race.findall('type')[np.floor(rng.random()*(len(race.findall('type')))).astype('int')].get('name')
-
-		return "None"
-
-	def get_race_ability_bonuses(self, abilities, rng, race_id, subrace_id):
-		races = self.get_xml_root('races')
-
-		a = {}
-
-		for race in races:
-			if race.get('name') == race_id:
-				for type_ in race.findall('type'):
-					if type_.get('name') == subrace_id:
-						datavals = type_.findall('datadict')[0].findall('dataval')
-
-						for dataval in datavals:
-							if dataval.get('key') == 'abilities':
-								if dataval.get('value') == 'dict':
-									for ability in dataval.findall('ability'):
-										a[ability.get('key')] = ability.get('value')
-
-								elif dataval.get('value') == 'dict_choice':
-									ability = dataval.findall('ability')[np.floor(rng.random()*(len(dataval.findall('ability')))).astype('int')]
-
-									keys = list(abilities.keys())
-
-									nums = ability.get('value').split(':')
-									for num in nums:
-										ablt = rng.choice(keys)
-										a[ablt] = num
-										keys.pop(keys.index(ablt))
-
-
-
-		return a
-
-	def get_proficiencies(self, rng, npc_class):
-		classes = self.get_xml_root('classes')
-
-		a = {}
-
-		for class_ in classes:
-			if class_.get('name') == npc_class:
-				for dataval in class_.findall('datadict')[0].findall('dataval'):
-					if dataval.get('key') == 'proficiencies':
-						for prof in dataval.findall('proficiency'):
-							key = prof.get('key')
-							val = prof.get('value')
-
-							if ':' in val and ';' not in val:
-								aa = val.split(':')
-								a[key] = aa
-							elif ';' in val and ':' not in val:
-								aa = val.split(';')
-								a[key] = list(rng.choice(aa[1:], int(aa[0])))
-							elif ';' in val and ':' in val:
-								aa = val.split(':')
-								ab = aa[-1].split(';')
-								ac = list(rng.choice(ab[1:], int(ab[0])))
-
-								ad = []
-
-								for p in (*aa[:-1], *ac):
-									ad.append(f"{p} {key}")
-
-								a[key] = ad
-							else:
-								a[key] = [val]
-
-		
-
-		return a
-
-	def get_appearances(self, rng, race_id, subrace_id):
-		races = self.get_xml_root('races')
-
-		a = {}
-
-		for race in races:
-			if race.get('name') == race_id:
-				for subrace in race.findall('type'):
-					if subrace.get('name') == subrace_id:
-						for dataval in subrace.findall('datadict')[0].findall('dataval'):
-							if dataval.get('key') == 'appearances':
-								for app in dataval.findall('appearance'):
-									key = app.get('key')
-									val = app.get('value')
-
-									if ':' not in val and ';' not in val and '-' not in val:
-										a[key] = [val]
-									elif ':' in val and ';' not in val and '-' not in val:
-										aa = val.split(':')
-										a[key] = aa
-									elif ':' not in val and ';' in val and '-' not in val:
-										aa = val.split(';')
-										a[key] = list(rng.choice(aa[1:], int(aa[0])))
-									else:
-										aa = val.split('-')
-										ab = rng.integers(int(aa[0]), high=int(aa[1])+1)
-
-										if key == 'age':
-											age_dict = {0.35:'Young', 0.75:'Middle Aged', 10:'Elderly'}
-											ac = ''
-											for bin_ in age_dict:
-												if ab/int(aa[1]) <= bin_:
-													ac = age_dict[bin_]
-													break
-
-											ab = f"Age: {ab} ({ac}, {aa[0]}->{aa[1]})"
-
-											a[key] = [ab]
-										else:
-											a[key] = [ab, (aa[0], aa[1])]
-
-		return a 
-
-	def get_languages_or_speeds(self, rng, race_id, subrace_id, tt):
-		races = self.get_xml_root('races')
-
-		a = []
-
-		for race in races:
-			if race.get('name') == race_id:
-				for subrace in race.findall('type'):
-					if subrace.get('name') == subrace_id:
-						for dataval in subrace.findall('datadict')[0].findall('dataval'):
-							d = {'lan':'language', 'spd':'speed'}
-
-							if dataval.get('key') == f"{d[tt]}s":
-								for lan in dataval.findall(d[tt]):
-									key = lan.get('key')
-									val = lan.get('value')
-
-									if 'random' in key:
-										l = ['Common', 'Dwarvish', 'Elvish', 'Giant', 'Gnomish', 'Goblin', 'Halfling', 'Orc', 'Abyssal', 'Celestial', 'Draconic', 'Deep Speech', 'Infernal', 'Primordial', 'Sylvan', 'Undercommon']
-										l = list(filter(lambda x: x not in [y.get('key') for y in dataval.findall(d[tt])], l))
-										key = rng.choice(l)
-
-									a.append(f"{key} ({val})")
-
-		return a
-
-
-	def get_weapon(self, rng, prof):
-		weapons = self.get_xml_root('weapons')
-
-		a = []
-		for weapon in weapons:
-			if weapon.get('type') in prof:
-				a.append(f"{weapon.get('name')} ({weapon.get('damage')}, {weapon.get('properties')})")
-
-		if len(a) == 0:
-			return f"Unarmed Attack: 1 + STR MOD"
-		else:
-			return rng.choice(a)
-
-
-	def get_armor(self, rng, prof, str_):
-		b = prof.copy()
-		if 'shield' in b:
-			b.remove('shield')
-
-		armors = self.get_xml_root('armors')
- 		
-		a = []
-		for armor in armors:
-			if armor.get('type') in b and int(armor.get('str_req')) <= str_:
-				d = {}
-				for att in armor.attrib:
-					if att != 'stealth_dis':
-						d[att] = armor.attrib[att]
-					else:
-						d[att] = bool(armor.attrib[att])
-
-				a.append(d)
-
-		if len(a) == 0:
-			return {'name':'Unarmored', 'ac':'10', 'stealth_dis':'False'}
-		else:
-			return rng.choice(a)
  				
 
 class NPC():
@@ -260,13 +44,14 @@ class MainFrame(tk.Frame):
 		
 		self.string_vars = {}
 
-		self.vars_list = sorted(['Race', 'Sex', 'Occupation', 'Level', 'Uncapped Abilities'])
+		self.vars_list = (['Level', 'Occupation', 'Race', 'Sex', 'Uncapped Abilities', 'Only Class Specific Spells'])
 		self.var_choices = 	{
 								'Race':sorted(self.controller.resource_loader.get_list('races')), 
 								'Sex':['Male', 'Female'], 
 								'Occupation':['--CLASSES--', *sorted(self.controller.resource_loader.get_list('classes')), '--JOBS--', *sorted(self.controller.resource_loader.get_list('jobs'))],
 								'Level':[*list(map((str), np.arange(1, 21))), '--Low (1-4)--', '--Medium (5-9)--', '--High (10-20)--', '--Unlimited (21-100)--'],
-								'Uncapped Abilities':['True', 'False']
+								'Uncapped Abilities':['True', 'False'],
+								'Only Class Specific Spells':['True', 'False']
 							}
 
 		self.createGUI()
@@ -289,7 +74,7 @@ class MainFrame(tk.Frame):
 		# self.description = self.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n", font=('gothic', 18), width=500) 
 
 		self.canvas.create_line(300, 0, 300, 800, fill="black", width=20)
-		self.canvas.create_line(867, 0, 867, 800, fill="#750E00", width=10)
+		# self.canvas.create_line(867, 0, 867, 800, fill="#750E00", width=10)
 
 		gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg='#9b0707', relief='groove', command=self.controller.generate)
 		gen_btn.place(relx=0.1, rely=0.9, anchor='c')
@@ -300,7 +85,7 @@ class Generator():
 		self.parent = parent
 		self.frames = {}
 
-		self.resource_loader = ResourceLoader()
+		self.resource_loader = ResourceLoader.get_instance()
 
 		self.NPCs = []
 
@@ -407,6 +192,7 @@ class Generator():
 
 		## CLASS RELATED AND AC 
 		if npc.get_tag('class_bool'):
+
 			## CLASS PROFICIENCIES
 			npc.set_tag("Class Proficiencies", self.resource_loader.get_proficiencies(rng, npc.get_tag('Occupation')))
 
@@ -415,6 +201,13 @@ class Generator():
 
 			armr_dict = self.resource_loader.get_armor(rng, npc.get_tag('Class Proficiencies')['armor'], npc.get_tag('Abilities')['STR'][0])
 			npc.set_tag('Armor', f"Armor: {armr_dict['name']} Armor, Stealth Dis.: {armr_dict['stealth_dis']}")
+
+			## SUBCLASS
+			npc.set_tag('Subclass', self.resource_loader.get_subclass(rng, npc.get_tag('Occupation')))
+
+			## CLASS FEATURES
+			npc.set_tag('Features', self.resource_loader.get_class_features(rng, npc.get_tag('Occupation'), npc.get_tag('Subclass'), npc.get_tag('Level')))
+
 
 
 			## AC
@@ -426,8 +219,6 @@ class Generator():
 					npc.set_tag('Armor', f"{npc.get_tag('Armor')}, Shield: True (+2 to AC)")
 
 			npc.set_tag('AC', ac)
-
-			## !! ADD FEATURES HERE AS WELL
 
 		else:
 			npc.set_tag('AC', 10 + npc.get_tag('Abilities')['DEX'][1])
@@ -471,7 +262,7 @@ class Generator():
 	def generate_abilities(self, npc, rng):
 		abilities = {'DEX':10, 'STR':10, 'CON':10, 'INT':10, 'WIS':10, 'CHA':10}
 
-		bonuses = self.resource_loader.get_race_ability_bonuses(abilities, rng, npc.get_tag('Race'), npc.get_tag('Subrace'))
+		bonuses = self.resource_loader.get_race_ability_bonuses(abilities, rng, npc.get_tag('Race'), npc.get_tag('Subrace')) 
 		
 		for ability in abilities:
 			if npc.get_tag('class_bool'):

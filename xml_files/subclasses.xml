@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<subclasses>
+	<subclass name="Alchemist" class="Artificer">
+		<datadict>
+			<dataval req="3" key="extended_spell_list" value="dict_lvl" tier="1">
+				<item key="3" value="Healing Word:Ray of Sickness"/>
+				<item key="5" value="Flaming Sphere:Melf's Acid Arrow"/>
+				<item key="9" value="Gaseous Form:Mass Healing Word:Lesser Restoration"/>
+				<item key="13" value="Blight:Death Ward"/>
+				<item key="15" value="Greater Restoration:Heal"/>
+				<item key="17" value="Cloudkill:Raise Dead"/>
+			</dataval>
+
+			<dataval req="3" key="Experimental Elixir" value="dict_lvl">
+				<item key="3" value="1;Healing. The drinker regains a number of hit points equal to 2d4 + %%INT%%.;Swiftness. The drinker's walking speed increases by 10 feet for 1 hour.;Resilience. The drinker gains a +1 bonus to AC for 10 minutes.;Boldness. The drinker can roll a d4 and add the number rolled to every attack roll and saving throw they make for the next minute.;Flight. The drinker gains a flying speed of 10 feet for 10 minutes.;Transformation. The drinker's body is transformed as if by the alter self spell. The drinker determines the transformation caused by the spell, the effects of which last for 10 minutes."/>
+				<item key="6" value="1;Healing. The drinker regains a number of hit points equal to 2d4 + %%INT%%.;Swiftness. The drinker's walking speed increases by 10 feet for 1 hour.;Resilience. The drinker gains a +1 bonus to AC for 10 minutes.;Boldness. The drinker can roll a d4 and add the number rolled to every attack roll and saving throw they make for the next minute.;Flight. The drinker gains a flying speed of 10 feet for 10 minutes.;Transformation. The drinker's body is transformed as if by the alter self spell. The drinker determines the transformation caused by the spell, the effects of which last for 10 minutes."/>
+				<item key="15" value="1;Healing. The drinker regains a number of hit points equal to 2d4 + %%INT%%.;Swiftness. The drinker's walking speed increases by 10 feet for 1 hour.;Resilience. The drinker gains a +1 bonus to AC for 10 minutes.;Boldness. The drinker can roll a d4 and add the number rolled to every attack roll and saving throw they make for the next minute.;Flight. The drinker gains a flying speed of 10 feet for 10 minutes.;Transformation. The drinker's body is transformed as if by the alter self spell. The drinker determines the transformation caused by the spell, the effects of which last for 10 minutes."/>
+			</dataval>
+
+			<dataval req="5" key="Alchemical Savant" value="You gain a bonus to one roll of any spell cast. That roll must restore hit points or be a damage roll that deals acid, fire, necrotic, or poison damage, and the bonus equals %%INT%% (or +1)."/>
+			<dataval req="9" key="Restorative Reagents" value="Whenever a creature drinks one of your Experimental Elixirs, the creature gains temporary hit points equal to 2d6 + %%INT%% (minimum of 1 temporary hit point)."/>
+			<dataval req="15" key="Chemical Mastery" value="You gain resistance to acid damage and poison damage, and you are immune to the poisoned condition." />
+		</datadict>
+	</subclass>
+</subclasses>

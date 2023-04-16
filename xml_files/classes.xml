@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<classes>
+	<class name="Artificer">
+		<datadict>
+			<dataval key="proficiencies" value="dict">
+				<proficiency key="armor" value="light:medium:shield"/>
+				<proficiency key="weapons" value="simple"/>
+				<proficiency key="tools" value="Thieves':Tinker's:1;Alchemist's;Brewer's;Calligrapher's;Carpenter's;Cartographer's;Cobbler's;Cook's;Glassblower's;Jeweler's;Leatherworker's;Mason's;Painter's;Potter's;Smith's;Weaver's;Woodcarver's"/>
+				<proficiency key="saving throws" value="CON:INT"/>
+				<proficiency key="skills" value="2;Arcana;History;Investigation;Medicine;Nature;Perception;Sleight of Hand"/>
+			</dataval>
+			<dataval key="features" value="dict">
+				<feature req="1" key="Spellcasting" value="dict_spellcasting">
+					<property key="Spellcasting Ability" value="INT"/>
+					<property key="max_spell_lvl" value="5"/>
+				</feature>
+
+				<feature req="2" key="Infused Item" value="dict_lvl_choice">
+					<lvl key="0" value="Armor of Magical Strength:Enhanced Arcane Focus:Enhanced Defense:Enhanced Weapon:Homunculus Servant:Mind Sharpener:Repeating Shot:Replicate Magic Item:Returning Weapon"/>
+					<lvl key="6" value="Boots of the Winding:Radiant Weapon:Repulsion Shield:Resistant Armor:Spell-Refueling Ring"/>
+					<lvl key="10" value="Helm of Awereness"/>
+					<lvl key="14" value="Arcane Propulsion Armor"/>
+				</feature>
+
+				<feature req="6" key="Tool Expertise" value="Your proficiency bonus is doubled for any ability check you make that uses your proficiency with a tool."/>
+				<feature req="7" key="Flash of Genius" value="When you or another creature you can see within 30 feet of you makes an ability check or a saving throw, you can use your reaction to add %%INT%% to the roll."/>
+				<feature req="11" key="Spell-Storing Item" value="(%%INT*2%%/day): The NPC's Tinker's tools have one spell stored inside, spell: |1;spell_1;spell_2"/>
+
+				<feature req="20" key="Soul of Artifice" value="If you're reduced to 0 hit points but not killed outright, you can use your reaction to consume you Infused Item which causes you to drop to 1 hit point instead of 0."/>
+			</dataval>
+		</datadict>
+	</class>
+</classes>
