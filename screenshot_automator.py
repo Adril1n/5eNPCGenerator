@@ -12,8 +12,9 @@ for (dirpath, dirnames, filenames) in os.walk('Race Screenshots'):
 	break
 
 files = sorted(files)
+files.remove('.DS_Store')
 
 for i in range(len(files)):
 	file = files[i]
-	if file[0] != ".":
-		os.rename(f"Race Screenshots/{file}", f"Race Screenshots/{i}.png")
+	print(file, f"{l[i]}.png")
+	# os.rename(f"Race Screenshots/{file}", f"Race Screenshots/{l[i]}.png")
