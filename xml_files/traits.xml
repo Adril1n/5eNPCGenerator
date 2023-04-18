@@ -1,0 +1,66 @@
+<traits>
+	<trait name="Gourmand" description="Obsessed with food, cooks a lot" />
+	<trait name="Ascetic" description="Has forsaken physical comforts and enjoyments, enjoys simplicity" />
+	<trait name="Nimble" description="Moves around with ease as if they are dancing" />
+	<trait name="Clever" description="They are good at out-of-the-box thinking" />
+	<trait name="Open-Minded" description="Doesn't judge people often, will consider even the wildest claims" />
+	<trait name="Kind" description="Exceptionally agreeable, doesn't insult others" />
+	<trait name="Sanguine" description="Exceptionally upbeat, very difficult to lower their mood" />
+	<trait name="Optimist" description="Can always find the silver lining" />
+	<trait name="Steadfast" description="Mentally strong and doesn't crumble under stress" />
+	<trait name="Brave" description="Shows courage in the face of danger" />
+	<trait name="Iron Stomach" description="Has a strong resistance to ingesting contaminants and toxins" />
+	<trait name="Night Owl" description="Is usually awake at night and asleep during the day" />
+	<trait name="Masochist" description="Likes being subjected to pain" />
+	<trait name="Transhumanist" description="Wants to enhance their body through artifice or magic" />
+	<trait name="Tortured Artist" description="Feels misunderstood by other people, wants to create the greatest piece of art" />
+	<trait name="Chemical Fascination" description="Loves altering their mental state with drugs and chemicals, suffers withdrawl quickly" />
+	<trait name="Teetotaler" description="Abhors the idea of gaining pleasure from chemicals, doesn't drink or use drugs" />
+	<trait name="Absent-Minded" description="Will sometimes completely forget what they are doing" />
+	<trait name="Obsessed Worker" description="Always focused on their job, starts feeling uneasy when not working" />
+	<trait name="Perfectionist" description="Can't bear to stop stop working on something until it is perfect" />
+	<trait name="Lazy Worker" description="Hates their job, works slowly and would much rather be doing anything else" />
+	<trait name="Clumsy" description="Constantly fumbling and dropping things" />
+	<trait name="Fidgiter" description="Is constantly fiddling with something in their hand" />
+	<trait name="Neat" description="Their environment must always be clean and tidy" />
+	<trait name="Slob" description="Doesn't care about the cleanliness of their environment" />
+	<trait name="Animal Lover" description="Loves animals, and tends to be surrounded by them" />
+	<trait name="Animal Hater" description="Can't stand animals, and often tries to avoid them" />
+	<trait name="Rebellious" description="Dislikes authority, and resists any attempt at control over them" />
+	<trait name="Compliant" description="Always obeys authority, and shows little to no resistance to new rules" />
+	<trait name="Submissive" description="Meekly obediant to others, and shows no resistance in conflict" />
+	<trait name="Dominant" description="They must be the loudest voice, have their idea pursued, and be the most powerful in the room" />
+	<trait name="Party Animal" description="Loves parties, and often tries to organise them" />
+	<trait name="Introvert" description="Doesn't like too much social interaction, and tends to be timid or blunt in conversation" />
+	<trait name="Snob" description="Believes that they are of the highest class, and looks down upon those lesser than them" />
+	<trait name="Squeamish" description="Gets grossed out easily" />
+	<trait name="Drunken Prodigy" description="Seems to perform better, work better, and just be better while they are drunk" />
+	<trait name="Stoned Prodigy" description="Seems to perform better, work better, and just be better while they are under the influence of drugs" />
+	<trait name="Hoplophobia" description="They are terrified of weapons" />
+	<trait name="Hoplophile" description="Has an irrational love for weaponry" />
+	<trait name="Autophobia" description="Has a fear of being alone" />
+	<trait name="Indecisive" description="Struggles to commit to a decision" />
+	<trait name="Hypochondriac" description="Is constantly concerned with their health, possibly beleieving that they have afflictions that they don't" />
+	<trait name="Twitchy" description="Some of their muscles seem to spasm at random" />
+	<trait name="Agoraphobia" description="Is scared of going outside" />
+	<trait name="Purist" description="Doesn't like people people who are magically inclined" />
+	<trait name="Greedy" description="Always wants more, and gets mad if they don't get it" />
+	<trait name="Jealous" description="If they see something they don't have they do what they need to get it" />
+	<trait name="Pyromaniac" description="They love watching and starting fires, and gets angry when they are extinguished" />
+	<trait name="Sadist" description="Enjoys inflicting pain on others" />
+	<trait name="Wimp" description="Cowers at the slightest notion of violence" />
+	<trait name="Abrasive" description="Exceptionally blunt, doesn't consider peoples feelings when talking" />
+	<trait name="Creepy Breathing" description="Breathes considerably heavily and sweats constantly" />
+	<trait name="Misandrist" description="Dislikes and distrusts men" />
+	<trait name="Misogynist" description="Dislikes and distrusts women" />
+	<trait name="Misanthrope" description="Dislikes and distrusts people, believes that all actions are taken for selfish reasons" />
+	<trait name="Pessimist" description="Always assumes the worst outcome" />
+	<trait name="Depressive" description="Perpetually in an awful mood, very difficult to raise their mood" />
+	<trait name="Nervous" description="Feels the strain from stress more than others" />
+	<trait name="Volatile" description="Even the smallest thing can make them explode, very quick to break under stress" />
+	<trait name="Sickly" description="They are far more likely to get sick than others" />
+	<trait name="Insomniac" description="Forever tired, they can't seem to get a good nights rest" />
+	<trait name="World Weary" description="Well versed in world/country/state politics, but are very anxious about the fallout of world events" />
+	<trait name="Desensitized" description="They have seen so many traumatic events that those same events no longer phase them" />
+	<trait name="Tycoon" description="Always looking for business opportunities, they want to own it all" />
+</traits>

@@ -7,6 +7,7 @@ class ResourceLoader():
 	def __init__(self):
 		self.xml_files = {}
 
+
 	def get_xml_root(self, xml_name):
 		filename = 'xml_files/' +  xml_name + '.xml'
 		try: 
@@ -233,7 +234,6 @@ class ResourceLoader():
 		subclasses = self.get_xml_root('subclasses')
 
 		a = {}
-		lvl = int(lvl)
 
 		for class_ in classes:
 			if class_.get('name') == class_id:
@@ -298,6 +298,106 @@ class ResourceLoader():
 							a[key] = val
 
 		return a
+
+	def get_feat(self, rng):
+		feats = self.get_xml_root('feats')
+		return list(feats)
+
+	def get_feat_data(self, rng, feat, npc):
+		a = {'name':feat.get('name')}
+
+		for dataval in feat.findall('datadict')[0].findall('dataval'):
+			key = dataval.get('key')
+			val = dataval.get('value')
+			if len(val) > 0:
+				if key == 'asi':	
+					if ';' in val:
+						aa = val.split(';')
+						ab = rng.choice(aa[1:], int(aa[0]))
+						ac = ab[0].split(',')
+					else:
+						ac = val.split(',')
+
+					a[key] = (ac[0], ac[1])
+
+				elif key == 'extended_spell_list':
+					aa = val.split(':')
+					ab = {'tier':1}
+
+					if npc.get_tag('class_bool'):
+						if 'Spellcasting' not in npc.get_tag('Features'):
+							ab['Spellcasting Ability'] = aa[0]
+						else:
+							ab['Spellcasting Ability'] = npc.get_tag('Features')['Spellcasting']['Spellcasting Ability']
+
+					else:
+						ab['Spellcasting Ability'] = aa[0]
+
+					spells = []
+					
+					for ac in aa[1:]:
+						ad = ac.split(',')
+						ae = ad[-1].split('_')
+						spell_list = self.get_spells(*ae, class_spec=npc.get_tag('Only Class Specific Spells'))
+
+						for _ in range(int(ad[0])):
+							spells.append(spell_list[rng.choice(np.arange(len(spell_list)))].get('name'))
+
+					ab['extended_spell_list'] = spells
+
+					a[key] = ab
+
+				else:
+					if ';' in val and dataval.get('req') is None:
+						aa = val.split(';')
+						ab = list(rng.choice(aa[1:], int(aa[0])))
+
+						a[key] = ab[0]
+
+					elif ';' in val and dataval.get('req') is not None:
+						aa = dataval.get('req').split('|')
+
+						if npc.get_tag('Level') >= int(aa[0]) and rng.random() < float(aa[1]):
+							ab = val.split(';')
+							ac = list(rng.choice(ab[1:], int(ab[0])))
+
+							a[key] = ac[0]
+					
+					else:
+						a[key] = val
+
+						
+
+		return a
+
+	def get_spells(self, level="", class_id="", class_spec=True):
+		spells = self.get_xml_root('spells')
+		a = []
+
+		for spell in spells:
+			if level == "" and class_id == "":
+				a.append(spell)
+			else:
+				if spell.get('level') == level and class_id in spell.get('availability') and class_spec:
+					a.append(spell)
+				elif not class_spec and spell.get('level') == level:
+					a.append(spell)
+
+
+		return a
+
+	def get_traits(self, rng, n):
+		traits = self.get_xml_root('traits')
+
+		b = {}
+		
+		for trait in traits:
+			b[trait.get('name')] = trait.get('description')
+
+		keys = list(b.keys())
+		rng.shuffle(keys)
+
+		return {k:b[k] for k in keys[:n]}
 
 
 	@staticmethod

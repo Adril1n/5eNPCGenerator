@@ -1,9 +1,9 @@
 import xml.etree.ElementTree as ET
 import csv
 
-root = ET.Element('spells')
+root = ET.Element('traits')
 
-with open('Spells.csv') as file:
+with open('leftovers/dnd  - traits.csv') as file:
 	reader = csv.reader(file)
 	dict_ = {}
 	for rows in reader:
@@ -16,30 +16,8 @@ with open('Spells.csv') as file:
 
 for key in dict_:
 	k = dict_[key]
-	sub_element = ET.SubElement(root, 'spell', name=key, level=k[0], casting_time=k[1])
-
-
-	duration = ET.SubElement(sub_element, 'duration', value=k[2])
-	sub_element.extend(duration)
-
-	school = ET.SubElement(sub_element, 'school', value=k[3])
-	sub_element.extend(school)
-
-	range_ = ET.SubElement(sub_element, 'range', value=k[4])
-	sub_element.extend(range_)
-
-	components = ET.SubElement(sub_element, 'components', value=k[5])
-	sub_element.extend(components)
-
-	availability = ET.SubElement(sub_element, 'availability', value=f"{k[6]}, {k[7]}")
-	sub_element.extend(availability)
-
-	description = ET.SubElement(sub_element, 'description', value=k[8])
-	sub_element.extend(description)
-
-	higher_levles = ET.SubElement(sub_element, 'higher_levles', value=k[9])
-	sub_element.extend(higher_levles)
+	sub_element = ET.SubElement(root, 'trait', name=key, description=dict_[key][0])
 
 tree = ET.ElementTree(root)
 ET.indent(tree, space='\t', level=0)
-tree.write('spells.xml', encoding="utf-8")
+tree.write('xml_files/traits.xml', encoding="utf-8")
