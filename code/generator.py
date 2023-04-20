@@ -5,11 +5,64 @@ from PIL import Image, ImageTk
 import webbrowser
 import colorsys
 
+from pyperclip import copy
+from time import sleep
+from functools import partial
+from tkinter.simpledialog import askstring
+
+import re
+
 from resource_loader import ResourceLoader
 
+
+class HoverInfo(tk.Menu):
+	def __init__(self, frame, canvas, ID, text, command=None):
+		self._com = command
+		self.canvas = canvas
+		self.ID = ID
+
+		tk.Menu.__init__(self, frame, tearoff=0)
+
+		toktext=re.split('\n', text)
+		for t in toktext:
+			self.add_command(label = t)
+
+		self._displayed=False
+
+		self.canvas.tag_bind(self.ID, "<Enter>", self.Display)
+		self.canvas.tag_bind(self.ID, "<Leave>", self.Remove)
+
+	def __del__(self):
+		self.canvas.tag_unbind(self.ID, "<Enter>")
+		self.canvas.tag_unbind(self.ID, "<Leave>")
+
+	def Display(self,event):
+		if not self._displayed:
+			self._displayed=True
+			self.post(event.x_root, event.y_root)
+		# if self._com != None:
+		# 	self.canvas.tag_unbind('all', "<Return>")
+		# 	self.canvas.tag_bind('all', "<Return>", self.Click)
+
+	def Remove(self, event):
+		if self._displayed:
+			self._displayed=False
+			self.unpost()
+		# if self._com != None:
+		# 	self.unbind_all("<Return>")
+
+	def Click(self, event):
+		self._com()
+
+
+
 class Rng():
-	def __init__(self):
-		self.seed = SeedSequence().entropy
+	def __init__(self, seed=None):
+		if seed is None:
+			self.seed = SeedSequence().entropy
+		else:
+			self.seed = seed
+
 		self.rng = default_rng(seed=self.seed)
 
 	def get_rng(self):
@@ -23,7 +76,6 @@ class Rng():
 class NPC():
 	def __init__(self):
 		self.tags = {}
-		self.rng_object = Rng()
 
 	def set_tag(self, key, val):
 		self.tags[key] = val
@@ -49,36 +101,102 @@ class MainFrame(tk.Frame):
 								'Race':sorted(self.controller.resource_loader.get_list('races')), 
 								'Sex':['Male', 'Female'], 
 								'Occupation':['--CLASSES--', *sorted(self.controller.resource_loader.get_list('classes')), '--JOBS--', *sorted(self.controller.resource_loader.get_list('jobs'))],
-								'Level':[*list(map((str), np.arange(1, 21))), '--Low (1-4)--', '--Medium (5-9)--', '--High (10-20)--', '--Crazy (21-100)--', '--Why? (101-1000)--'],
+								'Level':[*list(map((str), np.arange(1, 21))), '--Low (1-4)--', '--Medium (5-9)--', '--High (10-20)--', '--Crazy (21-1000)--'],
 								'Uncapped Abilities':['True', 'False'],
 								'Only Class Specific Spells':['True', 'False'],
-								'Number of Traits':[*list(map(str, np.arange(1, 11)))]
+								'Number of Traits':[*list(map(str, np.arange(1, 6)))]
 							}
 
 		self.createGUI()
 
 	def createGUI(self):
 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
-		self.canvas.place(relx=0, rely=0, anchor='nw')
+		self.canvas.place(x=0, y=0, anchor='nw')
 
 		for var in self.vars_list:
-			lbl = tk.Label(self, text=var, font=('gothic', 18))
+			lbl = tk.Label(self, text=var, font=('Arial', 18))
 			lbl.place(relx=0.1, rely=((0.1 + self.vars_list.index(var)/10)-0.035), anchor='c')
 
 			string_var = tk.StringVar(self, '--Random--')
 			self.string_vars[var] = string_var
 			
 			opt_m = tk.OptionMenu(self, string_var, *['--Random--', *self.var_choices[var]])
-			opt_m.config(font=('gothic', 18), width=20)
+			opt_m.config(font=('Arial', 18), width=20)
 			opt_m.place(relx=0.1, rely=(0.1 + self.vars_list.index(var)/10), anchor='c')
 
-		# self.description = self.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n", font=('gothic', 18), width=500) 
+		# self.description = self.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n", font=('Arial', 18), width=500) 
 
-		self.canvas.create_line(300, 0, 300, 800, fill="black", width=20)
-		# self.canvas.create_line(867, 0, 867, 800, fill="#750E00", width=10)
+		self.canvas.create_line(300, 0, 300, 800, fill="#300B05", width=20)
+		self.canvas.create_line(857, 0, 857, 800, fill="#8F1F0E", width=10)
+
+		self.canvas.create_line(310, 270, 857, 270, fill="#8F1F0E", width=10)
+		self.canvas.create_line(857, 605, 1430, 605, fill="#8F1F0E", width=10)
 
 		gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg='#9b0707', relief='groove', command=self.controller.generate)
 		gen_btn.place(relx=0.1, rely=0.9, anchor='c')
+
+		rng_lbl = tk.Label(self, text="RNG Seed Input", font=('Arial', 16)).place(relx=0.1, rely=0.83, anchor='s')
+
+		self.rng_ent = tk.Entry(self)
+		self.rng_ent.place(relx=0.1, rely=0.85, anchor='c')
+
+	def NPC_GUI(self, npc):
+		self.canvas.delete('text')
+		print(npc.tags)
+
+		## PARAMETERS
+		self.canvas.create_text(315, 0, anchor='nw', text="Parameters:\n", font=('Arial', 24), width=547, tags=['text', 'header', 'parameter'])
+		
+		parameters = (*self.vars_list, 'rng_seed')
+		for parameter in parameters:
+			text = f"{parameter}: {npc.get_tag(parameter)}"
+			text_body = self.canvas.create_text(315, 26+(parameters.index(parameter)*31), anchor='nw', text=text, font=('Arial', 13), width=542, tags=['text', 'body', 'parameter', parameter])
+
+			self.canvas.tag_bind(text_body, '<ButtonPress-1>', partial(self.copy_text, text_body, text))
+			self.canvas.tag_bind(text_body, '<ButtonPress-2>', partial(self.edit_text, text_body, text))
+
+			if parameter == 'Occupation' and not npc.get_tag('class_bool'):
+				occ = self.controller.resource_loader.get_occupation_description(npc.get_tag('Occupation'))
+				occ_desc = f"{occ[0]}{occ[1:-1].lower()}"
+
+				self.canvas.itemconfigure(text_body, text=f"{text} ({occ_desc})")
+
+		# self.canvas.create_rectangle(310, 275, 852, 800, fill="#8F7E71", width=0)
+
+		## STATBLOCK
+		### CLASSIFICATION AND NAME
+		self.canvas.create_text(315, 290, anchor='nw', text="NPC NAME", font=('Baskerville', 24), width=547, tags=['text', 'header', 'statblock'], fill="#1ABED9")
+		self.canvas.create_text(315, 317, anchor='nw', text=f"{npc.get_tag('Appearance')['size'][0].title()} Humaniod ({npc.get_tag('Sex').lower()} {npc.get_tag('Race')}), any alignment", font=('Arial-ItalicMT', 13), tags=['text', 'body', 'statblock', 'classification'])
+		self.canvas.create_polygon(315, 335, 800, 335+2, 315, 335+4, fill="#2358CC")
+		
+		###	TRAITS
+		traits = npc.get_tag('Traits')
+		traits_body = self.canvas.create_text(315, 345, anchor='nw', text="Personality Traits: ", font=('Arial-BoldMT'), tags=['text', 'body', 'statblock', 'traits'])
+
+		for trait in traits:
+			print(trait)
+
+		# a = self.canvas.create_polygon(315, 400, 800, 400+2, 315, 500+4, fill="#2358CC")
+		# self.canvas.tag_bind(a, '<Enter>', lambda e: self.config(cursor='aliasarrow'))
+		# self.canvas.tag_bind(a, '<Leave>', lambda e: self.config(cursor='arrow'))
+
+
+	def copy_text(self, body, text, *args):
+		self.canvas.itemconfigure(body, text="Copied!")
+		copy(text[text.find(': ')+2:])
+		self.parent.after(500, partial(self.normal_text, body, text))
+
+	def normal_text(self, body, text, *args):
+		self.canvas.itemconfigure(body, text=text)
+
+	def edit_text(self, body, text, *args):
+		a = askstring('Edit Text', 'New Text Here: ')
+		
+		self.canvas.itemconfigure(body, text=f"{text[:text.find(': ')+2]}{a}")
+	
+
+
+
 
 
 class Generator():
@@ -89,6 +207,7 @@ class Generator():
 		self.resource_loader = ResourceLoader.get_instance()
 
 		self.NPCs = []
+		self.rng_object = Rng()
 
 		self.createGUI()
 
@@ -113,10 +232,15 @@ class Generator():
 
 		npc = NPC()
 
-		rng = npc.rng_object.get_rng()
+		if self.frames['MainFrame'].rng_ent.get():
+			self.rng_object = Rng(seed=int(self.frames['MainFrame'].rng_ent.get()))
+		else:			
+			self.rng_object = Rng()
 
-		npc.set_tag('rng', npc.rng_object.get_seed())
+		rng = self.rng_object.get_rng()
+		npc.set_tag('rng_seed', self.rng_object.get_seed())
 
+		
 		## BASIC ATTRIBUTES FOR NPC: LEVEL, OCCUPATION, RACE, SEX, UNCAPPED ABILITIES
 		for opt_var in child.vars_list:
 			str_var = child.string_vars[opt_var].get()
@@ -133,7 +257,7 @@ class Generator():
 			else:				
 				if str_var[0] == "-":
 					if opt_var == 'Level':	
-						levels = {'L':(4, 1), 'M':(5, 5), 'H':(11, 10), 'C':(80, 21), 'W':(900, 101)}
+						levels = {'L':(4, 1), 'M':(5, 5), 'H':(11, 10), 'C':(980, 21)}
 						var = np.floor(rng.random()*levels[str_var[2]][0]+levels[str_var[2]][1]).astype('int')
 					elif opt_var == 'Occupation':
 						var = rng.choice(sorted(self.resource_loader.get_list(str_var[2:-2].lower())))
@@ -159,6 +283,14 @@ class Generator():
 
 		## SUBRACE
 		npc.set_tag('Subrace', self.resource_loader.get_subrace(rng, npc.get_tag('Race')))
+
+		## SUBCLASS INIT
+		if npc.get_tag('class_bool'):
+			## SUBCLASS
+			npc.set_tag('Subclass', self.resource_loader.get_subclass(rng, npc.get_tag('Occupation')))
+
+			## CLASS FEATURES
+			npc.set_tag('Features', self.resource_loader.get_class_features(rng, npc.get_tag('Occupation'), npc.get_tag('Subclass'), npc.get_tag('Level')))
 
 
 		## ABILITIES
@@ -215,11 +347,7 @@ class Generator():
 			armr_dict = self.resource_loader.get_armor(rng, npc.get_tag('Class Proficiencies')['armor'], npc.get_tag('Abilities')['STR'][0])
 			npc.set_tag('Armor', f"Armor: {armr_dict['name']} Armor, Stealth Dis.: {armr_dict['stealth_dis']}")
 
-			## SUBCLASS
-			npc.set_tag('Subclass', self.resource_loader.get_subclass(rng, npc.get_tag('Occupation')))
-
-			## CLASS FEATURES
-			npc.set_tag('Features', self.resource_loader.get_class_features(rng, npc.get_tag('Occupation'), npc.get_tag('Subclass'), npc.get_tag('Level')))
+			
 
 
 	
@@ -243,20 +371,24 @@ class Generator():
 		die = 8 if 'medium' in npc.get_tag('Appearance')['size'][0] else 6
 		hp = np.array(rng.choice(die, npc.get_tag('Level')) + 1) + npc.get_tag('Abilities')['CON'][1]
 		
-		npc.set_tag('Hit Points', sum(hp))
+		npc.set_tag('Hit Points', max(sum(hp), 1))
 
-
-
-		print("\n"*3, npc.tags)
 
 
 
 		img = Image.open(f"Race Screenshots/{npc.get_tag('Subrace')}.png")
-		img = img.resize((min(round(img.width//1.5), 850), min(round(img.height//1.5), 750)))
+		img = img.resize((min(round(img.width//1.5), 850), min(round(img.height//1.5), 600)))
 		self.p_img = ImageTk.PhotoImage(image=img)
 
-		race_desc = child.canvas.create_image(1430, 50, anchor='ne', image=self.p_img)
+		race_desc = child.canvas.create_image(1430, 0, anchor='ne', image=self.p_img)
 		race_url = [x for x in npc.get_tag('Subrace') if x not in ('(', ')')]
+
+		child.canvas.tag_bind(race_desc, '<ButtonPress-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
+
+
+
+
+		self.frames['MainFrame'].NPC_GUI(npc)
 
 		# child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
 
@@ -291,7 +423,7 @@ class Generator():
 
 
 		# child.canvas.delete(child.description)
-		# child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('gothic', 18), width=500) 
+		# child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('Arial', 18), width=500) 
 
 	def generate_abilities(self, rng, npc):
 		abilities = {'DEX':10, 'STR':10, 'CON':10, 'INT':10, 'WIS':10, 'CHA':10}
@@ -309,7 +441,7 @@ class Generator():
 			except KeyError:
 				var = sum(rolls)
 
-			score = min(var, 20) if not npc.get_tag('Uncapped Abilities') else var
+			score = max(min(var, 20), 1) if not npc.get_tag('Uncapped Abilities') else var
 			abilities[ability] = (score, (score-10)//2)
 
 		return abilities
@@ -358,7 +490,7 @@ class Generator():
 		final = {}
 		for ability in bonuses:
 			var = npc.get_tag('Abilities')[ability][0] + bonuses[ability]
-			score = min(var, 20) if not npc.get_tag('Uncapped Abilities') else var
+			score = max(min(var, 20), 1) if not npc.get_tag('Uncapped Abilities') else var
 
 			final[ability] = (score, (score-10)//2)
 
