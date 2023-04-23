@@ -8,7 +8,7 @@
 				<proficiency key="weapons" value="simple"/>
 				<proficiency key="tools" value="Thieves':Tinker's:1;Alchemist's;Brewer's;Calligrapher's;Carpenter's;Cartographer's;Cobbler's;Cook's;Glassblower's;Jeweler's;Leatherworker's;Mason's;Painter's;Potter's;Smith's;Weaver's;Woodcarver's"/>
 				<proficiency key="saving throws" value="CON:INT"/>
-				<proficiency key="skills" value="2;Arcana;History;Investigation;Medicine;Nature;Perception;Sleight of Hand"/>
+				<proficiency key="skills" value="5;Arcana;History;Investigation;Medicine;Nature;Perception;Sleight of Hand"/>
 			</dataval>
 			<dataval key="features" value="dict">
 				<feature req="1" key="Spellcasting" value="dict_spellcasting">

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<skills>
+	<skill name="Athletics" ability="STR"/>
+
+	<skill name="Acrobatics" ability="DEX"/>
+	<skill name="Sleight of Hand" ability="DEX"/>
+	<skill name="Stealth" ability="DEX"/>
+
+	<skill name="Arcana" ability="INT"/>
+	<skill name="History" ability="INT"/>
+	<skill name="Investigation" ability="INT"/>
+	<skill name="Nature" ability="INT"/>
+	<skill name="Religion" ability="INT"/>
+
+	<skill name="Animal Handling" ability="WIS"/>
+	<skill name="Insight" ability="WIS"/>
+	<skill name="Medicine" ability="WIS"/>
+	<skill name="Perception" ability="WIS"/>
+	<skill name="Survival" ability="WIS"/>
+
+	<skill name="Deception" ability="CHA"/>
+	<skill name="Intimidation" ability="CHA"/>
+	<skill name="Performance" ability="CHA"/>
+	<skill name="Persuasion" ability="CHA"/>
+</skills>

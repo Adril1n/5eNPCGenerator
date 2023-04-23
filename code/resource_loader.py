@@ -95,11 +95,11 @@ class ResourceLoader():
 								a[key] = aa
 							elif ';' in val and ':' not in val:
 								aa = val.split(';')
-								a[key] = list(rng.choice(aa[1:], int(aa[0])))
+								a[key] = list(rng.choice(aa[1:], int(aa[0]), replace=False))
 							elif ';' in val and ':' in val:
 								aa = val.split(':')
 								ab = aa[-1].split(';')
-								ac = list(rng.choice(ab[1:], int(ab[0])))
+								ac = list(rng.choice(ab[1:], int(ab[0]), replace=False))
 
 								ad = []
 
@@ -136,7 +136,7 @@ class ResourceLoader():
 										a[key] = aa
 									elif ':' not in val and ';' in val and '-' not in val:
 										aa = val.split(';')
-										a[key] = list(rng.choice(aa[1:], int(aa[0])))
+										a[key] = list(rng.choice(aa[1:], int(aa[0]), replace=False))
 									else:
 										aa = val.split('-')
 										ab = rng.integers(int(aa[0]), high=int(aa[1])+1)
@@ -149,7 +149,7 @@ class ResourceLoader():
 													ac = age_dict[bin_]
 													break
 
-											ab = f"Age: {ab} ({ac}, {aa[0]}->{aa[1]})"
+											ab = f"{ab} ({ac})"
 
 											a[key] = [ab]
 										else:
@@ -256,7 +256,7 @@ class ResourceLoader():
 								elif '|' in val:
 									aa = val.split('|')
 									ab = aa[-1].split(';')
-									ac = list(rng.choice(ab[1:], int(ab[0])))
+									ac = list(rng.choice(ab[1:], int(ab[0]), replace=False))
 									a[key] = ac
 
 								elif val == 'dict_spellcasting':
@@ -290,7 +290,7 @@ class ResourceLoader():
 
 									elif ';' in item_val:
 										ab = item_val.split(';')
-										aa.extend(list(rng.choice(ab[1:], int(ab[0]))))
+										aa.extend(list(rng.choice(ab[1:], int(ab[0]), replace=False)))
 
 							a[key] = aa
 
@@ -313,7 +313,7 @@ class ResourceLoader():
 				if key == 'asi':	
 					if ';' in val:
 						aa = val.split(';')
-						ab = rng.choice(aa[1:], int(aa[0]))
+						ab = rng.choice(aa[1:], int(aa[0]), replace=False)
 						ac = ab[0].split(',')
 					else:
 						ac = val.split(',')
@@ -350,7 +350,7 @@ class ResourceLoader():
 				else:
 					if ';' in val and dataval.get('req') is None:
 						aa = val.split(';')
-						ab = list(rng.choice(aa[1:], int(aa[0])))
+						ab = list(rng.choice(aa[1:], int(aa[0]), replace=False))
 
 						a[key] = ab[0]
 
@@ -359,7 +359,7 @@ class ResourceLoader():
 
 						if npc.get_tag('Level') >= int(aa[0]) and rng.random() < float(aa[1]):
 							ab = val.split(';')
-							ac = list(rng.choice(ab[1:], int(ab[0])))
+							ac = list(rng.choice(ab[1:], int(ab[0]), replace=False))
 
 							a[key] = ac[0]
 					
@@ -398,6 +398,15 @@ class ResourceLoader():
 		rng.shuffle(keys)
 
 		return {k:b[k] for k in keys[:n]}
+
+	def get_ability_for_skill(self, name):
+		skills = self.get_xml_root('skills')
+
+		for skill in skills:
+			if skill.get('name') == name:
+				return skill.get('ability')
+
+		return None
 
 
 	@staticmethod
