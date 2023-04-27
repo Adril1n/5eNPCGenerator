@@ -318,19 +318,21 @@ class MainFrame(tk.Frame):
 
 		blurb = f"{npc.get_tag('Name')} is a {npc.get_tag('Appearance')['age'][0][:npc.get_tag('Appearance')['age'][0].find('(')-1]} year old {npc.get_tag('Sex')} {npc.get_tag('Race')} {npc.get_tag('Occupation')}"
 
-		blurb_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Blurb ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'blurb'])
+		blurb_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_withtag('text')[-1])[3]+3, anchor='nw', text=f"Blurb ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'blurb'])
 		blurb_body_desc = self.canvas.create_text(self.canvas.bbox(blurb_body_main)[2], self.canvas.bbox(blurb_body_main)[1], anchor='nw', text=blurb, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'blurb'])
 
 
+		race_pic_main = self.canvas.create_text(1146, 10, anchor='n', text=f"{npc.get_tag('Subrace')} Traits", font=('Arial-BoldMT', 20), tags=['text', 'body', 'main', 'picture'])
+		self.canvas.create_line(self.canvas.bbox(race_pic_main)[0]-20, 40, self.canvas.bbox(race_pic_main)[2]+20, 40, fill=statblock_clr, width=5, tags=['break'])
+		
 		img = Image.open(f"Race Screenshots/{npc.get_tag('Subrace')}.png")
-		img = img.resize((min(round(img.width//1.5), 573), min(round(img.height//1.5), 700)))
+		img = img.resize((568, min(round(img.height//1.5), 700)))
 		self.p_img = ImageTk.PhotoImage(image=img)
 
-		race_pic = self.canvas.create_image(1430, 0, anchor='ne', image=self.p_img, tags='picture')
+		race_pic = self.canvas.create_image(1430, 50, anchor='ne', image=self.p_img, tags='picture')
 		race_url = [x for x in npc.get_tag('Subrace') if x not in ('(', ')')]
 
 		self.canvas.tag_bind(race_pic, '<ButtonPress-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
-
 
 
 		## BREAKS
@@ -356,7 +358,7 @@ class MainFrame(tk.Frame):
 	def add_statblock_break(self, body, clr, mod=5):
 		bounds = self.canvas.bbox(body)
 
-		a = self.canvas.create_polygon(315, bounds[3]+mod, 800, bounds[3]+mod+2, 315, bounds[3]+mod+4, fill=clr, tags=['break'])
+		self.canvas.create_polygon(315, bounds[3]+mod, 800, bounds[3]+mod+2, 315, bounds[3]+mod+4, fill=clr, tags=['break'])
 
 
 
