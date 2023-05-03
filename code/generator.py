@@ -120,7 +120,7 @@ class MainFrame(tk.Frame):
 		self.canvas.place(x=0, y=0, anchor='nw')
 
 		# divide_clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), np.random.random((3, )))))
-		divide_clr = "#555555"
+		# divide_clr = "#555555"
 
 		for var in self.vars_list:
 			lbl = tk.Label(self, text=var, font=('Arial', 18))
@@ -135,212 +135,234 @@ class MainFrame(tk.Frame):
 
 		# self.description = self.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n", font=('Arial', 18), width=500) 
 
-		self.canvas.create_line(300, 0, 300, 800, fill=divide_clr, width=20, tags=['break'])
-		self.canvas.create_line(857, 0, 857, 800, fill=divide_clr, width=10, tags=['break'])
+		# self.canvas.create_line(300, 0, 300, 800, fill=divide_clr, width=20, tags=['break'])
+		# self.canvas.create_line(857, 0, 857, 800, fill=divide_clr, width=10, tags=['break'])
 
-		self.canvas.create_line(310, 270, 857, 270, fill=divide_clr, width=10, tags=['break'])
-		self.canvas.create_line(857, 605, 1430, 605, fill=divide_clr, width=10, tags=['break'])
+		# self.canvas.create_line(310, 270, 857, 270, fill=divide_clr, width=10, tags=['break'])
+		# self.canvas.create_line(857, 605, 1430, 605, fill=divide_clr, width=10, tags=['break'])
 
 		gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg='#9b0707', relief='groove', command=self.controller.generate)
 		gen_btn.place(relx=0.1, rely=0.9, anchor='c')
 
-		rng_lbl = tk.Label(self, text="RNG Seed Input", font=('Arial', 16)).place(relx=0.1, rely=0.83, anchor='s')
+		rng_lbl = tk.Label(self, text="RNG Seed Input", font=('Arial', 16))
+		rng_lbl.place(relx=0.1, rely=0.83, anchor='s')
 
 		self.rng_ent = tk.Entry(self)
 		self.rng_ent.place(relx=0.1, rely=0.85, anchor='c')
 
+		sheet_btn = tk.Button(self, text='See Character Sheet', font=('Good Times', 45), command=self.controller.sheet_init)
+		sheet_btn.place(relx=0.6, rely=0.9, anchor='c')
+
+
+
 	def NPC_GUI(self, npc, rng):
 		self.canvas.delete('all')
 
-		statblock_clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), rng.random((3, )))))
 
-		print(npc.tags)
 
-		## PARAMETERS
-		self.canvas.create_text(315, 0, anchor='nw', text="Parameters:\n", font=('Arial', 24), width=547, tags=['text', 'header', 'parameter'])
+
+
+
+
+
+
+
+
+		# print(npc.tags)
+
+		# for tag in npc.tags:
+		# 	if tag != 'rng_seed':
+		# 		self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+5, anchor='nw', text=f"{tag} : {npc.get_tag(tag)}", font=('Arial', 14), width=1000)
+		# 	else:
+		# 		self.canvas.create_text(315, 10, anchor='nw', text=f"{tag} : {npc.get_tag(tag)}", font=('Arial', 14))
+
+		# statblock_clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), rng.random((3, )))))
+
+
+		# self.canvas.create_text(315, 0, anchor='nw', text="Parameters:\n", font=('Arial', 24), width=547, tags=['text', 'header', 'parameter'])
 		
-		parameters = (*self.vars_list, 'rng_seed')
-		for parameter in parameters:
-			text = f"{parameter}: {npc.get_tag(parameter)}"
-			text_body = self.canvas.create_text(315, 35+(parameters.index(parameter)*31), anchor='nw', text=text, font=('Arial', 13), width=542, tags=['text', 'body', 'parameter', parameter])
+		# parameters = (*self.vars_list, 'rng_seed')
+		# for parameter in parameters:
+		# 	text = f"{parameter}: {npc.get_tag(parameter)}"
+		# 	text_body = self.canvas.create_text(315, 35+(parameters.index(parameter)*31), anchor='nw', text=text, font=('Arial', 13), width=542, tags=['text', 'body', 'parameter', parameter])
 
-			self.canvas.tag_bind(text_body, '<ButtonPress-1>', partial(self.copy_text, text_body, text))
-			self.canvas.tag_bind(text_body, '<ButtonPress-2>', partial(self.edit_text, text_body, text))
+		# 	self.canvas.tag_bind(text_body, '<ButtonPress-1>', partial(self.copy_text, text_body, text))
+		# 	self.canvas.tag_bind(text_body, '<ButtonPress-2>', partial(self.edit_text, text_body, text))
 
-			if parameter == 'Occupation' and not npc.get_tag('class_bool'):
-				occ = self.controller.resource_loader.get_occupation_description(npc.get_tag('Occupation'))
-				occ_desc = f"{occ[0]}{occ[1:-1].lower()}"
-				self.attach_tooltip(text_body, text=occ_desc, display_type='description')
+		# 	if parameter == 'Occupation' and not npc.get_tag('class_bool'):
+		# 		occ = self.controller.resource_loader.get_occupation_description(npc.get_tag('Occupation'))
+		# 		occ_desc = f"{occ[0]}{occ[1:-1].lower()}"
+		# 		self.attach_tooltip(text_body, text=occ_desc, display_type='description')
 
 
-		## STATBLOCK
-		### CLASSIFICATION AND NAME
-		self.canvas.create_text(315, 282, anchor='nw', text=f"{npc.get_tag('Name')}", font=('Baskerville', 24), width=547, tags=['text', 'header', 'statblock'], fill=statblock_clr)
-		classification_body = self.canvas.create_text(315, 310, anchor='nw', text=f"{npc.get_tag('Appearance')['size'][0].title()} Humaniod ({npc.get_tag('Sex').lower()} {npc.get_tag('Race')}), any alignment", font=('Arial-ItalicMT', 13), tags=['text', 'body', 'statblock', 'classification'])
-		self.add_statblock_break(classification_body, statblock_clr)
+		# ## STATBLOCK
+		# ### CLASSIFICATION AND NAME
+		# self.canvas.create_text(315, 282, anchor='nw', text=f"{npc.get_tag('Name')}", font=('Baskerville', 24), width=547, tags=['text', 'header', 'statblock'], fill=statblock_clr)
+		# classification_body = self.canvas.create_text(315, 310, anchor='nw', text=f"{npc.get_tag('Appearance')['size'][0].title()} Humaniod ({npc.get_tag('Sex').lower()} {npc.get_tag('Race')}), any alignment", font=('Arial-ItalicMT', 13), tags=['text', 'body', 'statblock', 'classification'])
+		# self.add_statblock_break(classification_body, statblock_clr)
 		
-		###	TRAITS
-		trait = npc.get_tag('Trait')
-		trait_body_main = self.canvas.create_text(315, self.canvas.bbox(classification_body)[3]+15, anchor='nw', text=f"Personality Trait ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'trait'])
+		# ###	TRAITS
+		# trait = npc.get_tag('Trait')
+		# trait_body_main = self.canvas.create_text(315, self.canvas.bbox(classification_body)[3]+15, anchor='nw', text=f"Personality Trait ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'trait'])
 		
-		trait_body_desc = self.canvas.create_text(self.canvas.bbox(trait_body_main)[2], self.canvas.bbox(trait_body_main)[1], anchor='nw', text=list(trait.keys())[0], font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'trait'])
-		self.attach_tooltip(trait_body_desc, trait[list(trait.keys())[0]], display_type='description')
-		self.add_statblock_break(trait_body_desc, statblock_clr)
+		# trait_body_desc = self.canvas.create_text(self.canvas.bbox(trait_body_main)[2], self.canvas.bbox(trait_body_main)[1], anchor='nw', text=list(trait.keys())[0], font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'trait'])
+		# self.attach_tooltip(trait_body_desc, trait[list(trait.keys())[0]], display_type='description')
+		# self.add_statblock_break(trait_body_desc, statblock_clr)
 
 	
-		### BASIC STATS
-		#### AC
-		ac_body_main = self.canvas.create_text(315, self.canvas.bbox(trait_body_desc)[3]+15, anchor='nw', text=f"Armor Class ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'armor class'])
-		ac_body_desc = self.canvas.create_text(self.canvas.bbox(ac_body_main)[2], self.canvas.bbox(ac_body_main)[1], anchor='nw', text=f"{npc.get_tag('AC')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'armor class'])
+		# ### BASIC STATS
+		# #### AC
+		# ac_body_main = self.canvas.create_text(315, self.canvas.bbox(trait_body_desc)[3]+15, anchor='nw', text=f"Armor Class ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'armor class'])
+		# ac_body_desc = self.canvas.create_text(self.canvas.bbox(ac_body_main)[2], self.canvas.bbox(ac_body_main)[1], anchor='nw', text=f"{npc.get_tag('AC')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'armor class'])
 
-		if npc.get_tag('class_bool'):
-			self.canvas.itemconfigure(ac_body_desc, text=f"{npc.get_tag('AC')} ({npc.get_tag('Armor')})")
+		# if npc.get_tag('class_bool'):
+		# 	self.canvas.itemconfigure(ac_body_desc, text=f"{npc.get_tag('AC')} ({npc.get_tag('Armor')})")
 
-		#### HP
-		hp_body_main = self.canvas.create_text(315, self.canvas.bbox(ac_body_desc)[3]+5, anchor='nw', text=f"Hit Points ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'hit points'])
+		# #### HP
+		# hp_body_main = self.canvas.create_text(315, self.canvas.bbox(ac_body_desc)[3]+5, anchor='nw', text=f"Hit Points ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'hit points'])
 		
-		lvl = npc.get_tag('Level')
-		hd = 8 if 'medium' in npc.get_tag('Appearance')['size'][0] else 6
-		hp_mod = npc.get_tag('Abilities')['CON'][1]*lvl
+		# lvl = npc.get_tag('Level')
+		# hd = 8 if 'medium' in npc.get_tag('Appearance')['size'][0] else 6
+		# hp_mod = npc.get_tag('Abilities')['CON'][1]*lvl
 
-		plus, minus = "+", "-"
-		hp_roll = f"{lvl}d{hd} {plus if hp_mod >= 0 else minus} {abs(hp_mod)}"
-		hp_roll_avg = ((lvl*hd+(hp_mod))+(lvl+hp_mod))//2
+		# plus, minus = "+", "-"
+		# hp_roll = f"{lvl}d{hd} {plus if hp_mod >= 0 else minus} {abs(hp_mod)}"
+		# hp_roll_avg = ((lvl*hd+(hp_mod))+(lvl+hp_mod))//2
 
-		hp_text_var = f"Rolled: {npc.get_tag('Hit Points')} | Average: {hp_roll_avg} ({hp_roll})"
+		# hp_text_var = f"Rolled: {npc.get_tag('Hit Points')} | Average: {hp_roll_avg} ({hp_roll})"
 		
-		hp_body_desc = self.canvas.create_text(self.canvas.bbox(hp_body_main)[2], self.canvas.bbox(hp_body_main)[1], anchor='nw', text=f"{hp_text_var}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'hit points'])
+		# hp_body_desc = self.canvas.create_text(self.canvas.bbox(hp_body_main)[2], self.canvas.bbox(hp_body_main)[1], anchor='nw', text=f"{hp_text_var}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'hit points'])
 
-		#### Speed
-		speeds = npc.get_tag('Speeds')
-		speed_body_main = self.canvas.create_text(315, self.canvas.bbox(hp_body_desc)[3]+5, anchor='nw', text=f"Speed ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'speed'])
+		# #### Speed
+		# speeds = npc.get_tag('Speeds')
+		# speed_body_main = self.canvas.create_text(315, self.canvas.bbox(hp_body_desc)[3]+5, anchor='nw', text=f"Speed ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'speed'])
 
-		speed_body_desc_1 = self.canvas.create_text(self.canvas.bbox(speed_body_main)[2], self.canvas.bbox(speed_body_main)[1], anchor='nw', text=f"{speeds[0][:-1]} ft{speeds[0][-1]} ", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'speed'])
-		if len(speeds) > 1:
-			speed_body_desc_2 = self.canvas.create_text(self.canvas.bbox(speed_body_desc_1)[2], self.canvas.bbox(speed_body_desc_1)[1], anchor='nw', text=f"{speeds[1][:-1]} ft{speeds[1][-1]} ", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'speed'])
+		# speed_body_desc_1 = self.canvas.create_text(self.canvas.bbox(speed_body_main)[2], self.canvas.bbox(speed_body_main)[1], anchor='nw', text=f"{speeds[0][:-1]} ft{speeds[0][-1]} ", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'speed'])
+		# if len(speeds) > 1:
+		# 	speed_body_desc_2 = self.canvas.create_text(self.canvas.bbox(speed_body_desc_1)[2], self.canvas.bbox(speed_body_desc_1)[1], anchor='nw', text=f"{speeds[1][:-1]} ft{speeds[1][-1]} ", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'speed'])
 
-		self.add_statblock_break(speed_body_desc_1, statblock_clr)
+		# self.add_statblock_break(speed_body_desc_1, statblock_clr)
 
-		### Abilities
-		abilities = npc.get_tag('Abilities')
+		# ### Abilities
+		# abilities = npc.get_tag('Abilities')
 
-		for ability in abilities:
-			ability_body_main = self.canvas.create_text(340+(list(abilities.keys()).index(ability))*80, self.canvas.bbox(speed_body_desc_1)[3]+15, anchor='nw', text=f"{ability}", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'abilities', ability])
+		# for ability in abilities:
+		# 	ability_body_main = self.canvas.create_text(340+(list(abilities.keys()).index(ability))*80, self.canvas.bbox(speed_body_desc_1)[3]+15, anchor='nw', text=f"{ability}", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'abilities', ability])
 
-			mod_desc = f"+{abilities[ability][1]}" if abilities[ability][1] >= 0 else f"{abilities[ability][1]}" 
-			ability_body_desc = self.canvas.create_text((self.canvas.bbox(ability_body_main)[0]+self.canvas.bbox(ability_body_main)[2])/2, self.canvas.bbox(ability_body_main)[3]+3, anchor='n', text=f"{abilities[ability][0]} ({mod_desc})", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'abilities', ability])
+		# 	mod_desc = f"+{abilities[ability][1]}" if abilities[ability][1] >= 0 else f"{abilities[ability][1]}" 
+		# 	ability_body_desc = self.canvas.create_text((self.canvas.bbox(ability_body_main)[0]+self.canvas.bbox(ability_body_main)[2])/2, self.canvas.bbox(ability_body_main)[3]+3, anchor='n', text=f"{abilities[ability][0]} ({mod_desc})", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'abilities', ability])
 
-		self.add_statblock_break(self.canvas.find_all()[-1], statblock_clr)
+		# self.add_statblock_break(self.canvas.find_all()[-1], statblock_clr)
 
 
-		### MISC STATS
-		#### SAVING THROWS AND ALL THAT
-		if npc.get_tag('class_bool'):
+		# ### MISC STATS
+		# #### SAVING THROWS AND ALL THAT
+		# if npc.get_tag('class_bool'):
 
-			##### SAVING THROWS
-			saving_throws_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-2])[3]+15, anchor='nw', text=f"Saving Throws ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'saving_throws'])
+		# 	##### SAVING THROWS
+		# 	saving_throws_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-2])[3]+15, anchor='nw', text=f"Saving Throws ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'saving_throws'])
 
-			sts = npc.get_tag('Class Proficiencies')['saving throws']
+		# 	sts = npc.get_tag('Class Proficiencies')['saving throws']
 
-			for st in sts:
-				mod_desc = f"+{npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1]}" if npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1] >= 0 else {npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1]}
+		# 	for st in sts:
+		# 		mod_desc = f"+{npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1]}" if npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1] >= 0 else {npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1]}
 
-				a = f"{st} {mod_desc}, " if sts.index(st) == 0 else f"{st} {mod_desc}"
-				saving_throws_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'saving_throws'])
+		# 		a = f"{st} {mod_desc}, " if sts.index(st) == 0 else f"{st} {mod_desc}"
+		# 		saving_throws_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'saving_throws'])
 
-			##### SKILLS (AND TOOLS)
-			skills_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Skills ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'skills'])
-			skills = npc.get_tag('Class Proficiencies')['skills']
+		# 	##### SKILLS (AND TOOLS)
+		# 	skills_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Skills ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'skills'])
+		# 	skills = npc.get_tag('Class Proficiencies')['skills']
 
-			for skill in skills:
-				skill_ab = self.controller.resource_loader.get_ability_for_skill(skill)
-				mod_desc = f"+{npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1]}" if npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1] >= 0 else {npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1]}
+		# 	for skill in skills:
+		# 		skill_ab = self.controller.resource_loader.get_ability_for_skill(skill)
+		# 		mod_desc = f"+{npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1]}" if npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1] >= 0 else {npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1]}
 
-				a = f"{skill} {mod_desc}, " if skills.index(skill) < len(skills)-1 else f"{skill} {mod_desc}"
-				skill_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'skills'])
+		# 		a = f"{skill} {mod_desc}, " if skills.index(skill) < len(skills)-1 else f"{skill} {mod_desc}"
+		# 		skill_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'skills'])
 
-			try:
-				tools = npc.get_tag('Class Proficiencies')['tools']
-			except KeyError:
-				tools = None
+		# 	try:
+		# 		tools = npc.get_tag('Class Proficiencies')['tools']
+		# 	except KeyError:
+		# 		tools = None
 
-			if tools is not None:
-				tools_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Tools ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'tools'])
+		# 	if tools is not None:
+		# 		tools_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Tools ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'tools'])
 
-				for tool in tools:
-					a = f"{tool}, " if tools.index(tool) < len(tools)-1 else f"{tool}"
-					tool_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'tools'])
+		# 		for tool in tools:
+		# 			a = f"{tool}, " if tools.index(tool) < len(tools)-1 else f"{tool}"
+		# 			tool_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'tools'])
 
-		##### SENSES
-		senses_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Senses ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'senses'])
-		passive_p_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=f"passive Perception {10+npc.get_tag('Abilities')['WIS'][1]}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'senses'])
+		# ##### SENSES
+		# senses_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Senses ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'senses'])
+		# passive_p_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=f"passive Perception {10+npc.get_tag('Abilities')['WIS'][1]}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'senses'])
 
-		##### LANGUAGES
-		languages_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Languages ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'languages'])
+		# ##### LANGUAGES
+		# languages_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Languages ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'languages'])
 		
-		for language in npc.get_tag('Languages'):
-			desc = f"{language[:language.find('(')-1]}, " if npc.get_tag('Languages').index(language) < len(npc.get_tag('Languages'))-1 else f"{language[:language.find('(')-1]}"
-			language_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=desc, font=('Arial', 13, 'underline'), tags=['text', 'body', 'desc', 'statblock', 'languages'])
+		# for language in npc.get_tag('Languages'):
+		# 	desc = f"{language[:language.find('(')-1]}, " if npc.get_tag('Languages').index(language) < len(npc.get_tag('Languages'))-1 else f"{language[:language.find('(')-1]}"
+		# 	language_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=desc, font=('Arial', 13, 'underline'), tags=['text', 'body', 'desc', 'statblock', 'languages'])
 
-			self.attach_tooltip(language_body_desc, language[language.find('(')+1:][:-1], display_type='description', underline=False)
+		# 	self.attach_tooltip(language_body_desc, language[language.find('(')+1:][:-1], display_type='description', underline=False)
 
 
-		##### LEVEL AND PROF BONUS
-		lvl_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Level ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'level'])
-		lvl_body_desc = self.canvas.create_text(self.canvas.bbox(lvl_body_main)[2], self.canvas.bbox(lvl_body_main)[1], anchor='nw', text=f"{lvl}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'level'])
+		# ##### LEVEL AND PROF BONUS
+		# lvl_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Level ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'level'])
+		# lvl_body_desc = self.canvas.create_text(self.canvas.bbox(lvl_body_main)[2], self.canvas.bbox(lvl_body_main)[1], anchor='nw', text=f"{lvl}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'level'])
 		
-		prof_body_main = self.canvas.create_text(315, self.canvas.bbox(lvl_body_desc)[3]+3, anchor='nw', text=f"Proficiency Bonus ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'prof'])
+		# prof_body_main = self.canvas.create_text(315, self.canvas.bbox(lvl_body_desc)[3]+3, anchor='nw', text=f"Proficiency Bonus ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'prof'])
 		
-		prof = npc.get_tag('proficiency_bonus')
-		prof_body_desc = self.canvas.create_text(self.canvas.bbox(prof_body_main)[2], self.canvas.bbox(prof_body_main)[1], anchor='nw', text=f"+{prof}" if prof >= 0 else prof, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'prof'])
+		# prof = npc.get_tag('proficiency_bonus')
+		# prof_body_desc = self.canvas.create_text(self.canvas.bbox(prof_body_main)[2], self.canvas.bbox(prof_body_main)[1], anchor='nw', text=f"+{prof}" if prof >= 0 else prof, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'prof'])
 
-		self.add_statblock_break(prof_body_desc, statblock_clr)
+		# self.add_statblock_break(prof_body_desc, statblock_clr)
 
 
-		### OVERVIEW
-		name_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Name ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'name'])
-		name_body_desc = self.canvas.create_text(self.canvas.bbox(name_body_main)[2], self.canvas.bbox(name_body_main)[1], anchor='nw', text=f"{npc.get_tag('Name')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'name'])
+		# ### OVERVIEW
+		# name_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Name ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'name'])
+		# name_body_desc = self.canvas.create_text(self.canvas.bbox(name_body_main)[2], self.canvas.bbox(name_body_main)[1], anchor='nw', text=f"{npc.get_tag('Name')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'name'])
 
-		gender_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Gender ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'gender'])
-		gender_body_desc = self.canvas.create_text(self.canvas.bbox(gender_body_main)[2], self.canvas.bbox(gender_body_main)[1], anchor='nw', text=f"{npc.get_tag('Sex')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'gender'])
+		# gender_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Gender ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'gender'])
+		# gender_body_desc = self.canvas.create_text(self.canvas.bbox(gender_body_main)[2], self.canvas.bbox(gender_body_main)[1], anchor='nw', text=f"{npc.get_tag('Sex')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'gender'])
 		
-		race_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Race ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'race'])
-		race_body_desc = self.canvas.create_text(self.canvas.bbox(race_body_main)[2], self.canvas.bbox(race_body_main)[1], anchor='nw', text=f"{npc.get_tag('Subrace')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'race'])
+		# race_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Race ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'race'])
+		# race_body_desc = self.canvas.create_text(self.canvas.bbox(race_body_main)[2], self.canvas.bbox(race_body_main)[1], anchor='nw', text=f"{npc.get_tag('Subrace')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'race'])
 
-		occ_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Occupation ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'occupation'])
-		occ_body_desc = self.canvas.create_text(self.canvas.bbox(occ_body_main)[2], self.canvas.bbox(occ_body_main)[1], anchor='nw', text=f"{npc.get_tag('Occupation')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'occupation'])
+		# occ_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Occupation ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'occupation'])
+		# occ_body_desc = self.canvas.create_text(self.canvas.bbox(occ_body_main)[2], self.canvas.bbox(occ_body_main)[1], anchor='nw', text=f"{npc.get_tag('Occupation')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'occupation'])
 		
-		occ = self.controller.resource_loader.get_occupation_description(npc.get_tag('Occupation'))
-		occ_desc = f"{occ[0]}{occ[1:-1].lower()}"
+		# occ = self.controller.resource_loader.get_occupation_description(npc.get_tag('Occupation'))
+		# occ_desc = f"{occ[0]}{occ[1:-1].lower()}"
 
-		self.attach_tooltip(occ_body_desc, occ_desc)
-		self.add_statblock_break(occ_body_desc, statblock_clr)
+		# self.attach_tooltip(occ_body_desc, occ_desc)
+		# self.add_statblock_break(occ_body_desc, statblock_clr)
 
-		blurb = f"{npc.get_tag('Name')} is a {npc.get_tag('Appearance')['age'][0][:npc.get_tag('Appearance')['age'][0].find('(')-1]} year old {npc.get_tag('Sex')} {npc.get_tag('Race')} {npc.get_tag('Occupation')}"
+		# blurb = f"{npc.get_tag('Name')} is a {npc.get_tag('Appearance')['age'][0][:npc.get_tag('Appearance')['age'][0].find('(')-1]} year old {npc.get_tag('Sex')} {npc.get_tag('Race')} {npc.get_tag('Occupation')}"
 
-		blurb_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_withtag('text')[-1])[3]+3, anchor='nw', text=f"Blurb ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'blurb'])
-		blurb_body_desc = self.canvas.create_text(self.canvas.bbox(blurb_body_main)[2], self.canvas.bbox(blurb_body_main)[1], anchor='nw', text=blurb, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'blurb'])
+		# blurb_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_withtag('text')[-1])[3]+3, anchor='nw', text=f"Blurb ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'blurb'])
+		# blurb_body_desc = self.canvas.create_text(self.canvas.bbox(blurb_body_main)[2], self.canvas.bbox(blurb_body_main)[1], anchor='nw', text=blurb, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'blurb'])
 
 
-		race_pic_main = self.canvas.create_text(1146, 10, anchor='n', text=f"{npc.get_tag('Subrace')} Traits", font=('Arial-BoldMT', 20), tags=['text', 'body', 'main', 'picture'])
-		self.canvas.create_line(self.canvas.bbox(race_pic_main)[0]-20, 40, self.canvas.bbox(race_pic_main)[2]+20, 40, fill=statblock_clr, width=5, tags=['break'])
+		# race_pic_main = self.canvas.create_text(1146, 10, anchor='n', text=f"{npc.get_tag('Subrace')} Traits", font=('Arial-BoldMT', 20), tags=['text', 'body', 'main', 'picture'])
+		# self.canvas.create_line(self.canvas.bbox(race_pic_main)[0]-20, 40, self.canvas.bbox(race_pic_main)[2]+20, 40, fill=statblock_clr, width=5, tags=['break'])
 		
-		img = Image.open(f"Race Screenshots/{npc.get_tag('Subrace')}.png")
-		img = img.resize((568, min(round(img.height//1.5), 700)))
-		self.p_img = ImageTk.PhotoImage(image=img)
+		# img = Image.open(f"Race Screenshots/{npc.get_tag('Subrace')}.png")
+		# img = img.resize((568, min(round(img.height//1.5), 700)))
+		# self.p_img = ImageTk.PhotoImage(image=img)
 
-		race_pic = self.canvas.create_image(1430, 50, anchor='ne', image=self.p_img, tags='picture')
-		race_url = [x for x in npc.get_tag('Subrace') if x not in ('(', ')')]
+		# race_pic = self.canvas.create_image(1430, 50, anchor='ne', image=self.p_img, tags='picture')
+		# race_url = [x for x in npc.get_tag('Subrace') if x not in ('(', ')')]
 
-		self.canvas.tag_bind(race_pic, '<ButtonPress-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
+		# self.canvas.tag_bind(race_pic, '<ButtonPress-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
 
 
-		## BREAKS
-		self.canvas.create_line(300, 0, 300, 800, fill=statblock_clr, width=20, tags=['break'])
-		self.canvas.create_line(857, 0, 857, 800, fill=statblock_clr, width=10, tags=['break'])
+		# ## BREAKS
+		# self.canvas.create_line(300, 0, 300, 800, fill=statblock_clr, width=20, tags=['break'])
+		# self.canvas.create_line(857, 0, 857, 800, fill=statblock_clr, width=10, tags=['break'])
 
-		self.canvas.create_line(310, 270, 857, 270, fill=statblock_clr, width=10, tags=['break'])
-		self.canvas.create_line(857, self.canvas.bbox(race_pic)[3]+5, 1430, self.canvas.bbox(race_pic)[3]+5, fill=statblock_clr, width=10, tags=['break'])
+		# self.canvas.create_line(310, 270, 857, 270, fill=statblock_clr, width=10, tags=['break'])
+		# self.canvas.create_line(857, self.canvas.bbox(race_pic)[3]+5, 1430, self.canvas.bbox(race_pic)[3]+5, fill=statblock_clr, width=10, tags=['break'])
 
 
 		### APPEARENCES 
@@ -435,11 +457,17 @@ class Generator():
 		container.grid_columnconfigure(0, weight=1)
 
 		## could add more frames here with for-loop
-		frame = MainFrame(self, container)
-		self.frames[MainFrame.__name__] = frame
+		for F in (MainFrame, SheetFrame):
+			frame = F(self, container)
+			self.frames[F.__name__] = frame
+		# frame = MainFrame(self, container)
+		# self.frames[MainFrame.__name__] = frame
 		frame.grid(row=0, column=0, sticky='nsew')
 
 		self.show_frame('MainFrame')
+
+	def sheet_init(self):
+		self.show_frame('sheet')
 
 	def generate(self):
 		child = self.frames['MainFrame']
