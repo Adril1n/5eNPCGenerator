@@ -103,7 +103,7 @@ class MainFrame(tk.Frame):
 		
 		self.string_vars = {}
 
-		self.vars_list = (['Level', 'Occupation', 'Race', 'Sex', 'Uncapped Abilities', 'Only Class Specific Spells'])
+		self.vars_list = ['Level', 'Occupation', 'Race', 'Sex', 'Uncapped Abilities', 'Only Class Specific Spells']
 		self.var_choices = 	{
 								'Race':sorted(self.controller.resource_loader.get_list('races')), 
 								'Sex':['Male', 'Female'], 
@@ -141,8 +141,8 @@ class MainFrame(tk.Frame):
 		# self.canvas.create_line(310, 270, 857, 270, fill=divide_clr, width=10, tags=['break'])
 		# self.canvas.create_line(857, 605, 1430, 605, fill=divide_clr, width=10, tags=['break'])
 
-		gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg='#9b0707', relief='groove', command=self.controller.generate)
-		gen_btn.place(relx=0.1, rely=0.9, anchor='c')
+		gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg='#9b0707', relief='groove', highlightbackground='#9b0707', command=self.controller.generate)
+		gen_btn.place(relx=0.1, rely=0.93, anchor='c')
 
 		rng_lbl = tk.Label(self, text="RNG Seed Input", font=('Arial', 16))
 		rng_lbl.place(relx=0.1, rely=0.83, anchor='s')
@@ -158,229 +158,26 @@ class MainFrame(tk.Frame):
 	def NPC_GUI(self, npc, rng):
 		self.canvas.delete('all')
 
+		for tag in npc.tags:
+			if tag in (*self.vars_list, 'rng_seed'):
+				strr = f"{tag} : {npc.get_tag(tag)}"
+				if tag != 'rng_seed':
+					a = self.canvas.create_text(800, self.canvas.bbox(self.canvas.find_all()[-1])[3]+60, anchor='c', text=strr, font=('Arial', 20), width=1000)
+				else:
+					a = self.canvas.create_text(800, 50, anchor='c', text=strr, font=('Arial', 20))
+
+				self.canvas.tag_bind(a, '<ButtonPress-1>', partial(self.copy_text, a, strr))
+				self.canvas.tag_bind(a, '<ButtonPress-2>', partial(self.edit_text, a, strr))
 
 
-
-
-
-
-
-
-
-
-		# print(npc.tags)
-
-		# for tag in npc.tags:
-		# 	if tag != 'rng_seed':
-		# 		self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+5, anchor='nw', text=f"{tag} : {npc.get_tag(tag)}", font=('Arial', 14), width=1000)
-		# 	else:
-		# 		self.canvas.create_text(315, 10, anchor='nw', text=f"{tag} : {npc.get_tag(tag)}", font=('Arial', 14))
-
-		# statblock_clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), rng.random((3, )))))
-
-
-		# self.canvas.create_text(315, 0, anchor='nw', text="Parameters:\n", font=('Arial', 24), width=547, tags=['text', 'header', 'parameter'])
-		
-		# parameters = (*self.vars_list, 'rng_seed')
-		# for parameter in parameters:
-		# 	text = f"{parameter}: {npc.get_tag(parameter)}"
-		# 	text_body = self.canvas.create_text(315, 35+(parameters.index(parameter)*31), anchor='nw', text=text, font=('Arial', 13), width=542, tags=['text', 'body', 'parameter', parameter])
-
-		# 	self.canvas.tag_bind(text_body, '<ButtonPress-1>', partial(self.copy_text, text_body, text))
-		# 	self.canvas.tag_bind(text_body, '<ButtonPress-2>', partial(self.edit_text, text_body, text))
-
-		# 	if parameter == 'Occupation' and not npc.get_tag('class_bool'):
-		# 		occ = self.controller.resource_loader.get_occupation_description(npc.get_tag('Occupation'))
-		# 		occ_desc = f"{occ[0]}{occ[1:-1].lower()}"
-		# 		self.attach_tooltip(text_body, text=occ_desc, display_type='description')
-
-
-		# ## STATBLOCK
-		# ### CLASSIFICATION AND NAME
-		# self.canvas.create_text(315, 282, anchor='nw', text=f"{npc.get_tag('Name')}", font=('Baskerville', 24), width=547, tags=['text', 'header', 'statblock'], fill=statblock_clr)
-		# classification_body = self.canvas.create_text(315, 310, anchor='nw', text=f"{npc.get_tag('Appearance')['size'][0].title()} Humaniod ({npc.get_tag('Sex').lower()} {npc.get_tag('Race')}), any alignment", font=('Arial-ItalicMT', 13), tags=['text', 'body', 'statblock', 'classification'])
-		# self.add_statblock_break(classification_body, statblock_clr)
-		
-		# ###	TRAITS
-		# trait = npc.get_tag('Trait')
-		# trait_body_main = self.canvas.create_text(315, self.canvas.bbox(classification_body)[3]+15, anchor='nw', text=f"Personality Trait ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'trait'])
-		
-		# trait_body_desc = self.canvas.create_text(self.canvas.bbox(trait_body_main)[2], self.canvas.bbox(trait_body_main)[1], anchor='nw', text=list(trait.keys())[0], font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'trait'])
-		# self.attach_tooltip(trait_body_desc, trait[list(trait.keys())[0]], display_type='description')
-		# self.add_statblock_break(trait_body_desc, statblock_clr)
 
 	
-		# ### BASIC STATS
-		# #### AC
-		# ac_body_main = self.canvas.create_text(315, self.canvas.bbox(trait_body_desc)[3]+15, anchor='nw', text=f"Armor Class ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'armor class'])
-		# ac_body_desc = self.canvas.create_text(self.canvas.bbox(ac_body_main)[2], self.canvas.bbox(ac_body_main)[1], anchor='nw', text=f"{npc.get_tag('AC')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'armor class'])
-
-		# if npc.get_tag('class_bool'):
-		# 	self.canvas.itemconfigure(ac_body_desc, text=f"{npc.get_tag('AC')} ({npc.get_tag('Armor')})")
-
-		# #### HP
-		# hp_body_main = self.canvas.create_text(315, self.canvas.bbox(ac_body_desc)[3]+5, anchor='nw', text=f"Hit Points ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'hit points'])
-		
-		# lvl = npc.get_tag('Level')
-		# hd = 8 if 'medium' in npc.get_tag('Appearance')['size'][0] else 6
-		# hp_mod = npc.get_tag('Abilities')['CON'][1]*lvl
-
-		# plus, minus = "+", "-"
-		# hp_roll = f"{lvl}d{hd} {plus if hp_mod >= 0 else minus} {abs(hp_mod)}"
-		# hp_roll_avg = ((lvl*hd+(hp_mod))+(lvl+hp_mod))//2
-
-		# hp_text_var = f"Rolled: {npc.get_tag('Hit Points')} | Average: {hp_roll_avg} ({hp_roll})"
-		
-		# hp_body_desc = self.canvas.create_text(self.canvas.bbox(hp_body_main)[2], self.canvas.bbox(hp_body_main)[1], anchor='nw', text=f"{hp_text_var}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'hit points'])
-
-		# #### Speed
-		# speeds = npc.get_tag('Speeds')
-		# speed_body_main = self.canvas.create_text(315, self.canvas.bbox(hp_body_desc)[3]+5, anchor='nw', text=f"Speed ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'basic', 'speed'])
-
-		# speed_body_desc_1 = self.canvas.create_text(self.canvas.bbox(speed_body_main)[2], self.canvas.bbox(speed_body_main)[1], anchor='nw', text=f"{speeds[0][:-1]} ft{speeds[0][-1]} ", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'speed'])
-		# if len(speeds) > 1:
-		# 	speed_body_desc_2 = self.canvas.create_text(self.canvas.bbox(speed_body_desc_1)[2], self.canvas.bbox(speed_body_desc_1)[1], anchor='nw', text=f"{speeds[1][:-1]} ft{speeds[1][-1]} ", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'basic', 'speed'])
-
-		# self.add_statblock_break(speed_body_desc_1, statblock_clr)
-
-		# ### Abilities
-		# abilities = npc.get_tag('Abilities')
-
-		# for ability in abilities:
-		# 	ability_body_main = self.canvas.create_text(340+(list(abilities.keys()).index(ability))*80, self.canvas.bbox(speed_body_desc_1)[3]+15, anchor='nw', text=f"{ability}", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'abilities', ability])
-
-		# 	mod_desc = f"+{abilities[ability][1]}" if abilities[ability][1] >= 0 else f"{abilities[ability][1]}" 
-		# 	ability_body_desc = self.canvas.create_text((self.canvas.bbox(ability_body_main)[0]+self.canvas.bbox(ability_body_main)[2])/2, self.canvas.bbox(ability_body_main)[3]+3, anchor='n', text=f"{abilities[ability][0]} ({mod_desc})", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'abilities', ability])
-
-		# self.add_statblock_break(self.canvas.find_all()[-1], statblock_clr)
 
 
-		# ### MISC STATS
-		# #### SAVING THROWS AND ALL THAT
-		# if npc.get_tag('class_bool'):
+	# def add_statblock_break(self, body, clr, mod=5):
+	# 	bounds = self.canvas.bbox(body)
 
-		# 	##### SAVING THROWS
-		# 	saving_throws_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-2])[3]+15, anchor='nw', text=f"Saving Throws ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'saving_throws'])
-
-		# 	sts = npc.get_tag('Class Proficiencies')['saving throws']
-
-		# 	for st in sts:
-		# 		mod_desc = f"+{npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1]}" if npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1] >= 0 else {npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[st][1]}
-
-		# 		a = f"{st} {mod_desc}, " if sts.index(st) == 0 else f"{st} {mod_desc}"
-		# 		saving_throws_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'saving_throws'])
-
-		# 	##### SKILLS (AND TOOLS)
-		# 	skills_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Skills ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'skills'])
-		# 	skills = npc.get_tag('Class Proficiencies')['skills']
-
-		# 	for skill in skills:
-		# 		skill_ab = self.controller.resource_loader.get_ability_for_skill(skill)
-		# 		mod_desc = f"+{npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1]}" if npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1] >= 0 else {npc.get_tag('proficiency_bonus')+npc.get_tag('Abilities')[skill_ab][1]}
-
-		# 		a = f"{skill} {mod_desc}, " if skills.index(skill) < len(skills)-1 else f"{skill} {mod_desc}"
-		# 		skill_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'skills'])
-
-		# 	try:
-		# 		tools = npc.get_tag('Class Proficiencies')['tools']
-		# 	except KeyError:
-		# 		tools = None
-
-		# 	if tools is not None:
-		# 		tools_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Tools ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'tools'])
-
-		# 		for tool in tools:
-		# 			a = f"{tool}, " if tools.index(tool) < len(tools)-1 else f"{tool}"
-		# 			tool_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=a, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'tools'])
-
-		# ##### SENSES
-		# senses_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Senses ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'senses'])
-		# passive_p_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=f"passive Perception {10+npc.get_tag('Abilities')['WIS'][1]}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'senses'])
-
-		# ##### LANGUAGES
-		# languages_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Languages ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'languages'])
-		
-		# for language in npc.get_tag('Languages'):
-		# 	desc = f"{language[:language.find('(')-1]}, " if npc.get_tag('Languages').index(language) < len(npc.get_tag('Languages'))-1 else f"{language[:language.find('(')-1]}"
-		# 	language_body_desc = self.canvas.create_text(self.canvas.bbox(self.canvas.find_all()[-1])[2], self.canvas.bbox(self.canvas.find_all()[-1])[1], anchor='nw', text=desc, font=('Arial', 13, 'underline'), tags=['text', 'body', 'desc', 'statblock', 'languages'])
-
-		# 	self.attach_tooltip(language_body_desc, language[language.find('(')+1:][:-1], display_type='description', underline=False)
-
-
-		# ##### LEVEL AND PROF BONUS
-		# lvl_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Level ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'level'])
-		# lvl_body_desc = self.canvas.create_text(self.canvas.bbox(lvl_body_main)[2], self.canvas.bbox(lvl_body_main)[1], anchor='nw', text=f"{lvl}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'level'])
-		
-		# prof_body_main = self.canvas.create_text(315, self.canvas.bbox(lvl_body_desc)[3]+3, anchor='nw', text=f"Proficiency Bonus ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'prof'])
-		
-		# prof = npc.get_tag('proficiency_bonus')
-		# prof_body_desc = self.canvas.create_text(self.canvas.bbox(prof_body_main)[2], self.canvas.bbox(prof_body_main)[1], anchor='nw', text=f"+{prof}" if prof >= 0 else prof, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'prof'])
-
-		# self.add_statblock_break(prof_body_desc, statblock_clr)
-
-
-		# ### OVERVIEW
-		# name_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Name ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'name'])
-		# name_body_desc = self.canvas.create_text(self.canvas.bbox(name_body_main)[2], self.canvas.bbox(name_body_main)[1], anchor='nw', text=f"{npc.get_tag('Name')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'name'])
-
-		# gender_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Gender ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'gender'])
-		# gender_body_desc = self.canvas.create_text(self.canvas.bbox(gender_body_main)[2], self.canvas.bbox(gender_body_main)[1], anchor='nw', text=f"{npc.get_tag('Sex')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'gender'])
-		
-		# race_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Race ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'race'])
-		# race_body_desc = self.canvas.create_text(self.canvas.bbox(race_body_main)[2], self.canvas.bbox(race_body_main)[1], anchor='nw', text=f"{npc.get_tag('Subrace')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'race'])
-
-		# occ_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Occupation ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'occupation'])
-		# occ_body_desc = self.canvas.create_text(self.canvas.bbox(occ_body_main)[2], self.canvas.bbox(occ_body_main)[1], anchor='nw', text=f"{npc.get_tag('Occupation')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'occupation'])
-		
-		# occ = self.controller.resource_loader.get_occupation_description(npc.get_tag('Occupation'))
-		# occ_desc = f"{occ[0]}{occ[1:-1].lower()}"
-
-		# self.attach_tooltip(occ_body_desc, occ_desc)
-		# self.add_statblock_break(occ_body_desc, statblock_clr)
-
-		# blurb = f"{npc.get_tag('Name')} is a {npc.get_tag('Appearance')['age'][0][:npc.get_tag('Appearance')['age'][0].find('(')-1]} year old {npc.get_tag('Sex')} {npc.get_tag('Race')} {npc.get_tag('Occupation')}"
-
-		# blurb_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_withtag('text')[-1])[3]+3, anchor='nw', text=f"Blurb ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'blurb'])
-		# blurb_body_desc = self.canvas.create_text(self.canvas.bbox(blurb_body_main)[2], self.canvas.bbox(blurb_body_main)[1], anchor='nw', text=blurb, font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'blurb'])
-
-
-		# race_pic_main = self.canvas.create_text(1146, 10, anchor='n', text=f"{npc.get_tag('Subrace')} Traits", font=('Arial-BoldMT', 20), tags=['text', 'body', 'main', 'picture'])
-		# self.canvas.create_line(self.canvas.bbox(race_pic_main)[0]-20, 40, self.canvas.bbox(race_pic_main)[2]+20, 40, fill=statblock_clr, width=5, tags=['break'])
-		
-		# img = Image.open(f"Race Screenshots/{npc.get_tag('Subrace')}.png")
-		# img = img.resize((568, min(round(img.height//1.5), 700)))
-		# self.p_img = ImageTk.PhotoImage(image=img)
-
-		# race_pic = self.canvas.create_image(1430, 50, anchor='ne', image=self.p_img, tags='picture')
-		# race_url = [x for x in npc.get_tag('Subrace') if x not in ('(', ')')]
-
-		# self.canvas.tag_bind(race_pic, '<ButtonPress-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
-
-
-		# ## BREAKS
-		# self.canvas.create_line(300, 0, 300, 800, fill=statblock_clr, width=20, tags=['break'])
-		# self.canvas.create_line(857, 0, 857, 800, fill=statblock_clr, width=10, tags=['break'])
-
-		# self.canvas.create_line(310, 270, 857, 270, fill=statblock_clr, width=10, tags=['break'])
-		# self.canvas.create_line(857, self.canvas.bbox(race_pic)[3]+5, 1430, self.canvas.bbox(race_pic)[3]+5, fill=statblock_clr, width=10, tags=['break'])
-
-
-		### APPEARENCES 
-		# age_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Age ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'appearances', 'age'])
-		# age_body_desc = self.canvas.create_text(self.canvas.bbox(age_body_main)[2], self.canvas.bbox(age_body_main)[1], anchor='nw', text=f"{npc.get_tag('Appearance')['age'][0]}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'appearances', 'age'])
-		
-		# height_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Height ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'appearances', 'height'])
-		# height_body_desc = self.canvas.create_text(self.canvas.bbox(height_body_main)[2], self.canvas.bbox(height_body_main)[1], anchor='nw', text=f"{npc.get_tag('Height')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'appearances', 'height'])
-		
-		# weight_body_main = self.canvas.create_text(315, self.canvas.bbox(self.canvas.find_all()[-1])[3]+3, anchor='nw', text=f"Weight ", font=('Arial-BoldMT', 13), tags=['text', 'body', 'main', 'statblock', 'appearances', 'weight'])
-		# weight_body_desc = self.canvas.create_text(self.canvas.bbox(weight_body_main)[2], self.canvas.bbox(weight_body_main)[1], anchor='nw', text=f"{npc.get_tag('Weight')}", font=('Arial', 13), tags=['text', 'body', 'desc', 'statblock', 'appearances', 'weight'])
-		
-
-
-	def add_statblock_break(self, body, clr, mod=5):
-		bounds = self.canvas.bbox(body)
-
-		self.canvas.create_polygon(315, bounds[3]+mod, 800, bounds[3]+mod+2, 315, bounds[3]+mod+4, fill=clr, tags=['break'])
+	# 	self.canvas.create_polygon(315, bounds[3]+mod, 800, bounds[3]+mod+2, 315, bounds[3]+mod+4, fill=clr, tags=['break'])
 
 
 
@@ -399,39 +196,52 @@ class MainFrame(tk.Frame):
 
 
 
-	def attach_tooltip(self, body, text="", display_type='description', dash=(1, 1), underline=True):
-		if underline:
-			self.underline_text(body, dash=dash)
+	# def attach_tooltip(self, body, text="", display_type='description', dash=(1, 1), underline=True):
+	# 	if underline:
+	# 		self.underline_text(body, dash=dash)
 
-		if display_type == 'description':
-			self.canvas.tag_bind(body, '<Enter>', lambda e: self.tooltip_show(e, text, display_type=display_type))
-			self.canvas.tag_bind(body, '<Leave>', self.tooltip_hide)
+	# 	if display_type == 'description':
+	# 		self.canvas.tag_bind(body, '<Enter>', lambda e: self.tooltip_show(e, text, display_type=display_type))
+	# 		self.canvas.tag_bind(body, '<Leave>', self.tooltip_hide)
 
-		# elif display_type == 'spell':
-		# 	self.canvas.tag_bind(body, '<ButtonPress-1>', lambda e: self.tooltip_show(e, text, display_type=display_type))
+	# 	# elif display_type == 'spell':
+	# 	# 	self.canvas.tag_bind(body, '<ButtonPress-1>', lambda e: self.tooltip_show(e, text, display_type=display_type))
 
 
-	def underline_text(self, ID, dash=(5, 1)):
-		bounds = self.canvas.bbox(ID)
-		coordinates = (bounds[0], bounds[3]-1, bounds[2], bounds[3]-1)
-		self.canvas.create_line(coordinates, tags=[*self.canvas.gettags(ID), 'underline'], dash=dash)
+	# def underline_text(self, ID, dash=(5, 1)):
+	# 	bounds = self.canvas.bbox(ID)
+	# 	coordinates = (bounds[0], bounds[3]-1, bounds[2], bounds[3]-1)
+	# 	self.canvas.create_line(coordinates, tags=[*self.canvas.gettags(ID), 'underline'], dash=dash)
 
-	def tooltip_show(self, event, text, display_type='description'):
-		self.top = tk.Toplevel(self)
-		self.top.wm_overrideredirect(True)
+	# def tooltip_show(self, event, text, display_type='description'):
+	# 	self.top = tk.Toplevel(self)
+	# 	self.top.wm_overrideredirect(True)
 
-		w = 180
-		h = 100
+	# 	w = 180
+	# 	h = 100
 
-		self.top.geometry(f"{w}x{h}")
-		self.top.geometry(f"+{event.x}+{event.y-(h-40)}")
+	# 	self.top.geometry(f"{w}x{h}")
+	# 	self.top.geometry(f"+{event.x}+{event.y-(h-40)}")
 		
 
-		lbl = tk.Label(self.top, text=text, justify='left', wraplength=w-10).place(relx=0, rely=0, anchor='nw')
+	# 	lbl = tk.Label(self.top, text=text, justify='left', wraplength=w-10).place(relx=0, rely=0, anchor='nw')
 
 
-	def tooltip_hide(self, event):
-		self.top.destroy()
+	# def tooltip_hide(self, event):
+	# 	self.top.destroy()
+
+class SheetFrame(tk.Frame):
+	def __init__(self, controller, parent):
+		tk.Frame.__init__(self, parent)
+
+		self.controller = controller
+		self.parent = parent
+
+		self.createGUI()
+
+	def createGUI(self):
+		rtn_btn = tk.Button(self, text='<<', font=('Arial', 25), fg='black', highlightbackground="RED", command=self.controller.return_to_main)
+		rtn_btn.place(relx=0.03, rely=0.96, anchor='c')
 
 
 
@@ -456,18 +266,18 @@ class Generator():
 		container.grid_rowconfigure(0, weight=1)
 		container.grid_columnconfigure(0, weight=1)
 
-		## could add more frames here with for-loop
 		for F in (MainFrame, SheetFrame):
 			frame = F(self, container)
 			self.frames[F.__name__] = frame
-		# frame = MainFrame(self, container)
-		# self.frames[MainFrame.__name__] = frame
-		frame.grid(row=0, column=0, sticky='nsew')
+			frame.grid(row=0, column=0, sticky='nsew')
 
 		self.show_frame('MainFrame')
 
 	def sheet_init(self):
-		self.show_frame('sheet')
+		self.show_frame('SheetFrame')
+
+	def return_to_main(self):
+		self.show_frame('MainFrame')
 
 	def generate(self):
 		child = self.frames['MainFrame']
