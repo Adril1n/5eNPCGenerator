@@ -5,93 +5,353 @@ from PIL import Image, ImageTk
 import webbrowser
 import colorsys
 
-from pyperclip import copy
-from time import sleep
 from functools import partial
-from tkinter.simpledialog import askstring
-
-import re
 
 from resource_loader import ResourceLoader
 
 
-# class HoverWindow():
-# 	def __init__(self, controller, canvas, obj, text='Hello'):
-# 		self.waittime = 100
-# 		self.wraplength = 100
 
-# 		self.controller = controller
-# 		self.canvas = canvas
-# 		self.obj = obj
-# 		self.text = text
 
-# 		self.canvas.tag_bind(obj, '<Enter>', self.enter)
-# 		self.canvas.tag_bind(obj, '<Leave>', self.leave)
+def darken_color(color, factor):
+	r = hex(int(int(color[1:3], 16) * min(max(factor, 0), 1)))[2:]
+	g = hex(int(int(color[3:5], 16) * min(max(factor, 0), 1)))[2:]
+	b = hex(int(int(color[5:7], 16) * min(max(factor, 0), 1)))[2:]
 
-# 		self.ID = None
-# 		self.tw = None
-
-# 	def enter(self, event):
-# 		self.schedule()
-
-# 	def leave(self, event):
-# 		self.unschedule()
-# 		self.hide()
-
-# 	def schedule(self):
-# 		self.unschedule()
-# 		self.ID = self.canvas.after(self.waittime, self.show)
-
-# 	def unschedule(self):
-# 		ID = self.ID
-# 		self.ID = None
-# 		if ID:
-# 			# self.canvas.after(self.waittime, self.show)
-# 			self.canvas.after_cancel(ID)
-
-# 	def show(self):
-# 		self.tw = tk.Toplevel(self.canvas)
-# 		self.tw.wm_overrideredirect(True)
-
-# 	def hide(self):
-# 		tw = self.tw
-# 		self.tw = None
-# 		if tw:
-# 			tw.destroy()
- 
+	return f"#{r.zfill(2)}{g.zfill(2)}{b.zfill(2)}"
 
 
 
 
-class Rng():
-	def __init__(self, seed=None):
-		if seed is None:
-			self.seed = SeedSequence().entropy
+
+class Formating():
+	FONT_HEADER_BOLD = ('Arial-BoldMT', 20)
+	FONT_DESC_BOLD = ('Arial-BoldMT', 16)
+
+	@staticmethod
+	def create_desc_box(canvas, desc_type, clr, detail_clr):
+		x1 = canvas.bbox(canvas.find_withtag(f'text&&{desc_type}&&key')[0])[0]-5
+		y1 = canvas.bbox(canvas.find_withtag(f'text&&{desc_type}&&key')[0])[1]-50
+		x2 = max(list(map(lambda x: canvas.bbox(x)[2], canvas.find_withtag(f'text&&{desc_type}&&value'))))+5
+		y2 = canvas.bbox(canvas.find_withtag(f'text&&{desc_type}&&key')[-1])[3]+5
+
+		background = canvas.create_rectangle(x1, y1, x2, y2, fill=darken_color(clr, 0.3), outline=detail_clr, width=4, tags=['background', 'statblock', desc_type])
+		header = canvas.create_rectangle(*canvas.bbox(background)[:3], canvas.bbox(background)[1]+40, fill=detail_clr, width=0, tags=['background', 'header', 'statblock', desc_type])
+		
+		header_middle_x = (canvas.bbox(header)[0]+canvas.bbox(header)[2])//2
+		header_middle_y = (canvas.bbox(header)[1]+canvas.bbox(header)[3])//2
+		txt = f"{desc_type.title()}s" if desc_type != 'ability' else 'Abilities'
+		header_text = canvas.create_text(header_middle_x, header_middle_y, text=txt, justify=tk.CENTER, font=Formating.FONT_HEADER_BOLD, tags=['background', 'header', 'text', 'statblock', desc_type])
+
+		divider_x1 = max([canvas.bbox(desc_type)[2] for desc_type in canvas.find_withtag(f'text&&{desc_type}&&key')])
+		divider = canvas.create_rectangle(divider_x1+8, canvas.bbox(header)[3]-int(float(canvas.itemcget(background, "width"))), divider_x1+18, canvas.bbox(background)[3], fill=detail_clr, width=0, tags=['background', 'statblock', 'divide', desc_type])
+
+
+
+
+
+
+# class Stat():
+# 	def __init__(self, name, value):
+# 		self.name = name
+# 		self.value = value
+
+# 	def format(self, canvas, index, summary_x1, summary_x2, fill_clr='#000000', outline_clr='#FFFFFF'):
+# 		y = (index//2+1)*140
+# 		x = [summary_x1, summary_x2][index%2]-[0, 100][index%2]
+
+# 		background = canvas.create_rectangle(x, y, x+100, y+100, fill=fill_clr, outline=outline_clr, width=3, tags=['background'])
+
+# 		background_x1 = (canvas.bbox(background)[0]+canvas.bbox(background)[2])//2
+# 		txt_0 = canvas.create_text(background_x1, canvas.bbox(background)[1]+10, anchor='n', text=self.name.split(' ')[0], font=('Arial-BoldMT', 16))
+
+# 		main_str = f"+{self.value}" if 'Bonus' in self.name else self.value
+# 		if 'Speed' in self.name:
+# 			main_str = f"{self.value} ft."
+
+# 		txt_main = canvas.create_text(background_x1-1, (canvas.bbox(background)[1]+canvas.bbox(background)[3])//2, anchor='c', text=main_str, font=('Arial', 40))
+
+# 		try:
+# 			txt_1 = canvas.create_text(background_x1, canvas.bbox(background)[3]-10, anchor='s', text=self.name.split(' ')[1], font=('Arial-BoldMT', 16))
+# 		except IndexError:
+# 			pass
+
+class Action():
+	def __init__(self, a_type, a_dict):
+		self.a_type = a_type
+		self.a_dict = a_dict
+
+	def __repr__(self):
+		return f"{self.a_type, self.a_dict}"
+
+
+
+class Ability():
+	TYPES = ['STRENGTH', 'DEXTERITY', 'CONSTITUTION', 'INTELLIGENCE', 'WISDOM', 'CHARISMA']
+
+	def __init__(self, name, parent):
+		self.name = name
+		self.parent = parent
+		self.score = self.score_init()
+
+	def score_init(self):
+		rng = self.parent.rng
+
+		if self.parent.cls_bool:
+			score = sum(sorted(rng.choice(6, 4)+1)[1:])
 		else:
-			self.seed = seed
+			score = sum(rng.choice(6, 3)+1)
 
-		self.rng = default_rng(seed=self.seed)
+		return score ## max score == 18
 
-	def get_rng(self):
-		return self.rng
+	def add_bonus(self, bonus):
+		new_score = self.score + int(bonus)
+		self.score = max(min(new_score, 20), 1) if not self.parent.options['uncapped_abilities'].value else new_score
 
-	def get_seed(self):
-		return self.seed
+	def get_modifier(self):
+		return (self.score-10)//2
 
- 				
+	def format(self, canvas, preview=True, x_anchor=1000, y_anchor=60, val_dist=225):
+		if preview:
+			if self.name == Ability.TYPES[0]:
+				canvas.create_text(x_anchor, y_anchor, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
+			else:
+				canvas.create_text(canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[0]+1, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[3]+10, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
+			
+			modifier = self.get_modifier()
+			modifer_txt = f'+{modifier}' if modifier > 0 else modifier
+			canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[1], text=f"{self.score} [{modifer_txt}]", anchor='ne', font=('Arial', 16), tags=['text', 'ability', 'value'])
+		else:
+			pass
+
+	def __repr__(self):
+		return f"{self.score, self.get_modifier()}"
+
+
+class Option():
+	def __init__(self, key, value, index):
+		self.key = key
+		self.value = value
+		self.index = index
+
+	def format(self, canvas, x_anchor=350, y_anchor=60, val_dist=225):
+		if self.index == 0:
+			canvas.create_text(x_anchor, y_anchor, text=f"{self.key.replace('_', ' ').title()}", anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'option', 'key'])
+		else:
+			canvas.create_text(canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[0]+1, canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[3]+10, text=f"{self.key.replace('_', ' ').title()}", anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'option', 'key'])
+		
+		canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[1], text=f"{self.value}", anchor='nw', font=('Arial', 16), tags=['text', 'option', 'value'])
+
+
 
 class NPC():
-	def __init__(self):
-		self.tags = {}
+	LANGUAGES = [	'Aarakocran', 'Abyssal', 'Aquan', 'Auran', 'Blink', 'Bothii', 'Bullywug', 'Celestial', 'Common', 'Deep', 'Dog', 'Draconic', 
+					'Dwarvish', 'Eagle', 'Elk', 'Elvish', 'Giant', 'Giant', 'Giant', 'Giant', 'Gith', 'Gnoll', 'Gnomish', 'Goblin', 'Grell', 
+					'Grung', 'Hadozee', 'Halfling', 'Hook', 'Horror', 'Hulk', 'Ignan', 'Infernal', 'Ixitxachitl', 'Kothian', 'Kraul', 'Kruthik', 
+					'Leonin', 'Loxodon', 'Merfolk', 'Minotaur', 'Modron', 'Olman', 'Orc', 'Otyugh', 'Owl', 'Primal', 'Primordial', 'Sahuagin', 
+					'Skitterwidget', 'Slaad', 'Speech', 'Sphinx', 'Sylvan', 'Tasloi', 'Terran', 'Thri-Kreen', 'Tlincalli', 'Troglodyte', 'Umber', 
+					'Undercommon', 'Vedalken', 'Vegepygmy', 'Winter', 'Wolf', 'Worg', 'Yeti', 'Yikaria'
+				]
 
-	def set_tag(self, key, val):
-		self.tags[key] = val
+	def __init__(self, rng_obj, options):
+		self.rng = rng_obj.rng
+		self.seed = rng_obj.seed
 
-	def get_tag(self, key):
+		self.options = {k:Option(k, v, list(options.keys()).index(k)) for k, v in options.items()}
+		self.cls_bool = self.options['occupation'].value in ResourceLoader.get_instance().get_list('classes')
+		
+		self.abilities = {ability_type:Ability(ability_type, self) for ability_type in Ability.TYPES}
+
+		
+
+		# self.generate_base()
+		# self.add_asi_and_feats()
+
+		self.generate_base()
+
+		# self.generate_ac_initiative()
+
+	def generate_base(self):
+		race = self.options['race'].value
+		sex = self.options['sex'].value
+
+		RL = ResourceLoader.get_instance()
+		
+		## NAME
 		try:
-			return self.tags[key]
+			self.name = self.rng.choice(RL.get_name_list(race, sex))
+		except ValueError as e:
+			print("No names for that race currently. Maybe you didn't update names.xml using name_automator.py.", f'"{e}"')
+			self.name = '???'
+
+		## RACE TYPE
+		self.race_type = self.rng.choice(RL.get_race_type_choices(race))
+
+		## RACE ABILITY SCORE IMPROVEMENT
+		race_asi = RL.get_race_asi(race, self.race_type)
+		self.apply_race_asi_bonuses(race_asi)
+
+		## SIZE, BASE_SPEEDS, LANGUAGES
+		self.size = self.rng.choice(RL.get_size(race, self.race_type).split(';'))
+
+		self.base_speeds = {'walking':'30', 'flying':None, 'swimming':None}
+		self.base_speeds.update(RL.get_speeds(race, self.race_type))
+
+		self.languages = RL.get_languages(race, self.race_type)
+
+		for lan in self.languages:
+			if lan == 'random':
+				language_choices = NPC.LANGUAGES.copy()
+				index = self.languages.index(lan)
+				[language_choices.remove(a) for a in self.languages[:index]]
+				self.languages[index] = self.rng.choice(language_choices)
+
+
+		## APPEARENCES; HEIGHT, WEIGHT, AGE
+		height_weight_dict = RL.get_height_weight(race, self.race_type)
+
+		self.height = self.get_height_weight_value(height_weight_dict, 'height')
+		self.weight = self.get_height_weight_value(height_weight_dict, 'weight')
+
+
+		age_list = RL.get_age(race, self.race_type)
+		self.age = self.rng.integers(int(age_list[0]), high=int(age_list[1])+1)
+
+
+		## RACIAL FEATURES AND ACTIONS
+		self.racial_features = RL.get_racial_features(race, self.race_type)
+
+		self.race_actions = {k:Action(v[0], v[1]) for k, v in RL.get_race_actions(race, self.race_type).items() if int(v[1]['level_req']) <= self.options['level'].value}
+		print(self.race_actions)
+
+
+		# h_mod_split = list(map(int, height_weight_dict[f'height_modifier'].split('d')))
+		# # h_mod = sum(self.rng.choice(h_mod_split[1], h_mod_split[0])+1)
+		# h_mod = sum(list(map(lambda x: max(x, 1), self.rng.random(h_mod_split[0])*h_mod_split[1])))
+		
+		# self.height = int(height_weight_dict['height_base']) + h_mod*2.54
+
+
+		# w_mod_split = list(map(int, height_weight_dict[f'weight_modifier'].split('d')))
+		# # w_mod = sum(self.rng.choice(w_mod_split[1], w_mod_split[0])+1)
+		# w_mod = sum(list(map(lambda x: max(x, 1), self.rng.random(w_mod_split[0])*w_mod_split[1])))
+
+		# self.weight = int(height_weight_dict['weight_base']) + ((w_mod*h_mod)*0.45)
+
+
+
+		
+
+
+	def get_height_weight_value(self, dict_, t):
+		mod_split = list(map(int, dict_[f'{t}_modifier'].split('d')))
+		mod = sum(list(map(lambda x: max(x, 1), self.rng.random(mod_split[0])*mod_split[1]))) # sum(self.rng.choice(mod_split[1], mod_split[0])+1) for only 1-6 ints
+
+
+		mod = mod*2.54 if t == 'height' else mod
+
+		base = int(dict_[f'{t}_base'])
+		if t == 'height':
+			return round(base + mod)
+		else:
+			return round(base + ((self.height-int(dict_['height_base']))/2.54*mod)*0.45)
+
+	def get_weight_bin(self):
+		w_bins = {0.25:'light', 0.7:'medium', 10:'heavy'}
+		w_bin = ''
+		
+		h_w_dict = ResourceLoader.get_instance().get_height_weight(self.options['race'].value, self.race_type)
+		
+		h_mod = list(map(int, h_w_dict['height_modifier'].split('d')))
+		w_mod = list(map(int, h_w_dict['weight_modifier'].split('d')))
+
+		w_max = int(h_w_dict['weight_base']) + (h_mod[0]*h_mod[1] * w_mod[0]*w_mod[1])*0.45
+
+		for bin_ in w_bins:
+			if (self.weight-int(h_w_dict['weight_base']))/(w_max-int(h_w_dict['weight_base'])) <= bin_:
+				return w_bins[bin_]
+				
+
+	def get_age_bin(self):
+		age_bins = {0.35:'Young', 0.75:'Middle Aged', 10:'Elderly'}
+
+		for bin_ in age_bins:
+			if self.age/int(ResourceLoader.get_instance().get_age(self.options['race'].value, self.race_type)[1]) <= bin_: ## probably a bit wrong since self.age is restricted to [3, 30] for Aarakocra and max_age == 30 
+				return age_bins[bin_]
+
+		
+		# GET PROF BONUS	
+	# def generate_base(self):
+	# 	self.prof = 2 + (self.options['level'].value-1)//4
+	# 	self.stats['Proficiency Bonus'] = Stat('Proficiency Bonus', self.prof)
+
+
+	def apply_race_asi_bonuses(self, race_asi):
+		for key, value in race_asi.items():
+			if key == 'lineage':
+				choice = self.rng.choice(['2+1', '1+1+1'])
+				ability_types = Ability.TYPES.copy()
+
+				for value in choice.split('+'):
+					ability_choice = self.rng.choice(ability_types)
+					self.abilities[ability_choice].add_bonus(value)
+					ability_types.remove(ability_choice)
+
+			elif key == 'choose':
+				ability_types = Ability.TYPES.copy()
+				try:
+					ability_types.remove(list(race_asi.keys())[0])
+				except ValueError:
+					pass
+
+				range_bonus = value.split(';')
+
+				for _ in range(int(range_bonus[0])):
+					ability_choice = self.rng.choice(ability_types)
+					self.abilities[ability_choice].add_bonus(range_bonus[1])
+					ability_types.remove(ability_choice)
+
+			elif key == 'pick':
+				choices = value.split(';')[:2]
+				self.abilities[self.rng.choice(choices)].add_bonus(value.split(';')[2])
+
+			else:
+				self.abilities[key].add_bonus(value)
+
+	def add_asi_and_feats(self):
+		lvls = np.arange(self.options['level'].value)+1
+		extras = {'Fighter':[6, 14], 'Rogue':[10]}
+
+		lvls = [not bool(x % 4) for x in sorted(lvls)]
+
+		try:
+			for extra in extras[self.options['occupation'].value]:
+				lvls = np.delete(lvls, extra)
+				lvls = np.insert(lvls, extra-1, True)
+				
 		except KeyError:
-			return None
+			pass
+ 
+		choices = {'feat':0.25, '2':0.375, '1+1':0.375}
+
+		for lvl in np.arange(self.options['level'].value):
+			if lvls[lvl]:
+				choice = self.rng.choice(list(choices.keys()), p=list(choices.values()))
+				if choice == 'feat':
+					## ADD FEATS HERE LATER
+					continue
+				else:
+					for bonus in choice.split('+'):
+						self.abilities[self.rng.choice(Ability.TYPES)].add_bonus(bonus)
+
+
+		#GET HEALTH/AC
+	# def generate_ac_initiative(self):
+	# 	ac = 10
+	# 	self.stats['Armor Class'] = Stat('Armor Class', ac)
+
+	# 	self.initiative = self.abilities['DEXTERITY'].modifier
+	# 	self.stats['Initiative'] = Stat('Initiative', self.initiative)
+ 
 
 
 class MainFrame(tk.Frame):
@@ -101,14 +361,14 @@ class MainFrame(tk.Frame):
 		self.controller = controller
 		self.parent = parent
 		
-		self.string_vars = {}
+		self.opt_string_vars = {}
 
-		self.vars_list = ['Level', 'Occupation', 'Race', 'Sex', 'Uncapped Abilities', 'Only Class Specific Spells']
-		self.var_choices = 	{
+		self.opt_list = ['Race', 'Occupation', 'Sex', 'Level', 'Uncapped Abilities', 'Only Class Specific Spells']
+		self.opt_choices = 	{
 								'Race':sorted(self.controller.resource_loader.get_list('races')), 
-								'Sex':['Male', 'Female'], 
 								'Occupation':['--CLASSES--', *sorted(self.controller.resource_loader.get_list('classes')), '--JOBS--', *sorted(self.controller.resource_loader.get_list('jobs'))],
-								'Level':[*list(map((str), np.arange(1, 21))), '--Low (1-4)--', '--Medium (5-9)--', '--High (10-20)--', '--Crazy (21-1000)--'],
+								'Sex':['Male', 'Female'], 
+								'Level':[*list(map(str, np.arange(1, 21))), '--Low (1-4)--', '--Medium (5-9)--', '--High (10-20)--', '--Crazy (21-1000)--'],
 								'Uncapped Abilities':['True', 'False'],
 								'Only Class Specific Spells':['True', 'False']
 							}
@@ -119,30 +379,22 @@ class MainFrame(tk.Frame):
 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
 		self.canvas.place(x=0, y=0, anchor='nw')
 
-		# divide_clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), np.random.random((3, )))))
-		# divide_clr = "#555555"
+		clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), np.random.random((3, )))))
 
-		for var in self.vars_list:
-			lbl = tk.Label(self, text=var, font=('Arial', 18))
-			lbl.place(relx=0.1, rely=((0.1 + self.vars_list.index(var)/10)-0.035), anchor='c')
+		for opt in self.opt_list:
+			lbl = tk.Label(self, text=opt, font=('Arial', 18))
+			lbl.place(relx=0.1, rely=((0.1 + self.opt_list.index(opt)/10)-0.035), anchor='c')
 
 			string_var = tk.StringVar(self, '--Random--')
-			self.string_vars[var] = string_var
+			self.opt_string_vars[opt] = string_var
 			
-			opt_m = tk.OptionMenu(self, string_var, *['--Random--', *self.var_choices[var]])
+			opt_m = tk.OptionMenu(self, string_var, *['--Random--', *self.opt_choices[opt]])
 			opt_m.config(font=('Arial', 18), width=20)
-			opt_m.place(relx=0.1, rely=(0.1 + self.vars_list.index(var)/10), anchor='c')
+			opt_m.place(relx=0.1, rely=(0.1 + self.opt_list.index(opt)/10), anchor='c')
 
-		# self.description = self.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n", font=('Arial', 18), width=500) 
 
-		# self.canvas.create_line(300, 0, 300, 800, fill=divide_clr, width=20, tags=['break'])
-		# self.canvas.create_line(857, 0, 857, 800, fill=divide_clr, width=10, tags=['break'])
-
-		# self.canvas.create_line(310, 270, 857, 270, fill=divide_clr, width=10, tags=['break'])
-		# self.canvas.create_line(857, 605, 1430, 605, fill=divide_clr, width=10, tags=['break'])
-
-		gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg='#9b0707', relief='groove', highlightbackground='#9b0707', command=self.controller.generate)
-		gen_btn.place(relx=0.1, rely=0.93, anchor='c')
+		self.gen_btn = tk.Button(self, text='Generate', font=('Good Times', 30), fg=darken_color(clr, 0.6), relief='groove', highlightbackground=clr, command=self.controller.generate)
+		self.gen_btn.place(relx=0.1, rely=0.93, anchor='c')
 
 		rng_lbl = tk.Label(self, text="RNG Seed Input", font=('Arial', 16))
 		rng_lbl.place(relx=0.1, rely=0.83, anchor='s')
@@ -150,85 +402,68 @@ class MainFrame(tk.Frame):
 		self.rng_ent = tk.Entry(self)
 		self.rng_ent.place(relx=0.1, rely=0.85, anchor='c')
 
-		sheet_btn = tk.Button(self, text='See Character Sheet', font=('Good Times', 45), command=self.controller.sheet_init)
-		sheet_btn.place(relx=0.6, rely=0.9, anchor='c')
+		self.divide = self.canvas.create_rectangle(300, -1, 330, 801, fill=darken_color(clr, 0.8), outline=darken_color(clr, 0.65), width=6, tags=["statblock", "keep"])
+
+
+		self.apply_opt_btn = tk.Button(self, text='Apply', font=Formating.FONT_DESC_BOLD, fg=darken_color(clr, 0.6), highlightbackground=clr, command=self.apply_opt)
+		self.apply_opt_btn.place(relx=0.05, rely=0.68, anchor='c')
+		self.reset_opt_btn = tk.Button(self, text='Reset', font=Formating.FONT_DESC_BOLD, fg=darken_color(clr, 0.6), highlightbackground=clr, command=self.reset_opt)
+		self.reset_opt_btn.place(relx=0.15, rely=0.68, anchor='c')
+
+		self.sheet_btn = tk.Button(self, text='See Character Sheet', font=('Good Times', 45), fg=darken_color(clr, 0.6), highlightbackground=clr, command=partial(self.controller.change_stage, 1))
+		self.sheet_btn.place(relx=0.6, rely=0.93, anchor='c')
+
+	def preview_format(self, npc):
+		clr = Main.get_instance().clr
+		detail_clr = darken_color(clr, 0.5)
+
+		## NAME
+		name_text = self.canvas.create_text(830, 35, text=npc.name, font=Formating.FONT_HEADER_BOLD)
+
+		name_x1 = self.canvas.bbox(name_text)[0]-130
+		name_y1 = self.canvas.bbox(name_text)[1]-10
+		name_x2 = self.canvas.bbox(name_text)[2]+130
+		name_y2 = self.canvas.bbox(name_text)[3]+10
+
+		name_background = self.canvas.create_rectangle(name_x1, name_y1, name_x2, name_y2, fill=darken_color(clr, 0.3), outline=detail_clr, width=4, tags=['background', 'statblock', 'name'])
+
+		## OPTIONS
+		for option in npc.options:
+			npc.options[option].format(self.canvas, x_anchor=400, y_anchor=120, val_dist=225)
+
+		Formating.create_desc_box(self.canvas, 'option', clr, detail_clr)
+
+		## ABILITIES
+		for ability in npc.abilities:
+			npc.abilities[ability].format(self.canvas, preview=True, x_anchor=1050, y_anchor=120, val_dist=225)
+
+		Formating.create_desc_box(self.canvas, 'ability', clr, detail_clr)
+
+
+		self.canvas.tag_lower('background')
 
 
 
-	def NPC_GUI(self, npc, rng):
-		self.canvas.delete('all')
 
-		for tag in npc.tags:
-			if tag in (*self.vars_list, 'rng_seed'):
-				strr = f"{tag} : {npc.get_tag(tag)}"
-				if tag != 'rng_seed':
-					a = self.canvas.create_text(800, self.canvas.bbox(self.canvas.find_all()[-1])[3]+60, anchor='c', text=strr, font=('Arial', 20), width=1000)
-				else:
-					a = self.canvas.create_text(800, 50, anchor='c', text=strr, font=('Arial', 20))
+	def apply_opt(self):
+		try:
+			for opt in self.opt_list:
+				self.opt_string_vars[opt].set(self.controller.current_npc.options[opt.lower().replace(' ', '_')].value)
 
-				self.canvas.tag_bind(a, '<ButtonPress-1>', partial(self.copy_text, a, strr))
-				self.canvas.tag_bind(a, '<ButtonPress-2>', partial(self.edit_text, a, strr))
+			self.rng_ent.delete(0, tk.END)
+			self.rng_ent.insert(0, self.controller.current_npc.seed)
+
+		except AttributeError:
+			print('Failed to apply options, No NPC Generated')
 
 
+	def reset_opt(self):
+		for opt in self.opt_list:
+			self.opt_string_vars[opt].set('--Random--')
 
-	
+		self.rng_ent.delete(0, tk.END)
+		self.rng_ent.insert(0, '')
 
-
-	# def add_statblock_break(self, body, clr, mod=5):
-	# 	bounds = self.canvas.bbox(body)
-
-	# 	self.canvas.create_polygon(315, bounds[3]+mod, 800, bounds[3]+mod+2, 315, bounds[3]+mod+4, fill=clr, tags=['break'])
-
-
-
-	def copy_text(self, body, text, *args):
-		self.canvas.itemconfigure(body, text="Copied!")
-		copy(text[text.find(': ')+2:])
-		self.parent.after(500, partial(self.normal_text, body, text))
-
-	def normal_text(self, body, text, *args):
-		self.canvas.itemconfigure(body, text=text)
-
-	def edit_text(self, body, text, *args):
-		a = askstring('Edit Text', 'New Text Here: ')
-		
-		self.canvas.itemconfigure(body, text=f"{text[:text.find(': ')+2]}{a}")
-
-
-
-	# def attach_tooltip(self, body, text="", display_type='description', dash=(1, 1), underline=True):
-	# 	if underline:
-	# 		self.underline_text(body, dash=dash)
-
-	# 	if display_type == 'description':
-	# 		self.canvas.tag_bind(body, '<Enter>', lambda e: self.tooltip_show(e, text, display_type=display_type))
-	# 		self.canvas.tag_bind(body, '<Leave>', self.tooltip_hide)
-
-	# 	# elif display_type == 'spell':
-	# 	# 	self.canvas.tag_bind(body, '<ButtonPress-1>', lambda e: self.tooltip_show(e, text, display_type=display_type))
-
-
-	# def underline_text(self, ID, dash=(5, 1)):
-	# 	bounds = self.canvas.bbox(ID)
-	# 	coordinates = (bounds[0], bounds[3]-1, bounds[2], bounds[3]-1)
-	# 	self.canvas.create_line(coordinates, tags=[*self.canvas.gettags(ID), 'underline'], dash=dash)
-
-	# def tooltip_show(self, event, text, display_type='description'):
-	# 	self.top = tk.Toplevel(self)
-	# 	self.top.wm_overrideredirect(True)
-
-	# 	w = 180
-	# 	h = 100
-
-	# 	self.top.geometry(f"{w}x{h}")
-	# 	self.top.geometry(f"+{event.x}+{event.y-(h-40)}")
-		
-
-	# 	lbl = tk.Label(self.top, text=text, justify='left', wraplength=w-10).place(relx=0, rely=0, anchor='nw')
-
-
-	# def tooltip_hide(self, event):
-	# 	self.top.destroy()
 
 class SheetFrame(tk.Frame):
 	def __init__(self, controller, parent):
@@ -240,15 +475,82 @@ class SheetFrame(tk.Frame):
 		self.createGUI()
 
 	def createGUI(self):
-		rtn_btn = tk.Button(self, text='<<', font=('Arial', 25), fg='black', highlightbackground="RED", command=self.controller.return_to_main)
-		rtn_btn.place(relx=0.03, rely=0.96, anchor='c')
+		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
+		self.canvas.place(x=0, y=0, anchor='nw')
+
+		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
+		return_btn.place(relx=0.05, rely=0.95, anchor='c')
+
+		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
+		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
+
+	def create_layout(self, npc):
+		self.outline_clr = Main.get_instance().clr
+		self.fill_clr = darken_color(self.outline_clr, 0.5)
+
+		name = npc.name
+		sex = npc.options['sex'].value
+		race = npc.options['race'].value
+		occupation = npc.options['occupation'].value
+		level = npc.options['level'].value
+
+		#Summary
+		name_txt = self.canvas.create_text(120, 28, anchor='nw', text=name, font=('Arial', 24), tags=['text'])
+		name_txt_x1 = self.canvas.bbox(name_txt)[0] + 1
+
+		sex_race_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(name_txt)[3], anchor='nw', text=f"{sex} {race}", font=('Arial', 16), tags=['text'])
+		occupation_txt = self.canvas.create_text(self.canvas.bbox(sex_race_txt)[2], self.canvas.bbox(sex_race_txt)[1], anchor='nw', text=f" {occupation}", font=('Arial', 16), tags=['text'])
+		level_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(sex_race_txt)[3], anchor='nw', text=f"Level {level}", font=('Arial', 16), tags=['text'])
+
+		summary_bg = self.canvas.create_rectangle(20, 20, self.canvas.bbox(occupation_txt)[2]+13, 100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+
+		#Stats
+
+		self.canvas.tag_lower('background')
+
+class DescFrame(tk.Frame):
+	def __init__(self, controller, parent):
+		tk.Frame.__init__(self, parent)
+
+		self.controller = controller
+		self.parent = parent
+
+		self.createGUI()
+
+	def createGUI(self):
+		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
+		self.canvas.place(x=0, y=0, anchor='nw')
+
+		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
+		return_btn.place(relx=0.05, rely=0.95, anchor='c')
+
+		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
+		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
+
+	def create_layout(self, npc):
+		clr = Main.get_instance().clr
+		detail_clr = darken_color(clr, 0.5)
 
 
+	
+class Rng():
+	def __init__(self, seed=None):
+		if seed is None:
+			self.seed = SeedSequence().entropy
+		else:
+			self.seed = seed
 
-class Generator():
+		self.rng = default_rng(seed=self.seed)
+
+
+class Main():
+	instance = None
+
 	def __init__(self, parent):
 		self.parent = parent
 		self.frames = {}
+
+		self.frame_id = 0
 
 		self.resource_loader = ResourceLoader.get_instance()
 
@@ -266,43 +568,49 @@ class Generator():
 		container.grid_rowconfigure(0, weight=1)
 		container.grid_columnconfigure(0, weight=1)
 
-		for F in (MainFrame, SheetFrame):
+		for F in (MainFrame, SheetFrame, DescFrame):
 			frame = F(self, container)
 			self.frames[F.__name__] = frame
 			frame.grid(row=0, column=0, sticky='nsew')
 
+		self.parent.bind('1', partial(self.show_frame, 'MainFrame'))
+		self.parent.bind('2', partial(self.show_frame, 'SheetFrame'))
+		self.parent.bind('3', partial(self.show_frame, 'DescFrame'))
+
+		self.parent.bind('<Left>', partial(self.change_stage, -1))
+		self.parent.bind('<Right>', partial(self.change_stage, 1))
+
+		self.parent.bind('<g>', self.generate)
+
 		self.show_frame('MainFrame')
 
-	def sheet_init(self):
-		self.show_frame('SheetFrame')
-
-	def return_to_main(self):
-		self.show_frame('MainFrame')
-
-	def generate(self):
+	def generate(self, event=None):
 		child = self.frames['MainFrame']
-
-		npc = NPC()
-
-		if self.frames['MainFrame'].rng_ent.get():
-			self.rng_object = Rng(seed=int(self.frames['MainFrame'].rng_ent.get()))
-		else:			
-			self.rng_object = Rng()
-
-		rng = self.rng_object.get_rng()
-		npc.set_tag('rng_seed', self.rng_object.get_seed())
-
-		npc.set_tag('Name', 'Npc Name')
+		self.frames['SheetFrame'].canvas.delete('!keep')
+		self.frames['DescFrame'].canvas.delete('!keep')
+		child.canvas.delete('!keep')
+		opts = {}
 
 		
-		## BASIC ATTRIBUTES FOR NPC: LEVEL, OCCUPATION, RACE, SEX, UNCAPPED ABILITIES
-		for opt_var in child.vars_list:
-			str_var = child.string_vars[opt_var].get()
+		self.clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), np.random.random((3, )))))
+		child.gen_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
+		child.apply_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
+		child.reset_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
+		child.canvas.itemconfig(child.divide, fill=darken_color(self.clr, 0.8), outline=darken_color(self.clr, 0.65))
+		child.sheet_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
+
+
+		self.rng_object = Rng(seed=int(child.rng_ent.get())) if child.rng_ent.get() else Rng()
+
+		rng = self.rng_object.rng
+
+		for opt_var in child.opt_list:
+			str_var = child.opt_string_vars[opt_var].get()
 			
 			if str_var == "--Random--":
 				list_ = []
 
-				for obj in child.var_choices[opt_var]:
+				for obj in child.opt_choices[opt_var]:
 					if obj[0] != "-":
 						list_.append(obj)
 
@@ -319,92 +627,95 @@ class Generator():
 					var = str_var
 				
 			if opt_var == 'Level':
-				npc.set_tag(opt_var, int(var))
+				opts[opt_var] = int(var)
 			elif opt_var == 'Uncapped Abilities' or opt_var == 'Only Class Specific Spells':
-				var = True if var == 'True' else False
-				npc.set_tag(opt_var, var)
+				var = True if var == 'True' or var == '1' else False
+				opts[opt_var] = var
 			else:
-				npc.set_tag(opt_var, var)
+				opts[opt_var] = var
+
+		opts["rng_seed"] = self.rng_object.seed
+
+		self.current_npc = NPC(self.rng_object, {k.lower().replace(' ', '_'):v for k, v in opts.items()})
+		child.preview_format(self.current_npc)
+
+		self.frames['SheetFrame'].create_layout(self.current_npc)
+		self.frames['DescFrame'].create_layout(self.current_npc)
 
 
-		## CLASS OR NOT
-		npc.set_tag('class_bool', npc.get_tag('Occupation') in self.resource_loader.get_list('classes'))
 
 
-		## PROFICIENCY BONUS
-		npc.set_tag('proficiency_bonus', 2 + (npc.get_tag('Level')-1)//4)
+
+		# ## SUBRACE
+		# npc.set_tag('Subrace', self.resource_loader.get_subrace(rng, npc.get_tag('Race')))
+
+		# ## SUBCLASS INIT
+		# if npc.get_tag('class_bool'):
+		# 	## SUBCLASS
+		# 	npc.set_tag('Subclass', self.resource_loader.get_subclass(rng, npc.get_tag('Occupation')))
+
+		# 	## CLASS FEATURES
+		# 	npc.set_tag('Features', self.resource_loader.get_class_features(rng, npc.get_tag('Occupation'), npc.get_tag('Subclass'), npc.get_tag('Level')))
 
 
-		## SUBRACE
-		npc.set_tag('Subrace', self.resource_loader.get_subrace(rng, npc.get_tag('Race')))
-
-		## SUBCLASS INIT
-		if npc.get_tag('class_bool'):
-			## SUBCLASS
-			npc.set_tag('Subclass', self.resource_loader.get_subclass(rng, npc.get_tag('Occupation')))
-
-			## CLASS FEATURES
-			npc.set_tag('Features', self.resource_loader.get_class_features(rng, npc.get_tag('Occupation'), npc.get_tag('Subclass'), npc.get_tag('Level')))
+		# ## ABILITIES
+		# npc.set_tag('Abilities', self.generate_abilities(rng, npc))
+		# ### ABILITY SCORE IMPROVEMENTS
+		# npc.set_tag('Abilities', self.add_asi_and_feats(rng, npc))
 
 
-		## ABILITIES
-		npc.set_tag('Abilities', self.generate_abilities(rng, npc))
-		### ABILITY SCORE IMPROVEMENTS
-		npc.set_tag('Abilities', self.add_asi_and_feats(rng, npc))
+		# ## APPEARENCE AND TRAITS
+		# appr = self.resource_loader.get_appearances(rng, npc.get_tag('Race'), npc.get_tag('Subrace'))
 
 
-		## APPEARENCE AND TRAITS
-		appr = self.resource_loader.get_appearances(rng, npc.get_tag('Race'), npc.get_tag('Subrace'))
+		# npc.set_tag('Appearance', {k:v for k, v in appr.items() if 'base' not in k and 'mod' not in k})
 
+		# ## LANGUAGES AND SPEEDS
+		# npc.set_tag('Languages', self.resource_loader.get_languages_or_speeds(rng, npc.get_tag('Race'), npc.get_tag('Subrace'), 'lan'))
+		# npc.set_tag('Speeds', self.resource_loader.get_languages_or_speeds(rng, npc.get_tag('Race'), npc.get_tag('Subrace'), 'spd'))
 
-		npc.set_tag('Appearance', {k:v for k, v in appr.items() if 'base' not in k and 'mod' not in k})
+		# ### HEIGHT AND WEIGHT
+		# h = round(int(appr['height_base'][0]) + int(appr['height_mod'][0])*2.54)
+		# w = round(int(appr['weight_base'][0]) + ((int(appr['weight_mod'][0]) * int(appr['height_mod'][0]))*0.45))
+		# w_max = round(int(appr['weight_base'][0]) + ((int(appr['weight_mod'][1][1]) * int(appr['height_mod'][1][1]))*0.45))
 
-		## LANGUAGES AND SPEEDS
-		npc.set_tag('Languages', self.resource_loader.get_languages_or_speeds(rng, npc.get_tag('Race'), npc.get_tag('Subrace'), 'lan'))
-		npc.set_tag('Speeds', self.resource_loader.get_languages_or_speeds(rng, npc.get_tag('Race'), npc.get_tag('Subrace'), 'spd'))
+		# npc.set_tag('Height', f"{h} cm")
 
-		### HEIGHT AND WEIGHT
-		h = round(int(appr['height_base'][0]) + int(appr['height_mod'][0])*2.54)
-		w = round(int(appr['weight_base'][0]) + ((int(appr['weight_mod'][0]) * int(appr['height_mod'][0]))*0.45))
-		w_max = round(int(appr['weight_base'][0]) + ((int(appr['weight_mod'][1][1]) * int(appr['height_mod'][1][1]))*0.45))
+		# w_dict = {0.4:'light', 0.7:'medium', 10:'heavy'}
+		# w_cat = ''
 
-		npc.set_tag('Height', f"{h} cm")
+		# for bin_ in w_dict:
+		# 	if (w-int(appr['weight_base'][0]))/(w_max-int(appr['weight_base'][0])) <= bin_:
+		# 		w_cat = w_dict[bin_]
+		# 		break
 
-		w_dict = {0.4:'light', 0.7:'medium', 10:'heavy'}
-		w_cat = ''
+		# npc.set_tag('Weight', f"{w} kg ({w_cat})")
 
-		for bin_ in w_dict:
-			if (w-int(appr['weight_base'][0]))/(w_max-int(appr['weight_base'][0])) <= bin_:
-				w_cat = w_dict[bin_]
-				break
+		# ### OTHER APPEARENCES LIKE EYE COLOR AND ALL THAT BS
 
-		npc.set_tag('Weight', f"{w} kg ({w_cat})")
-
-		### OTHER APPEARENCES LIKE EYE COLOR AND ALL THAT BS
-
-		# xml.get_appearence()
-
-
-		
-
-
-		### TRAITS
-		npc.set_tag('Trait', self.resource_loader.get_traits(rng, 1))
+		# # xml.get_appearence()
 
 
 		
 
-		## CLASS RELATED AND AC 
-		if npc.get_tag('class_bool'):
 
-			## CLASS PROFICIENCIES
-			npc.set_tag("Class Proficiencies", self.resource_loader.get_proficiencies(rng, npc.get_tag('Occupation')))
+		# ### TRAITS
+		# npc.set_tag('Trait', self.resource_loader.get_traits(rng, 1))
 
-			## WEAPONS AND ARMOR
-			npc.set_tag("Weapon", self.resource_loader.get_weapon(rng, npc.get_tag('Class Proficiencies')['weapons']))
 
-			armr_dict = self.resource_loader.get_armor(rng, npc.get_tag('Class Proficiencies')['armor'], npc.get_tag('Abilities')['STR'][0])
-			npc.set_tag('Armor', f"{armr_dict['name']}, Stealth Dis.: {armr_dict['stealth_dis']}")
+		
+
+		# ## CLASS RELATED AND AC 
+		# if npc.get_tag('class_bool'):
+
+		# 	## CLASS PROFICIENCIES
+		# 	npc.set_tag("Class Proficiencies", self.resource_loader.get_proficiencies(rng, npc.get_tag('Occupation')))
+
+		# 	## WEAPONS AND ARMOR
+		# 	npc.set_tag("Weapon", self.resource_loader.get_weapon(rng, npc.get_tag('Class Proficiencies')['weapons']))
+
+		# 	armr_dict = self.resource_loader.get_armor(rng, npc.get_tag('Class Proficiencies')['armor'], npc.get_tag('Abilities')['STR'][0])
+		# 	npc.set_tag('Armor', f"{armr_dict['name']}, Stealth Dis.: {armr_dict['stealth_dis']}")
 
 			
 
@@ -412,140 +723,80 @@ class Generator():
 	
 		
 
-		## AC AND HP
-		### AC
-		if npc.get_tag('class_bool'):
-			ac = int(armr_dict['ac']) + npc.get_tag('Abilities')['DEX'][1]
+		# ## AC AND HP
+		# ### AC
+		# if npc.get_tag('class_bool'):
+		# 	ac = int(armr_dict['ac']) + npc.get_tag('Abilities')['DEX'][1]
 
-			if 'shield' in npc.get_tag('Class Proficiencies')['armor']:
-				if rng.random() <= 0.25:
-					ac += 2
-					npc.set_tag('Armor', f"{npc.get_tag('Armor')}, Shield (+2): True")
+		# 	if 'shield' in npc.get_tag('Class Proficiencies')['armor']:
+		# 		if rng.random() <= 0.25:
+		# 			ac += 2
+		# 			npc.set_tag('Armor', f"{npc.get_tag('Armor')}, Shield (+2): True")
 
-			npc.set_tag('AC', ac)
-		else:
-			npc.set_tag('AC', 10 + npc.get_tag('Abilities')['DEX'][1])
+		# 	npc.set_tag('AC', ac)
+		# else:
+		# 	npc.set_tag('AC', 10 + npc.get_tag('Abilities')['DEX'][1])
 
-		### HP
-		die = 8 if 'medium' in npc.get_tag('Appearance')['size'][0] else 6
-		hp = np.array(rng.choice(die, npc.get_tag('Level')) + 1) + npc.get_tag('Abilities')['CON'][1]
+		# ### HP
+		# die = 8 if 'medium' in npc.get_tag('Appearance')['size'][0] else 6
+		# hp = np.array(rng.choice(die, npc.get_tag('Level')) + 1) + npc.get_tag('Abilities')['CON'][1]
 		
-		npc.set_tag('Hit Points', max(sum(hp), 1))
+		# npc.set_tag('Hit Points', max(sum(hp), 1))
 
 
 
-		self.frames['MainFrame'].NPC_GUI(npc, rng)
+		# self.frames['MainFrame'].NPC_GUI(npc, rng)
 
-		# child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
+		# # child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
 
 
 
-		# child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://www.fantasynamegenerators.com/dnd-{npc.get_tag('Race').lower().replace(' ', '-')}-names.php", new=2))
+		# # child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://www.fantasynamegenerators.com/dnd-{npc.get_tag('Race').lower().replace(' ', '-')}-names.php", new=2))
 		
 
 
 
 
-		# hsv = [*[rng.random() for _ in range(2)], min(rng.random()+0.4, 1)]
-		# hsv = [rng.random(), 0.5, rng.random()]
-		# rgb = list(map(lambda x: hex(int(x*255))[2:].zfill(2), colorsys.hsv_to_rgb(*hsv)))
-		# clr = "#" + "".join(rgb)
+		# # hsv = [*[rng.random() for _ in range(2)], min(rng.random()+0.4, 1)]
+		# # hsv = [rng.random(), 0.5, rng.random()]
+		# # rgb = list(map(lambda x: hex(int(x*255))[2:].zfill(2), colorsys.hsv_to_rgb(*hsv)))
+		# # clr = "#" + "".join(rgb)
 
-		# print(hsv, rgb, clr)
-		# a = child.canvas.create_rectangle(1200, 500, 1420, 600, fill=clr)
+		# # print(hsv, rgb, clr)
+		# # a = child.canvas.create_rectangle(1200, 500, 1420, 600, fill=clr)
 
 
 		
-		# s = ""
+		# # s = ""
 
-		# for item in self.vars_dict.items():
-		# 	s += f"{item[0]}: {item[1]}\n"
+		# # for item in self.vars_dict.items():
+		# # 	s += f"{item[0]}: {item[1]}\n"
 
-		# if self.vars_dict['Occupation'] not in self.resource_loader.get_list('classes'):
-		# 	s += f"\nOccupation Description: {self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[0]}{self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[1:].lower()}\n"
+		# # if self.vars_dict['Occupation'] not in self.resource_loader.get_list('classes'):
+		# # 	s += f"\nOccupation Description: {self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[0]}{self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[1:].lower()}\n"
 
-		# s += f"Subrace: {self.resource_loader.get_subrace(self.rng, self.vars_dict['Race'])}\n"
+		# # s += f"Subrace: {self.resource_loader.get_subrace(self.rng, self.vars_dict['Race'])}\n"
 
 
 
-		# child.canvas.delete(child.description)
-		# child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('Arial', 18), width=500) 
+		# # child.canvas.delete(child.description)
+		# # child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('Arial', 18), width=500) 
 
-	def generate_abilities(self, rng, npc):
-		abilities = {'DEX':10, 'STR':10, 'CON':10, 'INT':10, 'WIS':10, 'CHA':10}
+	def change_stage(self, change, event=None):
+		self.frame_id = max(min(self.frame_id + change, len(list(self.frames.keys()))-1), 0)
+		self.show_frame(self.frames[list(self.frames.keys())[self.frame_id]].__class__.__name__)
 
-		bonuses = self.resource_loader.get_race_ability_bonuses(abilities, rng, npc.get_tag('Race'), npc.get_tag('Subrace')) 
-		
-		for ability in abilities:
-			if npc.get_tag('class_bool'):
-				rolls = sorted(rng.choice(6, 4)+1)[1:]
-			else:
-				rolls = rng.choice(6, 3)+1
-
-			try:
-				var = sum(rolls) + int(bonuses[ability])
-			except KeyError:
-				var = sum(rolls)
-
-			score = max(min(var, 20), 1) if not npc.get_tag('Uncapped Abilities') else var
-			abilities[ability] = (score, (score-10)//2)
-
-		return abilities
-
-	def add_asi_and_feats(self, rng, npc):
-		bonuses = {'DEX':0, 'STR':0, 'CON':0, 'INT':0, 'WIS':0, 'CHA':0}
-
-		lvls = np.arange(npc.get_tag('Level'))+1
-		
-		if npc.get_tag('Occupation') == 'Fighter':
-			lvls.extend([6, 14])
-		if npc.get_tag('Occupation') == 'Rogue':
-			lvls.extend([10])
-
-		lvls = [not bool(x % 4) for x in sorted(lvls)]
- 
-		choices = ['feat', '2', '1+1', '3+-1']
-		feats = self.resource_loader.get_feat(rng)
-
-		npc_feats = {}
-		
-		for lvl in np.arange(npc.get_tag('Level')):
-			if lvls[lvl]:
-				choice = rng.choice(choices, p=[0.19, 0.27, 0.27, 0.27])
-				if choice == 'feat':
-					try:
-						feat = feats[rng.choice(np.arange(len(feats)))]
-					except ValueError: ## if len(feats) > num_feats
-						continue
-
-					feat_data = self.resource_loader.get_feat_data(rng, feat, npc)
-					if 'asi' in feat_data.keys():
-						bonuses[feat_data['asi'][0]] += int(feat_data['asi'][1])
-
-					npc_feats[feat_data['name']] = {k:feat_data[k] for k in feat_data.keys() if k not in ('name', 'asi')}
-					feats.remove(feat)
-
-				else:
-					aa = choice.split('+')
-					for ab in aa:
-						bonuses[rng.choice(list(bonuses.keys()))] += int(ab)
-		
-		if npc_feats != {}:
-			npc.set_tag('feats', npc_feats)
-		
-		final = {}
-		for ability in bonuses:
-			var = npc.get_tag('Abilities')[ability][0] + bonuses[ability]
-			score = max(min(var, 20), 1) if not npc.get_tag('Uncapped Abilities') else var
-
-			final[ability] = (score, (score-10)//2)
-
-		return final
-
-	def show_frame(self, frame_name):
+	def show_frame(self, frame_name, event=None):
 		self.frames[frame_name].tkraise()
 
 	def start(self):
 		self.parent.mainloop()
 
-Generator(tk.Tk()).start()
+	@staticmethod 
+	def get_instance():
+		if Main.instance is None:
+			Main.instance = Main(tk.Tk())
+		return Main.instance
+
+if __name__ == "__main__":
+	Main.get_instance().start()

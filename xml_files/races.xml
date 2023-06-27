@@ -2,96 +2,160 @@
 
 <races>
 
-	<!-- AARAKOCRAS -->
+	<!-- AARAKOCRA -->
 	<race name="Aarakocra">
 		<type name="Aarakocra (DMG)">
-			<datadict>
-				<dataval key="abilities" value="dict">
-					<ability key="DEX" value="2"/>
-					<ability key="WIS" value="2"/>
-				</dataval>
+			<abilities>
+				<ability key="DEXTERITY" value="2"/>
+				<ability key="WISDOM" value="2"/>
+			</abilities>
+			
+			<size value="medium"/>
+			
+			<speeds>
+				<speed key="walking" value="20"/>
+				<speed key="flying" value="50"/>
+			</speeds>
+
+			<languages>
+				<language value="Auran"/>
+			</languages>
+
+			<appearences>
+				<height_weight>
+					<height_base value="132"/>
+					<height_modifier value="1d6"/>
+
+					<weight_base value="41"/>
+					<weight_modifier value="1d6"/>
+				</height_weight>
+				<age maturity="3" lifespan="30"/>
+			</appearences>
+
+			<features>
+				<feature id="Dive Attack"/>
+				<feature id="Talons_DMG"/>
+			</features>
+
+			<actions>
+				<action id="Talons_DMG"/>
+			</actions>
+			
+<!--			<dataval key="appearances" value="dict">
+				<appearance key="age" value="3-30"/>
+				<appearance key="size" value="medium"/>
+				<appearance key="skin_type" value="feathers"/>
+				<appearance key="skin_color" value="exotic"/>
+				<appearance key="eye_color" value="dark_basic"/>
 				
-				<dataval key="appearances" value="dict">
-					<appearance key="age" value="3-30"/>
-					<appearance key="size" value="medium"/>
-					<!-- <appearance key="skin_type" value="feathers"/>
-					<appearance key="skin_color" value="exotic"/>
-					<appearance key="eye_color" value="dark_basic"/> -->
-					
-					<appearance key="height_base" value="132"/>
-					<appearance key="height_mod" value="1-6"/>
-					<appearance key="weight_base" value="41"/>
-					<appearance key="weight_mod" value="1-6"/>
-				</dataval>
+				<appearance key="height_base" value="132"/>
+				<appearance key="height_mod" value="1-6"/>
+				<appearance key="weight_base" value="41"/>
+				<appearance key="weight_mod" value="1-6"/>
+			</dataval>
 
-				<dataval key="languages" value="dict">
-					<language key="Auran" value="speak, read, and write"/>
-				</dataval>
+			<dataval key="languages" value="dict">
+				<language key="Auran" value="speak, read, and write"/>
+			</dataval>
 
-				<dataval key="speeds" value="dict">
-					<speed key="walking" value="20"/>
-					<speed key="flying" value="50"/>
-				</dataval>
-			</datadict>
+			<dataval key="speeds" value="dict">
+				<speed key="walking" value="20"/>
+				<speed key="flying" value="50"/>
+			</dataval> -->
 		</type>
-
 		<type name="Aarakocra (EEPC)">
-			<datadict>
-				<dataval key="abilities" value="dict">
-					<ability key="DEX" value="2"/>
-					<ability key="WIS" value="1"/>
-				</dataval>
+			<abilities>
+				<ability key="DEXTERITY" value="2"/>
+				<ability key="WISDOM" value="1"/>
+			</abilities>
+			
+			<size value="medium"/>
 
-				<dataval key="appearances" value="dict">
-					<appearance key="age" value="3-30"/>
-					<appearance key="size" value="medium"/>
-					
-					<appearance key="height_base" value="132"/>
-					<appearance key="height_mod" value="1-6"/>
-					<appearance key="weight_base" value="41"/>
-					<appearance key="weight_mod" value="1-6"/>
-				</dataval>
+			<speeds>
+				<speed key="walking" value="45"/>
+			</speeds>
 
-				<dataval key="languages" value="dict">
-					<language key="Common" value="speak, read, and write"/>
-					<language key="Aarakocra" value="speak, read, and write"/>
-					<language key="Auran" value="speak, read, and write"/>
-				</dataval>
+			<languages>
+				<language value="Common"/>
+				<language value="Aarakocran"/>
+				<language value="Auran"/>
+			</languages>
 
-				<dataval key="speeds" value="dict">
-					<speed key="walking" value="25"/>
-					<speed key="flying" value="50"/>
-				</dataval>
-			</datadict>
+			<appearences>
+				<height_weight>
+					<height_base value="132"/>
+					<height_modifier value="1d6"/>
+
+					<weight_base value="41"/>
+					<weight_modifier value="1d6"/>
+				</height_weight>
+				<age maturity="3" lifespan="30"/>
+			</appearences>
+
+			<features>
+				<feature id="Dive Attack"/>
+				<feature id="Talons_DMG"/>
+			</features>
+
+			<actions>
+				<action id="Talons_DMG"/>
+			</actions>
+			
 		</type>
-
 		<type name="Aarakocra (MPMM)">
-			<datadict>
-				<dataval key="abilities" value="dict_choice">
-					<ability key="random_a" value="2:1"/>
-					<ability key="random_b" value="1:1:1"/>
-				</dataval>
+			<abilities>
+				<ability key="lineage" value="0"/>
+			</abilities>
+			
+			<size value="medium"/>
+			
+			<speeds>
+				<speed key="walking" value="45"/>
+			</speeds>
 
-				<dataval key="appearances" value="dict">
-					<appearance key="age" value="3-30"/>
-					<appearance key="size" value="medium"/>
-					
-					<appearance key="height_base" value="132"/>
-					<appearance key="height_mod" value="1-6"/>
-					<appearance key="weight_base" value="41"/>
-					<appearance key="weight_mod" value="1-6"/>
-				</dataval>
+			<languages>
+				<language value="Common"/>
+				<language value="random"/>
+			</languages>
 
-				<dataval key="languages" value="dict">
-					<language key="Common" value="speak, read, and write"/>
-					<language key="random_lan" value="speak, read, and write"/>
-				</dataval>
+			<appearences>
+				<height_weight>
+					<height_base value="132"/>
+					<height_modifier value="1d6"/>
 
-				<dataval key="speeds" value="dict">
-					<speed key="walking" value="30"/>
-					<speed key="flying" value="30"/>
-				</dataval>
-			</datadict>
+					<weight_base value="41"/>
+					<weight_modifier value="1d6"/>
+				</height_weight>
+				<age maturity="3" lifespan="30"/>
+			</appearences>
+
+			<features>
+				<feature id="Dive Attack"/>
+				<feature id="Talons_DMG"/>
+			</features>
+
+			<actions>
+				<action id="Talons_DMG"/>
+			</actions>
+			
 		</type>
 	</race>
 </races>
+		
+		<!-- <type name="Aarakocra (TEST0)">
+			<abilities>
+				<ability key="CHARISMA" value="2"/>
+				<ability key="choose" value="1;1"/> 
+			</abilities>
+		</type>
+		<type name="Aarakocra (TEST1)">
+			<abilities>
+				<ability key="choose" value="2;1"/> 
+			</abilities>
+		</type>
+		<type name="Aarakocra (TEST2)">
+			<abilities>
+				<ability key="INTELLIGENCE" value="1"/>
+				<ability key="pick" value="DEXTERITY;CHARISMA;2"/>
+			</abilities>
+		</type> -->

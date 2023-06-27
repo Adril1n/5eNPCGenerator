@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
 <skills>
-	<skill name="Athletics" ability="STR"/>
+	<skill name="Athletics" ability="STRENGTH"/>
 
-	<skill name="Acrobatics" ability="DEX"/>
-	<skill name="Sleight of Hand" ability="DEX"/>
-	<skill name="Stealth" ability="DEX"/>
+	<skill name="Acrobatics" ability="DEXTXTERITY"/>
+	<skill name="Sleight of Hand" ability="DEXTXTERITY"/>
+	<skill name="Stealth" ability="DEXTERITY"/>
 
 	<skill name="Arcana" ability="INT"/>
 	<skill name="History" ability="INT"/>
