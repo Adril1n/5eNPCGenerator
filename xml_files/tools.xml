@@ -1,0 +1,20 @@
+<tools>
+	<tool name="alchemist's"/>
+	<tool name="brewer's"/>
+	<tool name="calligrapher's"/>
+	<tool name="carpenter's"/>
+	<tool name="cartographer's"/>
+	<tool name="cobbler's"/>
+	<tool name="cook's"/>
+	<tool name="glassblower's"/>
+	<tool name="jeweler's"/>
+	<tool name="leatherworker's"/>
+	<tool name="mason's"/>
+	<tool name="painter's"/>
+	<tool name="potters"/>
+	<tool name="smith's"/>
+	<tool name="tinker's"/>
+	<tool name="thieves'"/>
+	<tool name="weaver's"/>
+	<tool name="woodcarver's"/>
+</tools>

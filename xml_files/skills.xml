@@ -7,20 +7,20 @@
 	<skill name="Sleight of Hand" ability="DEXTXTERITY"/>
 	<skill name="Stealth" ability="DEXTERITY"/>
 
-	<skill name="Arcana" ability="INT"/>
-	<skill name="History" ability="INT"/>
-	<skill name="Investigation" ability="INT"/>
-	<skill name="Nature" ability="INT"/>
-	<skill name="Religion" ability="INT"/>
+	<skill name="Arcana" ability="INTELLIGENCE"/>
+	<skill name="History" ability="INTELLIGENCE"/>
+	<skill name="Investigation" ability="INTELLIGENCE"/>
+	<skill name="Nature" ability="INTELLIGENCE"/>
+	<skill name="Religion" ability="INTELLIGENCE"/>
 
-	<skill name="Animal Handling" ability="WIS"/>
-	<skill name="Insight" ability="WIS"/>
-	<skill name="Medicine" ability="WIS"/>
-	<skill name="Perception" ability="WIS"/>
-	<skill name="Survival" ability="WIS"/>
+	<skill name="Animal Handling" ability="WISDOM"/>
+	<skill name="Insight" ability="WISDOM"/>
+	<skill name="Medicine" ability="WISDOM"/>
+	<skill name="Perception" ability="WISDOM"/>
+	<skill name="Survival" ability="WISDOM"/>
 
-	<skill name="Deception" ability="CHA"/>
-	<skill name="Intimidation" ability="CHA"/>
-	<skill name="Performance" ability="CHA"/>
-	<skill name="Persuasion" ability="CHA"/>
+	<skill name="Deception" ability="CHARISMA"/>
+	<skill name="Intimidation" ability="CHARISMA"/>
+	<skill name="Performance" ability="CHARISMA"/>
+	<skill name="Persuasion" ability="CHARISMA"/>
 </skills>

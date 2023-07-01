@@ -2,7 +2,7 @@
 
 <classes>
 	<class name="Artificer">
-		<datadict>
+		<!-- <datadict>
 			<dataval key="proficiencies" value="dict">
 				<proficiency key="armor" value="light:medium:shield"/>
 				<proficiency key="weapons" value="simple"/>
@@ -29,6 +29,34 @@
 
 				<feature req="20" key="Soul of Artifice" value="If you're reduced to 0 hit points but not killed outright, you can use your reaction to consume you Infused Item which causes you to drop to 1 hit point instead of 0."/>
 			</dataval>
-		</datadict>
+		</datadict> -->
+		<proficiencies>
+			<armor>
+				<type value="light"/>
+				<type value="medium"/>
+				<type value="shields"/>
+			</armor>
+			
+			<weapons>
+				<type value="simple"/>
+			</weapons>
+
+			<tools>
+				<type value="thieves'"/>
+				<type value="tinker's"/>
+				<type value="random"/>
+			</tools>
+
+			<saving_throws>
+				<type value="CONSTITUTION"/>
+				<type value="INTELLIGENCE"/>
+			</saving_throws>
+
+			<skills>
+				<type value="2"/>
+			</skills>
+			
+
+		</proficiencies>
 	</class>
 </classes>

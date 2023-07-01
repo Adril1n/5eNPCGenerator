@@ -107,6 +107,14 @@ class ResourceLoader():
 
 		return languages
 
+	def get_darkvision(self, race_id, race_type_id):
+		race_type = self.get_race_type(race_id, race_type_id)
+
+		try:
+			return race_type.find('darkvision').get('value')
+		except AttributeError:
+			return None
+
 	def get_height_weight(self, race_id, race_type_id):
 		race_type = self.get_race_type(race_id, race_type_id)
 
@@ -152,9 +160,24 @@ class ResourceLoader():
 
 		return actions_dict
 
+	def get_base_class_proficiencies(self, occupation_id):
+		class_xml = self.get_xml_root('classes')
 
+		prof = {}
+		
+		for class_ in class_xml.findall('class'):
+			if class_.get('name') == occupation_id:
+				for proficiency in class_.find('proficiencies'):
+					prof[proficiency.tag] = [t.get('value') for t in proficiency.findall('type')]
 
-	
+		if prof != {}:
+			return prof
+		else:
+			return {'armor':[], 'weapons':[], 'tools':[], 'saving_throws':[], 'skills':[0]}
+
+	def get_equipment_list(self, l_type):
+		xml = self.get_xml_root(f'{l_type}s')
+		return [equipment.attrib for equipment in xml.findall(l_type)]
 
 	# def get_race_ability_bonuses(self, abilities, rng, race_id, subrace_id):
 	# 	races = self.get_xml_root('races')

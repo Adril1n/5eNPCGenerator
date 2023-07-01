@@ -6,8 +6,12 @@ import webbrowser
 import colorsys
 
 from functools import partial
+import tkinter.scrolledtext as scrolledtext
+
 
 from resource_loader import ResourceLoader
+
+
 
 
 
@@ -26,6 +30,10 @@ def darken_color(color, factor):
 class Formating():
 	FONT_HEADER_BOLD = ('Arial-BoldMT', 20)
 	FONT_DESC_BOLD = ('Arial-BoldMT', 16)
+
+	FONT_ABILITY_TYPE = ('Arial-BoldMT', 12)
+	FONT_ABILITY_MODIFIER = ('Arial', 40)
+	FONT_ABILITY_SCORE = ('Arial', 22)
 
 	@staticmethod
 	def create_desc_box(canvas, desc_type, clr, detail_clr):
@@ -110,7 +118,7 @@ class Ability():
 	def get_modifier(self):
 		return (self.score-10)//2
 
-	def format(self, canvas, preview=True, x_anchor=1000, y_anchor=60, val_dist=225):
+	def format(self, canvas, preview=True, x_anchor=1000, y_anchor=60, val_dist=225, fill_clr='#00FF00', outline_clr='#BB66FF'):
 		if preview:
 			if self.name == Ability.TYPES[0]:
 				canvas.create_text(x_anchor, y_anchor, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
@@ -121,7 +129,23 @@ class Ability():
 			modifer_txt = f'+{modifier}' if modifier > 0 else modifier
 			canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[1], text=f"{self.score} [{modifer_txt}]", anchor='ne', font=('Arial', 16), tags=['text', 'ability', 'value'])
 		else:
-			pass
+			dim = 100
+
+			if self.name == Ability.TYPES[0]:
+				x = x_anchor
+				y = y_anchor
+			else:
+				x = canvas.bbox(canvas.find_withtag('background')[-1])[2]+dim//2
+				y = canvas.bbox(canvas.find_withtag('background')[-1])[1]+2
+
+			background = canvas.create_rectangle(x, y, x+dim, y+dim, fill=fill_clr, outline=outline_clr, width=3, tags=['background'])
+			type_ = canvas.create_text(x+dim//2, y+3, anchor='n', text=self.name, font=Formating.FONT_ABILITY_TYPE, tags=['text'])
+
+			modifier = self.get_modifier()
+			modifer_txt = f'+{modifier}' if modifier > 0 else modifier
+			canvas.create_text(x+dim//2, y+20, anchor='n', text=modifer_txt, font=Formating.FONT_ABILITY_MODIFIER, tags=['text'])
+
+			canvas.create_text(x+dim//2, y+dim-3, anchor='s', text=self.score, font=Formating.FONT_ABILITY_SCORE, tags=['text'])
 
 	def __repr__(self):
 		return f"{self.score, self.get_modifier()}"
@@ -164,15 +188,14 @@ class NPC():
 		
 
 		# self.generate_base()
-		# self.add_asi_and_feats()
-
-		self.generate_base()
+		self.generate()
 
 		# self.generate_ac_initiative()
 
-	def generate_base(self):
+	def generate(self):
 		race = self.options['race'].value
 		sex = self.options['sex'].value
+		occupation = self.options['occupation'].value
 
 		RL = ResourceLoader.get_instance()
 		
@@ -205,6 +228,8 @@ class NPC():
 				[language_choices.remove(a) for a in self.languages[:index]]
 				self.languages[index] = self.rng.choice(language_choices)
 
+		self.darkvision = RL.get_darkvision(race, self.race_type)
+
 
 		## APPEARENCES; HEIGHT, WEIGHT, AGE
 		height_weight_dict = RL.get_height_weight(race, self.race_type)
@@ -221,8 +246,31 @@ class NPC():
 		self.racial_features = RL.get_racial_features(race, self.race_type)
 
 		self.race_actions = {k:Action(v[0], v[1]) for k, v in RL.get_race_actions(race, self.race_type).items() if int(v[1]['level_req']) <= self.options['level'].value}
-		print(self.race_actions)
 
+
+		## ASI AND FEATS
+		self.add_asi_and_feats()
+
+
+		## BASE CLASS PROFICIENCIES 
+		self.proficiencies = RL.get_base_class_proficiencies(occupation)
+
+		tools = self.proficiencies['tools'].copy()
+		for tool in tools:
+			if tool == 'random':
+				tool_list = RL.get_equipment_list('tool')
+				tool_choices = [t['name'] for t in tool_list]
+
+				index = tools.index(tool)
+				[tool_choices.remove(a) for a in tools[:index]]
+				tools[index] = self.rng.choice(tool_choices)
+
+				self.proficiencies['tools'] = tools
+
+		skill_list = RL.get_equipment_list('skill')
+		skill_choices = [s['name'] for s in skill_list]
+
+		self.proficiencies['skills'] = list(self.rng.choice(skill_choices, size=int(self.proficiencies['skills'][0]), replace=False))
 
 		# h_mod_split = list(map(int, height_weight_dict[f'height_modifier'].split('d')))
 		# # h_mod = sum(self.rng.choice(h_mod_split[1], h_mod_split[0])+1)
@@ -255,6 +303,8 @@ class NPC():
 		else:
 			return round(base + ((self.height-int(dict_['height_base']))/2.54*mod)*0.45)
 
+
+
 	def get_weight_bin(self):
 		w_bins = {0.25:'light', 0.7:'medium', 10:'heavy'}
 		w_bin = ''
@@ -279,10 +329,41 @@ class NPC():
 				return age_bins[bin_]
 
 		
-		# GET PROF BONUS	
-	# def generate_base(self):
-	# 	self.prof = 2 + (self.options['level'].value-1)//4
-	# 	self.stats['Proficiency Bonus'] = Stat('Proficiency Bonus', self.prof)
+
+	def get_proficiency_bonus(self):
+		return 2 + (self.options['level'].value-1)//4
+
+	def get_hit_points(self):
+		die = 8 if self.size == 'medium' else 6
+		hp_arr = np.array(self.rng.choice(die, self.options['level'].value) + 1) + self.abilities['CONSTITUTION'].get_modifier()
+		return max(sum(hp_arr), 1)
+
+	def get_intiative_bonus(self):
+		dex_mod = self.abilities['DEXTERITY'].get_modifier()
+		initiative = f"+{dex_mod}" if dex_mod > 0 else dex_mod
+		return initiative
+
+	def get_speeds(self):
+		speeds = {}
+		for k, v in self.base_speeds.items():
+			speeds[f"{k.title()} Speed"] = v if v is not None else int(self.base_speeds['walking'])//2
+
+		return speeds
+
+	def get_skill(self, name):
+		skill_dict = ResourceLoader.get_instance().get_equipment_list('skill')
+		skill_list = {s['name']:s['ability'] for s in skill_dict}
+
+		for skill in skill_list:
+			if skill == name:
+				value = 10 + self.abilities[skill_list[skill]].get_modifier()
+				value += self.get_proficiency_bonus() if skill in self.proficiencies['skills'] else 0
+
+				return value
+
+		return 0
+
+
 
 
 	def apply_race_asi_bonuses(self, race_asi):
@@ -413,6 +494,10 @@ class MainFrame(tk.Frame):
 		self.sheet_btn = tk.Button(self, text='See Character Sheet', font=('Good Times', 45), fg=darken_color(clr, 0.6), highlightbackground=clr, command=partial(self.controller.change_stage, 1))
 		self.sheet_btn.place(relx=0.6, rely=0.93, anchor='c')
 
+		# txt = tk.Text(self, width=50, height=10, font=('Good Times', 20), bg="Black")
+		# txt.place(relx=0, rely=0)
+		# txt.insert(tk.END, "HELLO "*120)
+
 	def preview_format(self, npc):
 		clr = Main.get_instance().clr
 		detail_clr = darken_color(clr, 0.5)
@@ -494,7 +579,7 @@ class SheetFrame(tk.Frame):
 		occupation = npc.options['occupation'].value
 		level = npc.options['level'].value
 
-		#Summary
+		## Summary
 		name_txt = self.canvas.create_text(120, 28, anchor='nw', text=name, font=('Arial', 24), tags=['text'])
 		name_txt_x1 = self.canvas.bbox(name_txt)[0] + 1
 
@@ -502,11 +587,103 @@ class SheetFrame(tk.Frame):
 		occupation_txt = self.canvas.create_text(self.canvas.bbox(sex_race_txt)[2], self.canvas.bbox(sex_race_txt)[1], anchor='nw', text=f" {occupation}", font=('Arial', 16), tags=['text'])
 		level_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(sex_race_txt)[3], anchor='nw', text=f"Level {level}", font=('Arial', 16), tags=['text'])
 
-		summary_bg = self.canvas.create_rectangle(20, 20, self.canvas.bbox(occupation_txt)[2]+13, 100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+		summary_bg = self.canvas.create_rectangle(20, 20, self.canvas.bbox(occupation_txt)[2]+13, 100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])		
 
-		#Stats
+
+
+		## Stats
+		stats = {'Proficiency Bonus':npc.get_proficiency_bonus(), 'Hit Points':npc.get_hit_points(), 'Armor Class':10, 'Intiative':npc.get_intiative_bonus()}
+		stats.update(npc.get_speeds())
+
+		for stat in enumerate(stats):
+			self.create_stat_background(stat[1], stats[stat[1]], stat[0], summary_bg)
+		
+
+
+		## Abilities
+		ability_x_anchor = self.canvas.bbox(summary_bg)[2]+50
+		for ability_type in npc.abilities:
+			npc.abilities[ability_type].format(self.canvas, preview=False, x_anchor=ability_x_anchor, y_anchor=20, fill_clr=self.fill_clr, outline_clr=self.outline_clr)
+
+
+
+		## Proficiencies and Languages
+		# p_l_txt = self.canvas.create_text(320, 140, anchor='nw', text="Hello"*100, width=250)
+		p_l_txt = tk.Text(self, width=40, height=30, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=8, pady=8)
+		p_l_txt.place(x=320, y=140)
+		# self.canvas.create_rectangle(317, 137, 624, 584, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+		
+		p_l_txt.insert('end', 'Proficiencies and Languages', ('title'))
+		self.insert_text_break('', p_l_txt)
+	
+		for prof in npc.proficiencies:
+			p_l_txt.insert('end', f"{prof.title().replace('_', ' ')}\n", ('title', prof))
+			p_l_txt.insert('end', self.get_proficiency_text(prof, npc), ('text', prof))
+			self.insert_text_break(prof, p_l_txt)
+
+		p_l_txt.insert('end', 'Languages\n', ('title', 'languages'))
+		p_l_txt.insert('end', ', '.join(npc.languages), ('text', 'languages'))
+
+		p_l_txt.tag_configure('title', font=('Arial-BoldMT', 20))
+		p_l_txt.tag_configure('text', font=('Arial', 14))
+		p_l_txt.tag_configure('break', font=('Arial', 16))
+
+
+
+		#### DONT KNOW WHY THIS MAKES THE FRAMES WEIRD BUT SOMETHING DOES IT SO GO LINE BY LINE UNTIL THE PROBLEM IS FOUND !!
+		## Senses
+		senses_txt = tk.Text(self, width=50, height=8, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=6, pady=6)		
+		senses_txt.place(x=320, y=600)
+		# self.canvas.create_rectangle(317, 597, 687, 732, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+
+		# senses_txt.insert('end', 'Hello'*200, ('text'))
+		senses_txt.insert('end', 'Senses\n', ('title'))
+
+		for skill in ('Perception', 'Investigation', 'Insight'):
+			senses_txt.insert('end', npc.get_skill(skill), ('value', 'skill'))
+			senses_txt.insert('end', f" Passive {skill}\n", ('text', 'skill'))
+
+
+		senses_txt.tag_configure('title', font=('Arial-BoldMT', 22))
+		senses_txt.tag_configure('value', font=('Arial-BoldMT', 20))
+		senses_txt.tag_configure('text', font=('Arial', 14))
+		
+
+
+
 
 		self.canvas.tag_lower('background')
+
+	def insert_text_break(self, tag, txt):
+		txt.insert('end', f"\n{'—'*17}", ('break', tag))
+
+	def get_proficiency_text(self, key, npc):
+		if key != 'tools':
+			func = lambda x: x.title()  
+		else: 
+			func = lambda x: f"{x[0].upper()}{x[1:]} tools"
+
+		return ", ".join(list(map(func, npc.proficiencies[key]))) if npc.proficiencies[key] != [] else 'None'
+
+	def create_stat_background(self, name, value, index, summary_bg):
+		x = [self.canvas.bbox(summary_bg)[0], 280][index%2]-[0, 100][index%2]
+		y = (index//2+1)*140
+
+		background = self.canvas.create_rectangle(x, y, x+100, y+100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+
+		background_x1 = (self.canvas.bbox(background)[0]+self.canvas.bbox(background)[2])//2
+		txt_0 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[1]+10, anchor='n', text=name.split(' ')[0], font=('Arial-BoldMT', 16))
+
+		main_str = f"+{value}" if 'Bonus' in name else value
+		if 'Speed' in name:
+			main_str = f"{value}ft."
+
+		txt_main = self.canvas.create_text(background_x1-1, (self.canvas.bbox(background)[1]+self.canvas.bbox(background)[3])//2, anchor='c', text=main_str, font=('Arial', 40))
+
+		try:
+			txt_1 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[3]-10, anchor='s', text=name.split(' ')[1], font=('Arial-BoldMT', 16))
+		except IndexError:
+			pass
 
 class DescFrame(tk.Frame):
 	def __init__(self, controller, parent):
@@ -586,13 +763,23 @@ class Main():
 
 	def generate(self, event=None):
 		child = self.frames['MainFrame']
+
+		for sfc in self.frames['SheetFrame'].winfo_children():
+			if sfc.__class__.__name__ == 'Text':
+				sfc.destroy()
 		self.frames['SheetFrame'].canvas.delete('!keep')
+
 		self.frames['DescFrame'].canvas.delete('!keep')
+		for dfc in self.frames['DescFrame'].winfo_children():
+			if dfc.__class__.__name__ == 'Text':
+				dfc.destroy()
+
 		child.canvas.delete('!keep')
 		opts = {}
 
 		
 		self.clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), np.random.random((3, )))))
+		# self.clr = "#FFFFFF"
 		child.gen_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 		child.apply_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 		child.reset_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
