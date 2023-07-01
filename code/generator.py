@@ -135,10 +135,10 @@ class Ability():
 				x = x_anchor
 				y = y_anchor
 			else:
-				x = canvas.bbox(canvas.find_withtag('background')[-1])[2]+dim//2
-				y = canvas.bbox(canvas.find_withtag('background')[-1])[1]+2
+				x = canvas.bbox(canvas.find_withtag('background&&ability')[-1])[2]+dim//2
+				y = canvas.bbox(canvas.find_withtag('background&&ability')[-1])[1]+2
 
-			background = canvas.create_rectangle(x, y, x+dim, y+dim, fill=fill_clr, outline=outline_clr, width=3, tags=['background'])
+			background = canvas.create_rectangle(x, y, x+dim, y+dim, fill=fill_clr, outline=outline_clr, width=3, tags=['background', 'ability'])
 			type_ = canvas.create_text(x+dim//2, y+3, anchor='n', text=self.name, font=Formating.FONT_ABILITY_TYPE, tags=['text'])
 
 			modifier = self.get_modifier()
@@ -491,14 +491,14 @@ class MainFrame(tk.Frame):
 		self.reset_opt_btn = tk.Button(self, text='Reset', font=Formating.FONT_DESC_BOLD, fg=darken_color(clr, 0.6), highlightbackground=clr, command=self.reset_opt)
 		self.reset_opt_btn.place(relx=0.15, rely=0.68, anchor='c')
 
-		self.sheet_btn = tk.Button(self, text='See Character Sheet', font=('Good Times', 45), fg=darken_color(clr, 0.6), highlightbackground=clr, command=partial(self.controller.change_stage, 1))
-		self.sheet_btn.place(relx=0.6, rely=0.93, anchor='c')
+		# self.sheet_btn = tk.Button(self, text='See Character Sheet', font=('Good Times', 45), fg=darken_color(clr, 0.6), highlightbackground=clr, command=partial(self.controller.change_stage, 1))
+		# self.sheet_btn.place(relx=0.6, rely=0.93, anchor='c')
 
 		# txt = tk.Text(self, width=50, height=10, font=('Good Times', 20), bg="Black")
 		# txt.place(relx=0, rely=0)
 		# txt.insert(tk.END, "HELLO "*120)
 
-	def preview_format(self, npc):
+	def create_preview(self, npc):
 		clr = Main.get_instance().clr
 		detail_clr = darken_color(clr, 0.5)
 
@@ -550,163 +550,167 @@ class MainFrame(tk.Frame):
 		self.rng_ent.insert(0, '')
 
 
-class SheetFrame(tk.Frame):
-	def __init__(self, controller, parent):
-		tk.Frame.__init__(self, parent)
+# class SheetFrame(tk.Frame):
+# 	def __init__(self, controller, parent):
+# 		tk.Frame.__init__(self, parent)
 
-		self.controller = controller
-		self.parent = parent
+# 		self.controller = controller
+# 		self.parent = parent
 
-		self.createGUI()
+# 		self.createGUI()
 
-	def createGUI(self):
-		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
-		self.canvas.place(x=0, y=0, anchor='nw')
+# 	def createGUI(self):
+# 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
+# 		self.canvas.place(x=0, y=0, anchor='nw')
 
-		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
-		return_btn.place(relx=0.05, rely=0.95, anchor='c')
+# 		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
+# 		return_btn.place(relx=0.05, rely=0.95, anchor='c')
 
-		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
-		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
+# 		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
+# 		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
 
-	def create_layout(self, npc):
-		self.outline_clr = Main.get_instance().clr
-		self.fill_clr = darken_color(self.outline_clr, 0.5)
+# 	def create_layout(self, npc):
+# 		self.outline_clr = Main.get_instance().clr
+# 		self.fill_clr = darken_color(self.outline_clr, 0.5)
 
-		name = npc.name
-		sex = npc.options['sex'].value
-		race = npc.options['race'].value
-		occupation = npc.options['occupation'].value
-		level = npc.options['level'].value
+# 		name = npc.name
+# 		sex = npc.options['sex'].value
+# 		race = npc.options['race'].value
+# 		occupation = npc.options['occupation'].value
+# 		level = npc.options['level'].value
 
-		## Summary
-		name_txt = self.canvas.create_text(120, 28, anchor='nw', text=name, font=('Arial', 24), tags=['text'])
-		name_txt_x1 = self.canvas.bbox(name_txt)[0] + 1
+# 		## Summary
+# 		name_txt = self.canvas.create_text(120, 28, anchor='nw', text=name, font=('Arial', 24), tags=['text'])
+# 		name_txt_x1 = self.canvas.bbox(name_txt)[0] + 1
 
-		sex_race_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(name_txt)[3], anchor='nw', text=f"{sex} {race}", font=('Arial', 16), tags=['text'])
-		occupation_txt = self.canvas.create_text(self.canvas.bbox(sex_race_txt)[2], self.canvas.bbox(sex_race_txt)[1], anchor='nw', text=f" {occupation}", font=('Arial', 16), tags=['text'])
-		level_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(sex_race_txt)[3], anchor='nw', text=f"Level {level}", font=('Arial', 16), tags=['text'])
+# 		sex_race_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(name_txt)[3], anchor='nw', text=f"{sex} {race}", font=('Arial', 16), tags=['text'])
+# 		occupation_txt = self.canvas.create_text(self.canvas.bbox(sex_race_txt)[2], self.canvas.bbox(sex_race_txt)[1], anchor='nw', text=f" {occupation}", font=('Arial', 16), tags=['text'])
+# 		level_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(sex_race_txt)[3], anchor='nw', text=f"Level {level}", font=('Arial', 16), tags=['text'])
 
-		summary_bg = self.canvas.create_rectangle(20, 20, self.canvas.bbox(occupation_txt)[2]+13, 100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])		
-
-
-
-		## Stats
-		stats = {'Proficiency Bonus':npc.get_proficiency_bonus(), 'Hit Points':npc.get_hit_points(), 'Armor Class':10, 'Intiative':npc.get_intiative_bonus()}
-		stats.update(npc.get_speeds())
-
-		for stat in enumerate(stats):
-			self.create_stat_background(stat[1], stats[stat[1]], stat[0], summary_bg)
-		
+# 		summary_bg = self.canvas.create_rectangle(20, 20, self.canvas.bbox(occupation_txt)[2]+13, 100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])		
 
 
-		## Abilities
-		ability_x_anchor = self.canvas.bbox(summary_bg)[2]+50
-		for ability_type in npc.abilities:
-			npc.abilities[ability_type].format(self.canvas, preview=False, x_anchor=ability_x_anchor, y_anchor=20, fill_clr=self.fill_clr, outline_clr=self.outline_clr)
+# 		## Proficiencies and Languages
+# 		self.create_prof_and_lang()
 
-
-
-		## Proficiencies and Languages
-		# p_l_txt = self.canvas.create_text(320, 140, anchor='nw', text="Hello"*100, width=250)
-		p_l_txt = tk.Text(self, width=40, height=30, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=8, pady=8)
-		p_l_txt.place(x=320, y=140)
-		# self.canvas.create_rectangle(317, 137, 624, 584, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
-		
-		p_l_txt.insert('end', 'Proficiencies and Languages', ('title'))
-		self.insert_text_break('', p_l_txt)
+# 		## Skills
+# 		# s_txt = self.canvas.create_text()
 	
-		for prof in npc.proficiencies:
-			p_l_txt.insert('end', f"{prof.title().replace('_', ' ')}\n", ('title', prof))
-			p_l_txt.insert('end', self.get_proficiency_text(prof, npc), ('text', prof))
-			self.insert_text_break(prof, p_l_txt)
+# 		## Stats
+# 		stats = {'Proficiency Bonus':npc.get_proficiency_bonus(), 'Hit Points':npc.get_hit_points(), 'Armor Class':10, 'Intiative':npc.get_intiative_bonus()}
+# 		stats.update(npc.get_speeds())
 
-		p_l_txt.insert('end', 'Languages\n', ('title', 'languages'))
-		p_l_txt.insert('end', ', '.join(npc.languages), ('text', 'languages'))
+# 		for stat in enumerate(stats):
+# 			self.create_stat_background(stat[1], stats[stat[1]], stat[0], summary_bg)
 
-		p_l_txt.tag_configure('title', font=('Arial-BoldMT', 20))
-		p_l_txt.tag_configure('text', font=('Arial', 14))
-		p_l_txt.tag_configure('break', font=('Arial', 16))
-
-
-
-		#### DONT KNOW WHY THIS MAKES THE FRAMES WEIRD BUT SOMETHING DOES IT SO GO LINE BY LINE UNTIL THE PROBLEM IS FOUND !!
-		## Senses
-		senses_txt = tk.Text(self, width=50, height=8, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=6, pady=6)		
-		senses_txt.place(x=320, y=600)
-		# self.canvas.create_rectangle(317, 597, 687, 732, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
-
-		# senses_txt.insert('end', 'Hello'*200, ('text'))
-		senses_txt.insert('end', 'Senses\n', ('title'))
-
-		for skill in ('Perception', 'Investigation', 'Insight'):
-			senses_txt.insert('end', npc.get_skill(skill), ('value', 'skill'))
-			senses_txt.insert('end', f" Passive {skill}\n", ('text', 'skill'))
+# 		## Abilities
+# 		ability_x_anchor = self.canvas.bbox(summary_bg)[2]+50
+# 		for ability_type in npc.abilities:
+# 			npc.abilities[ability_type].format(self.canvas, preview=False, x_anchor=ability_x_anchor, y_anchor=20, fill_clr=self.fill_clr, outline_clr=self.outline_clr)			
 
 
-		senses_txt.tag_configure('title', font=('Arial-BoldMT', 22))
-		senses_txt.tag_configure('value', font=('Arial-BoldMT', 20))
-		senses_txt.tag_configure('text', font=('Arial', 14))
+
+
+
+# 		self.canvas.tag_lower('background')
+
+# 	def create_prof_and_lang(self):
+# 		npc = self.controller.current_npc
+
+# 		# p_l_txt = self.canvas.create_text(320, 140, anchor='nw', text="Hello"*100, width=250)
+# 		p_l_txt = tk.Text(self, width=40, height=30, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=8, pady=8)
+# 		p_l_txt.place(x=320, y=140)
+# 		# self.canvas.create_rectangle(317, 137, 624, 584, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+		
+# 		p_l_txt.insert('end', 'Proficiencies and Languages', ('title'))
+# 		self.insert_text_break('', p_l_txt)
+	
+# 		for prof in npc.proficiencies:
+# 			p_l_txt.insert('end', f"{prof.title().replace('_', ' ')}\n", ('title', prof))
+# 			p_l_txt.insert('end', self.get_proficiency_text(prof, npc), ('text', prof))
+# 			self.insert_text_break(prof, p_l_txt)
+
+# 		p_l_txt.insert('end', 'Languages\n', ('title', 'languages'))
+# 		p_l_txt.insert('end', ', '.join(npc.languages), ('text', 'languages'))
+
+# 		p_l_txt.tag_configure('title', font=('Arial-BoldMT', 20))
+# 		p_l_txt.tag_configure('text', font=('Arial', 14))
+# 		p_l_txt.tag_configure('break', font=('Arial', 16))
+
+
+# 		## Senses
+# 		senses_txt = tk.Text(self, width=26, height=8, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=6, pady=6)		
+# 		senses_txt.place(x=320, y=600)
+# 		# self.canvas.create_rectangle(317, 597, 687, 732, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+
+# 		senses_txt.insert('end', 'Senses\n', ('title'))
+
+# 		for skill in ('Perception', 'Investigation', 'Insight'):
+# 			senses_txt.insert('end', npc.get_skill(skill), ('value', 'skill'))
+# 			senses_txt.insert('end', f" Passive {skill}\n", ('text', 'skill'))
+
+
+# 		senses_txt.tag_configure('title', font=('Arial-BoldMT', 22))
+# 		senses_txt.tag_configure('value', font=('Arial-BoldMT', 20))
+# 		senses_txt.tag_configure('text', font=('Arial', 14))
+
+
 		
 
 
+# 	def insert_text_break(self, tag, txt):
+# 		txt.insert('end', f"\n{'—'*17}", ('break', tag))
 
+# 	def get_proficiency_text(self, key, npc):
+# 		if key != 'tools':
+# 			func = lambda x: x.title()  
+# 		else: 
+# 			func = lambda x: f"{x[0].upper()}{x[1:]} tools"
 
-		self.canvas.tag_lower('background')
+# 		return ", ".join(list(map(func, npc.proficiencies[key]))) if npc.proficiencies[key] != [] else 'None'
 
-	def insert_text_break(self, tag, txt):
-		txt.insert('end', f"\n{'—'*17}", ('break', tag))
+# 	def create_stat_background(self, name, value, index, summary_bg):
+# 		x = [self.canvas.bbox(summary_bg)[0], 280][index%2]-[0, 100][index%2]
+# 		y = (index//2+1)*140
 
-	def get_proficiency_text(self, key, npc):
-		if key != 'tools':
-			func = lambda x: x.title()  
-		else: 
-			func = lambda x: f"{x[0].upper()}{x[1:]} tools"
+# 		background = self.canvas.create_rectangle(x, y, x+100, y+100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
 
-		return ", ".join(list(map(func, npc.proficiencies[key]))) if npc.proficiencies[key] != [] else 'None'
+# 		background_x1 = (self.canvas.bbox(background)[0]+self.canvas.bbox(background)[2])//2
+# 		txt_0 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[1]+10, anchor='n', text=name.split(' ')[0], font=('Arial-BoldMT', 16))
 
-	def create_stat_background(self, name, value, index, summary_bg):
-		x = [self.canvas.bbox(summary_bg)[0], 280][index%2]-[0, 100][index%2]
-		y = (index//2+1)*140
+# 		main_str = f"+{value}" if 'Bonus' in name else value
+# 		if 'Speed' in name:
+# 			main_str = f"{value}ft."
 
-		background = self.canvas.create_rectangle(x, y, x+100, y+100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
+# 		txt_main = self.canvas.create_text(background_x1-1, (self.canvas.bbox(background)[1]+self.canvas.bbox(background)[3])//2, anchor='c', text=main_str, font=('Arial', 40))
 
-		background_x1 = (self.canvas.bbox(background)[0]+self.canvas.bbox(background)[2])//2
-		txt_0 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[1]+10, anchor='n', text=name.split(' ')[0], font=('Arial-BoldMT', 16))
+# 		try:
+# 			txt_1 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[3]-10, anchor='s', text=name.split(' ')[1], font=('Arial-BoldMT', 16))
+# 		except IndexError:
+# 			pass
 
-		main_str = f"+{value}" if 'Bonus' in name else value
-		if 'Speed' in name:
-			main_str = f"{value}ft."
+# class DescFrame(tk.Frame):
+# 	def __init__(self, controller, parent):
+# 		tk.Frame.__init__(self, parent)
 
-		txt_main = self.canvas.create_text(background_x1-1, (self.canvas.bbox(background)[1]+self.canvas.bbox(background)[3])//2, anchor='c', text=main_str, font=('Arial', 40))
+# 		self.controller = controller
+# 		self.parent = parent
 
-		try:
-			txt_1 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[3]-10, anchor='s', text=name.split(' ')[1], font=('Arial-BoldMT', 16))
-		except IndexError:
-			pass
+# 		self.createGUI()
 
-class DescFrame(tk.Frame):
-	def __init__(self, controller, parent):
-		tk.Frame.__init__(self, parent)
+# 	def createGUI(self):
+# 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
+# 		self.canvas.place(x=0, y=0, anchor='nw')
 
-		self.controller = controller
-		self.parent = parent
+# 		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
+# 		return_btn.place(relx=0.05, rely=0.95, anchor='c')
 
-		self.createGUI()
+# 		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
+# 		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
 
-	def createGUI(self):
-		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
-		self.canvas.place(x=0, y=0, anchor='nw')
-
-		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
-		return_btn.place(relx=0.05, rely=0.95, anchor='c')
-
-		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
-		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
-
-	def create_layout(self, npc):
-		clr = Main.get_instance().clr
-		detail_clr = darken_color(clr, 0.5)
+# 	def create_layout(self, npc):
+# 		clr = Main.get_instance().clr
+# 		detail_clr = darken_color(clr, 0.5)
 
 
 	
@@ -745,17 +749,21 @@ class Main():
 		container.grid_rowconfigure(0, weight=1)
 		container.grid_columnconfigure(0, weight=1)
 
-		for F in (MainFrame, SheetFrame, DescFrame):
-			frame = F(self, container)
-			self.frames[F.__name__] = frame
-			frame.grid(row=0, column=0, sticky='nsew')
+		# for F in (MainFrame, SheetFrame, DescFrame):
+		# 	frame = F(self, container)
+		# 	self.frames[F.__name__] = frame
+		# 	frame.grid(row=0, column=0, sticky='nsew')
 
-		self.parent.bind('1', partial(self.show_frame, 'MainFrame'))
-		self.parent.bind('2', partial(self.show_frame, 'SheetFrame'))
-		self.parent.bind('3', partial(self.show_frame, 'DescFrame'))
+		frame = MainFrame(self, container)
+		self.frames['MainFrame'] = frame
+		frame.grid(row=0, column=0, sticky='nsew')
 
-		self.parent.bind('<Left>', partial(self.change_stage, -1))
-		self.parent.bind('<Right>', partial(self.change_stage, 1))
+		# self.parent.bind('1', partial(self.show_frame, 'MainFrame'))
+		# self.parent.bind('2', partial(self.show_frame, 'SheetFrame'))
+		# self.parent.bind('3', partial(self.show_frame, 'DescFrame'))
+
+		# self.parent.bind('<Left>', partial(self.change_stage, -1))
+		# self.parent.bind('<Right>', partial(self.change_stage, 1))
 
 		self.parent.bind('<g>', self.generate)
 
@@ -764,15 +772,15 @@ class Main():
 	def generate(self, event=None):
 		child = self.frames['MainFrame']
 
-		for sfc in self.frames['SheetFrame'].winfo_children():
-			if sfc.__class__.__name__ == 'Text':
-				sfc.destroy()
-		self.frames['SheetFrame'].canvas.delete('!keep')
+		# for sfc in self.frames['SheetFrame'].winfo_children():
+		# 	if sfc.__class__.__name__ == 'Text':
+		# 		sfc.destroy()
+		# self.frames['SheetFrame'].canvas.delete('!keep')
 
-		self.frames['DescFrame'].canvas.delete('!keep')
-		for dfc in self.frames['DescFrame'].winfo_children():
-			if dfc.__class__.__name__ == 'Text':
-				dfc.destroy()
+		# self.frames['DescFrame'].canvas.delete('!keep')
+		# for dfc in self.frames['DescFrame'].winfo_children():
+		# 	if dfc.__class__.__name__ == 'Text':
+		# 		dfc.destroy()
 
 		child.canvas.delete('!keep')
 		opts = {}
@@ -784,7 +792,7 @@ class Main():
 		child.apply_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 		child.reset_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 		child.canvas.itemconfig(child.divide, fill=darken_color(self.clr, 0.8), outline=darken_color(self.clr, 0.65))
-		child.sheet_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
+		# child.sheet_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 
 
 		self.rng_object = Rng(seed=int(child.rng_ent.get())) if child.rng_ent.get() else Rng()
@@ -824,10 +832,10 @@ class Main():
 		opts["rng_seed"] = self.rng_object.seed
 
 		self.current_npc = NPC(self.rng_object, {k.lower().replace(' ', '_'):v for k, v in opts.items()})
-		child.preview_format(self.current_npc)
+		child.create_preview(self.current_npc)
 
-		self.frames['SheetFrame'].create_layout(self.current_npc)
-		self.frames['DescFrame'].create_layout(self.current_npc)
+		# self.frames['SheetFrame'].create_layout(self.current_npc)
+		# self.frames['DescFrame'].create_layout(self.current_npc)
 
 
 
@@ -969,9 +977,9 @@ class Main():
 		# # child.canvas.delete(child.description)
 		# # child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('Arial', 18), width=500) 
 
-	def change_stage(self, change, event=None):
-		self.frame_id = max(min(self.frame_id + change, len(list(self.frames.keys()))-1), 0)
-		self.show_frame(self.frames[list(self.frames.keys())[self.frame_id]].__class__.__name__)
+	# def change_stage(self, change, event=None):
+	# 	self.frame_id = max(min(self.frame_id + change, len(list(self.frames.keys()))-1), 0)
+	# 	self.show_frame(self.frames[list(self.frames.keys())[self.frame_id]].__class__.__name__)
 
 	def show_frame(self, frame_name, event=None):
 		self.frames[frame_name].tkraise()

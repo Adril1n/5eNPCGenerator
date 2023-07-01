@@ -1,0 +1,53 @@
+.header-summary {
+	background: darkred;
+	text-align: center;
+}
+
+.info-header {
+	text-align: center;
+	background: darkorange;
+}
+
+.ability-container {
+	background: green;
+	display: flex;
+	justify-content: space-between;
+}
+
+.ability-square {
+	background: yellow;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: center;
+}
+
+.saving-throws-senses-container {
+	background: lightpink;
+	padding-left: 100px;
+	padding-right: 100px;
+	display: flex;
+}
+
+.saving-throws {
+	background: darkkhaki;
+	width: 400px;
+	display: flex;
+	justify-content: space-between;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.senses {
+	background: darkmagenta;
+	width: 400px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.senses-darkvision {
+	text-align: center;
+}
+
+
+
+
