@@ -249,7 +249,8 @@ class NPC():
 
 
 		## ASI AND FEATS
-		self.add_asi_and_feats()
+		if self.cls_bool: # MAYBE KEEP THIS
+			self.add_asi_and_feats()
 
 
 		## BASE CLASS PROFICIENCIES 
@@ -411,7 +412,8 @@ class NPC():
 				
 		except KeyError:
 			pass
- 
+
+
 		choices = {'feat':0.25, '2':0.375, '1+1':0.375}
 
 		for lvl in np.arange(self.options['level'].value):
@@ -432,6 +434,10 @@ class NPC():
 
 	# 	self.initiative = self.abilities['DEXTERITY'].modifier
 	# 	self.stats['Initiative'] = Stat('Initiative', self.initiative)
+
+
+	def to_html(self):
+		return 'Hello'
  
 
 
@@ -491,12 +497,9 @@ class MainFrame(tk.Frame):
 		self.reset_opt_btn = tk.Button(self, text='Reset', font=Formating.FONT_DESC_BOLD, fg=darken_color(clr, 0.6), highlightbackground=clr, command=self.reset_opt)
 		self.reset_opt_btn.place(relx=0.15, rely=0.68, anchor='c')
 
-		# self.sheet_btn = tk.Button(self, text='See Character Sheet', font=('Good Times', 45), fg=darken_color(clr, 0.6), highlightbackground=clr, command=partial(self.controller.change_stage, 1))
-		# self.sheet_btn.place(relx=0.6, rely=0.93, anchor='c')
+		self.html_btn = tk.Button(self, text='Open Character Sheet in Safari', font=('Good Times', 45), fg=darken_color(clr, 0.6), highlightbackground=clr, command=self.controller.open_html)
+		self.html_btn.place(relx=0.62, rely=0.93, anchor='c')
 
-		# txt = tk.Text(self, width=50, height=10, font=('Good Times', 20), bg="Black")
-		# txt.place(relx=0, rely=0)
-		# txt.insert(tk.END, "HELLO "*120)
 
 	def create_preview(self, npc):
 		clr = Main.get_instance().clr
@@ -689,29 +692,6 @@ class MainFrame(tk.Frame):
 # 		except IndexError:
 # 			pass
 
-# class DescFrame(tk.Frame):
-# 	def __init__(self, controller, parent):
-# 		tk.Frame.__init__(self, parent)
-
-# 		self.controller = controller
-# 		self.parent = parent
-
-# 		self.createGUI()
-
-# 	def createGUI(self):
-# 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
-# 		self.canvas.place(x=0, y=0, anchor='nw')
-
-# 		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
-# 		return_btn.place(relx=0.05, rely=0.95, anchor='c')
-
-# 		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
-# 		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
-
-# 	def create_layout(self, npc):
-# 		clr = Main.get_instance().clr
-# 		detail_clr = darken_color(clr, 0.5)
-
 
 	
 class Rng():
@@ -772,27 +752,17 @@ class Main():
 	def generate(self, event=None):
 		child = self.frames['MainFrame']
 
-		# for sfc in self.frames['SheetFrame'].winfo_children():
-		# 	if sfc.__class__.__name__ == 'Text':
-		# 		sfc.destroy()
-		# self.frames['SheetFrame'].canvas.delete('!keep')
-
-		# self.frames['DescFrame'].canvas.delete('!keep')
-		# for dfc in self.frames['DescFrame'].winfo_children():
-		# 	if dfc.__class__.__name__ == 'Text':
-		# 		dfc.destroy()
-
 		child.canvas.delete('!keep')
 		opts = {}
 
 		
 		self.clr = "#" + "".join(list(map(lambda x: hex(int(x*255))[2:].zfill(2), np.random.random((3, )))))
-		# self.clr = "#FFFFFF"
+
 		child.gen_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 		child.apply_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 		child.reset_opt_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 		child.canvas.itemconfig(child.divide, fill=darken_color(self.clr, 0.8), outline=darken_color(self.clr, 0.65))
-		# child.sheet_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
+		child.html_btn.config(highlightbackground=self.clr, fg=darken_color(self.clr, 0.6))
 
 
 		self.rng_object = Rng(seed=int(child.rng_ent.get())) if child.rng_ent.get() else Rng()
@@ -833,10 +803,6 @@ class Main():
 
 		self.current_npc = NPC(self.rng_object, {k.lower().replace(' ', '_'):v for k, v in opts.items()})
 		child.create_preview(self.current_npc)
-
-		# self.frames['SheetFrame'].create_layout(self.current_npc)
-		# self.frames['DescFrame'].create_layout(self.current_npc)
-
 
 
 
@@ -977,9 +943,12 @@ class Main():
 		# # child.canvas.delete(child.description)
 		# # child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('Arial', 18), width=500) 
 
-	# def change_stage(self, change, event=None):
-	# 	self.frame_id = max(min(self.frame_id + change, len(list(self.frames.keys()))-1), 0)
-	# 	self.show_frame(self.frames[list(self.frames.keys())[self.frame_id]].__class__.__name__)
+	def open_html(self):
+		try:
+			html = self.current_npc.to_html()
+			print(html)
+		except AttributeError:
+			print('No npc generated')
 
 	def show_frame(self, frame_name, event=None):
 		self.frames[frame_name].tkraise()
