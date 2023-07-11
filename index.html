@@ -8,8 +8,168 @@
 			return Math.floor(Math.random() * die)+1+bonus
 		}
 	</script>
+	<style type="text/css">
+		:root {
+		--preview-background-color: green;
+		--preview-border-color: lightgreen;
+
+		--quick-info-background-color: red;
+		--quick-info-border-color: #f88;
+
+		--sheet-background-color: darkorange;
+		--sheet-border-color: orange;
+
+		--text-boxes-background-color: #a5a;
+		--text-boxes-border-color: #c7c;
+		--text-boxes-darker-background-color: #838;
+		--text-boxes-spell-href-color: #e9e;
+
+		--pet-block-background-color: #5ba;
+		--pet-block-border-color: #8ed;
+		}	
+	</style>
 </head>
 <body>
+	<!-- PREVIEW -->
+	<div class="page">
+		<div class="preview-header">
+			<div class="preview-header_summary">
+				<div style="font-size: 32px;font-weight: bold;">[{name}]: Mavthor</div>
+				<div>[{sex} {race} {occupation}]: Man Tiefling Warlock</div>
+				<div>[Level {level}]: Level 4</div>
+				<div>Feats: Actor, Aberrant Dragonmark</div>
+			</div>
+			<div class="preview-header_name">
+				<div>[{name}]: Mavthor</div>
+			</div>
+		</div>
+
+		<div class="preview-content">
+			<div class="preview-content_statblock">
+				<div style="font-size:40px;font-weight: bold;">[{name} ({occupation})]: Mavthor (Warlock)</div>
+				<div style="font-style: italic;">[{size} humaniod ({race})]: Medium humanoid (Tiefling)</div>
+				<svg height="10" width="100%" class="npc_statblock_break">
+					<polyline points="0,0 670, 5 0,10"></polyline>
+				</svg>
+
+				<div><span style="font-weight: bold;">Armor Class</span> [{ac} ({armor})]: 14 (Leather)</div>
+				<div><span style="font-weight: bold;">Hit Points</span> [{hp}#editable#/{hp}]: <span contenteditable="true">30</span>/30</div>
+				<div><span style="font-weight: bold;">Speed</span> [{walkspeed} ft.]: 30 ft.</div>
+				<svg height="10" width="100%" class="npc_statblock_break">
+					<polyline points="0,0 670, 5 0,10"></polyline>
+				</svg>
+
+				<div class="preview-content_statblock_abilities">
+					<div style="text-align: center;">
+						<span style="font-weight: bold;">STR</span>
+						<br>10 (+0)
+					</div>
+					<div style="text-align: center;">
+						<span style="font-weight: bold;">DEX</span>
+						<br>16 (+3)
+					</div>
+					<div style="text-align: center;">
+						<span style="font-weight: bold;">CON</span>
+						<br>8 (-1)
+					</div>
+					<div style="text-align: center;">
+						<span style="font-weight: bold;">INT</span>
+						<br>10 (+0)
+					</div>
+					<div style="text-align: center;">
+						<span style="font-weight: bold;">WIS</span>
+						<br>10 (+0)
+					</div>
+					<div style="text-align: center;">
+						<span style="font-weight: bold;">CHA</span>
+						<br>10 (+0)
+					</div>
+				</div>
+				<svg height="10" width="100%" class="npc_statblock_break">
+					<polyline points="0,0 670, 5 0,10"></polyline>
+				</svg>
+
+
+				<div>
+					<span style="font-weight: bold;">Saving Throws</span>
+					 STR +2, DEX +5
+				</div>
+				<div>
+					<span style="font-weight: bold;">Skills</span>
+					 Animal Handling +4, Nature +3, Perception +4, Survival +6
+				</div>
+				<div>
+					<span style="font-weight: bold;">Senses</span>
+					 Passive Perception 14, Darkvision 60 ft.
+				</div>
+				<div>
+					<span style="font-weight: bold;">Languages</span>
+					 Common, Aarakocra
+				</div>
+				<div>
+					<span style="font-weight: bold;">Proficiency Bonus</span>
+					 +2
+				</div>
+				<svg height="10" width="100%" class="npc_statblock_break">
+					<polyline points="0,0 670, 5 0,10"></polyline>
+				</svg>
+
+
+				<div>[{feature_name} {feature_desc}]
+					<span style="font-weight: bold;font-style: italic;">Archery Specialist.</span>
+					 The ranger has a +2 bonus to attack rolls made with ranged weapons.
+				</div>
+				<div>
+					<span style="font-weight: bold;font-style: italic;"><br>Feat.</span>
+					Actor.
+				</div>
+				<div>
+					<span style="font-weight: bold;font-style: italic;"><br>Spellcasting.</span>
+					 The ranger's spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The ranger can cast the following ranger spells:<br><br>3/day each: 
+					<span style="font-style: italic;">bless, darkness/blindness</span>
+					<br>1/day each: 
+					<span style="font-style: italic;">ensnaring strike, hunter's mark, snare</span>
+				</div>
+				<br>
+
+				<div class="preview-content_statblock_action">Actions</div>
+				<div>
+					<span style="font-weight: bold;font-style: italic;">Shortsword.</span> 
+					<span style="font-style: italic;">Melee Weapon Attack: </span> 
+					+5 to hit, reach 5 ft., one creature. 
+					<span style="font-style: italic;">Hit: </span>
+					6 (1d6 + 3) slashing damage.
+				</div>
+				<br>
+				<div>
+					<span style="font-weight: bold;font-style: italic;">Longbow.</span> 
+					<span style="font-style: italic;">Ranged Weapon Attack: </span> 
+					+7 to hit, reach 5 ft., one creature. 
+					<span style="font-style: italic;">Hit: </span>
+					7 (1d8 + 3) piercing damage.
+				</div>
+
+			</div>
+
+			<div class="preview-content_description">
+				<div class="preview-content_description_image">
+					
+				</div>
+				<div class="preview-content_description_table">
+					<div class="preview-content_description_table_item" style="margin-right: 10px;">Sex<br>Man</div>
+					<div class="preview-content_description_table_item">Hair Color<br>Brown</div>
+					<div class="preview-content_description_table_item" style="margin-right: 10px;">Eyes<br>Green</div>
+					<div class="preview-content_description_table_item">Skin<br>Red</div>
+					<div class="preview-content_description_table_item" style="margin-right: 10px;">Size<br>Medium</div>
+					<div class="preview-content_description_table_item">Age<br>83</div>
+					<div class="preview-content_description_table_item" style="margin-right: 5px;">Height<br>177cm</div>
+					<div class="preview-content_description_table_item">Weight<br>74kg</div>
+					<div class="preview-content_description_table_item">Pet<br>No</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- SHEET -->
 	<div class="page">
 		<div class="sheet-quick-info">
@@ -253,178 +413,493 @@
 		</div>
 	</div>
 
-
-		<!-- PREVIEW -->
-	<div class="page">
-		<div class="preview-header">
-			<div class="preview-header_summary">
-				<div style="font-size: 32px;font-weight: bold;">[{name}]: Mavthor</div>
-				<div>[{sex} {race} {occupation}]: Man Tiefling Warlock</div>
-				<div>[Level {level}]: Level 4</div>
-			</div>
-			<div class="preview-header_name">
-				<div>[{name}]: Mavthor</div>
-			</div>
-		</div>
-
-		<div class="preview-content">
-			<div class="preview-content_statblock">
-				<div style="font-size:40px;font-weight: bold;">[{name} ({occupation})]: Mavthor (Warlock)</div>
-				<div style="font-style: italic;">[{size} humaniod ({race})]: Medium humanoid (Tiefling)</div>
-				<svg height="10" width="100%" class="npc_statblock_break">
-					<polyline points="0,0 500, 5 0,10"></polyline>
-				</svg>
-
-				<div><span style="font-weight: bold;">Armor Class</span> [{ac} ({armor})]: 14 (Leather)</div>
-				<div><span style="font-weight: bold;">Hit Points</span> [{hp}#editable#/{hp}]: <span contenteditable="true">30</span>/30</div>
-				<div><span style="font-weight: bold;">Speed</span> [{walkspeed} ft.]: 30 ft.</div>
-				<svg height="10" width="100%" class="npc_statblock_break">
-					<polyline points="0,0 500, 5 0,10"></polyline>
-				</svg>
-
-				<div class="preview-content_statblock_abilities">
-					<div style="text-align: center;">
-						<span style="font-weight: bold;">STR</span>
-						<br>10 (+0)
-					</div>
-					<div style="text-align: center;">
-						<span style="font-weight: bold;">DEX</span>
-						<br>16 (+3)
-					</div>
-					<div style="text-align: center;">
-						<span style="font-weight: bold;">CON</span>
-						<br>8 (-1)
-					</div>
-					<div style="text-align: center;">
-						<span style="font-weight: bold;">INT</span>
-						<br>10 (+0)
-					</div>
-					<div style="text-align: center;">
-						<span style="font-weight: bold;">WIS</span>
-						<br>10 (+0)
-					</div>
-					<div style="text-align: center;">
-						<span style="font-weight: bold;">CHA</span>
-						<br>10 (+0)
-					</div>
-				</div>
-				<svg height="10" width="100%" class="npc_statblock_break">
-					<polyline points="0,0 500, 5 0,10"></polyline>
-				</svg>
-
-
-				<div>
-					<span style="font-weight: bold;">Saving Throws</span>
-					 STR +2, DEX +5
-				</div>
-				<div>
-					<span style="font-weight: bold;">Skills</span>
-					 Animal Handling +4, Nature +3, Perception +4, Survival +6
-				</div>
-				<div>
-					<span style="font-weight: bold;">Senses</span>
-					 Passive Perception 14, Darkvision 60 ft.
-				</div>
-				<div>
-					<span style="font-weight: bold;">Languages</span>
-					 Common, Aarakocra
-				</div>
-				<div>
-					<span style="font-weight: bold;">Proficiency Bonus</span>
-					 +2
-				</div>
-				<svg height="10" width="100%" class="npc_statblock_break">
-					<polyline points="0,0 500, 5 0,10"></polyline>
-				</svg>
-
-
-				<div>[{feature_name} {feature_desc}]
-					<span style="font-weight: bold;font-style: italic;">Archery Specialist.</span>
-					 The ranger has a +2 bonus to attack rolls made with ranged weapons.
-				</div>
-				<div>
-					<span style="font-weight: bold;font-style: italic;"><br>Spellcasting.</span>
-					 The ranger's spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The ranger can cast the following ranger spells:<br><br>3/day each: 
-					<span style="font-style: italic;">bless, darkness/blindness</span>
-					<br>1/day each: 
-					<span style="font-style: italic;">ensnaring strike, hunter's mark, snare</span>
-				</div>
-				<br>
-
-				<div style="width: 100%;border-bottom: 2px solid white;font-size: 30px;margin-bottom: 12px;">Actions</div>
-				<div>
-					<span style="font-weight: bold;font-style: italic;">Shortsword.</span> 
-					<span style="font-style: italic;">Melee Weapon Attack: </span> 
-					+5 to hit, reach 5 ft., one creature. 
-					<span style="font-style: italic;">Hit: </span>
-					6 (1d6 + 3) slashing damage.
-				</div>
-				<br>
-				<div>
-					<span style="font-weight: bold;font-style: italic;">Longbow.</span> 
-					<span style="font-style: italic;">Ranged Weapon Attack: </span> 
-					+7 to hit, reach 5 ft., one creature. 
-					<span style="font-style: italic;">Hit: </span>
-					7 (1d8 + 3) piercing damage.
-				</div>
-
-			</div>
-
-			<div class="preview-content_description">
-				<div class="preview-content_description_image">
-					
-				</div>
-				<div class="preview-content_description_table">
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;margin-right: 10px;">Sex<br>Man</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;">Hair Color<br>Brown</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;margin-right: 10px;">Eyes<br>Green</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;">Skin<br>Red</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;margin-right: 10px;">Size<br>Medium</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;">Age<br>83</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;margin-right: 5px;">Height<br>177cm</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;">Weight<br>74kg</div>
-					<div style="padding: 2% 0;border: 2px solid white;border-color: inherit;margin-bottom: 20px;">Pet<br>No</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- TEXT BOXES -->
-
-	<div class="page" style="height: 180vh;">
+	<div class="page" style="height: 200vh;margin-top: 40px;">
 		<div class="text-boxes-container">
 			<div class="text-box">
 				<div class="text-box-header">Description</div>
 				<div class="description-character-image">IMAGE HERE</div>
 				<div>
-					<div class="description-character-feature">[SUMMARY: {name} is a {age} year old {sex} {race} {occupation}]<br> Harley Caskbow is a 50 year old female human poet.</div>
-					<div class="description-character-feature">[OCCUPATION_DESC: {occupation}: {occupaation_desc}]<br> Arborist: Maintains And Cares For Trees, Often By Surgically Removing Dying Limbs.</div>
-					<div class="description-character-feature">[HAIR_EYES: {pronoun} has {hair_color} hair {hair_style}, and {eye_color} eyes.]<br> She has black hair tied up in a pony tail, and green eyes.</div>
-					<div class="description-character-feature">[SKIN: {pronoun} has {skin_trait}, {skin_color} {skin_type}]<br> She has rough, white skin. || He has ghostly, white scales</div>
-					<div class="description-character-feature">[HEIGHT_WEIGHT: {pronoun} stands at {height}cm tall ({height_bin}) and weighs {weight}kg ({weight_bin})]<br> She stands at 177cm (medium) tall and weighs 66kg (slim).</div>
-					<div class="description-character-feature">[FACE: {pronoun} has (a/an) {face_shape}, {face_attractiveness} face.]<br> He has an oblong, average face.</div>
-					<div class="description-character-feature">[SPECIAL FEATURE: {pronoun} {special_feature}]<br>She has an allergy to demons. || He is very nimble. || She wears an eyepatch on her left eye.</div>
-					<div class="description-character-feature">[Body Damage ((0, 1, 2), p=[0.5, 0.25, 0.25]): {pronoun} has {body_damage[0]}, {body_damage[1]}, and {body_damage[2]}]<br>She has a scar on her right shoulder, an infected leg, and a deep slashing scar on her right hand.</div>
+					<div class="description-character-feature">Harley Caskbow is a 50 year old female human Arborist.</div>
+					<div class="description-character-feature">Arborist: Maintains And Cares For Trees, Often By Surgically Removing Dying Limbs.</div>
+					<div class="description-character-feature">She has black hair tied up in a pony tail, and green eyes.</div>
+					<div class="description-character-feature">She has rough, white skin.</div>
+					<div class="description-character-feature">She stands at 177cm (medium) tall and weighs 66kg (slim).</div>
+					<div class="description-character-feature">She has an oblong, average face.</div>
+					<div class="description-character-feature">She wears an eyepatch on her left eye.</div>
+					<div class="description-character-feature">She has a scar on her right shoulder, an infected leg, and a deep slashing scar on her right hand.</div>
 				</div>	
 			</div>
-			<div class="text-box" style="background: orange;">
+			<div class="text-box">
 				<div class="text-box-header">Personality Traits</div>
-				<div class="description-character-feature">[WORSHIP ((None, god, claim), p=[0.5, 0.35, 0.15]): {pronoun} {worship_style} worships {god_name}, {god_desc}. ({god_alignment})]<br>He doesn't worship any god. || She quietly worships Zorquan, God of the essence of dragons. (all alignments) ||<br>[{pronoun} {worship_style} claims to worship {god1}, but secretly worships {god2_name}, {god2_des}. {god2_alignment}]<br> She proudly claims to worship the demon prince Orcus, but secretly worships Cyric, God of murder, lies, intrigue, strife, deception, illusion. (Chaotic Evil)</div>
+				<div class="description-character-feature">She proudly claims to worship the demon prince Orcus, but secretly worships Cyric, God of murder, lies, intrigue, strife, deception, illusion. (Chaotic Evil)</div>
 
 				<!-- TRAITS (0, 1, 2, 3, 4, 5), p=[0.2, 0.15, 0.2, 0.15, 0.15, 0.15]-->
-				<div class="description-character-feature">[TRAIT: {trait_name}: {trait_desc}]<br> Clumsy: Constantly fumbling and dropping things</div>
-				<div class="description-character-feature">[TRAIT: {trait_name}: {trait_desc}]<br> Creepy Breathing: Breathes considerably heavily and sweats constantly</div>
-				<div class="description-character-feature">[TRAIT: {trait_name}: {trait_desc}]<br> Open-Minded: Doesn't judge people often, will consider even the wildest claims</div>
+				<div class="description-character-feature">Clumsy: Constantly fumbling and dropping things</div>
+				<div class="description-character-feature">Creepy Breathing: Breathes considerably heavily and sweats constantly</div>
+				<div class="description-character-feature">Open-Minded: Doesn't judge people often, will consider even the wildest claims</div>
 				<!-- PETS (0, 1, 2), p=[0.4, 0.5, 0.1]. pet_name is taken from the same name_xml as the race of their owner since people name their pets from their native language-->
-				<div class="description-character-feature">[PET: {pet_name} is (a/an) {pet_race}, size of {pet_size}, and CR of {pet_CR}]<br> Perenth [dragonborn name] is an Awakened Giant Wasp, size of Medium, and CR of 1/2 || <br>[{pronoum} doesn't have a pet]<br> He doesn't have a pet</div>
-				<div class="description-character-feature">[PET: {pet_name} is (a/an) {pet_race}, size of {pet_size}, and CR of {pet_CR}]<br> Lily [Half-Orc name] is a Tyrannosaurus Rex, size of Huge, and CR of 8</div>
+				<div class="description-character-feature">Perenth [dragonborn name] is an Awakened Giant Wasp, size of Medium, and CR of 1/2</div>
+				<div class="description-character-feature">Lily [Half-Orc name] is a Tyrannosaurus Rex, size of Huge, and CR of 8</div>
+
+
+				<div class="text-box-header">Feats</div>
+				<div class="feat_container">
+					<div class="feat_header">Actor</div>
+					<div class="description-character-feature">Skilled at mimicry and dramatics</div>
+					<div class="description-character-feature">Ability Score Improvement: CHARISMA <span style="font-family: Roboto;">(+1)</span></div>
+					<div class="description-character-feature">Advantage on Charisma (Deception) and Charisma (Performance) checks when trying to pass yourself off as a different person.</div>
+					<div class="description-character-feature">You can mimic the speech of another person or the sounds made by other creatures. You must have heard the person speaking, or heard the creature make the sound, for at least 1 minute. A successful Wisdom (Insight) check contested by your Charisma (Deception) check allows a listener to determine that the effect is faked.</div>
+				</div>
+				<div class="feat_container">
+					<div class="feat_header">Aberrant Dragonmark</div>
+					<div class="description-character-feature">You have manifested an aberrant dragonmark. Determine its appearance and the flaw associated with it.</div>
+					<div class="description-character-feature">Ability Score Improvement: CONSTITUTION <span style="font-family: Roboto;">(+1)</span></div>
+					<div class="description-character-feature"><span style="font-weight: bold;font-style: italic;">Fire Bolt</span> (Cantrip of your choice from the sorcerer spell list). <span style="font-weight: bold;font-style: italic;">Ice Knife</span> (1st-level spell from the sorcerer spell list). You learn that spell and can cast it through your mark. Once you cast it, you must finish a short or long rest before you can cast it again through the mark. Constitution is your spellcasting ability for these spells. <span style="font-weight: bold;font-style: italic;">(Modifier: +4, Spell Attack: +6, Save DC: 14)</span></div>
+
+					<div class="description-character-feature">When you cast the 1st-level spell through your mark, you can expend one of your Hit Dice and roll it. If you roll an even number, you gain a number of temporary hit points equal to the number rolled. If you roll an odd number, one random creature within 30 feet of you (not including you) takes force damage equal to the number rolled. If no other creatures are in range, you take the damage.</div>
+					<div class="description-character-feature">You have manifested an aberrant dragonmark. Determine its appearance and the flaw associated with it.</div>
+					<div class="description-character-feature">You also develop a random flaw from the Aberrant Dragonmark Flaws table: <span style="font-weight: bold;">Animals are uneasy around you.</span></div>
+
+					<div class="description-character-feature">Optional Greater Aberrant Powers You have a chance to gain an Epic Boon: <span style="font-weight: bold;">Boon of Resilience, You have resistance to bludgeoning, piercing, and slashing damage from nonmagical weapons.</span></div>
+				</div>
+
 			</div>
-			<div class="text-box" style="background: yellow;">
+			<div class="text-box">
+				<div class="text-box-header">Actions</div>
+				<!-- ACTIONS -->
+				<div class="list">
+					<div class="list-heading">
+						Actions | Attacks per Action: 1
+					</div>
+					<div class="list-content">
+						<div class="attack-table"> 
+							<table class="attack">
+								<tr class="attack">
+									<th class="attack">Attack</th>
+									<th class="attack">Range</th>
+									<th class="attack">Hit/DC</th>
+									<th class="attack">Damage</th>
+									<th class="attack">Notes</th>
+								</tr>
+								<tr class="attack">
+									<td class="attack">Quarterstaff</td>
+									<td class="attack">5 ft.</td>
+									<td class="attack">+ 6</td>
+									<td class="attack">1d6+4</td>
+									<td class="attack">Simple, Versetile</td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="list-basic">
+							<span style="font-weight: bold;">Actions in Combat<br></span>
+							<span>Attack, Cast a Spell, Dash, Disengage, Dodge, Grapple, Help, Hide, Improvise, Ready, Search, Shove, Use an Object</span>
+						</div>
+
+						<div class="list-snippet">
+							<span style="font-weight: bold;">Unarmed Strike<br></span>
+							<span>You can punch, kick, head-butt, or use a similar forceful blow and deal bludgeoning damage equal to 1 + STR modifier</span>
+						</div>
+						<div class="list-snippet">
+							<span style="font-weight: bold;">Wildshape<br></span>
+							<span>As an action, you can magically assume the shape of a beast that you have seen before twice per short rest. [2nd] Max CR 1/4 (no flying or swimming speed) [4th] Max CR 1/2 (no flying speed) [8th] Max CR 1<br><br>You can stay in beast shape for 1 hours before reverting back to your normal form (or as a bonus action earlier or if you fall unconscious, drop to 0 hit points, or die).</span>
+						</div>
+						<div class="list-snippet">
+							<span style="font-weight: bold;">Create Pact Weapon<br></span>
+							<span>As an action, you can create a pact weapon in your hand (you choose the form, you're proficient with it, and it counts as magical). You can also transform a magic weapon into your pact weapon by performing a special ritual.</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- BONUS ACTIONS -->
+				<div class="list">
+					<div class="list-heading">
+						Bonus Actions
+					</div>	
+					<div class="list-content">
+						<div class="attack-table"> 
+							<table class="attack">
+								<tr class="attack">
+									<th class="attack">Attack</th>
+									<th class="attack">Range</th>
+									<th class="attack">Hit/DC</th>
+									<th class="attack">Damage</th>
+									<th class="attack">Notes</th>
+								</tr>
+								<tr class="attack">
+									<td class="attack">Magic Stone</td>
+									<td class="attack">Touch</td>
+									<td class="attack">+ 6</td>
+									<td class="attack">1d6+4</td>
+									<td class="attack">D: 1m, V/S</td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="list-basic">
+							<span style="font-weight: bold;">Actions in Combat<br></span>
+							<abbr title="
+								When you take the Attack action and attack with a light melee weapon that you're holding in one hand, you can use a bonus action to attack with a different light melee weapon that you're holding in the other hand. You don't add your ability modifier to the damage of the bonus attack, unless that modifier is negative.
+
+								If either weapon has the thrown property, you can throw the weapon, instead of making a melee attack with it.
+								">
+								Two-Weapon Fighting
+							</abbr>
+						</div>
+
+						<div class="list-snippet">
+							<span style="font-weight: bold;">Cloak of Flies<br></span>
+							<span>Once per short rest, as a bonus action, you surround yourself with a 5-ft. aura of flies that grants you advantage on Intimidation checks, but disadvantage on all other CHA checks. A creature that starts its turn in the aura takes +0 (CHA MOD) poison damage.</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- REACTIONS -->
+				<div class="list">
+					<div class="list-heading">
+						Reactions
+					</div>	
+					<div class="list-content">
+						<div class="list-basic">
+							<span style="font-weight: bold;">Actions in Combat<br></span>
+							<span>Oppertunity Attack</span>
+						</div>
+
+						<div class="list-snippet">
+							<span style="font-weight: bold;">REACTION Snippet HEADING<br></span>
+							<span>REACTION Snippet DESCRIPTION</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- OTHER -->
+				<div class="list">
+					<div class="list-heading">
+						Other
+					</div>	
+					<div class="list-content">
+						<div class="list-basic">
+							<span style="font-weight: bold;">Actions in Combat<br></span>
+							<span>Interact with an Object</span>
+						</div>
+
+						<div class="list-snippet">
+							<span style="font-weight: bold;">Dark One's Blessing<br></span>
+							<span>When you reduce a hostile creature to 0 HP, you gain 8 temp HP.</span>
+						</div>
+						<div class="list-snippet">
+							<span style="font-weight: bold;">Bloodlust (Special)<br></span>
+							<span>If you start your turn with 95 HP or less, you must succeed on a WIS saving throw (DC 8) or move toward the nearest creature and use the Attack action against it. If you're concentrating on a spell or an effect prevents you from concentrating (such as a barbarian's Rage), you automatically fail this saving throw.<br><br>If you have Extra Attack, you choose whether to use it. If more than one creature is equally near you, roll randomly to choose your target. Once the attack is resolved, you regain control.</span>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="text-box" style="background: red;">
+			<div class="text-box">
+				<div class="text-box-header">Spells</div>
+				<div class="spell-list-header">
+					<div class="spell-list-header-item"><span style="font-family: Roboto;">+0</span><br>Modifier</div>
+					<div class="spell-list-header-item" style="border-width: 0;"><span style="font-family: Roboto;">+6</span><br>Spell Attack</div>
+					<div class="spell-list-header-item"><spa style="font-family: Roboto;"n>14</span><br>Save DC</div>
+				</div>
+				
+				<div class="spell-tables">
+					<div class="spell-header">Spell Tables</div>
+
+					<div class="spell-group"> 
+						<div class="spell-group_header">
+							3/day
+							<div class="spell-group_checkboxes">
+								<input type="checkbox" name="3/day1">
+								<input type="checkbox" name="3/day2">
+								<input type="checkbox" name="3/day3">
+							</div>
+							
+						</div>
+						<table class="spell-tables">
+							<tr class="attack">
+								<th class="attack" style="width: 30%;">Name</th>
+								<th class="attack" style="width: 25%;">Time</th>
+								<th class="attack" style="width: 20%;" >Range</th>
+								<th class="attack">Hit/DC</th>
+								<th class="attack" style="width: 25%;">Components</th>
+							</tr>
+							<tr class="attack">
+								<td class="attack"><a href="#Acid Splash">Acid Splash</a></td>
+								<td class="attack">Action</td>
+								<td class="attack">60 feet</td>
+								<td class="attack">+6</td>
+								<td class="attack">V,  S</td>
+							</tr>
+							<tr class="attack">
+								<td class="attack"><a href="#Animate Objects">Animate Objects</a></td>
+								<td class="attack">Action</td>
+								<td class="attack">120 feet</td>
+								<td class="attack">+6</td> <!--THIS IS NOT SUPPOSED TO BE +6 but because the py code just looks for "saving throw" and then takes the ability before if there is none its easier to just say +6-->
+								<td class="attack">V,  S</td>
+							</tr>
+							<tr class="attack">
+								<td class="attack"><a href="#Antagonize">Antagonize</a></td>
+								<td class="attack">Action</td>
+								<td class="attack">120 feet</td>
+								<td class="attack">14 WIS</td>
+								<td class="attack">V,  S</td>
+							</tr>
+						</table>
+					</div>
+				</div>	
+
+				<div class="spell-descriptions">
+					<div class="spell-header">Spell Descriptions</div>
+				
+					<div class="spell-descriptions-group">
+						<div class="spell-descriptions-group_header">3/day</div>
+						<div class="spell-descriptions-spell">
+							<div class="spell-descriptions-spell-header" id="Acid Splash">Acid Splash</div>
+
+							<div class="spell-descriptions-spell-content">
+								<div style="font-style: italic;margin-bottom: 10px;">Conjuration Cantrip</div>
+
+								<div><span style="font-weight: bold;">Casting Time: </span>Action</div>
+								<div><span style="font-weight: bold;">Range: </span>60 feet</div>
+								<div><span style="font-weight: bold;">Components: </span>V, S</div>
+								<div style="margin-bottom: 10px;"><span style="font-weight: bold;">Duration: </span>Instantaneous</div>
+
+								<div style="margin-bottom: 10px">You hurl a bubble of acid. Choose one creature you can see within range, or choose two creatures you can see within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage. This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).</div>
+								<div></div>
+							</div>
+						</div>
+
+						<div class="spell-descriptions-spell">
+							<div class="spell-descriptions-spell-header" id="Animate Objects">Animate Objects</div>
+
+							<div class="spell-descriptions-spell-content">
+								<div style="font-style: italic;margin-bottom: 10px;">Transmutation 5th</div>
+
+								<div><span style="font-weight: bold;">Casting Time: </span>Action</div>
+								<div><span style="font-weight: bold;">Range: </span>120 feet</div>
+								<div><span style="font-weight: bold;">Components: </span>V, S</div>
+								<div style="margin-bottom: 10px;"><span style="font-weight: bold;">Duration: </span>Concentration, up to 1 minute</div>
+
+								<div style="margin-bottom: 10px">Objects come to life at your command. Choose up to ten nonmagical objects within range that are not being worn or carried. Medium targets count as two objects, Large targets count as four objects, Huge targets count as eight objects. You can't animate any object larger than Huge. Each target animates and becomes a creature under your control until the spell ends or until reduced to 0 hit points.As a bonus action, you can mentally command any creature you made with this spell if the creature is within 500 feet of you (if you control multiple creatures, you can command any or all of them at the same time, issuing the same command to each one). You decide what action the creature will take and where it will move during its next turn, or you can issue a general command, such as to guard a particular chamber or corridor. If you issue no commands, the creature only defends itself against hostile creatures. Once given an order, the creature continues to follow it until its task is complete. Animated Object 1d4 + 4 to hit, 1d8 + 2 +5 to hit, 2d6 + 1 +6 to hit, 2d10 + 2 +8 to hit, 2d12 + 4. An animated object is a construct with AC, hit points, attacks, Strength, and Dexterity determined by its size. Its Constitution is 10 and its Intelligence and Wisdom are 3, and its Charisma is 1. Its speed is 30 feet; if the object lacks legs or other appendages it can use for locomotion, it instead has a flying speed of 30 feet and can hover. If the object is securely attached to a surface or a larger object, such as a chain bolted to a wall, its speed is 0. It has blindsight with a radius of 30 feet and is blind beyond that distance. When the animated object drops to 0 hit points, it reverts to its original object form, and any remaining damage carries over to its original object form.If you command an object to attack, it can make a single melee attack against a creature within 5 feet of it. It makes a slam attack with an attack bonus and bludgeoning damage determined by its size. The DM might rule that a specific object inflicts slashing or piercing damage based on its form.</div>
+								
+								<div>At Higher Levels. If you cast this spell using a spell slot of 6th level or higher, you can animate two additional objects for each slot level above 5th.</div>
+							</div>
+						</div>
+
+						<div class="spell-descriptions-spell">
+							<div class="spell-descriptions-spell-header" id="Antagonize">Antagonize</div>
+
+							<div class="spell-descriptions-spell-content">
+								<div style="font-style: italic;margin-bottom: 10px;">Enchantment 3rd</div>
+
+								<div><span style="font-weight: bold;">Casting Time: </span>Action</div>
+								<div><span style="font-weight: bold;">Range: </span>30 feet</div>
+								<div><span style="font-weight: bold;">Components: </span>V, S, M (a playing card depicting a rogue)</div>
+								<div style="margin-bottom: 10px;"><span style="font-weight: bold;">Duration: </span>Instantaneous</div>
+
+								<div style="margin-bottom: 10px">You whisper magical words that antagonize one creature of your choice within range. The target must make a Wisdom saving throw. On a failed save, it takes 4d4 psychic damage and must immediately use its reaction, if available, to make a melee attack against another creature of your choice that you can see. If no other creature is within range, the target has disadvantage on the next attack roll it makes before the start of your next turn.</div>
+								<div>At Higher Levels. When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d4 for each slot level above 4th.</div>
+							</div>
+						</div>
+					</div>
 			</div>
 		</div>
 	</div>
+
+
 	<!-- PET STAT BLOCK -->
+	<div class="page" style="padding: 1% 0;width: 100%;">
+		<div class="pet_block_container">
+			<div class="pet_block_statblock">
+				<div class="pet_block_statblock_name">Aartuk Starhorror</div>
+				<div class="pet_block_statblock_summary">Medium Plant, typically Lawful Evil</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Armor Class </span>
+					14 (natural armor)
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Hit Points </span>
+					52 (8d8 + 16)
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Speed </span>
+					20 ft., climb 20 ft.
+				</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_abilities">
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">STR<br></span>
+						12 (+1)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">DEX<br></span>
+						10 (+0)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">CON<br></span>
+						14 (+2)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">INT<br></span>
+						13 (+1)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">WIS<br></span>
+						16 (+3)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">CHA<br></span>
+						10 (+0)
+					</div>
+				</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Skills </span>
+					Stealth +4
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Senses </span>
+					darkvision 60 ft., passive Perception 13
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Languages </span>
+					Aartuk
+				</div>
+				<div class="pet_block_statblock_cr">
+					<div class="pet_block_statblock_feature">
+						<span class="pet_block_statblock_feature_title">Challange </span>
+						2 (450 XP)
+					</div>
+					<div class="pet_block_statblock_feature">
+						<span class="pet_block_statblock_feature_title">Proficiency Bonus </span>
+						+2
+					</div>
+				</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Spider Climb. </span>
+					The aartuk can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check.
+				</div>
+
+				<div class="pet_block_statblock_action">Actions</div>
+				<div class="pet_block_statblock_break"></div>
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Multiattack. </span>
+					The aartuk makes two Branch attacks, two Radiant Pellet attacks, or one of each.
+				</div>
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Spellcasting (Psionics). </span>
+					The aartuk casts one of the following spells, requiring no spell components and using Wisdom as the spellcasting ability:
+1/day each: revivify, speak with plants
+				</div>
+				<div class="pet_block_statblock_action">Bonus Actions</div>
+				<div class="pet_block_statblock_break"></div>
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Rally the Troops (1/Day). </span>
+					The aartuk magically ends the charmed and frightened conditions on itself and each creature of its choice that it can see within 30 feet of itself.
+				</div>
+			</div>
+			<div class="pet_block_statblock">
+				<div class="pet_block_statblock_name">Aartuk Starhorror</div>
+				<div class="pet_block_statblock_summary">Medium Plant, typically Lawful Evil</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Armor Class </span>
+					14 (natural armor)
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Hit Points </span>
+					52 (8d8 + 16)
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Speed </span>
+					20 ft., climb 20 ft.
+				</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_abilities">
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">STR<br></span>
+						12 (+1)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">DEX<br></span>
+						10 (+0)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">CON<br></span>
+						14 (+2)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">INT<br></span>
+						13 (+1)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">WIS<br></span>
+						16 (+3)
+					</div>
+					<div class="pet_block_statblock_abilities_ability_container">
+						<span class="pet_block_statblock_abilities_ability">CHA<br></span>
+						10 (+0)
+					</div>
+				</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Skills </span>
+					Stealth +4
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Senses </span>
+					darkvision 60 ft., passive Perception 13
+				</div>
+				<div class="pet_block_statblock_feature">
+					<span class="pet_block_statblock_feature_title">Languages </span>
+					Aartuk
+				</div>
+				<div class="pet_block_statblock_cr">
+					<div class="pet_block_statblock_feature">
+						<span class="pet_block_statblock_feature_title">Challange </span>
+						2 (450 XP)
+					</div>
+					<div class="pet_block_statblock_feature">
+						<span class="pet_block_statblock_feature_title">Proficiency Bonus </span>
+						+2
+					</div>
+				</div>
+				<div class="pet_block_statblock_break"></div>
+
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Spider Climb. </span>
+					The aartuk can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check.
+				</div>
+
+				<div class="pet_block_statblock_action">Actions</div>
+				<div class="pet_block_statblock_break"></div>
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Multiattack. </span>
+					The aartuk makes two Branch attacks, two Radiant Pellet attacks, or one of each.
+				</div>
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Spellcasting (Psionics). </span>
+					The aartuk casts one of the following spells, requiring no spell components and using Wisdom as the spellcasting ability:
+1/day each: revivify, speak with plants
+				</div>
+				<div class="pet_block_statblock_action">Bonus Actions</div>
+				<div class="pet_block_statblock_break"></div>
+				<div class="pet_block_statblock_trait">
+					<span class="pet_block_statblock_trait_title">Rally the Troops (1/Day). </span>
+					The aartuk magically ends the charmed and frightened conditions on itself and each creature of its choice that it can see within 30 feet of itself.
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

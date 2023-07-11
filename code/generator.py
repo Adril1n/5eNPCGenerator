@@ -414,7 +414,7 @@ class NPC():
 			pass
 
 
-		choices = {'feat':0.25, '2':0.375, '1+1':0.375}
+		choices = {'feat':0.2, '2':0.4, '1+1':0.4}
 
 		for lvl in np.arange(self.options['level'].value):
 			if lvls[lvl]:

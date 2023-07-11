@@ -1,31 +1,16 @@
 html {
-	background: grey ;
+	background: grey;
 	font-family: Athelas,Roboto,Helvetica,sans-serif;
 	font-size: 20px;
 	box-sizing: border-box;
 	color: white;
 }
 
-:root {
-	--preview-background-color: green;
-	--preview-border-color: lightgreen;
-
-	--quick-info-background-color: red;
-	--quick-info-border-color: #f88;
-
-	--sheet-background-color: darkorange;
-	--sheet-border-color: orange;
-
-	--text-boxes-background-color: #a5a;
-	--text-boxes-border-color: #c7c;
-}
-
 .page {
 	width: 96%;
 	height: 120vh;
-	background: blue;
+/*	background: blue;*/
 	padding: 2% 2%;
-/*	border: 5px solid black;*/
 }
 
 .preview-header {
@@ -43,7 +28,7 @@ html {
 	width: 45%;
 	padding: 0 1%;
 	padding-bottom: 1%;
-	border: 4px dotted black;
+	border: 4px double black;
 
 	background: var(--preview-background-color);
 	border-color: inherit;	
@@ -55,7 +40,7 @@ html {
 	padding-bottom: 1%;
 	font-size: 64px;
 	text-align: center;
-	border: 4px dotted black;
+	border: 4px double black;
 	
 	background: var(--preview-background-color);
 	border-color: inherit;
@@ -91,6 +76,13 @@ html {
 
 .npc_statblock_break {
 	fill: var(--preview-border-color);
+}
+
+.preview-content_statblock_action {
+	width: 100%;
+	border-bottom: 2px double white;
+	font-size: 30px;
+	margin-bottom: 12px;
 }
 
 .preview-content_statblock_abilities {
@@ -131,7 +123,12 @@ html {
 
 }
 
-
+.preview-content_description_table_item {
+	padding: 2% 0;
+	border: 2px double white;
+	border-color: inherit;
+	margin-bottom: 20px;
+}
 
 
 
@@ -149,7 +146,7 @@ html {
 	width: 25%;
 	padding: 0 1%;
 	padding-bottom: 1%;
-	border: 4px inset black;
+	border: 4px outset; black;
 	font-size: 22px;
 
 	background: var(--quick-info-background-color);
@@ -226,7 +223,7 @@ html {
 	width: 30%;
 	height: 31%;
 	
-	border: 4px dotted black;
+	border: 4px ridge black;
 	background: var(--sheet-background-color);
 	border-color: var(--sheet-border-color);
 
@@ -257,7 +254,7 @@ html {
 .saving-throws_container {
 	width: 35%;
 	height: 20%;
-	border: 5px dashed orange;
+	border: 5px ridge orange;
 	margin-top: 1%;
 	display: flex;
 	justify-content: space-between;
@@ -268,7 +265,7 @@ html {
 
 .saving-throws_false {
 	background: #c00;
-	border: 1px solid black;
+	border: 1px ridge black;
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
@@ -278,7 +275,7 @@ html {
 
 .saving-throws_true {
 	background: #0c0;
-	border: 1px solid black;
+	border: 1px ridge black;
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
@@ -291,7 +288,7 @@ html {
 	width: 30%;
 	height: 31%;
 	
-	border: 4px double; black;
+	border: 4px ridge; black;
 	background: var(--sheet-background-color);
 	border-color: var(--sheet-border-color);
 
@@ -331,7 +328,7 @@ html {
 	height: 20%;
 	margin-top: 1%;
 	display: flex;
-	border: 3px groove orange;
+	border: 3px ridge orange;
 	box-sizing: border-box;
 	border-radius: 10%;
 	position: relative;
@@ -373,7 +370,7 @@ html {
 
 .proficiencies-languages_break {
 	margin: 2% 0;
-	border: 2px solid black;
+	border: 2px ridge; black;
 	border-color: var(--sheet-border-color);
 }
 
@@ -389,7 +386,7 @@ html {
 	width: 30%;
 	height: 31%;
 	
-	border: 4px inset; black;
+	border: 4px ridge; black;
 	background: var(--sheet-background-color);
 	border-color: var(--sheet-border-color);
 
@@ -411,7 +408,7 @@ html {
 }
 
 table.skills, th.skills, td.skills {
-	border: 4px outset; white;
+	border: 4px ridge; white;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -421,7 +418,7 @@ table.skills, th.skills, td.skills {
 
 .skills-proficiency-false {
 	background-color: #c00;
-	border: 2px solid black;
+	border: 2px ridge black;
 	border-radius: 50%;
 	width: 20px;
 	height: 20px;
@@ -432,7 +429,7 @@ table.skills, th.skills, td.skills {
 
 .skills-proficiency-true {
 	background-color: #0c0;
-	border: 2px solid black;
+	border: 2px ridge black;
 	border-radius: 50%;
 	width: 20px;
 	height: 20px;
@@ -488,7 +485,7 @@ table.skills, th.skills, td.skills {
 	width: 40%;
 	height: 40%;
 	
-	border: 4px dotted; black;
+	border: 4px ridge; black;
 
 	background: var(--sheet-background-color);
 	border-color: var(--sheet-border-color);
@@ -546,7 +543,7 @@ table.skills, th.skills, td.skills {
 	text-align: center;
 	font-size: 28px;
 	border-radius: 10%;
-	border: 5px dashed #222;
+	border: 5px ridge #222;
 	border-color: var(--sheet-border-color);
 	background: var(--sheet-background-color);
 }
@@ -557,7 +554,7 @@ table.skills, th.skills, td.skills {
 	width: 30%;
 	height: 31%;
 	
-	border: 4px solid black;
+	border: 4px ridge black;
 	background: var(--sheet-background-color);
 	border-color: var(--sheet-border-color);
 
@@ -591,7 +588,7 @@ table.skills, th.skills, td.skills {
 	width: 94%;
 	height: 25px;
 
-	border: 2px double; black;
+	border: 2px ridge; black;
 	border-color: var(--sheet-border-color);
 
 	align-items: center;
@@ -609,7 +606,7 @@ table.skills, th.skills, td.skills {
 }
 
 .defenses_display_icon_immunity {
-	border: 1px solid #000;
+	border: 1px ridge #000;
 	border-radius: 25%;
 	font-size: 32px;
 	width: 32px;
@@ -619,7 +616,7 @@ table.skills, th.skills, td.skills {
 }
 
 .defenses_display_icon_resistance {
-	border: 1px solid #000;
+	border: 1px ridge #000;
 	border-radius: 25%;
 	font-size: 32px;
 	width: 32px;
@@ -630,7 +627,7 @@ table.skills, th.skills, td.skills {
 
 
 .defenses_display_icon_vulnerability {
-	border: 1px solid #000;
+	border: 1px ridge #000;
 	border-radius: 25%;
 	font-size: 32px;
 	width: 32px;
@@ -646,23 +643,23 @@ table.skills, th.skills, td.skills {
 
 .text-boxes-container {
 /*	background: #4db;*/
-/*	border: 2px solid black;*/
+/*	border: 2px double black;*/
 	width: 100%;
 	height: 100%;
-	background: green;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	padding-top: 2%;
+	margin-top: -5%;
 }
 
 .text-box {
 	overflow-y: scroll;
-	height: 46%;
-	width: 46%;
+	height: 47%;
+	width: 44%;
 	padding: 0 1%;
 
-	border: 5px solid black;
+	border: 5px double black;
 	background: var(--text-boxes-background-color);
 	border-color: var(--text-boxes-border-color);
 
@@ -672,7 +669,7 @@ table.skills, th.skills, td.skills {
 	text-align: center;
 	font-size: 50px;
 	margin-bottom: 3%;
-	border-bottom: 4px solid black;
+	border-bottom: 4px double black;
 	border-color: var(--text-boxes-border-color);
 }
 
@@ -681,43 +678,52 @@ table.skills, th.skills, td.skills {
 }
 
 .list-heading {
-/*	background: palegreen;*/
-/*	border: 2px solid black;*/
 	width: 100%;
 	font-size: 28px;
 	padding-left: 5px; 
 }
 
 .list-content {
-/*	background: floralwhite;*/
-/*	border: 2px solid black;*/
 }
 
 .attack-table {
-/*	background: paleturquoise;*/
-	border: 2px solid black;
-	border: 2px solid black;
+	background: var(--text-boxes-darker-background-color);
 	margin-bottom: 20px;
+	border: 2px double #33e;
+	border-color: var(--text-boxes-border-color);
 }
 
 table.attack, th.attack, td.attack {
-	border: 1px solid #33e;
+	border: 2px double #33e;
+	border-color: var(--text-boxes-border-color);
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+	padding: 0 5px;
+	font-size: 22px;
+}
+
+table.attack {
+	border: none;
+	margin: 1% auto;
 }
 
 .list-basic {
-/*	background: palevioletred;*/
-	border: 2px solid black;
+	background: var(--text-boxes-darker-background-color);
+	border: 2px double #33e;
+	border-color: var(--text-boxes-border-color);
+
+
 	padding-left: 5px;
 	padding-top: 3px;
 	margin-bottom: 20px;
 }
 
 .list-snippet {
-/*	background: yellowgreen;*/
-	border: 2px solid black;
+	background: var(--text-boxes-darker-background-color);
+	border: 2px double #33e;
+	border-color: var(--text-boxes-border-color);
+
 	margin-bottom: 20px;
 	padding-left: 5px;
 	padding-top: 3px;
@@ -725,23 +731,29 @@ table.attack, th.attack, td.attack {
 
 .spell-list-header {
 	text-align: center;
-/*	background: lightyellow;*/
-	border: 2px solid black;
+	font-size: 28px;
+
+	background: var(--text-boxes-darker-background-color);
+	border: 2px double #33e;
+	border-color: var(--text-boxes-border-color);
+
 	display: block;
-	border-bottom: 5px solid grey;
+
 	margin-bottom: 20px;
 }
 
 .spell-list-header-item {
 	display: inline-block;
 	padding: 10px 5px;
-	border-left: 2px solid grey; 
-	border-right: 2px solid grey;
+	border-left: 4px double grey; 
+	border-right: 4px double grey;
+	border-color: var(--text-boxes-border-color);
 }
 
 .spell-tables {
-/*	background: honeydew;*/
-	border: 2px solid black;
+	margin-bottom: 5%;
+	width: 96%;
+	padding: 0 2%;
 }
 
 .spell-header {
@@ -753,27 +765,63 @@ table.attack, th.attack, td.attack {
 }
 
 .spell-group {
-/*	background: orangered;*/
-	border: 2px solid black;
+	border: 2px double black;
+	border-color: var(--text-boxes-border-color);
 	padding: 2px 5px;
 	font-size: 20px;
 	margin-bottom: 20px;
+	background: var(--text-boxes-darker-background-color);
+}
+
+.spell-group_header {
+	font-size: 30px;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+}
+
+.spell-group_checkboxes {
+	padding: 8px 8px;
+	display: flex;
+	float: right;
+	gap: 20px;
+}
+
+input {	
+	transform: scale(2.3);
+	accent-color: var(--text-boxes-border-color);
+	outline: 1px double var(--text-boxes-spell-href-color);
+	border-radius: 25%;
+	cursor: pointer;
+}
+
+a {
+	color: var(--text-boxes-spell-href-color);
 }
 
 .spell-descriptions {
-/*	background: firebrick;*/
-	border: 2px solid black;
 }
 
 .spell-descriptions-group {
-/*	background: turquoise;*/
-	border: 2px solid black;
-	padding: 0 4px;
+	background: var(--text-boxes-darker-background-color);
+	border: 2px double black;
+	border-color: var(--text-boxes-border-color);
+	
+	width: 96%;
+
+	padding: 0 2%;
+}
+
+.spell-descriptions-group_header {
+	font-size: 36px;
+	font-weight: bold;
+	margin-bottom: 5px;
 }
 
 .spell-descriptions-spell {
-/*	background: cornflowerblue;*/
-	border: 2px solid black;
+	border: 4px double black;
+	border-color: var(--text-boxes-border-color);
+
 	padding: 2px 4px;
 	margin-bottom: 20px;
 	overflow-y: scroll;
@@ -781,30 +829,126 @@ table.attack, th.attack, td.attack {
 }
 
 .spell-descriptions-spell-header {
-	font-size: 26px;
-	color: darkmagenta;
+	font-size: 32px;
+	color: var(--text-boxes-spell-href-color);
 }
 
 .spell-descriptions-spell-content {
 	padding-bottom: 4px;
 }
 
-input {	
-	transform: scale(2.3);
-}
+
 
 
 .description-character-image {
-	background: teal;
+	background: var(--text-boxes-darker-background-color);
 	height: 78%;
 	width: 100%;
 	margin-bottom: 2%;
 }
 
 .description-character-feature {
-	margin-bottom: 3%;
+	margin-bottom: 2%;
+	font-size: 24px;
 
 }
+
+.feat_container {
+	width: 96%;
+	height: 63%;
+	overflow-y: scroll;
+	background: var(--text-boxes-darker-background-color);
+	border: 2px double black;
+	border-color: var(--text-boxes-border-color);
+	padding: 1% 2%;
+	margin-bottom: 4%;
+}
+
+.feat_header {
+	font-size: 34px;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+.pet_block_container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.pet_block_statblock {
+	width: 46.5%;
+	height: 96%;
+	background: var(--pet-block-background-color);
+	border: 6px inset; black;
+	border-color: var(--pet-block-border-color);
+	padding: 1% 1%;
+	font-size: 26px;
+	overflow-y: scroll;
+}
+
+.pet_block_statblock_name {
+	font-size: 46px;
+}
+
+.pet_block_statblock_summary {
+	font-style: italic;
+}
+
+.pet_block_statblock_break {
+	border-bottom: 3px inset; black;
+	border-color: var(--pet-block-border-color);
+	margin: 1% 0;
+}
+
+.pet_block_statblock_feature {
+}
+
+.pet_block_statblock_feature_title {
+	font-weight: bold;
+}
+
+.pet_block_statblock_abilities {
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 5%;
+}
+
+.pet_block_statblock_abilities_ability_container {
+	text-align: center;
+}
+
+.pet_block_statblock_abilities_ability {
+	font-weight: bold;
+}
+
+.pet_block_statblock_cr {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.pet_block_statblock_trait {
+	margin-bottom: 3%;
+}
+
+.pet_block_statblock_trait_title {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.pet_block_statblock_action {
+	font-size: 36px;
+}
+
 
 /*.dice {
 	position: absolute;
