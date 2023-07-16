@@ -34,12 +34,8 @@
 
 			<features>
 				<feature id="Dive Attack"/>
-				<feature id="Talons_DMG"/>
+				<feature id="Talons (DMG)"/>
 			</features>
-
-			<actions>
-				<action id="Talons_DMG"/>
-			</actions>
 			
 <!--			<dataval key="appearances" value="dict">
 				<appearance key="age" value="3-30"/>
@@ -94,14 +90,10 @@
 
 			<features>
 				<feature id="Dive Attack"/>
-				<feature id="Talons_DMG"/>
+				<feature id="Talons (DMG)"/>
 			</features>
-
-			<actions>
-				<action id="Talons_DMG"/>
-			</actions>
-			
 		</type>
+
 		<type name="Aarakocra (MPMM)">
 			<abilities>
 				<ability key="lineage" value="0"/>
@@ -131,13 +123,8 @@
 
 			<features>
 				<feature id="Dive Attack"/>
-				<feature id="Talons_DMG"/>
+				<feature id="Talons (DMG)"/>
 			</features>
-
-			<actions>
-				<action id="Talons_DMG"/>
-			</actions>
-			
 		</type>
 	</race>
 </races>

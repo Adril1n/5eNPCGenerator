@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <subclasses>
-	<subclass name="Alchemist" class="Artificer">
-		<datadict>
+	<subclass class="Artificer" name="Alchemist">
+<!-- 		<datadict>
 			<dataval req="3" key="extended_spell_list" value="dict_lvl" tier="1">
 				<item key="3" value="Healing Word:Ray of Sickness"/>
 				<item key="5" value="Flaming Sphere:Melf's Acid Arrow"/>
@@ -21,6 +21,12 @@
 			<dataval req="5" key="Alchemical Savant" value="You gain a bonus to one roll of any spell cast. That roll must restore hit points or be a damage roll that deals acid, fire, necrotic, or poison damage, and the bonus equals %%INT%% (or +1)."/>
 			<dataval req="9" key="Restorative Reagents" value="Whenever a creature drinks one of your Experimental Elixirs, the creature gains temporary hit points equal to 2d6 + %%INT%% (minimum of 1 temporary hit point)."/>
 			<dataval req="15" key="Chemical Mastery" value="You gain resistance to acid damage and poison damage, and you are immune to the poisoned condition." />
-		</datadict>
+		</datadict> -->
+	</subclass>
+	<subclass class="Fighter" name="Eldrich Knight">
+		<spellcasting ability="INTELLIGENCE" spells_per_level="-0.04:1.52:-1.49"/>
+	</subclass>
+	<subclass class="Rogue" name="Arcane Trickster">
+		<spellcasting ability="INTELLIGENCE" spells_per_level="-0.04:1.7:-1.65"/>
 	</subclass>
 </subclasses>

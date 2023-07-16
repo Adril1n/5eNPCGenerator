@@ -2,12 +2,13 @@ import tkinter as tk
 from numpy.random import default_rng, SeedSequence
 import numpy as np
 from PIL import Image, ImageTk
-import webbrowser
+import os
 import colorsys
 
 from functools import partial
 import tkinter.scrolledtext as scrolledtext
-
+from bs4 import BeautifulSoup
+from bs4.formatter import HTMLFormatter
 
 from resource_loader import ResourceLoader
 
@@ -24,7 +25,26 @@ def darken_color(color, factor):
 	return f"#{r.zfill(2)}{g.zfill(2)}{b.zfill(2)}"
 
 
+def generate_page_colors(main_clr, noise_range=65):
+	clrs = {}
+	rng = default_rng()
 
+	r = int(main_clr[1:3], base=16)
+	g = int(main_clr[3:5], base=16)
+	b = int(main_clr[5:7], base=16)
+
+	for page in ['preview', 'quick-info', 'sheet', 'text-boxes', 'pet-block']:
+		c = [r, g, b]
+
+		for i in range(len(c)):
+			ch = c[i]
+			rand = rng.integers(-noise_range, high=noise_range+1) #one above for high apperently
+			
+			c[i] = max(min(ch + rand, 255), 0)
+
+		clrs[page] = "#" + hex(int(c[0]))[2:].zfill(2) + hex(int(c[1]))[2:].zfill(2) + hex(int(c[2]))[2:].zfill(2)
+
+	return clrs
 
 
 class Formating():
@@ -57,42 +77,6 @@ class Formating():
 
 
 
-
-# class Stat():
-# 	def __init__(self, name, value):
-# 		self.name = name
-# 		self.value = value
-
-# 	def format(self, canvas, index, summary_x1, summary_x2, fill_clr='#000000', outline_clr='#FFFFFF'):
-# 		y = (index//2+1)*140
-# 		x = [summary_x1, summary_x2][index%2]-[0, 100][index%2]
-
-# 		background = canvas.create_rectangle(x, y, x+100, y+100, fill=fill_clr, outline=outline_clr, width=3, tags=['background'])
-
-# 		background_x1 = (canvas.bbox(background)[0]+canvas.bbox(background)[2])//2
-# 		txt_0 = canvas.create_text(background_x1, canvas.bbox(background)[1]+10, anchor='n', text=self.name.split(' ')[0], font=('Arial-BoldMT', 16))
-
-# 		main_str = f"+{self.value}" if 'Bonus' in self.name else self.value
-# 		if 'Speed' in self.name:
-# 			main_str = f"{self.value} ft."
-
-# 		txt_main = canvas.create_text(background_x1-1, (canvas.bbox(background)[1]+canvas.bbox(background)[3])//2, anchor='c', text=main_str, font=('Arial', 40))
-
-# 		try:
-# 			txt_1 = canvas.create_text(background_x1, canvas.bbox(background)[3]-10, anchor='s', text=self.name.split(' ')[1], font=('Arial-BoldMT', 16))
-# 		except IndexError:
-# 			pass
-
-class Action():
-	def __init__(self, a_type, a_dict):
-		self.a_type = a_type
-		self.a_dict = a_dict
-
-	def __repr__(self):
-		return f"{self.a_type, self.a_dict}"
-
-
-
 class Ability():
 	TYPES = ['STRENGTH', 'DEXTERITY', 'CONSTITUTION', 'INTELLIGENCE', 'WISDOM', 'CHARISMA']
 
@@ -118,35 +102,16 @@ class Ability():
 	def get_modifier(self):
 		return (self.score-10)//2
 
-	def format(self, canvas, preview=True, x_anchor=1000, y_anchor=60, val_dist=225, fill_clr='#00FF00', outline_clr='#BB66FF'):
-		if preview:
-			if self.name == Ability.TYPES[0]:
-				canvas.create_text(x_anchor, y_anchor, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
-			else:
-				canvas.create_text(canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[0]+1, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[3]+10, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
-			
-			modifier = self.get_modifier()
-			modifer_txt = f'+{modifier}' if modifier > 0 else modifier
-			canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[1], text=f"{self.score} [{modifer_txt}]", anchor='ne', font=('Arial', 16), tags=['text', 'ability', 'value'])
+	def format(self, canvas, x_anchor=1000, y_anchor=60, val_dist=225, fill_clr='#00FF00', outline_clr='#BB66FF'):
+		if self.name == Ability.TYPES[0]:
+			canvas.create_text(x_anchor, y_anchor, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
 		else:
-			dim = 100
-
-			if self.name == Ability.TYPES[0]:
-				x = x_anchor
-				y = y_anchor
-			else:
-				x = canvas.bbox(canvas.find_withtag('background&&ability')[-1])[2]+dim//2
-				y = canvas.bbox(canvas.find_withtag('background&&ability')[-1])[1]+2
-
-			background = canvas.create_rectangle(x, y, x+dim, y+dim, fill=fill_clr, outline=outline_clr, width=3, tags=['background', 'ability'])
-			type_ = canvas.create_text(x+dim//2, y+3, anchor='n', text=self.name, font=Formating.FONT_ABILITY_TYPE, tags=['text'])
-
-			modifier = self.get_modifier()
-			modifer_txt = f'+{modifier}' if modifier > 0 else modifier
-			canvas.create_text(x+dim//2, y+20, anchor='n', text=modifer_txt, font=Formating.FONT_ABILITY_MODIFIER, tags=['text'])
-
-			canvas.create_text(x+dim//2, y+dim-3, anchor='s', text=self.score, font=Formating.FONT_ABILITY_SCORE, tags=['text'])
-
+			canvas.create_text(canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[0]+1, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[3]+10, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
+		
+		modifier = self.get_modifier()
+		modifer_txt = f'+{modifier}' if modifier > 0 else modifier
+		canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[1], text=f"{self.score} [{modifer_txt}]", anchor='ne', font=('Arial', 16), tags=['text', 'ability', 'value'])
+	
 	def __repr__(self):
 		return f"{self.score, self.get_modifier()}"
 
@@ -165,6 +130,148 @@ class Option():
 		
 		canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[1], text=f"{self.value}", anchor='nw', font=('Arial', 16), tags=['text', 'option', 'value'])
 
+
+class Feature():
+	def __init__(self, parent, f_id, f_type, sub_features):
+		self.parent = parent
+		self.f_id = f_id
+		self.f_type = f_type
+		self.sub_features = sub_features
+
+		self.sub_features['description'] = Feature.apply_description_tables(self.sub_features['description'], self.parent.rng)
+		getattr(self, f_type)()
+
+	def snippet(self):
+		self.parent.features[self.f_id] = self.sub_features['description']
+
+	def action(self):
+		self.parent.actions[self.f_id] = [self.sub_features['action_type'], self.sub_features['description']]
+
+	@staticmethod
+	def apply_description_tables(desc, rng):
+		split_desc = desc.split('#')
+		for j in split_desc:
+			if j[0] == '!':
+				split_desc[split_desc.index(j)] = rng.choice(ResourceLoader.get_instance().get_table(j[1:]))
+			# else:
+			# 	split_desc[split_desc.index(j)] = j.strip()
+
+		return ''.join(split_desc)
+
+
+class Feat():
+	def __init__(self, parent, name):
+		self.parent = parent
+		self.name = name
+
+		self.apply_asi()
+		self.fix_description()
+		self.apply_features()
+
+	def apply_asi(self):
+		self.asi = ResourceLoader.get_instance().get_feat_asi(self.name)
+		self.parent.apply_race_asi_bonuses(self.asi)
+
+	def fix_description(self):
+		self.description = ResourceLoader.get_instance().get_feat_description(self.name)
+
+		desc_exts = ResourceLoader.get_instance().get_feat_description_extensions(self.name)
+
+		for de in desc_exts:
+			if float(de[0]) >= self.parent.rng.random():
+				self.description += de[1]
+
+		self.description = Feature.apply_description_tables(self.description, self.parent.rng)
+
+		# self.description = self.description.replace('BREAK', '\n')
+
+
+	def apply_features(self):
+		pass
+		# getattr(foo, 'bar')()
+
+
+class Spellcasting():
+	SPELL_TIERS = ['At Will', '5/day', '3/day', '2/day', '1/day']
+	SPELL_LEVELS = ['Cantrip', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th']
+
+	def __init__(self, parent, ability, spells_per_level_coefficients):
+		self.parent = parent
+		
+		if ability == 'random':
+			self.ability = self.parent.rng.choice(Ability.TYPES)
+		else:
+			self.ability = ability
+
+
+		coefficient_list = list(map(float, spells_per_level_coefficients.split(':')))
+		spells_per_level_func = lambda x: coefficient_list[0]*x**2+coefficient_list[1]*x+coefficient_list[2]
+		avg_spells_per_level = spells_per_level_func(self.parent.get_option_value('level'))
+		scale = 2 if self.parent.cls_bool else 1.25
+		print(avg_spells_per_level)
+		self.spells_per_level = round(abs(self.parent.rng.normal(avg_spells_per_level, scale)))
+
+		self.spell_list_type = self.parent.get_option_value('occupation')
+		if self.parent.subclass == 'Eldrich Knight' or self.parent.subclass == 'Arcane Trickster':
+			self.spell_list_type = 'Wizard'
+
+		elif not self.parent.cls_bool:
+			self.spell_list_type = self.parent.rng.choice(ResourceLoader.get_instance().get_list('classes'))
+
+		self.add_default_spells()
+
+		### min(max(np.norm(), spl_min), spl_max), spl_min == 0 if not Paladin || Ranger -> spl_min == 1, spl_max == calculated from list of 
+		### every spell sorted after spell level and taking the last in the list, removing 'Cantrip' if necissary 
+
+
+	def add_default_spells(self):
+		max_level = self.get_max_level()
+		rng = self.parent.rng 
+
+		min_level = 0 
+		if self.spell_list_type == 'Paladin' or self.spell_list_type == 'Ranger':
+			min_level = 1
+
+		lvl = self.parent.get_option_value('level')
+		loc = -0.0039*lvl**2 + 0.1875*lvl - 0.1836
+		std = -0.01*lvl**2 + 0.25*lvl + 0.56
+
+		if max_level == '5th':
+			loc = loc*0.6
+			std = std*0.6
+		
+		# print(lvl, loc, std, self.spells_per_level)
+		# print(self.spells_per_level)
+
+		count = {}
+		for _ in range(self.spells_per_level):
+			spl_lvl = min(max(abs(round(rng.normal(loc, std))), min_level), max_level)
+			try:
+				count[spl_lvl] += 1
+			except:
+				count[spl_lvl] = 1
+
+		# print(count)
+
+	def get_max_level(self):
+		sorted_l = sorted(ResourceLoader.get_instance().get_spell_lvl_list(self.spell_list_type))
+
+		try:
+			max_l = sorted_l[sorted_l.index('Cantrip')-1]
+		except ValueError:
+			max_l = sorted_l[-1]
+
+		return int(max_l[0])
+
+	def add_spell_random(self, lvl, class_):
+		print(lvl, class_)
+
+	def add_spell_specific(self, name):
+		print(name)
+
+
+	def __repr__(self):
+		return f"Spellcasting Ability: {self.ability}, Spells/Level: {self.spells_per_level}, Spell List: {self.spell_list_type}"
 
 
 class NPC():
@@ -185,7 +292,10 @@ class NPC():
 		
 		self.abilities = {ability_type:Ability(ability_type, self) for ability_type in Ability.TYPES}
 
-		
+		self.features = {}
+		self.actions = {}
+		self.feats = {}
+		self.spellcasting = None
 
 		# self.generate_base()
 		self.generate()
@@ -193,9 +303,9 @@ class NPC():
 		# self.generate_ac_initiative()
 
 	def generate(self):
-		race = self.options['race'].value
-		sex = self.options['sex'].value
-		occupation = self.options['occupation'].value
+		race = self.get_option_value('race')
+		sex = self.get_option_value('sex')
+		occupation = self.get_option_value('occupation')
 
 		RL = ResourceLoader.get_instance()
 		
@@ -209,18 +319,23 @@ class NPC():
 		## RACE TYPE
 		self.race_type = self.rng.choice(RL.get_race_type_choices(race))
 
-		## RACE ABILITY SCORE IMPROVEMENT
+		## RACE ABILITY SCORE IMPROVEMENT & ASI/FEATS
 		race_asi = RL.get_race_asi(race, self.race_type)
 		self.apply_race_asi_bonuses(race_asi)
 
-		## SIZE, BASE_SPEEDS, LANGUAGES
+		# if self.cls_bool: # MAYBE KEEP THIS
+		self.add_asi_and_feats()
+
+		Feat(self, 'Aberrant Dragonmark')
+
+
+		## SIZE, SPEEDS, LANGUAGES
 		self.size = self.rng.choice(RL.get_size(race, self.race_type).split(';'))
 
-		self.base_speeds = {'walking':'30', 'flying':None, 'swimming':None}
-		self.base_speeds.update(RL.get_speeds(race, self.race_type))
+		self.speeds = {'walking':'30', 'flying':None, 'swimming':None}
+		self.speeds.update(RL.get_speeds(race, self.race_type))
 
 		self.languages = RL.get_languages(race, self.race_type)
-
 		for lan in self.languages:
 			if lan == 'random':
 				language_choices = NPC.LANGUAGES.copy()
@@ -232,26 +347,15 @@ class NPC():
 
 
 		## APPEARENCES; HEIGHT, WEIGHT, AGE
+		self.appearances = {}
 		height_weight_dict = RL.get_height_weight(race, self.race_type)
 
-		self.height = self.get_height_weight_value(height_weight_dict, 'height')
-		self.weight = self.get_height_weight_value(height_weight_dict, 'weight')
+		self.appearances['height'] = self.get_height_weight_value(height_weight_dict, 'height')
+		self.appearances['weight'] = self.get_height_weight_value(height_weight_dict, 'weight')
 
 
 		age_list = RL.get_age(race, self.race_type)
-		self.age = self.rng.integers(int(age_list[0]), high=int(age_list[1])+1)
-
-
-		## RACIAL FEATURES AND ACTIONS
-		self.racial_features = RL.get_racial_features(race, self.race_type)
-
-		self.race_actions = {k:Action(v[0], v[1]) for k, v in RL.get_race_actions(race, self.race_type).items() if int(v[1]['level_req']) <= self.options['level'].value}
-
-
-		## ASI AND FEATS
-		if self.cls_bool: # MAYBE KEEP THIS
-			self.add_asi_and_feats()
-
+		self.appearances['age'] = self.rng.integers(int(age_list[0]), high=int(age_list[1])+1)
 
 		## BASE CLASS PROFICIENCIES 
 		self.proficiencies = RL.get_base_class_proficiencies(occupation)
@@ -268,27 +372,79 @@ class NPC():
 
 				self.proficiencies['tools'] = tools
 
+
 		skill_list = RL.get_equipment_list('skill')
 		skill_choices = [s['name'] for s in skill_list]
-
 		self.proficiencies['skills'] = list(self.rng.choice(skill_choices, size=int(self.proficiencies['skills'][0]), replace=False))
 
-		# h_mod_split = list(map(int, height_weight_dict[f'height_modifier'].split('d')))
-		# # h_mod = sum(self.rng.choice(h_mod_split[1], h_mod_split[0])+1)
-		# h_mod = sum(list(map(lambda x: max(x, 1), self.rng.random(h_mod_split[0])*h_mod_split[1])))
+
+
+		## RACIAL FEATURES AND ACTIONS
+		race_features = RL.get_racial_features(race, self.race_type)
+		self.add_features(race_features)
+
+		## SUBCLASS
+		self.subclass = RL.get_subclass(self.get_option_value('occupation'))
+		### YOU CAN SET SUBCLASS HERE BECAUSE THE SUBCLASS.XML FEATURES HAVE LEVEL REQUIREMENT SO IF YOU GET THE SUBCLASS IN LEVEL 4 YOU WILL HAVE THE SUBCLASS BUT NONE OF
+		### THE FEATURES
 		
-		# self.height = int(height_weight_dict['height_base']) + h_mod*2.54
+		## SPELLCASTING 
+		cls_spellcasting = RL.get_spellcasting_ability(self.get_option_value('occupation'), self.subclass)
+		self.spellcasting = Spellcasting(self, *cls_spellcasting)
+
+		# print(self.spellcasting)
 
 
-		# w_mod_split = list(map(int, height_weight_dict[f'weight_modifier'].split('d')))
-		# # w_mod = sum(self.rng.choice(w_mod_split[1], w_mod_split[0])+1)
-		# w_mod = sum(list(map(lambda x: max(x, 1), self.rng.random(w_mod_split[0])*w_mod_split[1])))
+		### MAYBE TRY TO MAKE EVERY THING INTO FEATURES, AND HAVE IN THE XML FILE SO THEY HAVE A TYPE AND THEN MAKE A "FEATURE" CLASS AND 
+		### HAVE GENERATION FOR EVERY TYPE OF FEATURE, LIKE 'ADDITIONAL SPELL' OR 'ADDITIONAL ACTION' AND THAT CLASS SHOULD MAYBE HAVE A 
+		### PARENT VARIABLE TO BE ABLE TO DO THINGS IN THE NPC CLASS LIKE "ADD_SPELL()" FROM THE FEATURE CLASS
+		### THIS COULD ALSO BE USED WHEN MAKING FEATS LATER ON, SO ITS FOR RACE, CLASS, AND FEATS
 
-		# self.weight = int(height_weight_dict['weight_base']) + ((w_mod*h_mod)*0.45)
+		### MAYBE HAVE A WHOLE "SPELLCASTING" CLASS 
+
+		# self.actions = {k:Action(v[0], v[1]) for k, v in RL.get_race_actions(race, self.race_type).items() if int(v[1]['level_req']) <= self.options['level'].value}
+
+	def get_option_value(self, key):
+		return self.options[key].value
+
+	def add_asi_and_feats(self):
+		lvls = np.arange(self.options['level'].value)+1
+		extras = {'Fighter':[6, 14], 'Rogue':[10]}
+
+		feat_choices = ResourceLoader.get_instance().get_list('feats').copy()
+
+		lvls = [not bool(x % 4) for x in sorted(lvls)]
+
+		try:
+			for extra in extras[self.options['occupation'].value]:
+				lvls = np.delete(lvls, extra)
+				lvls = np.insert(lvls, extra-1, True)
+				
+		except KeyError:
+			pass
 
 
+		choices = {'feat':0.2, '2':0.4, '1+1':0.4}
 
-		
+		for lvl in np.arange(self.options['level'].value):
+			if lvls[lvl]:
+				choice = self.rng.choice(list(choices.keys()), p=list(choices.values()))
+				if choice == 'feat':
+					for f in self.feats.keys():
+						feat_choices.remove(f)
+
+					feat = Feat(self, self.rng.choice(feat_choices))
+				
+				else:
+					for bonus in choice.split('+'):
+						self.abilities[self.rng.choice(Ability.TYPES)].add_bonus(bonus)
+
+
+	def add_features(self, dict_):
+		for feature_id in dict_:
+			feature_dict = dict_[feature_id]
+			if int(feature_dict['lvl_req']) <= self.get_option_value('level'):
+				Feature(self, feature_id, feature_dict['type'], feature_dict['sub_features'])
 
 
 	def get_height_weight_value(self, dict_, t):
@@ -302,7 +458,7 @@ class NPC():
 		if t == 'height':
 			return round(base + mod)
 		else:
-			return round(base + ((self.height-int(dict_['height_base']))/2.54*mod)*0.45)
+			return round(base + ((self.appearances['height']-int(dict_['height_base']))/2.54*mod)*0.45)
 
 
 
@@ -318,7 +474,7 @@ class NPC():
 		w_max = int(h_w_dict['weight_base']) + (h_mod[0]*h_mod[1] * w_mod[0]*w_mod[1])*0.45
 
 		for bin_ in w_bins:
-			if (self.weight-int(h_w_dict['weight_base']))/(w_max-int(h_w_dict['weight_base'])) <= bin_:
+			if (self.appearances['weight']-int(h_w_dict['weight_base']))/(w_max-int(h_w_dict['weight_base'])) <= bin_:
 				return w_bins[bin_]
 				
 
@@ -346,8 +502,8 @@ class NPC():
 
 	def get_speeds(self):
 		speeds = {}
-		for k, v in self.base_speeds.items():
-			speeds[f"{k.title()} Speed"] = v if v is not None else int(self.base_speeds['walking'])//2
+		for k, v in self.speeds.items():
+			speeds[f"{k.title()} Speed"] = v if v is not None else int(self.speeds['walking'])//2
 
 		return speeds
 
@@ -399,34 +555,6 @@ class NPC():
 			else:
 				self.abilities[key].add_bonus(value)
 
-	def add_asi_and_feats(self):
-		lvls = np.arange(self.options['level'].value)+1
-		extras = {'Fighter':[6, 14], 'Rogue':[10]}
-
-		lvls = [not bool(x % 4) for x in sorted(lvls)]
-
-		try:
-			for extra in extras[self.options['occupation'].value]:
-				lvls = np.delete(lvls, extra)
-				lvls = np.insert(lvls, extra-1, True)
-				
-		except KeyError:
-			pass
-
-
-		choices = {'feat':0.2, '2':0.4, '1+1':0.4}
-
-		for lvl in np.arange(self.options['level'].value):
-			if lvls[lvl]:
-				choice = self.rng.choice(list(choices.keys()), p=list(choices.values()))
-				if choice == 'feat':
-					## ADD FEATS HERE LATER
-					continue
-				else:
-					for bonus in choice.split('+'):
-						self.abilities[self.rng.choice(Ability.TYPES)].add_bonus(bonus)
-
-
 		#GET HEALTH/AC
 	# def generate_ac_initiative(self):
 	# 	ac = 10
@@ -437,9 +565,53 @@ class NPC():
 
 
 	def to_html(self):
-		return 'Hello'
- 
+		html = '<html> <head> 	<link rel="stylesheet" href="CSS_PREVIEW.css"> 	<title>D&D 5e NPC Generator</title> 	<script> 		function dice_roll(die, bonus) { 			return Math.floor(Math.random() * die)+1+bonus 		} 	</script> 	<style type="text/css"> :root {'
+		
+		## COLORS
+		page_colors = generate_page_colors(Main.get_instance().clr)
+		for page_clr in list(page_colors.keys())[:-1]:
+			clr = page_colors[page_clr]
+			html += f'--{page_clr}-border-color: {clr}; --{page_clr}-background-color: {darken_color(clr, 0.6)};'
+		
+		tb_clr = page_colors['text-boxes']
+		html += f'--text-boxes-spell-href-color: {tb_clr}; --text-boxes-border-color: {darken_color(tb_clr, 0.6)}; --text-boxes-background-color: {darken_color(tb_clr, 0.45)}; --text-boxes-darker-background-color: {darken_color(tb_clr, 0.3)};'
 
+		html += '}</style> </head> <body>'
+		## BODY
+
+		# for page_clr in page_colors:
+		# 	clr = page_colors[page_clr]
+		# 	html += f'<div class="page" style="background: {darken_color(clr, 0.6)};border: 4px solid {clr};height: 20%;"></div>'
+
+		### SUMMARY
+		html += '<div class="page">'
+
+		html += '<div class="preview-header"> <div class="preview-header_summary"> <div style="font-size: 32px;font-weight: bold;">'
+		html += self.name
+		html += '</div> <div>'
+		html += f'{self.options["sex"].value} {self.options["race"].value} {self.options["occupation"].value}'
+		html += '</div> <div>'
+		html += f'Level {self.options["level"].value}'
+		html += '</div> <div>'
+		html += f'Feats: '
+
+		html += '</div> </div> </div> </div> </div> <div>'
+
+		### STATBLOCK
+		html += '<div class="preview-content"> <div class="preview-content_statblock"> <div style="font-size:40px;font-weight: bold;"> '
+		html += f'{self.name} ({self.options["occupation"].value})'
+		html += '<div style="font-style: italic;"> '
+		html += f'{self.size.title()} humaniod ({self.options["race"].value})'
+
+		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"></polyline> </svg>  <div><span style="font-weight: bold;">Armor Class</span> '
+
+
+
+		# html += '  <div class="preview-content"> <div class="preview-content_statblock"> <div style="font-size:40px;font-weight: bold;"> '
+
+		## FINISH
+		html += '</body> </html>'
+		return html
 
 class MainFrame(tk.Frame):
 	def __init__(self, controller, parent):
@@ -523,7 +695,7 @@ class MainFrame(tk.Frame):
 
 		## ABILITIES
 		for ability in npc.abilities:
-			npc.abilities[ability].format(self.canvas, preview=True, x_anchor=1050, y_anchor=120, val_dist=225)
+			npc.abilities[ability].format(self.canvas, x_anchor=1050, y_anchor=120, val_dist=225)
 
 		Formating.create_desc_box(self.canvas, 'ability', clr, detail_clr)
 
@@ -552,145 +724,6 @@ class MainFrame(tk.Frame):
 		self.rng_ent.delete(0, tk.END)
 		self.rng_ent.insert(0, '')
 
-
-# class SheetFrame(tk.Frame):
-# 	def __init__(self, controller, parent):
-# 		tk.Frame.__init__(self, parent)
-
-# 		self.controller = controller
-# 		self.parent = parent
-
-# 		self.createGUI()
-
-# 	def createGUI(self):
-# 		self.canvas = tk.Canvas(self, width=1430, height=800, highlightthickness=0)
-# 		self.canvas.place(x=0, y=0, anchor='nw')
-
-# 		return_btn = tk.Button(self, text='<<', command=partial(self.controller.change_stage, -1))
-# 		return_btn.place(relx=0.05, rely=0.95, anchor='c')
-
-# 		next_page_btn = tk.Button(self, text='>>', command=partial(self.controller.change_stage, 1))
-# 		next_page_btn.place(relx=0.1, rely=0.95, anchor='c')
-
-# 	def create_layout(self, npc):
-# 		self.outline_clr = Main.get_instance().clr
-# 		self.fill_clr = darken_color(self.outline_clr, 0.5)
-
-# 		name = npc.name
-# 		sex = npc.options['sex'].value
-# 		race = npc.options['race'].value
-# 		occupation = npc.options['occupation'].value
-# 		level = npc.options['level'].value
-
-# 		## Summary
-# 		name_txt = self.canvas.create_text(120, 28, anchor='nw', text=name, font=('Arial', 24), tags=['text'])
-# 		name_txt_x1 = self.canvas.bbox(name_txt)[0] + 1
-
-# 		sex_race_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(name_txt)[3], anchor='nw', text=f"{sex} {race}", font=('Arial', 16), tags=['text'])
-# 		occupation_txt = self.canvas.create_text(self.canvas.bbox(sex_race_txt)[2], self.canvas.bbox(sex_race_txt)[1], anchor='nw', text=f" {occupation}", font=('Arial', 16), tags=['text'])
-# 		level_txt = self.canvas.create_text(name_txt_x1, self.canvas.bbox(sex_race_txt)[3], anchor='nw', text=f"Level {level}", font=('Arial', 16), tags=['text'])
-
-# 		summary_bg = self.canvas.create_rectangle(20, 20, self.canvas.bbox(occupation_txt)[2]+13, 100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])		
-
-
-# 		## Proficiencies and Languages
-# 		self.create_prof_and_lang()
-
-# 		## Skills
-# 		# s_txt = self.canvas.create_text()
-	
-# 		## Stats
-# 		stats = {'Proficiency Bonus':npc.get_proficiency_bonus(), 'Hit Points':npc.get_hit_points(), 'Armor Class':10, 'Intiative':npc.get_intiative_bonus()}
-# 		stats.update(npc.get_speeds())
-
-# 		for stat in enumerate(stats):
-# 			self.create_stat_background(stat[1], stats[stat[1]], stat[0], summary_bg)
-
-# 		## Abilities
-# 		ability_x_anchor = self.canvas.bbox(summary_bg)[2]+50
-# 		for ability_type in npc.abilities:
-# 			npc.abilities[ability_type].format(self.canvas, preview=False, x_anchor=ability_x_anchor, y_anchor=20, fill_clr=self.fill_clr, outline_clr=self.outline_clr)			
-
-
-
-
-
-# 		self.canvas.tag_lower('background')
-
-# 	def create_prof_and_lang(self):
-# 		npc = self.controller.current_npc
-
-# 		# p_l_txt = self.canvas.create_text(320, 140, anchor='nw', text="Hello"*100, width=250)
-# 		p_l_txt = tk.Text(self, width=40, height=30, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=8, pady=8)
-# 		p_l_txt.place(x=320, y=140)
-# 		# self.canvas.create_rectangle(317, 137, 624, 584, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
-		
-# 		p_l_txt.insert('end', 'Proficiencies and Languages', ('title'))
-# 		self.insert_text_break('', p_l_txt)
-	
-# 		for prof in npc.proficiencies:
-# 			p_l_txt.insert('end', f"{prof.title().replace('_', ' ')}\n", ('title', prof))
-# 			p_l_txt.insert('end', self.get_proficiency_text(prof, npc), ('text', prof))
-# 			self.insert_text_break(prof, p_l_txt)
-
-# 		p_l_txt.insert('end', 'Languages\n', ('title', 'languages'))
-# 		p_l_txt.insert('end', ', '.join(npc.languages), ('text', 'languages'))
-
-# 		p_l_txt.tag_configure('title', font=('Arial-BoldMT', 20))
-# 		p_l_txt.tag_configure('text', font=('Arial', 14))
-# 		p_l_txt.tag_configure('break', font=('Arial', 16))
-
-
-# 		## Senses
-# 		senses_txt = tk.Text(self, width=26, height=8, font=('Arial', 12), bg=self.fill_clr, wrap=tk.WORD, padx=6, pady=6)		
-# 		senses_txt.place(x=320, y=600)
-# 		# self.canvas.create_rectangle(317, 597, 687, 732, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
-
-# 		senses_txt.insert('end', 'Senses\n', ('title'))
-
-# 		for skill in ('Perception', 'Investigation', 'Insight'):
-# 			senses_txt.insert('end', npc.get_skill(skill), ('value', 'skill'))
-# 			senses_txt.insert('end', f" Passive {skill}\n", ('text', 'skill'))
-
-
-# 		senses_txt.tag_configure('title', font=('Arial-BoldMT', 22))
-# 		senses_txt.tag_configure('value', font=('Arial-BoldMT', 20))
-# 		senses_txt.tag_configure('text', font=('Arial', 14))
-
-
-		
-
-
-# 	def insert_text_break(self, tag, txt):
-# 		txt.insert('end', f"\n{'—'*17}", ('break', tag))
-
-# 	def get_proficiency_text(self, key, npc):
-# 		if key != 'tools':
-# 			func = lambda x: x.title()  
-# 		else: 
-# 			func = lambda x: f"{x[0].upper()}{x[1:]} tools"
-
-# 		return ", ".join(list(map(func, npc.proficiencies[key]))) if npc.proficiencies[key] != [] else 'None'
-
-# 	def create_stat_background(self, name, value, index, summary_bg):
-# 		x = [self.canvas.bbox(summary_bg)[0], 280][index%2]-[0, 100][index%2]
-# 		y = (index//2+1)*140
-
-# 		background = self.canvas.create_rectangle(x, y, x+100, y+100, fill=self.fill_clr, outline=self.outline_clr, width=3, tags=['background'])
-
-# 		background_x1 = (self.canvas.bbox(background)[0]+self.canvas.bbox(background)[2])//2
-# 		txt_0 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[1]+10, anchor='n', text=name.split(' ')[0], font=('Arial-BoldMT', 16))
-
-# 		main_str = f"+{value}" if 'Bonus' in name else value
-# 		if 'Speed' in name:
-# 			main_str = f"{value}ft."
-
-# 		txt_main = self.canvas.create_text(background_x1-1, (self.canvas.bbox(background)[1]+self.canvas.bbox(background)[3])//2, anchor='c', text=main_str, font=('Arial', 40))
-
-# 		try:
-# 			txt_1 = self.canvas.create_text(background_x1, self.canvas.bbox(background)[3]-10, anchor='s', text=name.split(' ')[1], font=('Arial-BoldMT', 16))
-# 		except IndexError:
-# 			pass
 
 
 	
@@ -729,21 +762,9 @@ class Main():
 		container.grid_rowconfigure(0, weight=1)
 		container.grid_columnconfigure(0, weight=1)
 
-		# for F in (MainFrame, SheetFrame, DescFrame):
-		# 	frame = F(self, container)
-		# 	self.frames[F.__name__] = frame
-		# 	frame.grid(row=0, column=0, sticky='nsew')
-
 		frame = MainFrame(self, container)
 		self.frames['MainFrame'] = frame
 		frame.grid(row=0, column=0, sticky='nsew')
-
-		# self.parent.bind('1', partial(self.show_frame, 'MainFrame'))
-		# self.parent.bind('2', partial(self.show_frame, 'SheetFrame'))
-		# self.parent.bind('3', partial(self.show_frame, 'DescFrame'))
-
-		# self.parent.bind('<Left>', partial(self.change_stage, -1))
-		# self.parent.bind('<Right>', partial(self.change_stage, 1))
 
 		self.parent.bind('<g>', self.generate)
 
@@ -805,57 +826,11 @@ class Main():
 		child.create_preview(self.current_npc)
 
 
-
-
-		# ## SUBRACE
-		# npc.set_tag('Subrace', self.resource_loader.get_subrace(rng, npc.get_tag('Race')))
-
-		# ## SUBCLASS INIT
-		# if npc.get_tag('class_bool'):
-		# 	## SUBCLASS
-		# 	npc.set_tag('Subclass', self.resource_loader.get_subclass(rng, npc.get_tag('Occupation')))
-
-		# 	## CLASS FEATURES
-		# 	npc.set_tag('Features', self.resource_loader.get_class_features(rng, npc.get_tag('Occupation'), npc.get_tag('Subclass'), npc.get_tag('Level')))
-
-
-		# ## ABILITIES
-		# npc.set_tag('Abilities', self.generate_abilities(rng, npc))
-		# ### ABILITY SCORE IMPROVEMENTS
-		# npc.set_tag('Abilities', self.add_asi_and_feats(rng, npc))
-
-
 		# ## APPEARENCE AND TRAITS
 		# appr = self.resource_loader.get_appearances(rng, npc.get_tag('Race'), npc.get_tag('Subrace'))
 
 
 		# npc.set_tag('Appearance', {k:v for k, v in appr.items() if 'base' not in k and 'mod' not in k})
-
-		# ## LANGUAGES AND SPEEDS
-		# npc.set_tag('Languages', self.resource_loader.get_languages_or_speeds(rng, npc.get_tag('Race'), npc.get_tag('Subrace'), 'lan'))
-		# npc.set_tag('Speeds', self.resource_loader.get_languages_or_speeds(rng, npc.get_tag('Race'), npc.get_tag('Subrace'), 'spd'))
-
-		# ### HEIGHT AND WEIGHT
-		# h = round(int(appr['height_base'][0]) + int(appr['height_mod'][0])*2.54)
-		# w = round(int(appr['weight_base'][0]) + ((int(appr['weight_mod'][0]) * int(appr['height_mod'][0]))*0.45))
-		# w_max = round(int(appr['weight_base'][0]) + ((int(appr['weight_mod'][1][1]) * int(appr['height_mod'][1][1]))*0.45))
-
-		# npc.set_tag('Height', f"{h} cm")
-
-		# w_dict = {0.4:'light', 0.7:'medium', 10:'heavy'}
-		# w_cat = ''
-
-		# for bin_ in w_dict:
-		# 	if (w-int(appr['weight_base'][0]))/(w_max-int(appr['weight_base'][0])) <= bin_:
-		# 		w_cat = w_dict[bin_]
-		# 		break
-
-		# npc.set_tag('Weight', f"{w} kg ({w_cat})")
-
-		# ### OTHER APPEARENCES LIKE EYE COLOR AND ALL THAT BS
-
-		# # xml.get_appearence()
-
 
 		
 
@@ -883,72 +858,18 @@ class Main():
 
 	
 		
-
-		# ## AC AND HP
-		# ### AC
-		# if npc.get_tag('class_bool'):
-		# 	ac = int(armr_dict['ac']) + npc.get_tag('Abilities')['DEX'][1]
-
-		# 	if 'shield' in npc.get_tag('Class Proficiencies')['armor']:
-		# 		if rng.random() <= 0.25:
-		# 			ac += 2
-		# 			npc.set_tag('Armor', f"{npc.get_tag('Armor')}, Shield (+2): True")
-
-		# 	npc.set_tag('AC', ac)
-		# else:
-		# 	npc.set_tag('AC', 10 + npc.get_tag('Abilities')['DEX'][1])
-
-		# ### HP
-		# die = 8 if 'medium' in npc.get_tag('Appearance')['size'][0] else 6
-		# hp = np.array(rng.choice(die, npc.get_tag('Level')) + 1) + npc.get_tag('Abilities')['CON'][1]
-		
-		# npc.set_tag('Hit Points', max(sum(hp), 1))
-
-
-
-		# self.frames['MainFrame'].NPC_GUI(npc, rng)
-
-		# # child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://5e.tools/races.html#{''.join(race_url).lower().replace(' ', '_')}", new=2))
-
-
-
-		# # child.canvas.bind('<Button-1>', lambda e: webbrowser.open(f"https://www.fantasynamegenerators.com/dnd-{npc.get_tag('Race').lower().replace(' ', '-')}-names.php", new=2))
-		
-
-
-
-
-		# # hsv = [*[rng.random() for _ in range(2)], min(rng.random()+0.4, 1)]
-		# # hsv = [rng.random(), 0.5, rng.random()]
-		# # rgb = list(map(lambda x: hex(int(x*255))[2:].zfill(2), colorsys.hsv_to_rgb(*hsv)))
-		# # clr = "#" + "".join(rgb)
-
-		# # print(hsv, rgb, clr)
-		# # a = child.canvas.create_rectangle(1200, 500, 1420, 600, fill=clr)
-
-
-		
-		# # s = ""
-
-		# # for item in self.vars_dict.items():
-		# # 	s += f"{item[0]}: {item[1]}\n"
-
-		# # if self.vars_dict['Occupation'] not in self.resource_loader.get_list('classes'):
-		# # 	s += f"\nOccupation Description: {self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[0]}{self.resource_loader.get_occupation_description(self.vars_dict['Occupation'])[1:].lower()}\n"
-
-		# # s += f"Subrace: {self.resource_loader.get_subrace(self.rng, self.vars_dict['Race'])}\n"
-
-
-
-		# # child.canvas.delete(child.description)
-		# # child.description = child.canvas.create_text(350, 50, anchor='nw', text=f"Description:\n\n{s}", font=('Arial', 18), width=500) 
-
 	def open_html(self):
-		try:
-			html = self.current_npc.to_html()
-			print(html)
-		except AttributeError:
-			print('No npc generated')
+		# try:
+		html = self.current_npc.to_html()
+		with open("out.html", 'w') as file:
+			soup = BeautifulSoup(html, features="html.parser")
+			formatter = HTMLFormatter(indent=4)
+			file.write(soup.prettify(formatter=formatter))
+
+
+		os.system("open -a /Applications/Safari.app out.html")
+		# except AttributeError:
+		# 	print('No npc generated')
 
 	def show_frame(self, frame_name, event=None):
 		self.frames[frame_name].tkraise()

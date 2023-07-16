@@ -3,13 +3,7 @@
 <classes>
 	<class name="Artificer">
 		<!-- <datadict>
-			<dataval key="proficiencies" value="dict">
-				<proficiency key="armor" value="light:medium:shield"/>
-				<proficiency key="weapons" value="simple"/>
-				<proficiency key="tools" value="Thieves':Tinker's:1;Alchemist's;Brewer's;Calligrapher's;Carpenter's;Cartographer's;Cobbler's;Cook's;Glassblower's;Jeweler's;Leatherworker's;Mason's;Painter's;Potter's;Smith's;Weaver's;Woodcarver's"/>
-				<proficiency key="saving throws" value="CON:INT"/>
-				<proficiency key="skills" value="2;Arcana;History;Investigation;Medicine;Nature;Perception;Sleight of Hand"/>
-			</dataval>
+
 			<dataval key="features" value="dict">
 				<feature req="1" key="Spellcasting" value="dict_spellcasting">
 					<property key="Spellcasting Ability" value="INT"/>
@@ -30,6 +24,7 @@
 				<feature req="20" key="Soul of Artifice" value="If you're reduced to 0 hit points but not killed outright, you can use your reaction to consume you Infused Item which causes you to drop to 1 hit point instead of 0."/>
 			</dataval>
 		</datadict> -->
+		<spellcasting ability="INTELLIGENCE" spells_per_level="0.0216:0.6509:3.3275"/>
 		<proficiencies>
 			<armor>
 				<type value="light"/>
@@ -55,8 +50,35 @@
 			<skills>
 				<type value="2"/>
 			</skills>
+		</proficiencies>
+	</class>
+	<class name="Bard">
+		<spellcasting ability="CHARISMA" spells_per_level="-0.05:2.23:1.82"/>
+		<proficiencies>
+			<armor>
+				<type value="light"/>
+				<type value="medium"/>
+				<type value="shields"/>
+			</armor>
 			
+			<weapons>
+				<type value="simple"/>
+			</weapons>
 
+			<tools>
+				<type value="thieves'"/>
+				<type value="tinker's"/>
+				<type value="random"/>
+			</tools>
+
+			<saving_throws>
+				<type value="CONSTITUTION"/>
+				<type value="INTELLIGENCE"/>
+			</saving_throws>
+
+			<skills>
+				<type value="2"/>
+			</skills>
 		</proficiencies>
 	</class>
 </classes>

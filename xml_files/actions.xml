@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-
-<actions>
-	<action id="Talons_DMG" type="attack" level_req="0" cost="1 action" damage_type="Slashing" stat="STRENGTH" range_area="5ft." proficient="1"/>
-</actions>

@@ -135,187 +135,122 @@ class ResourceLoader():
 
 		feature_dict = {}
 		
-		for feature in race_type.find('features'):
-			feature_id = feature.get('id')
-			for feature_desc in feature_xml:
-				if feature_desc.get('id') == feature_id:
-					feature_dict[feature_id] = feature_desc.get('description')
+		for race_feature in race_type.find('features'):
+			race_feature_id = race_feature.get('id')
+			for feature in feature_xml:
+				if feature.get('id') == race_feature_id:
+					sub_features = {}
+					for sub_feature in feature.findall('sub_feature'):
+						sub_features[sub_feature.get('key')] = sub_feature.get('value')
+
+					feature_dict[feature.get('id')] = {'lvl_req':feature.get('lvl_req'), 'type':feature.get('type'), 'sub_features':sub_features}
 
 		return feature_dict
-
-	def get_race_actions(self, race_id, race_type_id):
-		race_type = self.get_race_type(race_id, race_type_id)
-		actions_xml = self.get_xml_root('actions')
-
-		actions_dict = {}
-		
-		for race_action in race_type.find('actions'):
-			action_id = race_action.get('id')
-			for action in actions_xml:
-				if action.get('id') == action_id:
-					attribs = action.attrib.copy()
-					attribs.pop('id')
-					attribs.pop('type')
-					actions_dict[action_id] = [action.attrib.copy()['type'], attribs]
-
-		return actions_dict
 
 	def get_base_class_proficiencies(self, occupation_id):
 		class_xml = self.get_xml_root('classes')
 
-		prof = {}
+		prof = {'armor':[], 'weapons':[], 'tools':['random'], 'saving_throws':[], 'skills':[1]}
 		
 		for class_ in class_xml.findall('class'):
 			if class_.get('name') == occupation_id:
 				for proficiency in class_.find('proficiencies'):
 					prof[proficiency.tag] = [t.get('value') for t in proficiency.findall('type')]
 
-		if prof != {}:
-			return prof
-		else:
-			return {'armor':[], 'weapons':[], 'tools':[], 'saving_throws':[], 'skills':[0]}
+		return prof
 
 	def get_equipment_list(self, l_type):
 		xml = self.get_xml_root(f'{l_type}s')
 		return [equipment.attrib for equipment in xml.findall(l_type)]
 
-	# def get_race_ability_bonuses(self, abilities, rng, race_id, subrace_id):
-	# 	races = self.get_xml_root('races')
-
-	# 	a = {}
-
-	# 	for race in races:
-	# 		if race.get('name') == race_id:
-	# 			for type_ in race.findall('type'):
-	# 				if type_.get('name') == subrace_id:
-	# 					datavals = type_.findall('datadict')[0].findall('dataval')
-
-	# 					for dataval in datavals:
-	# 						if dataval.get('key') == 'abilities':
-	# 							if dataval.get('value') == 'dict':
-	# 								for ability in dataval.findall('ability'):
-	# 									a[ability.get('key')] = ability.get('value')
-
-	# 							elif dataval.get('value') == 'dict_choice':
-	# 								ability = dataval.findall('ability')[rng.choice(np.arange(len(dataval.findall('ability'))))] 
-
-	# 								keys = list(abilities.keys())
-
-	# 								nums = ability.get('value').split(':')
-	# 								for num in nums:
-	# 									ablt = rng.choice(keys)
-	# 									a[ablt] = num
-	# 									keys.pop(keys.index(ablt))
 
 
+	def get_feat_asi(self, feat_id):
+		feats = self.get_xml_root('feats')
 
-	# 	return a
+		asi_dict = {}
+		for feat in feats:
+			if feat.get('name') == feat_id:
+				asi_dict = {k:v for k, v in [(a.get('key'), a.get('value')) for a in feat.find('abilities').findall('ability')]}
 
-	# def get_proficiencies(self, rng, npc_class):
-	# 	classes = self.get_xml_root('classes')
+		return asi_dict
 
-	# 	a = {}
+	def get_feat_description(self, feat_id):
+		feats = self.get_xml_root('feats')
 
-	# 	for class_ in classes:
-	# 		if class_.get('name') == npc_class:
-	# 			for dataval in class_.findall('datadict')[0].findall('dataval'):
-	# 				if dataval.get('key') == 'proficiencies':
-	# 					for prof in dataval.findall('proficiency'):
-	# 						key = prof.get('key')
-	# 						val = prof.get('value')
+		for feat in feats:
+			if feat.get('name') == feat_id:
+				return feat.find('description').get('value')
 
-	# 						if ':' in val and ';' not in val:
-	# 							aa = val.split(':')
-	# 							a[key] = aa
-	# 						elif ';' in val and ':' not in val:
-	# 							aa = val.split(';')
-	# 							a[key] = list(rng.choice(aa[1:], int(aa[0]), replace=False))
-	# 						elif ';' in val and ':' in val:
-	# 							aa = val.split(':')
-	# 							ab = aa[-1].split(';')
-	# 							ac = list(rng.choice(ab[1:], int(ab[0]), replace=False))
+		return "N/A"
 
-	# 							ad = []
+	def get_feat_description_extensions(self, feat_id):
+		feats = self.get_xml_root('feats')
+	
+		desc_ext = []
+		for feat in feats:
+			if feat.get('name') == feat_id:
+				for de in feat.findall('description_extension'):
+					desc_ext.append([de.get('prob'), de.get('value')])
 
-	# 							for p in (*aa[:-1], *ac):
-	# 								ad.append(f"{p} {key}")
+		return desc_ext
 
-	# 							a[key] = ad
-	# 						else:
-	# 							a[key] = [val]
 
-		
+	def get_table(self, table_id):
+		tables = self.get_xml_root('random_tables')
 
-	# 	return a
+		items = []
 
-	# def get_appearances(self, rng, race_id, subrace_id):
-	# 	races = self.get_xml_root('races')
+		for table in tables:
+			if table.get('name') == table_id:
+				for item in table.findall('item'):
+					items.append(item.get('value'))
 
-	# 	a = {}
+		return items
 
-	# 	for race in races:
-	# 		if race.get('name') == race_id:
-	# 			for subrace in race.findall('type'):
-	# 				if subrace.get('name') == subrace_id:
-	# 					for dataval in subrace.findall('datadict')[0].findall('dataval'):
-	# 						if dataval.get('key') == 'appearances':
-	# 							for app in dataval.findall('appearance'):
-	# 								key = app.get('key')
-	# 								val = app.get('value')
+	def get_subclass(self, occ_id):
+		subclasses = self.get_xml_root('subclasses')
 
-	# 								if ':' not in val and ';' not in val and '-' not in val:
-	# 									a[key] = [val]
-	# 								elif ':' in val and ';' not in val and '-' not in val:
-	# 									aa = val.split(':')
-	# 									a[key] = aa
-	# 								elif ':' not in val and ';' in val and '-' not in val:
-	# 									aa = val.split(';')
-	# 									a[key] = list(rng.choice(aa[1:], int(aa[0]), replace=False))
-	# 								else:
-	# 									aa = val.split('-')
-	# 									ab = rng.integers(int(aa[0]), high=int(aa[1])+1)
+		for subclass in subclasses:
+			if subclass.get('class') == occ_id:
+				return subclass.get('name')
 
-	# 									if key == 'age':
-	# 										age_dict = {0.35:'Young', 0.75:'Middle Aged', 10:'Elderly'}
-	# 										ac = ''
-	# 										for bin_ in age_dict:
-	# 											if ab/int(aa[1]) <= bin_:
-	# 												ac = age_dict[bin_]
-	# 												break
+		return None
 
-	# 										ab = f"{ab} ({ac})"
+	def get_spellcasting_ability(self, occ_id, subclass_id):
+		classes = self.get_xml_root('classes')
+		subclasses = self.get_xml_root('subclasses')
 
-	# 										a[key] = [ab]
-	# 									else:
-	# 										a[key] = [ab, (aa[0], aa[1])]
+		for class_ in classes:
+			if class_.get('name') == occ_id:
+				spll_casting = class_.find('spellcasting')
+				if spll_casting is not None:
+					return (spll_casting.get('ability'), spll_casting.get('spells_per_level'))
 
-	# 	return a 
+		for subclass in subclasses:
+			if subclass.get('name') == subclass_id:
+				spll_casting = subclass.find('spellcasting')
+				if spll_casting is not None:
+					return (spll_casting.get('ability'), spll_casting.get('spells_per_level'))
 
-	# def get_languages_or_speeds(self, rng, race_id, subrace_id, tt):
-	# 	races = self.get_xml_root('races')
+		return ('random', "0:0:0")
 
-	# 	a = []
+	def get_spell_lvl_list(self, s_l_type):
+		spells = self.get_xml_root('spells')
 
-	# 	for race in races:
-	# 		if race.get('name') == race_id:
-	# 			for subrace in race.findall('type'):
-	# 				if subrace.get('name') == subrace_id:
-	# 					for dataval in subrace.findall('datadict')[0].findall('dataval'):
-	# 						d = {'lan':'language', 'spd':'speed'}
+		spl_l = []
+		for spell in spells:
+			if s_l_type in spell.get('availability'):
+				spl_l.append(spell.get('level'))
 
-	# 						if dataval.get('key') == f"{d[tt]}s":
-	# 							for lan in dataval.findall(d[tt]):
-	# 								key = lan.get('key')
-	# 								val = lan.get('value')
+		return spl_l
 
-	# 								if 'random' in key:
-	# 									l = ['Common', 'Dwarvish', 'Elvish', 'Giant', 'Gnomish', 'Goblin', 'Halfling', 'Orc', 'Abyssal', 'Celestial', 'Draconic', 'Deep Speech', 'Infernal', 'Primordial', 'Sylvan', 'Undercommon']
-	# 									l = list(filter(lambda x: x not in [y.get('key') for y in dataval.findall(d[tt])], l))
-	# 									key = rng.choice(l)
+	# def get_subclass(self, rng, class_id):
+	# 	subclasses = self.get_xml_root('subclasses')
 
-	# 								a.append(f"{key} ({val})")
+	# 	subclass = [subclass for subclass in subclasses.findall('subclass') if subclass.get('class') == class_id][rng.choice(np.arange(len(subclasses.findall('subclass'))))]
 
-	# 	return a
+	# 	return subclass.get('name')
 
 
 	# def get_weapon(self, rng, prof):
@@ -355,13 +290,6 @@ class ResourceLoader():
 	# 		return {'name':'Unarmored', 'ac':'10', 'stealth_dis':'False'}
 	# 	else:
 	# 		return rng.choice(a)
-
-	# def get_subclass(self, rng, class_id):
-	# 	subclasses = self.get_xml_root('subclasses')
-
-	# 	subclass = [subclass for subclass in subclasses.findall('subclass') if subclass.get('class') == class_id][rng.choice(np.arange(len(subclasses.findall('subclass'))))]
-
-	# 	return subclass.get('name')
 
 	# def get_class_features(self, rng, class_id, subclass_id, lvl):
 	# 	classes = self.get_xml_root('classes')

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<random_tables>
+	<table name="abberant_dragonmark_flaws">
+		<item value="Your mark is a source of constant physical pain."/>
+		<item value="Your mark whispers to you. Its meaning can be unclear."/>
+		<item value="When you're stressed, the mark hisses audibly."/>
+		<item value="The skin around the mark is burned, scaly, or withered."/>
+		<item value="Animals are uneasy around you."/>
+		<item value="You have a mood swing any time you use your mark."/>
+		<item value="Your looks change slightly whenever you use the mark."/>
+		<item value="You have horrific nightmares after you use your mark."/>
+	</table>
+	<table name="epic_boons">
+		<item value="Boon of Combat Prowess"/>
+		<item value="Boon of Dimensional Travel"/>
+		<item value="Boon of Fate"/>
+		<item value="Boon of Fortitude"/>
+		<item value="Boon of High Magic"/>
+		<item value="Boon of Immortality"/>
+		<item value="Boon of Invincibility"/>
+		<item value="Boon of Irresistible Offense"/>
+		<item value="Boon of Luck"/>
+		<item value="Boon of Magic Resistance"/>
+		<item value="Boon of Peerless Aim"/>
+		<item value="Boon of Perfect Health"/>
+		<item value="Boon of Planar Travel"/>
+		<item value="Boon of Quick Casting"/>
+		<item value="Boon of Recovery"/>
+		<item value="Boon of Resilience"/>
+		<item value="Boon of Skill Proficiency"/>
+		<item value="Boon of Speed"/>
+		<item value="Boon of Spell Mastery"/>
+		<item value="Boon of Spell Recall"/>
+		<item value="Boon of the Fire Soul"/>
+		<item value="Boon of the Night Spirit"/>
+		<item value="Boon of the Stormborn"/>
+		<item value="Boon of the Unfettered"/>
+		<item value="Boon of Truesight"/>
+		<item value="Boon of Undetectability"/>
+	</table>
+</random_tables>

@@ -130,6 +130,11 @@ html {
 	margin-bottom: 20px;
 }
 
+a.preview-content_statblock_href {
+	font-size: 40px;
+	color: white;
+}
+
 
 
 
@@ -233,23 +238,9 @@ html {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
+
+	font-size: 16px;
 }
-
-.saving-throws_ability {
-	margin: auto 0%;
-}
-
-.saving-throws_modifier {
-	margin: auto 0%;
-	margin-right: 10px;
-	font-family: Roboto;
-}
-
-.saving-throws_header {
-	font-size: 24px;
-}
-
-
 
 .saving-throws_container {
 	width: 35%;
@@ -263,7 +254,22 @@ html {
 	border-color: var(--sheet-border-color);
 }
 
-.saving-throws_false {
+
+.saving-throws_ability {
+	margin: auto 5%;
+}
+
+.saving-throws_modifier {
+	margin: auto 0%;
+	margin-right: 10px;
+	font-family: Roboto;
+}
+
+.saving-throws_header {
+	font-size: 24px;
+}
+
+.saving-throws_advantage_false {
 	background: #c00;
 	border: 1px ridge black;
 	width: 10px;
@@ -273,7 +279,7 @@ html {
 	margin-left: 10px;	
 }
 
-.saving-throws_true {
+.saving-throws_advantage_true {
 	background: #0c0;
 	border: 1px ridge black;
 	width: 10px;
@@ -416,7 +422,7 @@ table.skills, th.skills, td.skills {
 	border-color: var(--sheet-border-color);
 }
 
-.skills-proficiency-false {
+.skills-advantage-false {
 	background-color: #c00;
 	border: 2px ridge black;
 	border-radius: 50%;
@@ -427,7 +433,7 @@ table.skills, th.skills, td.skills {
 
 }
 
-.skills-proficiency-true {
+.skills-advantage-true {
 	background-color: #0c0;
 	border: 2px ridge black;
 	border-radius: 50%;
@@ -716,6 +722,7 @@ table.attack {
 
 	padding-left: 5px;
 	padding-top: 3px;
+	padding-bottom: 1%;
 	margin-bottom: 20px;
 }
 
@@ -727,6 +734,7 @@ table.attack {
 	margin-bottom: 20px;
 	padding-left: 5px;
 	padding-top: 3px;
+	padding-bottom: 1%;
 }
 
 .spell-list-header {
@@ -842,8 +850,8 @@ a {
 
 .description-character-image {
 	background: var(--text-boxes-darker-background-color);
-	height: 78%;
-	width: 100%;
+	height: 48%;
+	width: 50%;
 	margin-bottom: 2%;
 }
 
@@ -855,7 +863,7 @@ a {
 
 .feat_container {
 	width: 96%;
-	height: 63%;
+	max-height: 63%;
 	overflow-y: scroll;
 	background: var(--text-boxes-darker-background-color);
 	border: 2px double black;

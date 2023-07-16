@@ -2,48 +2,56 @@
 
 <feats>
 	<feat name="Aberrant Dragonmark">
-		<datadict>
+		<abilities>
+			<ability key="CONSTITUTION" value="1"/>
+		</abilities>
+
+		<description value="
+			You have manifested an aberrant dragonmark. Determine its appearance and the flaw associated with it.BREAK
+
+			Increase your Constitution score by 1, to a maximum of 20.BREAK
+
+			You learn a cantrip of your choice from the sorcerer spell list. In addition, choose a 1st-level spell from the sorcerer spell list. You learn that spell and can cast it through your mark. Once you cast it, you must finish a short or long rest before you can cast it again through the mark. Constitution is your spellcasting ability for these spells.BREAK
+
+			When you cast the 1st-level spell through your mark, you can expend one of your Hit Dice and roll it. If you roll an even number, you gain a number of temporary hit points equal to the number rolled. If you roll an odd number, one random creature within 30 feet of you (not including you) takes force damage equal to the number rolled. If no other creatures are in range, you take the damage.BREAK
+
+			You also develop a random flaw from the Aberrant Dragonmark Flaws table: #!abberant_dragonmark_flaws#BREAK
+			"/>
+
+		<description_extension prob="0.01" value="The Gods have granted you an Epic Boon: #!epic_boons#BREAK"/>
+
+		<features>
+			<feature type="add_spell_random" value="Cantrip;Sorcerer"/>
+			<feature type="add_spell_random" value="1st;Sorcerer"/>
+		</features>
+
+		<!-- <datadict>
 			<dataval key="asi" value="CON,1"/>
 			<dataval key="extended_spell_list" value="CON:1,Cantrip_Sorcerer:1,1st_Sorcerer"/>
 			<dataval key="description" value="When you cast the 1st-level spell through your mark, you can expend one of your Hit Dice and roll it. If you roll an even number, you gain a number of temporary hit points equal to the number rolled. If you roll an odd number, one random creature within 30 feet of you (not including you) takes force damage equal to the number rolled. If no other creatures are in range, you take the damage."/>
 			<dataval key="flavour" value="1;Your mark is a source of constant physical pain.;Your mark whispers to you. Its meaning can be unclear.;When you're stressed, the mark hisses audibly.;The skin around the mark is burned, scaly, or withered.;Animals are uneasy around you.;You have a mood swing any time you use your mark.;Your looks change slightly whenever you use the mark.;You have horrific nightmares after you use your mark."/>
 			<dataval req="10|0.1" key="optional_feature" value="1;Boon of Combat Prowess;Boon of Dimensional Travel;Boon of Fate;Boon of Fortitude;Boon of High Magic;Boon of Immortality;Boon of Invincibility;Boon of Irresistible Offense;Boon of Luck;Boon of Magic Resistance;Boon of Peerless Aim;Boon of Perfect Health;Boon of Planar Travel;Boon of Quick Casting;Boon of Recovery;Boon of Resilience;Boon of Skill Proficiency;Boon of Speed;Boon of Spell Mastery;Boon of Spell Recall;Boon of the Fire Soul;Boon of the Night Spirit;Boon of the Stormborn;Boon of the Unfettered;Boon of Truesight;Boon of Undetectability"/>
-		</datadict>
+		</datadict> -->
 	</feat>
 	<feat name="Actor">
-		<datadict>
+		<abilities>
+			<ability key="CONSTITUTION" value="1"/>
+		</abilities>
+		<description value="
+			Skilled at mimicry and dramatics, you gain the following benefits:BREAK
+			Increase your Charisma score by 1, to a maximum of 20.BREAK
+			You have advantage on Charisma (Deception) and Charisma (Performance) checks when trying to pass yourself off as a different person.BREAK
+			You can mimic the speech of another person or the sounds made by other creatures. You must have heard the person speaking, or heard the creature make the sound, for at least 1 minute. A successful Wisdom (Insight) check contested by your Charisma (Deception) check allows a listener to determine that the effect is faked.
+			"/>
+		<features>
+			<feature type="add_spell_random" value="random;random"/>
+		</features>
+	<!-- 	<datadict>
 			<dataval key="asi" value="CHA,1"/>
 			<dataval key="extended_spell_list" value=""/>
 			<dataval key="description" value="You have advantage on Charisma (Deception) and Charisma (Performance) checks when trying to pass yourself off as a different person. You can mimic the speech of another person or the sounds made by other creatures. You must have heard the person speaking, or heard the creature make the sound, for at least 1 minute. A successful Wisdom (Insight) check contested by your Charisma (Deception) check allows a listener to determine that the effect is faked."/>
 			<dataval key="flavour" value=""/>
 			<dataval req="0|0" key="optional_feature" value=""/>
-		</datadict>
-	</feat>
-	<feat name="Alert">
-		<datadict>
-			<dataval key="asi" value=""/>
-			<dataval key="extended_spell_list" value=""/>
-			<dataval key="description" value="You gain a +5 bonus to initiative. You can't be surprised while you are conscious. Other creatures don't gain advantage on attack rolls against you as a result of being unseen by you."/>
-			<dataval key="flavour" value=""/>
-			<dataval req="0|0" key="optional_feature" value=""/>
-		</datadict>
-	</feat>
-	<feat name="Artificer Initiate">
-		<datadict>
-			<dataval key="asi" value=""/>
-			<dataval key="extended_spell_list" value="INT:1,Cantrip_Artificer:1,1st_Artificer"/>
-			<dataval key="description" value="You've learned some of an artificer's inventiveness."/>
-			<dataval key="flavour" value=""/>
-			<dataval req="0|0" key="optional_feature" value=""/>
-		</datadict>
-	</feat>
-	<feat name="Athlete">
-		<datadict>
-			<dataval key="asi" value="1;STR,1;DEX,1"/>
-			<dataval key="extended_spell_list" value=""/>
-			<dataval key="description" value="When you are prone, standing up uses only 5 feet of your movement. Climbing doesn't cost you extra movement. You can make a running long jump or a running high jump after moving only 5 feet on foot, rather than 10 feet."/>
-			<dataval key="flavour" value=""/>
-			<dataval req="0|0" key="optional_feature" value=""/>
-		</datadict>
+		</datadict> -->
 	</feat>
 </feats>
