@@ -245,6 +245,17 @@ class ResourceLoader():
 
 		return spl_l
 
+	def get_spell_list(self, s_l_type, s_lvl):
+		spells = self.get_xml_root('spells')
+
+		choices = []
+
+		for spell in spells:
+			if s_l_type in spell.get('availability') and spell.get('level')[0] == str(s_lvl):
+				choices.append([spell.get('name'), spell.get('level')])
+
+		return choices
+
 	# def get_subclass(self, rng, class_id):
 	# 	subclasses = self.get_xml_root('subclasses')
 

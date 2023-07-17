@@ -192,11 +192,13 @@ class Feat():
 
 
 class Spellcasting():
-	SPELL_TIERS = ['At Will', '5/day', '3/day', '2/day', '1/day']
+	SPELL_TIERS = ['At Will', '4/day each', '3/day each', '2/day each', '1/day each', '1/day']
 	SPELL_LEVELS = ['Cantrip', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th']
 
 	def __init__(self, parent, ability, spells_per_level_coefficients):
 		self.parent = parent
+
+		self.spells = {k:[] for k in Spellcasting.SPELL_TIERS}
 		
 		if ability == 'random':
 			self.ability = self.parent.rng.choice(Ability.TYPES)
@@ -207,9 +209,8 @@ class Spellcasting():
 		coefficient_list = list(map(float, spells_per_level_coefficients.split(':')))
 		spells_per_level_func = lambda x: coefficient_list[0]*x**2+coefficient_list[1]*x+coefficient_list[2]
 		avg_spells_per_level = spells_per_level_func(self.parent.get_option_value('level'))
-		scale = 2 if self.parent.cls_bool else 1.25
-		print(avg_spells_per_level)
-		self.spells_per_level = round(abs(self.parent.rng.normal(avg_spells_per_level, scale)))
+		scale = 1.5 if self.parent.cls_bool else 0.7
+		self.spells_per_level = round(abs(self.parent.rng.normal(avg_spells_per_level, scale))*0.75) ### … * Factor because there were a bit too many spells but now its proportional but less
 
 		self.spell_list_type = self.parent.get_option_value('occupation')
 		if self.parent.subclass == 'Eldrich Knight' or self.parent.subclass == 'Arcane Trickster':
@@ -225,7 +226,7 @@ class Spellcasting():
 
 
 	def add_default_spells(self):
-		max_level = self.get_max_level()
+		self.max_level = self.get_max_level()
 		rng = self.parent.rng 
 
 		min_level = 0 
@@ -233,25 +234,63 @@ class Spellcasting():
 			min_level = 1
 
 		lvl = self.parent.get_option_value('level')
-		loc = -0.0039*lvl**2 + 0.1875*lvl - 0.1836
-		std = -0.01*lvl**2 + 0.25*lvl + 0.56
+		# loc_cap = 7
+		std_cap = 7
+		# loc = min(abs(-0.0039*lvl**2 + 0.1875*lvl - 0.1836), loc_cap) 
+		spl_lvl_loc = 0
+		spl_lvl_std = min(abs(0.28*lvl + 0.2), std_cap) ### Maybe configure these a bit to fit better, might have to change the caps as well 
 
-		if max_level == '5th':
-			loc = loc*0.6
-			std = std*0.6
+		if self.max_level == 5:
+			spl_lvl_std = spl_lvl_std * ((self.max_level + abs(min_level - 1)) / 10)
 		
-		# print(lvl, loc, std, self.spells_per_level)
-		# print(self.spells_per_level)
+		# print(f"lvl: {lvl}, spl/lvl: {self.spells_per_level}, loc: {spl_lvl_loc}, std: {spl_lvl_std}")
 
-		count = {}
+		self.spell_list = []
+
+		# a = {}
+		# for i in range(10000):
+		# 	index = round(min(max(abs(rng.normal(spl_lvl_loc, spl_lvl_std)), min_level), max_level))
+		# 	try:
+		# 		a[index] += 1
+		# 	except:
+		# 		a[index] = 1
+
+		# a = dict(sorted(a.items()))
+		# for b in a:
+		# 	a[b] = (a[b], f"{a[b]/10000}%")
+		# print(a)
+ 
 		for _ in range(self.spells_per_level):
-			spl_lvl = min(max(abs(round(rng.normal(loc, std))), min_level), max_level)
-			try:
-				count[spl_lvl] += 1
-			except:
-				count[spl_lvl] = 1
+			spl_lvl = min(max(abs(round(rng.normal(spl_lvl_loc, spl_lvl_std))), min_level), self.max_level)
+			self.add_spell_random(spl_lvl)
 
-		# print(count)
+		# print(sorted(self.spell_list, key=lambda x: x[1][0]))
+
+		for spell in self.spell_list:
+			self.catagorise_spell(spell)
+
+		print(self.spells)
+
+
+	def catagorise_spell(self, spell):
+		rng = self.parent.rng
+		lvl = spell[1][0]
+		if lvl == 'C':
+			lvl = 0
+
+		spl_lvl = int(lvl)
+		std = 0.8 + self.parent.get_option_value('level')*0.05
+		if self.max_level == 5:
+			tier = spl_lvl
+		else:
+			tier = np.ceil(spl_lvl/2)
+			
+		n = rng.normal(0, std)
+		new_tier = rng.choice((tier-abs(n), tier), p=[0.75, 0.25])
+		index = round(min(max(new_tier, 0), len(Spellcasting.SPELL_TIERS)-1)) 
+		
+		self.spells[list(self.spells.keys())[index]].append(spell)
+
 
 	def get_max_level(self):
 		sorted_l = sorted(ResourceLoader.get_instance().get_spell_lvl_list(self.spell_list_type))
@@ -263,8 +302,24 @@ class Spellcasting():
 
 		return int(max_l[0])
 
-	def add_spell_random(self, lvl, class_):
-		print(lvl, class_)
+	def add_spell_random(self, lvl, s_p_type=None):
+		if s_p_type is None:
+			s_p_type = self.spell_list_type
+
+		if lvl == 0:
+			lvl = 'C' ### because RL looks for first element in string it would be 'C' for 'Cantrip'
+		
+		spl_list = ResourceLoader.get_instance().get_spell_list(s_p_type, lvl)
+		
+		while True:
+			choice = list(self.parent.rng.choice(spl_list))
+
+			if choice not in self.spell_list:
+				self.spell_list.append(choice)
+				break
+
+			elif len(list(filter(lambda x: x[1][0] == str(lvl), self.spell_list))) >= len(spl_list):
+				break
 
 	def add_spell_specific(self, name):
 		print(name)
@@ -645,6 +700,7 @@ class MainFrame(tk.Frame):
 			lbl.place(relx=0.1, rely=((0.1 + self.opt_list.index(opt)/10)-0.035), anchor='c')
 
 			string_var = tk.StringVar(self, '--Random--')
+
 			self.opt_string_vars[opt] = string_var
 			
 			opt_m = tk.OptionMenu(self, string_var, *['--Random--', *self.opt_choices[opt]])

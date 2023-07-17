@@ -16,8 +16,7 @@ with open('leftovers/Spells.csv') as file:
 
 for key in dict_:
 	k = dict_[key]
-	print(k[6])
-	sub_element = ET.SubElement(root, 'spell', name=key, level=k[0], casting_time=k[1], availability=f"{k[6]}, {k[7]}")
+	sub_element = ET.SubElement(root, 'spell', name=key, level=k[0], availability=f"{k[6]}, {k[7]}", casting_time=k[1])
 
 
 	duration = ET.SubElement(sub_element, 'duration', value=k[2])
