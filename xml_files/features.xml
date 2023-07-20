@@ -1,11 +1,459 @@
 <?xml version="1.0"?>
 
 <features>
-	<feature id="Dive Attack" lvl_req="0" type="snippet">
+	<!-- You have to be careful not to have an overlap of id where it's not meant-->
+
+	<!-- RACE FEATURES -->
+
+	<!-- aarakocra -->
+	<feature id="Aarakocra: Dive Attack" lvl_req="0" type="snippet">
 		<sub_feature key="description" value="If you are flying and dive at least 30 ft. straight toward a target and then hit it with a melee weapon attack, the attack deals an extra 1d6 damage to the target."/>
 	</feature>
-	<feature id="Talons (DMG)" lvl_req="0" type="action">
+
+	<feature id="Aarakocra: Talons (DMG) Action" lvl_req="0" type="action">
 		<sub_feature key="description" value="You are proficient with your unarmed strikes, which deal 1d4 slashing damage on a hit ($STRENGTH+prof$)."/>
 		<sub_feature key="action_type" value="action"/>
 	</feature>
+	<feature id="Aarakocra: Talons (DMG) Feature" lvl_req="0" type="snippet">
+		<sub_feature key="description" value="HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO"/>
+	</feature>
+
+
+	<!-- FEATS -->
+	<feature id="Aberrant Dragonmark Spells (Cantrip)" lvl_req="0" type="add_spell_random">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="lvl" value="0"/>
+		<sub_feature key="s_l_type" value="Sorcerer"/>
+	</feature>
+	<feature id="Aberrant Dragonmark Spells (1st)" lvl_req="0" type="add_spell_random">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="lvl" value="1"/>
+		<sub_feature key="s_l_type" value="Sorcerer"/>
+	</feature>
+
+
+	<!-- CLASS FEATURES -->	
+	<!-- artificer -->
+	<feature id="Artificer: Magical Tinkering" lvl_req="1" type="action">
+		<sub_feature key="description" value="
+			At 1st level, you learn how to invest a spark of magic into mundane objects. To use this ability, you must have thieves' tools or artisan's tools in hand. You then touch a Tiny nonmagical object as an action and give it one of the following magical properties of your choice:BREAKBREAK
+
+			The object sheds bright light in a 5-foot radius and dim light for an additional 5 feet.BREAK
+			Whenever tapped by a creature, the object emits a recorded message that can be heard up to 10 feet away. You utter the message when you bestow this property on the object, and the recording can be no more than 6 seconds long.BREAK
+			The object continuously emits your choice of an odor or a nonverbal sound (wind, waves, chirping, or the like). The chosen phenomenon is perceivable up to 10 feet away.BREAK
+			A static visual effect appears on one of the object's surfaces. This effect can be a picture, up to 25 words of text, lines and shapes, or a mixture of these elements, as you like.BREAKBREAK
+
+			The chosen property lasts indefinitely. As an action, you can touch the object and end the property early.BREAK
+			You can bestow magic on multiple objects, touching one object each time you use this feature, though a single object can only bear one property at a time. The maximum number of objects you can affect with this feature at one time is equal to your Intelligence modifier (minimum of one object). If you try to exceed your maximum, the oldest property immediately ends, and then the new property applies."/>
+
+		<sub_feature key="action_type" value="action"/>
+	</feature>
+
+	<feature id="Artificer: Artificer Spellcasting" lvl_req="1" type="snippet">
+		<sub_feature key="description" value="You have studied the workings of magic and how to channel it through objects. As a result, you have gained the ability to cast spells. To observers, you don't appear to be casting spells in a conventional way; you look as if you're producing wonders using mundane items or outlandish inventions."/>
+	</feature>
+
+	<feature id="Artificer: Tools Required" lvl_req="1" type="snippet">
+		<sub_feature key="description" value="You produce your artificer spell effects through your tools. You must have a spellcasting focus—specifically thieves' tools or some kind of artisan's tool—in hand when you cast any spell with this Spellcasting feature (meaning the spell has an 'M' component when you cast it). You must be proficient with the tool to use it in this way.BREAKBREAK
+
+		The Magic of ArtificeBREAK
+		As an artificer, you use tools when you cast your spells. When describing your spellcasting, think about how you're using a tool to perform the spell effect. If you cast cure wounds using alchemist's supplies, you could be quickly producing a salve. If you cast it using tinker's tools, you might have a miniature mechanical spider that binds wounds. When you cast poison spray, you could fling foul chemicals or use a wand that spits venom. The effect of the spell is the same as for a spellcaster of any other class, but your method of spellcasting is special.BREAK
+		The same principle applies when you prepare your spells. As an artificer, you don't study a spellbook or pray to prepare your spells. Instead, you work with your tools and create the specialized items you'll use to produce your effects. If you replace cure wounds with heat metal, you might be altering the device you use to heal—perhaps modifying a tool so that it channels heat instead of healing energy.BREAK
+		Such details don't limit you in any way or provide you with any benefit beyond the spell's effects. You don't have to justify how you're using tools to cast a spell. But describing your spellcasting creatively is a fun way to distinguish yourself from other spellcasters."/>
+	</feature>
+
+	<feature id="Artificer: Artificer Ritual Casting" lvl_req="1" type="snippet">
+		<sub_feature key="description" value="You can cast an artificer spell as a ritual if that spell has the ritual tag and you have the spell prepared."/>
+	</feature>
+
+	<feature id="Artificer: Infuse Item" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="At 2nd level, you gain the ability to imbue mundane items with certain magical infusions. The magic items you create with this feature are effectively prototypes of permanent items."/>
+	</feature>
+
+	<feature id="Artificer: Artificer Infusions" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="Artificers have invented numerous magical infusions, extraordinary processes that rapidly create magic items. To many, artificers seem like wonderworkers, accomplishing in hours what others need weeks to complete.BREAKThe description of each of the following infusions details the type of item that can receive it, along with whether the resulting magic item requires attunement."/>
+	</feature>
+
+	<feature id="Artificer: Infusing an Item" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="Your infusion remains in an item indefinitely, but when you die, the infusion vanishes after a number of days have passed equal to $!INTELLIGENCE$.BREAKIf an infusion ends on an item that contains other things, like a bag of holding, its contents harmlessly appear in and around its space."/>
+	</feature>
+
+	<!-- artificer infusions -->
+	<!-- 2nd level -->
+	<feature id="Artificer: Armor of Magical Strength (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="
+			You have an Armor imbued with magical Artifice magic. This armor has 6 charges. The wearer can expend the armor's charges in the following ways:BREAK
+			When the wearer makes a Strength check or a Strength saving throw, it can expend 1 charge to add a bonus to the roll equal to its Intelligence modifier.BREAK
+			If the creature would be knocked prone, it can use its reaction to expend 1 charge to avoid being knocked prone.BREAK
+			The armor regains 1d6 expended charges daily at dawn."/>
+	</feature>
+	<feature id="Artificer: Armor of Magical Strength (Reaction)" lvl_req="2" type="action">
+		<sub_feature key="description" value="If the creature would be knocked prone, it can use its reaction to expend 1 charge to avoid being knocked prone."/>
+		<sub_feature key="action_type" value="reaction"/>
+	</feature>
+
+	<feature id="Artificer: Enhanced Arcane Focus (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="You have a Wand, Staff or Rod imbued with magical Artifice magic. While holding this item, a creature gains a +1 bonus to spell attack rolls. In addition, the creature ignores half cover when making a spell attack.BREAKThe bonus increases to +2 when you reach 10th level in this class."/>
+	</feature>
+	<feature id="Artificer: Enhanced Arcane Focus (Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="spell_attack"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Enhanced Arcane Focus (Bonus) lvl10" lvl_req="10" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="spell_attack"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	
+	<feature id="Artificer: Enhanced Defense (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="You have an Armor or Shield imbued with magical Artifice magic. A creature gains a +1 bonus to Armor Class while wearing (armor) or wielding (shield) the infused item.BREAK
+		The bonus increases to +2 when you reach 10th level in this class."/>
+	</feature>
+	<feature id="Artificer: Enhanced Defense (Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="ac"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Enhanced Defense (Bonus) lvl10" lvl_req="10" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="ac"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+
+	<feature id="Artificer: Enhanced Weapon (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="Your weapon is infused with magical energy. This magic weapon grants a +1 bonus to attack and damage rolls made with it.
+		The bonus increases to +2 when you reach 10th level in this class."/>
+	</feature>
+	<feature id="Artificer: Enhanced Weapon (Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="attack"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Enhanced Weapon (Bonus) lvl10" lvl_req="10" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="attack"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Enhanced Weapon (dmg Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="damage"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Enhanced Weapon (dmg Bonus) lvl10" lvl_req="10" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="damage"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+
+	<feature id="Artificer: Homunculus Servant (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="
+			The infused is a gem or crystal worth at least 100 gp. You learn intricate methods for magically creating a special homunculus that serves you. The item you infuse serves as the creature's heart, around which the creature's body instantly forms.BREAK
+			You determine the homunculus's appearance. Some artificers prefer mechanical-looking birds, whereas some like winged vials or miniature, animate cauldrons.BREAK
+			The homunculus is friendly to you and your companions, and it obeys your commands. See this creature's game statistics in the Homunculus Servant stat block, which uses your proficiency bonus (PB) in several places.BREAK
+			In combat, the homunculus shares your initiative count, but it takes its turn immediately after yours. It can move and use its reaction on its own, but the only action it takes on its turn is the Dodge action, unless you take a bonus action on your turn to command it to take another action. That action can be one in its stat block or some other action. If you are incapacitated, the homunculus can take any action of its choice, not just Dodge.BREAK
+			The homunculus regains 2d6 hit points if the mending spell is cast on it. If you or the homunculus dies, it vanishes, leaving its heart in its space."/>
+	</feature>
+
+	<feature id="Artificer: Mind Sharpener (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="You have a suit of armor och robes imbued with this infusion. The infused item can send a jolt to the wearer to refocus their mind. The item has 4 charges. When the wearer fails a Constitution saving throw to maintain concentration on a spell, the wearer can use its reaction to expend 1 of the item's charges to succeed instead. The item regains 1d4 expended charges daily at dawn."/>
+	</feature>
+	<feature id="Artificer: Mind Sharpener (Reaction)" lvl_req="2" type="action">
+		<sub_feature key="description" value="From the suit of armor or robes imbued with the Mind Sharpener Infusion. When the wearer fails a Constitution saving throw to maintain concentration on a spell, the wearer can use its reaction to expend 1 of the item's charges to succeed instead."/>
+		<sub_feature key="action_type" value="reaction"/>
+	</feature>
+
+	<feature id="Artificer: Repeating Shot (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="Your weapon is infused with magical energy. This magic weapon grants a +1 bonus to attack and damage rolls made with it when it's used to make a ranged attack, and it ignores the loading property if it has it.BREAKIf the weapon lacks ammunition, it produces its own, automatically creating one piece of magic ammunition when the wielder makes a ranged attack with it. The ammunition created by the weapon vanishes the instant after it hits or misses a target."/>
+	</feature>
+	<feature id="Artificer: Repeating Shot (Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="attack"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Repeating Shot (dmg Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="damage"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+
+	<feature id="Artificer: Returning Weapon (Artificer Infusion)" lvl_req="2" type="snippet">
+		<sub_feature key="description" value="Your weapon is infused with magical energy. This magic weapon grants a +1 bonus to attack and damage rolls made with it, and it returns to the wielder's hand immediately after it is used to make a ranged attack."/>
+	</feature>
+	<feature id="Artificer: Returning Weapon (Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="attack"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Returning Weapon (dmg Bonus)" lvl_req="2" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="damage"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+
+	<!-- 6th level -->
+	<feature id="Artificer: Boots of the Winding Path (Artificer Infusion)" lvl_req="6" type="snippet">
+		<sub_feature key="description" value="You have a pair of boots imbued with this infusion. While wearing these boots, a creature can teleport up to 15 feet as a bonus action to an unoccupied space the creature can see. The creature must have occupied that space at some point during the current turn."/>
+	</feature>
+	<feature id="Artificer: Boots of the Winding Path (Bonus Action)" lvl_req="6" type="action">
+		<sub_feature key="description" value="From the boots imbued with the Boots of the Winding Path Infusion. While wearing these boots, a creature can teleport up to 15 feet as a bonus action to an unoccupied space the creature can see. The creature must have occupied that space at some point during the current turn."/>
+		<sub_feature key="action_type" value="bonus"/>
+	</feature>
+
+
+	<feature id="Artificer: Radiant Weapon (Artificer Infusion)" lvl_req="6" type="snippet">
+		<sub_feature key="description" value="Your weapon is infused with magical energy. This magic weapon grants a +1 bonus to attack and damage rolls made with it. While holding it, the wielder can take a bonus action to cause it to shed bright light in a 30-foot radius and dim light for an additional 30 feet. The wielder can extinguish the light as a bonus action.BREAK
+		The weapon has 4 charges. As a reaction immediately after being hit by an attack, the wielder can expend 1 charge and cause the attacker to be blinded until the end of the attacker's next turn, unless the attacker succeeds on a Constitution saving throw against your spell save DC. The weapon regains 1d4 expended charges daily at dawn."/>
+	</feature>
+	<feature id="Artificer: Radiant Weapon (Bonus Action): Shed Light" lvl_req="6" type="action">
+		<sub_feature key="description" value="From the weapon imbued with the Radiant Weapon Infusion. While holding it, the wielder can take a bonus action to cause it to shed bright light in a 30-foot radius and dim light for an additional 30 feet. The wielder can extinguish the light as a bonus action."/>
+		<sub_feature key="action_type" value="bonus"/>
+	</feature>
+	<feature id="Artificer: Radiant Weapon (Reaction): Blind" lvl_req="6" type="action">
+		<sub_feature key="description" value="As a reaction immediately after being hit by an attack, the wielder can expend 1 charge and cause the attacker to be blinded until the end of the attacker's next turn, unless the attacker succeeds on a Constitution saving throw against your spell save DC ($!spell_save_dc$)."/>
+		<sub_feature key="action_type" value="bonus"/>
+	</feature>
+	<feature id="Artificer: Radiant Weapon (Bonus)" lvl_req="6" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="attack"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+	<feature id="Artificer: Radiant Weapon (dmg Bonus)" lvl_req="6" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="damage"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+
+	<feature id="Artificer: Repulsion Shield (Artificer Infusion)" lvl_req="6" type="snippet">
+		<sub_feature key="description" value="
+		Your shield is infused with magical energy. A creature gains a +1 bonus to Armor Class while wielding this shield.BREAK
+		The shield has 4 charges. While holding it, the wielder can use a reaction immediately after being hit by a melee attack to expend 1 of the shield's charges and push the attacker up to 15 feet away. The shield regains 1d4 expended charges daily at dawn."/>
+	</feature>
+	<feature id="Artificer: Repulsion Shield (Reaction): Repulsing Blast" lvl_req="6" type="action">
+		<sub_feature key="description" value="While holding it, the wielder can use a reaction immediately after being hit by a melee attack to expend 1 of the shield's charges and push the attacker up to 15 feet away."/>
+		<sub_feature key="action_type" value="bonus"/>
+	</feature>
+	<feature id="Artificer: Repulsion Shield (Bonus)" lvl_req="6" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="ac"/>
+		<sub_feature key="bonus" value="1"/>
+	</feature>
+
+	<feature id="Artificer: Resistant Armor (Artificer Infusion)" lvl_req="6" type="snippet">
+		<sub_feature key="description" value="
+		You have a suit of armor infused with this magical property. While wearing this armor, a creature has resistance to one of the following damage types, which you choose when you infuse the item: acid, cold, fire, force, lightning, necrotic, poison, psychic, radiant, or thunder."/>
+	</feature>
+	<feature id="Artificer: Resistant Armor (Resistance)" lvl_req="6" type="defense">
+		<sub_feature key="description" value="#!damage_types#"/>
+		<sub_feature key="defense_type" value="resistance"/>
+	</feature>
+
+	<!-- 10th level -->
+	<feature id="Artificer: Helm of Awareness (Artificer Infusion)" lvl_req="10" type="snippet">
+		<sub_feature key="description" value="
+		A helmet you have is imbued with magical energy. While wearing this helmet, a creature has advantage on initiative rolls. In addition, the wearer can't be surprised, provided it isn't incapacitated."/>
+	</feature>
+
+	<!-- 14th level -->
+	<feature id="Artificer: Arcane Propulsion Armor (Artificer Infusion)" lvl_req="14" type="snippet">
+		<sub_feature key="description" value="
+		A suit of armor you have is imbued with magical energy. The wearer of this armor gains these benefits:BREAKBREAK
+		The wearer's walking speed increases by 5 feet.BREAK
+		The armor can't be removed against the wearer's will.BREAK
+		If the wearer is missing any limbs, the armor replaces those limbs—hands, arms, feet, legs, or similar appendages. The replacements function identically to the body parts they replace.BREAK
+		The armor includes gauntlets, each of which is a magic melee weapon that can be wielded only when the hand is holding nothing. The wearer is proficient with the gauntlets, and each one deals 1d8 force damage on a hit ($!DEXTERITY+prof$) and has the thrown property, with a normal range of 20 feet and a long range of 60 feet. When thrown, the gauntlet detaches and flies at the attack's target, then immediately returns to the wearer and reattaches."/>
+	</feature>
+	<feature id="Artificer: Arcane Propulsion Armor (walking speed bonus)" lvl_req="14" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="speed_walking"/>
+		<sub_feature key="bonus" value="5"/>
+	</feature>
+	<feature id="Artificer: Arcane Propulsion Armor (Action): Gauntlets of Propulsion" lvl_req="6" type="action">
+		<sub_feature key="description" value="The armor includes gauntlets, each of which is a magic melee weapon that can be wielded only when the hand is holding nothing. The wearer is proficient with the gauntlets, and each one deals 1d8 force damage on a hit ($!DEXTERITY+prof$) and has the thrown property, with a normal range of 20 feet and a long range of 60 feet. When thrown, the gauntlet detaches and flies at the attack's target, then immediately returns to the wearer and reattaches."/>
+		<sub_feature key="action_type" value="action"/>
+	</feature>
+
+	<feature id="Artificer: The Right Tool for the Job" lvl_req="3" type="snippet">
+		<sub_feature key="description" value="
+		At 3rd level, you learn how to produce exactly the tool you need: with thieves' tools or artisan's tools in hand, you can magically create one set of artisan's tools in an unoccupied space within 5 feet of you. This creation requires 1 hour of uninterrupted work, which can coincide with a short or long rest. Though the product of magic, the tools are nonmagical, and they vanish when you use this feature again."/>
+	</feature>
+
+	<feature id="Artificer: Tool Expertise" lvl_req="6" type="snippet">
+		<sub_feature key="description" value="
+		Starting at 6th level, your proficiency bonus is doubled for any ability check you make that uses your proficiency with a tool."/>
+	</feature>
+
+	<feature id="Artificer: Flash of Genius" lvl_req="7" type="snippet">
+		<sub_feature key="description" value="
+		Starting at 7th level, you gain the ability to come up with solutions under pressure. When you or another creature you can see within 30 feet of you makes an ability check or a saving throw, you can use your reaction to add your Intelligence modifier ($!INTELLIGENCE$) to the roll.BREAK
+		You can use this feature a number of times equal to your Intelligence modifier ($!INTELLIGENCE$) (minimum of once). You regain all expended uses when you finish a long rest."/>
+	</feature>
+	<feature id="Artificer: Flash of Genius (Reaction)" lvl_req="7" type="action">
+		<sub_feature key="description" value="
+		When you or another creature you can see within 30 feet of you makes an ability check or a saving throw, you can use your reaction to add your Intelligence modifier ($!INTELLIGENCE$) to the roll."/>
+		<sub_feature key="action_type" value="reaction"/>
+	</feature>
+
+	<feature id="Artificer: Magic Item Adept" lvl_req="10" type="snippet">
+		<sub_feature key="description" value="
+		When you reach 10th level, you achieve a profound understanding of how to use and make magic items:BREAK
+		You can attune to up to four magic items at once.BREAK
+		If you craft a magic item with a rarity of common or uncommon, it takes you a quarter of the normal time, and it costs you half as much of the usual gold."/>
+	</feature>
+
+	<feature id="Artificer: Spell-Storing Item" lvl_req="11" type="snippet">
+		<sub_feature key="description" value="
+		At 11th level, you learn how to store a spell in an object. Whenever you finish a long rest, you can touch one item that you can use as a spellcasting focus, and you store a spell in it, choosing from your spell list that requires 1 action to cast.BREAK
+		While holding the object, a creature can take an action to produce the spell's effect from it, using your spellcasting ability modifier. If the spell requires concentration, the creature must concentrate. The spell stays in the object until it's been used a number of times equal to twice your Intelligence modifier ($!INTELLIGENCE*2$) (minimum of twice) or until you use this feature again to store a spell in an object."/>
+	</feature>
+
+	<feature id="Artificer: Magic Item Savant" lvl_req="14" type="snippet">
+		<sub_feature key="description" value="
+		At 14th level, your skill with magic items deepens more:BREAK
+		You can attune to up to five magic items at once.BREAK
+		You ignore all class, race, spell, and level requirements on attuning to or using a magic item."/>
+	</feature>
+
+	<feature id="Artificer: Soul of Artifice" lvl_req="20" type="snippet">
+		<sub_feature key="description" value="
+		At 20th level, you develop a mystical connection to your magic items, which you can draw on for protection:BREAK
+		You gain a +1 bonus to all saving throws per magic item you are currently attuned to.BREAK
+		If you're reduced to 0 hit points but not killed outright, you can use your reaction to end one of your artificer infusions, causing you to drop to 1 hit point instead of 0."/>
+	</feature>
+	<feature id="Artificer: Soul of Artifice (Bonus)" lvl_req="20" type="bonus">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="bonus_type" value="saving_throws"/>
+		<sub_feature key="ability" value="all"/>
+		<sub_feature key="bonus" value="6"/>
+	</feature>
+	<feature id="Artificer: Soul of Artifice (Reaction): Death's Door Infusion" lvl_req="20" type="action">
+		<sub_feature key="description" value="If you're reduced to 0 hit points but not killed outright, you can use your reaction to end one of your artificer infusions, causing you to drop to 1 hit point instead of 0."/>
+		<sub_feature key="action_type" value="reaction"/>
+	</feature>
+
+
+
+	<!-- SUBCLASSES -->
+	<!-- alchemist -->
+	<feature id="Alchemist: Description" lvl_req="0" type="snippet">
+		<sub_feature key="description" value="An Alchemist is an expert at combining reagents to produce mystical effects. Alchemists use their creations to give life and to leech it away. Alchemy is the oldest of Alchemist traditions, and its versatility has long been valued during times of war and peace."/>
+	</feature>
+
+	<feature id="Alchemist: Tool Proficiency" lvl_req="3" type="snippet">
+		<sub_feature key="description" value="When you adopt this specialization at 3rd level, you gain proficiency with alchemist's supplies. If you already have this proficiency, you gain proficiency with one other type of artisan's tools of your choice."/>
+	</feature>
+	<feature id="Alchemist: Tool Proficiency (extra)" lvl_req="3" type="proficiency">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="type" value="tools"/>
+		<sub_feature key="name" value="alchemist's"/>
+		<sub_feature key="replace" value="1"/>
+	</feature>
+
+	<feature id="Alchemist: Extra Spells" lvl_req="3" type="snippet">
+		<sub_feature key="description" value="Starting at 3rd level, every couple levels you gain additional spells that are added in your spell list. These spells are displayed below.BREAKBREAK
+
+		3rd Level: Healing Word, Ray of SicknessBREAK
+		5th	Level: Flaming Sphere, Melf's Acid ArrowBREAK
+		9th	Level: Gaseous Form, Mass Healing WordBREAK
+		13th Level: Blight, Death WardBREAK
+		17th Level: Cloudkill, Raise Dead"/>
+	</feature>
+
+	<feature id="Alchemist: Extra Spells (3rd) (healing word)" lvl_req="3" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Healing Word"/>
+	</feature>
+	<feature id="Alchemist: Extra Spells (3rd) (Ray of Sickness)" lvl_req="3" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Ray of Sickness"/>
+	</feature>
+
+	<feature id="Alchemist: Extra Spells (5th) (Flaming Sphere)" lvl_req="5" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Flaming Sphere"/>
+	</feature>
+	<feature id="Alchemist: Extra Spells (5th) (Melf's Acid Arrow)" lvl_req="5" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Melf's Acid Arrow"/>
+	</feature>
+
+	<feature id="Alchemist: Extra Spells (9th) (Gaseous Form)" lvl_req="9" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Gaseous Form"/>
+	</feature>
+	<feature id="Alchemist: Extra Spells (9th) (Mass Healing Word)" lvl_req="9" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Mass Healing Word"/>
+	</feature>
+
+	<feature id="Alchemist: Extra Spells (13th) (Blight)" lvl_req="13" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Blight"/>
+	</feature>
+	<feature id="Alchemist: Extra Spells (13th) (Death Ward)" lvl_req="13" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Death Ward"/>
+	</feature>
+
+	<feature id="Alchemist: Extra Spells (17th) (Cloudkill)" lvl_req="17" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Cloudkill"/>
+	</feature>
+	<feature id="Alchemist: Extra Spells (17th) (Raise Dead)" lvl_req="17" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Raise Dead"/>
+	</feature>
+
+	<feature id="Alchemist: Experimental Elixir" lvl_req="3" type="snippet">
+		<sub_feature key="description" value="
+			Beginning at 3rd level, whenever you finish a long rest, you can magically produce an experimental elixir in an empty flask you touch. Roll on the Experimental Elixir table for the elixir's effect, which is triggered when someone drinks the elixir. As an action, a creature can drink the elixir or administer it to an incapacitated creature.BREAK
+			Creating an experimental elixir requires you to have alchemist's supplies on your person, and any elixir you create with this feature lasts until it is drunk or until the end of your next long rest.BREAK
+			When you reach certain levels in this class, you can make more elixirs at the end of a long rest: two at 6th level and three at 15th level. Roll for each elixir's effect separately. Each elixir requires its own flask."/>
+	</feature>
+	<feature id="Alchemist: Experimental Elixir (3rd)" lvl_req="3" type="action">
+		<sub_feature key="description" value="Drink or administer the Exlixir of #!experimental_elixir#"/>
+		<sub_feature key="action_type" value="action"/>
+	</feature>
+	<feature id="Alchemist: Experimental Elixir (6th)" lvl_req="6" type="action">
+		<sub_feature key="description" value="Drink or administer the Exlixir of #!experimental_elixir#"/>
+		<sub_feature key="action_type" value="action"/>
+	</feature>
+	<feature id="Alchemist: Experimental Elixir (15th)" lvl_req="15" type="action">
+		<sub_feature key="description" value="Drink or administer the Exlixir of #!experimental_elixir#"/>
+		<sub_feature key="action_type" value="action"/>
+	</feature>
+
+	<feature id="Alchemist: Alchemical Savant" lvl_req="5" type="snippet">
+		<sub_feature key="description" value="
+			At 5th level, you develop masterful command of magical chemicals, enhancing the healing and damage you create through them. Whenever you cast a spell using your alchemist's supplies as the spellcasting focus, you gain a bonus to one roll of the spell. That roll must restore hit points or be a damage roll that deals acid, fire, necrotic, or poison damage, and the bonus equals your Intelligence modifier ($!INTELLIGENCE$) (minimum of +1)."/>
+	</feature>
+
+	<feature id="Alchemist: Restorative Reagents" lvl_req="9" type="snippet">
+		<sub_feature key="description" value="
+			Starting at 9th level, you can incorporate restorative reagents into some of your works:BREAK
+			Whenever a creature drinks an experimental elixir you created, the creature gains temporary hit points equal to 2d6 + $!INTELLIGENCE$ (minimum of 1 temporary hit point).BREAK
+			You learn the Lesser Restoration spell without material components, provided you use alchemist's supplies as the spellcasting focus."/>
+	</feature>
+	<feature id="Alchemist: Restorative Reagents (Lesser Restoration)" lvl_req="9" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Lesser Restoration"/>
+	</feature>
+
+	<feature id="Alchemist: Chemical Mastery" lvl_req="15" type="snippet">
+		<sub_feature key="description" value="
+			By 15th level, you have been exposed to so many chemicals that they pose little risk to you, and you can use them to quickly end certain ailments:BREAK
+			You gain resistance to acid damage and poison damage, and you are immune to the poisoned condition.BREAK
+			You learn both the Greater Restoration and Heal spells without material components, provided you use alchemist's supplies as the spellcasting focus."/>
+	</feature>
+	<feature id="Alchemist: Chemical Mastery (Greater Restoration)" lvl_req="15" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Greater Restoration"/>
+	</feature>
+	<feature id="Alchemist: Chemical Mastery (Heal)" lvl_req="15" type="add_spell_specific">
+		<sub_feature key="description" value=""/>
+		<sub_feature key="name" value="Heal"/>
+	</feature>
+
+
+
 </features>

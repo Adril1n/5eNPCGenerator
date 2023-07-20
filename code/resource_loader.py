@@ -138,7 +138,7 @@ class ResourceLoader():
 		for race_feature in race_type.find('features'):
 			race_feature_id = race_feature.get('id')
 			for feature in feature_xml:
-				if feature.get('id') == race_feature_id:
+				if race_feature_id in feature.get('id'):
 					sub_features = {}
 					for sub_feature in feature.findall('sub_feature'):
 						sub_features[sub_feature.get('key')] = sub_feature.get('value')
@@ -147,23 +147,42 @@ class ResourceLoader():
 
 		return feature_dict
 
-	def get_base_class_proficiencies(self, occupation_id):
-		class_xml = self.get_xml_root('classes')
+	def get_features(self, xml_type, wanted_element_id, rng):
+		xml = self.get_xml_root(xml_type)
+		feature_xml = self.get_xml_root('features')
 
-		prof = {'armor':[], 'weapons':[], 'tools':['random'], 'saving_throws':[], 'skills':[1]}
+		feature_dict = {}
+
+		previous_choices = []
 		
-		for class_ in class_xml.findall('class'):
-			if class_.get('name') == occupation_id:
-				for proficiency in class_.find('proficiencies'):
-					prof[proficiency.tag] = [t.get('value') for t in proficiency.findall('type')]
+		for element in xml:
+			if element.get('name') == wanted_element_id:
+				for element_feature in element.find('features').findall('feature'):
+					element_feature_id = element_feature.get('id')
+					if element_feature_id == 'choice':
+						duplicates = bool(int(element_feature.get('duplicates')))
+						choices = [c.get('id') for c in element_feature.findall('choice')]
+						if not duplicates:
+							while True:
+								element_feature_id = rng.choice(choices)
+								if element_feature_id not in previous_choices:
+									previous_choices.append(element_feature_id)
+									break
+								elif previous_choices >= choices:
+									break
+						else:
+							element_feature_id = rng.choice(choices)
+							previous_choices.append(element_feature_id)
 
-		return prof
+					for feature in feature_xml:
+						if element_feature_id in feature.get('id'):
+							sub_features = {}
+							for sub_feature in feature.findall('sub_feature'):
+								sub_features[sub_feature.get('key')] = sub_feature.get('value')
 
-	def get_equipment_list(self, l_type):
-		xml = self.get_xml_root(f'{l_type}s')
-		return [equipment.attrib for equipment in xml.findall(l_type)]
+							feature_dict[feature.get('id')] = {'lvl_req':feature.get('lvl_req'), 'type':feature.get('type'), 'sub_features':sub_features}
 
-
+		return feature_dict
 
 	def get_feat_asi(self, feat_id):
 		feats = self.get_xml_root('feats')
@@ -194,6 +213,23 @@ class ResourceLoader():
 					desc_ext.append([de.get('prob'), de.get('value')])
 
 		return desc_ext
+
+	def get_base_class_proficiencies(self, occupation_id):
+		class_xml = self.get_xml_root('classes')
+
+		prof = {'armors':[], 'weapons':[], 'tools':['random'], 'saving_throws':[], 'skills':[1]}
+		
+		for class_ in class_xml.findall('class'):
+			if class_.get('name') == occupation_id:
+				for proficiency in class_.find('proficiencies'):
+					prof[proficiency.tag] = [t.get('value') for t in proficiency.findall('type')]
+
+		return prof
+
+	def get_equipment_list(self, l_type):
+		xml = self.get_xml_root(f'{l_type}s')
+		return [equipment.attrib for equipment in xml.findall(l_type)]
+
 
 
 	def get_table(self, table_id):
@@ -256,13 +292,55 @@ class ResourceLoader():
 
 		return choices
 
-	# def get_subclass(self, rng, class_id):
-	# 	subclasses = self.get_xml_root('subclasses')
+	def get_lvl_for_spell(self, spell_name):
+		spells = self.get_xml_root('spells')
 
-	# 	subclass = [subclass for subclass in subclasses.findall('subclass') if subclass.get('class') == class_id][rng.choice(np.arange(len(subclasses.findall('subclass'))))]
+		for spell in spells:
+			if spell.get('name') == spell_name:
+				return spell.get('level')
 
-	# 	return subclass.get('name')
+		return "N/A"
 
+	def get_trait_description(self, trait_id):
+		traits = self.get_xml_root('traits')
+
+		for trait in traits:
+			if trait.get('name') == trait_id:
+				return trait.get('description')
+
+		return "N/A"
+
+	def get_pet_choices(self, cr):
+		pets = self.get_xml_root('pets')
+
+		choices = []
+		for pet in pets:
+			if int(pet.get('cr')) == cr:
+				choices.append(pet.get('name'))
+
+		return choices
+
+	def get_pet_attribs(self, pet_id):
+		pets = self.get_xml_root('pets')
+
+		data_dict = {}
+
+		for pet in pets:
+			if pet.get('name') == pet_id:
+				for dataval in pet.findall('dataval'):
+					data_dict[dataval.get('key')] = dataval.get('value')
+
+		return data_dict
+
+	def get_gear_choices(self, prof, xml):
+		gears = self.get_xml_root(xml)
+
+		choices = []
+		for gear in gears:
+			if gear.get('type') in prof[xml]:
+				choices.append(gear.get('name'))
+
+		return choices
 
 	# def get_weapon(self, rng, prof):
 	# 	weapons = self.get_xml_root('weapons')
@@ -302,184 +380,6 @@ class ResourceLoader():
 	# 	else:
 	# 		return rng.choice(a)
 
-	# def get_class_features(self, rng, class_id, subclass_id, lvl):
-	# 	classes = self.get_xml_root('classes')
-	# 	subclasses = self.get_xml_root('subclasses')
-
-	# 	a = {}
-
-	# 	for class_ in classes:
-	# 		if class_.get('name') == class_id:
-	# 			for dataval in class_.findall('datadict')[0].findall('dataval'):
-	# 				if dataval.get('key') == 'features':
-	# 					for feat in dataval.findall('feature'):
-	# 						if int(feat.get('req')) <= lvl:
-	# 							key = feat.get('key')
-	# 							val = feat.get('value')
-
-	# 							if val == 'dict_lvl_choice':
-	# 								aa = []
-
-	# 								for l in feat.findall('lvl'):
-	# 									if int(l.get('key')) <= lvl:
-	# 										aa.extend(l.get('value').split(':'))
-
-	# 								a[key] = f"{aa[rng.choice(np.arange(len(aa)))]}"
-								
-	# 							elif '|' in val:
-	# 								aa = val.split('|')
-	# 								ab = aa[-1].split(';')
-	# 								ac = list(rng.choice(ab[1:], int(ab[0]), replace=False))
-	# 								a[key] = ac
-
-	# 							elif val == 'dict_spellcasting':
-	# 								aa = {}
-	# 								for prop in feat.findall('property'):
-	# 									aa[prop.get('key')] = prop.get('value')
-
-	# 								a[key] = aa
-
-	# 							else:	
-	# 								a[key] = val
-
-	# 	for subclass in subclasses:
-	# 		if subclass.get('class') == class_id and subclass.get('name') == subclass_id:
-	# 			for dataval in subclass.findall('datadict')[0].findall('dataval'):
-	# 				if int(dataval.get('req')) <= lvl:
-	# 					key = dataval.get('key')
-	# 					val = dataval.get('value')
-
-	# 					if val == 'dict_lvl':
-	# 						aa = []
-
-	# 						if key == 'extended_spell_list':
-	# 							aa.append(dataval.get('tier'))
-
-	# 						for item in dataval.findall('item'):
-	# 							if int(item.get('key')) <= lvl:
-	# 								item_val = item.get('value')
-	# 								if ':' in item_val:
-	# 									aa.extend(item_val.split(':'))
-
-	# 								elif ';' in item_val:
-	# 									ab = item_val.split(';')
-	# 									aa.extend(list(rng.choice(ab[1:], int(ab[0]), replace=False)))
-
-	# 						a[key] = aa
-
-	# 					else:
-	# 						a[key] = val
-
-	# 	return a
-
-	# def get_feat(self, rng):
-	# 	feats = self.get_xml_root('feats')
-	# 	return list(feats)
-
-	# def get_feat_data(self, rng, feat, npc):
-	# 	a = {'name':feat.get('name')}
-
-	# 	for dataval in feat.findall('datadict')[0].findall('dataval'):
-	# 		key = dataval.get('key')
-	# 		val = dataval.get('value')
-	# 		if len(val) > 0:
-	# 			if key == 'asi':	
-	# 				if ';' in val:
-	# 					aa = val.split(';')
-	# 					ab = rng.choice(aa[1:], int(aa[0]), replace=False)
-	# 					ac = ab[0].split(',')
-	# 				else:
-	# 					ac = val.split(',')
-
-	# 				a[key] = (ac[0], ac[1])
-
-	# 			elif key == 'extended_spell_list':
-	# 				aa = val.split(':')
-	# 				ab = {'tier':1}
-
-	# 				if npc.get_tag('class_bool'):
-	# 					if 'Spellcasting' not in npc.get_tag('Features'):
-	# 						ab['Spellcasting Ability'] = aa[0]
-	# 					else:
-	# 						ab['Spellcasting Ability'] = npc.get_tag('Features')['Spellcasting']['Spellcasting Ability']
-
-	# 				else:
-	# 					ab['Spellcasting Ability'] = aa[0]
-
-	# 				spells = []
-					
-	# 				for ac in aa[1:]:
-	# 					ad = ac.split(',')
-	# 					ae = ad[-1].split('_')
-	# 					spell_list = self.get_spells(*ae, class_spec=npc.get_tag('Only Class Specific Spells'))
-
-	# 					for _ in range(int(ad[0])):
-	# 						spells.append(spell_list[rng.choice(np.arange(len(spell_list)))].get('name'))
-
-	# 				ab['extended_spell_list'] = spells
-
-	# 				a[key] = ab
-
-	# 			else:
-	# 				if ';' in val and dataval.get('req') is None:
-	# 					aa = val.split(';')
-	# 					ab = list(rng.choice(aa[1:], int(aa[0]), replace=False))
-
-	# 					a[key] = ab[0]
-
-	# 				elif ';' in val and dataval.get('req') is not None:
-	# 					aa = dataval.get('req').split('|')
-
-	# 					if npc.get_tag('Level') >= int(aa[0]) and rng.random() < float(aa[1]):
-	# 						ab = val.split(';')
-	# 						ac = list(rng.choice(ab[1:], int(ab[0]), replace=False))
-
-	# 						a[key] = ac[0]
-					
-	# 				else:
-	# 					a[key] = val
-
-						
-
-	# 	return a
-
-	# def get_spells(self, level="", class_id="", class_spec=True):
-	# 	spells = self.get_xml_root('spells')
-	# 	a = []
-
-	# 	for spell in spells:
-	# 		if level == "" and class_id == "":
-	# 			a.append(spell)
-	# 		else:
-	# 			if spell.get('level') == level and class_id in spell.get('availability') and class_spec:
-	# 				a.append(spell)
-	# 			elif not class_spec and spell.get('level') == level:
-	# 				a.append(spell)
-
-
-	# 	return a
-
-	# def get_traits(self, rng, n):
-	# 	traits = self.get_xml_root('traits')
-
-	# 	b = {}
-		
-	# 	for trait in traits:
-	# 		b[trait.get('name')] = trait.get('description')
-
-	# 	keys = list(b.keys())
-	# 	rng.shuffle(keys)
-
-	# 	return {k:b[k] for k in keys[:n]}
-
-	# def get_ability_for_skill(self, name):
-	# 	skills = self.get_xml_root('skills')
-
-	# 	for skill in skills:
-	# 		if skill.get('name') == name:
-	# 			return skill.get('ability')
-
-	# 	return None
 
 
 	@staticmethod

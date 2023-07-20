@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from bs4.formatter import HTMLFormatter
 
 from resource_loader import ResourceLoader
+import html_formatter as HF
 
 
 
@@ -109,7 +110,7 @@ class Ability():
 			canvas.create_text(canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[0]+1, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[3]+10, text=self.name, anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'ability', 'key'])
 		
 		modifier = self.get_modifier()
-		modifer_txt = f'+{modifier}' if modifier > 0 else modifier
+		modifer_txt = f'+{modifier}' if modifier >= 0 else modifier
 		canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&ability&&key')[-1])[1], text=f"{self.score} [{modifer_txt}]", anchor='ne', font=('Arial', 16), tags=['text', 'ability', 'value'])
 	
 	def __repr__(self):
@@ -130,70 +131,8 @@ class Option():
 		
 		canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[1], text=f"{self.value}", anchor='nw', font=('Arial', 16), tags=['text', 'option', 'value'])
 
-
-class Feature():
-	def __init__(self, parent, f_id, f_type, sub_features):
-		self.parent = parent
-		self.f_id = f_id
-		self.f_type = f_type
-		self.sub_features = sub_features
-
-		self.sub_features['description'] = Feature.apply_description_tables(self.sub_features['description'], self.parent.rng)
-		getattr(self, f_type)()
-
-	def snippet(self):
-		self.parent.features[self.f_id] = self.sub_features['description']
-
-	def action(self):
-		self.parent.actions[self.f_id] = [self.sub_features['action_type'], self.sub_features['description']]
-
-	@staticmethod
-	def apply_description_tables(desc, rng):
-		split_desc = desc.split('#')
-		for j in split_desc:
-			if j[0] == '!':
-				split_desc[split_desc.index(j)] = rng.choice(ResourceLoader.get_instance().get_table(j[1:]))
-			# else:
-			# 	split_desc[split_desc.index(j)] = j.strip()
-
-		return ''.join(split_desc)
-
-
-class Feat():
-	def __init__(self, parent, name):
-		self.parent = parent
-		self.name = name
-
-		self.apply_asi()
-		self.fix_description()
-		self.apply_features()
-
-	def apply_asi(self):
-		self.asi = ResourceLoader.get_instance().get_feat_asi(self.name)
-		self.parent.apply_race_asi_bonuses(self.asi)
-
-	def fix_description(self):
-		self.description = ResourceLoader.get_instance().get_feat_description(self.name)
-
-		desc_exts = ResourceLoader.get_instance().get_feat_description_extensions(self.name)
-
-		for de in desc_exts:
-			if float(de[0]) >= self.parent.rng.random():
-				self.description += de[1]
-
-		self.description = Feature.apply_description_tables(self.description, self.parent.rng)
-
-		# self.description = self.description.replace('BREAK', '\n')
-
-
-	def apply_features(self):
-		pass
-		# getattr(foo, 'bar')()
-
-
 class Spellcasting():
-	SPELL_TIERS = ['At Will', '4/day each', '3/day each', '2/day each', '1/day each', '1/day']
-	SPELL_LEVELS = ['Cantrip', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th']
+	SPELL_TIERS = ['At Will', '2/day each', '1/day each', '3/day', '2/day', '1/day']
 
 	def __init__(self, parent, ability, spells_per_level_coefficients):
 		self.parent = parent
@@ -226,74 +165,57 @@ class Spellcasting():
 
 
 	def add_default_spells(self):
-		self.max_level = self.get_max_level()
-		rng = self.parent.rng 
+		self.max_level = self.get_max_level(self.spell_list_type)
 
-		min_level = 0 
+		self.min_level = 0 
 		if self.spell_list_type == 'Paladin' or self.spell_list_type == 'Ranger':
-			min_level = 1
+			self.min_level = 1
 
-		lvl = self.parent.get_option_value('level')
-		# loc_cap = 7
+		npc_lvl = self.parent.get_option_value('level')
+
+		self.spl_lvl_loc = 0
 		std_cap = 7
-		# loc = min(abs(-0.0039*lvl**2 + 0.1875*lvl - 0.1836), loc_cap) 
-		spl_lvl_loc = 0
-		spl_lvl_std = min(abs(0.28*lvl + 0.2), std_cap) ### Maybe configure these a bit to fit better, might have to change the caps as well 
+		self.spl_lvl_std = min(abs(0.29*npc_lvl + 0.2), std_cap) ### Maybe configure these a bit to fit better, might have to change the caps as well 
 
 		if self.max_level == 5:
-			spl_lvl_std = spl_lvl_std * ((self.max_level + abs(min_level - 1)) / 10)
+			self.spl_lvl_std = self.spl_lvl_std * ((self.max_level + abs(self.min_level - 1)) / 10)
+	
 		
-		# print(f"lvl: {lvl}, spl/lvl: {self.spells_per_level}, loc: {spl_lvl_loc}, std: {spl_lvl_std}")
-
 		self.spell_list = []
-
-		# a = {}
-		# for i in range(10000):
-		# 	index = round(min(max(abs(rng.normal(spl_lvl_loc, spl_lvl_std)), min_level), max_level))
-		# 	try:
-		# 		a[index] += 1
-		# 	except:
-		# 		a[index] = 1
-
-		# a = dict(sorted(a.items()))
-		# for b in a:
-		# 	a[b] = (a[b], f"{a[b]/10000}%")
-		# print(a)
- 
 		for _ in range(self.spells_per_level):
-			spl_lvl = min(max(abs(round(rng.normal(spl_lvl_loc, spl_lvl_std))), min_level), self.max_level)
+			spl_lvl = min(max(abs(round(self.parent.rng.normal(self.spl_lvl_loc, self.spl_lvl_std))), self.min_level), self.max_level)
 			self.add_spell_random(spl_lvl)
 
-		# print(sorted(self.spell_list, key=lambda x: x[1][0]))
 
-		for spell in self.spell_list:
-			self.catagorise_spell(spell)
-
-		print(self.spells)
+		# for spell in self.spell_list:
+		# 	(spell)
 
 
-	def catagorise_spell(self, spell):
-		rng = self.parent.rng
-		lvl = spell[1][0]
-		if lvl == 'C':
-			lvl = 0
+	def catagorise_spell(self, spell, max_level, specified_tier=None):
+		if specified_tier is None:
+			rng = self.parent.rng
+			lvl = spell[1][0]
+			if lvl == 'C':
+				lvl = 0
 
-		spl_lvl = int(lvl)
-		std = 0.8 + self.parent.get_option_value('level')*0.05
-		if self.max_level == 5:
-			tier = spl_lvl
+			spl_lvl = int(lvl)
+			std = 0.8 + self.parent.get_option_value('level')*0.05
+			if max_level == 5:
+				tier = spl_lvl
+			else:
+				tier = np.ceil(spl_lvl/2)
+				
+			n = rng.normal(0, std)
+			new_tier = rng.choice((tier-abs(n), tier), p=[0.35, 0.65])
+			index = round(min(max(new_tier, 0), len(Spellcasting.SPELL_TIERS)-1)) 
+
+			self.spells[list(self.spells.keys())[index]].append(spell[0])
 		else:
-			tier = np.ceil(spl_lvl/2)
-			
-		n = rng.normal(0, std)
-		new_tier = rng.choice((tier-abs(n), tier), p=[0.75, 0.25])
-		index = round(min(max(new_tier, 0), len(Spellcasting.SPELL_TIERS)-1)) 
-		
-		self.spells[list(self.spells.keys())[index]].append(spell)
+			self.spells[specified_tier].append(spell[0])
 
 
-	def get_max_level(self):
-		sorted_l = sorted(ResourceLoader.get_instance().get_spell_lvl_list(self.spell_list_type))
+	def get_max_level(self, s_l_type):
+		sorted_l = sorted(ResourceLoader.get_instance().get_spell_lvl_list(s_l_type))
 
 		try:
 			max_l = sorted_l[sorted_l.index('Cantrip')-1]
@@ -302,35 +224,174 @@ class Spellcasting():
 
 		return int(max_l[0])
 
-	def add_spell_random(self, lvl, s_p_type=None):
-		if s_p_type is None:
-			s_p_type = self.spell_list_type
+	def add_spell_random(self, lvl, s_l_type=None, specified_tier=None):
+		if s_l_type is None:
+			s_l_type = self.spell_list_type
 
 		if lvl == 0:
 			lvl = 'C' ### because RL looks for first element in string it would be 'C' for 'Cantrip'
 		
-		spl_list = ResourceLoader.get_instance().get_spell_list(s_p_type, lvl)
+		spl_list = ResourceLoader.get_instance().get_spell_list(s_l_type, lvl)
 		
 		while True:
 			choice = list(self.parent.rng.choice(spl_list))
 
 			if choice not in self.spell_list:
 				self.spell_list.append(choice)
+				self.catagorise_spell(choice, self.get_max_level(s_l_type), specified_tier) ### FOR SPELL MASTERY THIS COULD BE USED TO GET A 2ND LEVEL SPELL ALWAYS AT 'AT WILL TIER'
 				break
 
 			elif len(list(filter(lambda x: x[1][0] == str(lvl), self.spell_list))) >= len(spl_list):
 				break
 
-	def add_spell_specific(self, name):
-		print(name)
+	def add_spell_specific(self, spell, specified_tier=None):
+		if spell not in self.spell_list:
+			self.spell_list.append(spell)
+			self.catagorise_spell(spell, self.max_level, specified_tier)
 
 
 	def __repr__(self):
-		return f"Spellcasting Ability: {self.ability}, Spells/Level: {self.spells_per_level}, Spell List: {self.spell_list_type}"
+		# return f"Spellcasting Ability: {self.ability}, Spells/Level: {self.spells_per_level}, Spell List: {self.spell_list_type} Spells: {self.spells}"
+		return f'{self.spells}'
+
+class Feature():
+	ACTION_TYPES = ['action', 'bonus', 'reaction', 'other']
+	BONUS_TYPES = ['attack', 'damage', 'spell_attack', 'ac', 'speed_walking', *[f'{a}_saving_throw' for a in Ability.TYPES], 'extra_attack']
+	DEFENSE_TYPES = ['resistance', 'immunity', 'vulnerability']
+
+	def __init__(self, parent, f_id, f_type, sub_features):
+		self.parent = parent
+		self.f_id = f_id
+		self.f_type = f_type
+		self.sub_features = sub_features
+
+		self.sub_features['description'] = Feature.apply_description_tables(self.sub_features['description'], self.parent.rng)
+		getattr(self, f_type)()
+
+	def snippet(self):
+		self.parent.features.append(self)
+
+	def action(self):
+		self.parent.actions[self.sub_features['action_type']].append(self)
+
+	def bonus(self):
+		if self.sub_features['bonus_type'] == 'saving_throws':
+			bonus_type = self.sub_features['bonus_type']
+			ability = self.sub_features['ability']
+			bonus = int(self.sub_features['bonus'])
+
+			if ability == 'all':
+				for ablt in Ability.TYPES:
+					self.parent.bonuses[f'{ablt}_saving_throw'] += bonus
+			else:
+				self.parent.bonuses[f'{ability}_saving_throw'] += bonus
+
+		else:
+			self.parent.bonuses[self.sub_features['bonus_type']] += int(self.sub_features['bonus'])
+
+	def defense(self):
+		self.parent.defenses[self.sub_features['defense_type']].append(self)
+
+	def proficiency(self):
+		type_ = self.sub_features['type']
+		name = self.sub_features['name']
+		replace = bool(int(self.sub_features['replace']))
+
+		if name not in self.parent.proficiencies[type_]:
+			self.parent.proficiencies[type_].append(name)
+
+		elif replace:
+			while True:
+				eq_list = ResourceLoader.get_instance().get_equipment_list(type_[:-1]) # [:-1] to remove 's'
+				choice = self.parent.rng.choice(eq_list)['name']
+
+				if choice not in self.parent.proficiencies[type_]:
+					self.parent.proficiencies[type_].append(choice)
+					break
+
+
+	def add_spell_specific(self):
+		spell = [self.sub_features['name'], ResourceLoader.get_instance().get_lvl_for_spell(self.sub_features['name'])]
+		specified_tier = self.get_sub_feature('specified_tier')
+
+		self.parent.spellcasting.add_spell_specific(spell, specified_tier=specified_tier)
+			
+
+	def add_spell_random(self):
+		lvl = int(self.get_sub_feature('lvl'))
+		s_l_type = self.get_sub_feature('s_l_type')
+		specified_tier = self.get_sub_feature('specified_tier')
+
+		self.parent.spellcasting.add_spell_random(lvl, s_l_type=s_l_type, specified_tier=specified_tier)
+
+
+	def advantage(self):
+		if self.sub_features['type'] == 'saving_throws':
+			self.parent.advantages['saving_throws'] = self.sub_features['description']
+		else:
+			try:
+				self.parent.advantages['skills'][self.sub_features['skill']] += f"{self.sub_features['description']}BREAK"
+			except:
+				self.parent.advantages['skills'][self.sub_features['skill']] = f"{self.sub_features['description']}BREAK"
+
+	def get_sub_feature(self, key):
+		try:
+			if self.sub_features[key].lower() == 'none':
+				return None
+			return self.sub_features[key]
+		except KeyError:
+			return None
+
+	@staticmethod
+	def apply_description_tables(desc, rng):
+		split_desc = desc.split('#')
+		for j in split_desc:
+			if j != '':
+				if j[0] == '!':
+					split_desc[split_desc.index(j)] = rng.choice(ResourceLoader.get_instance().get_table(j[1:]))
+			# else:
+			# 	split_desc[split_desc.index(j)] = j.strip()
+
+		return ''.join(split_desc)
+
+	def __repr__(self):
+		return self.f_id
+
+
+
+class Feat():
+	def __init__(self, parent, name):
+		self.parent = parent
+		self.name = name
+
+		self.apply_asi()
+		self.fix_description()
+
+	def apply_asi(self):
+		self.asi = ResourceLoader.get_instance().get_feat_asi(self.name)
+		self.parent.apply_race_asi_bonuses(self.asi)
+
+	def fix_description(self):
+		self.description = ResourceLoader.get_instance().get_feat_description(self.name)
+
+		desc_exts = ResourceLoader.get_instance().get_feat_description_extensions(self.name)
+
+		for de in desc_exts:
+			if float(de[0]) >= self.parent.rng.random():
+				self.description += de[1]
+
+		self.description = Feature.apply_description_tables(self.description, self.parent.rng)
+
+
+	def __repr__(self):
+		return self.description[:30]
+
+
 
 
 class NPC():
-	LANGUAGES = [	'Aarakocran', 'Abyssal', 'Aquan', 'Auran', 'Blink', 'Bothii', 'Bullywug', 'Celestial', 'Common', 'Deep', 'Dog', 'Draconic', 
+	LANGUAGES = [	
+					'Aarakocran', 'Abyssal', 'Aquan', 'Auran', 'Blink', 'Bothii', 'Bullywug', 'Celestial', 'Common', 'Deep', 'Dog', 'Draconic', 
 					'Dwarvish', 'Eagle', 'Elk', 'Elvish', 'Giant', 'Giant', 'Giant', 'Giant', 'Gith', 'Gnoll', 'Gnomish', 'Goblin', 'Grell', 
 					'Grung', 'Hadozee', 'Halfling', 'Hook', 'Horror', 'Hulk', 'Ignan', 'Infernal', 'Ixitxachitl', 'Kothian', 'Kraul', 'Kruthik', 
 					'Leonin', 'Loxodon', 'Merfolk', 'Minotaur', 'Modron', 'Olman', 'Orc', 'Otyugh', 'Owl', 'Primal', 'Primordial', 'Sahuagin', 
@@ -346,16 +407,24 @@ class NPC():
 		self.cls_bool = self.options['occupation'].value in ResourceLoader.get_instance().get_list('classes')
 		
 		self.abilities = {ability_type:Ability(ability_type, self) for ability_type in Ability.TYPES}
-
-		self.features = {}
-		self.actions = {}
 		self.feats = {}
+
+		self.appearances = {}
+		self.speeds = {'walking':'30', 'flying':None, 'swimming':None}
+
 		self.spellcasting = None
+		self.features = []
+		self.actions = {k:[] for k in Feature.ACTION_TYPES}
+		self.bonuses = {k:0 for k in Feature.BONUS_TYPES}
+		self.defenses = {k:[] for k in Feature.DEFENSE_TYPES}
 
-		# self.generate_base()
+		self.advantages = {'saving_throws':[], 'skills':{}} 
+		
+		self.traits = {}
+		self.pronoun = {'Male':'He', 'Female':'She'}[self.get_option_value('sex')]
+		self.pets = {}
+
 		self.generate()
-
-		# self.generate_ac_initiative()
 
 	def generate(self):
 		race = self.get_option_value('race')
@@ -365,14 +434,18 @@ class NPC():
 		RL = ResourceLoader.get_instance()
 		
 		## NAME
-		try:
-			self.name = self.rng.choice(RL.get_name_list(race, sex))
-		except ValueError as e:
-			print("No names for that race currently. Maybe you didn't update names.xml using name_automator.py.", f'"{e}"')
-			self.name = '???'
-
+		self.name = self.get_name()
+		
 		## RACE TYPE
 		self.race_type = self.rng.choice(RL.get_race_type_choices(race))
+
+		## SUBCLASS
+		self.subclass = RL.get_subclass(self.get_option_value('occupation'))
+		
+		## SPELLCASTING 
+		cls_spellcasting = RL.get_spellcasting_ability(self.get_option_value('occupation'), self.subclass)
+		self.spellcasting = Spellcasting(self, *cls_spellcasting)
+
 
 		## RACE ABILITY SCORE IMPROVEMENT & ASI/FEATS
 		race_asi = RL.get_race_asi(race, self.race_type)
@@ -381,13 +454,10 @@ class NPC():
 		# if self.cls_bool: # MAYBE KEEP THIS
 		self.add_asi_and_feats()
 
-		Feat(self, 'Aberrant Dragonmark')
-
 
 		## SIZE, SPEEDS, LANGUAGES
 		self.size = self.rng.choice(RL.get_size(race, self.race_type).split(';'))
 
-		self.speeds = {'walking':'30', 'flying':None, 'swimming':None}
 		self.speeds.update(RL.get_speeds(race, self.race_type))
 
 		self.languages = RL.get_languages(race, self.race_type)
@@ -401,8 +471,13 @@ class NPC():
 		self.darkvision = RL.get_darkvision(race, self.race_type)
 
 
+		## BASE STATS
+		die = 8 if self.size == 'medium' else 6
+		self.base_hp = sum(np.array(self.rng.choice(die, self.get_option_value('level')) + 1))
+
+
+
 		## APPEARENCES; HEIGHT, WEIGHT, AGE
-		self.appearances = {}
 		height_weight_dict = RL.get_height_weight(race, self.race_type)
 
 		self.appearances['height'] = self.get_height_weight_value(height_weight_dict, 'height')
@@ -438,29 +513,64 @@ class NPC():
 		race_features = RL.get_racial_features(race, self.race_type)
 		self.add_features(race_features)
 
-		## SUBCLASS
-		self.subclass = RL.get_subclass(self.get_option_value('occupation'))
-		### YOU CAN SET SUBCLASS HERE BECAUSE THE SUBCLASS.XML FEATURES HAVE LEVEL REQUIREMENT SO IF YOU GET THE SUBCLASS IN LEVEL 4 YOU WILL HAVE THE SUBCLASS BUT NONE OF
-		### THE FEATURES
-		
-		## SPELLCASTING 
-		cls_spellcasting = RL.get_spellcasting_ability(self.get_option_value('occupation'), self.subclass)
-		self.spellcasting = Spellcasting(self, *cls_spellcasting)
-
-		# print(self.spellcasting)
+		## CLASS FEATURES
+		if self.cls_bool:
+			class_features = RL.get_features('classes', self.get_option_value('occupation'), self.rng)
+			sub_class_features = RL.get_features('subclasses', self.subclass, self.rng)
+			
+			self.add_features(class_features)
+			self.add_features(sub_class_features)
 
 
-		### MAYBE TRY TO MAKE EVERY THING INTO FEATURES, AND HAVE IN THE XML FILE SO THEY HAVE A TYPE AND THEN MAKE A "FEATURE" CLASS AND 
-		### HAVE GENERATION FOR EVERY TYPE OF FEATURE, LIKE 'ADDITIONAL SPELL' OR 'ADDITIONAL ACTION' AND THAT CLASS SHOULD MAYBE HAVE A 
-		### PARENT VARIABLE TO BE ABLE TO DO THINGS IN THE NPC CLASS LIKE "ADD_SPELL()" FROM THE FEATURE CLASS
-		### THIS COULD ALSO BE USED WHEN MAKING FEATS LATER ON, SO ITS FOR RACE, CLASS, AND FEATS
+		## TRAITS
+		traits = self.rng.choice(RL.get_list('traits'), size=self.rng.choice((1, 2, 3, 4, 5), p=[0.18, 0.28, 0.18, 0.18, 0.18]), replace=False)
+		for trait in traits:
+			self.traits[trait] = RL.get_instance().get_trait_description(trait)
 
-		### MAYBE HAVE A WHOLE "SPELLCASTING" CLASS 
 
-		# self.actions = {k:Action(v[0], v[1]) for k, v in RL.get_race_actions(race, self.race_type).items() if int(v[1]['level_req']) <= self.options['level'].value}
+		## PETS
+		num_pets = self.rng.choice((2, 1, 2), p=[0.4, 0.5, 0.1])
+		for i in range(num_pets):
+			pet_cr = round(min(self.get_option_value('level') + abs(self.rng.choice([0, self.rng.normal(0, 1), self.rng.normal(0, 3.2)], p=[0.2, 0.4, 0.4])), 28))
+			pet = self.rng.choice(RL.get_instance().get_pet_choices(pet_cr))
+			pet_dict = RL.get_pet_attribs(pet)
+			pet_dict['name'] = self.get_name()
+			self.pets[pet] = pet_dict
+
+
+		## WEAPON AND ARMOR
+		if self.cls_bool:
+			weapon_choice = self.rng.choice(RL.get_gear_choices(self.proficiencies, 'weapons'))
+			self.weapon = weapon_choice
+
+			armor_choice = self.rng.choice(RL.get_gear_choices(self.proficiencies, 'armors'))
+			self.armor = armor_choice
+		else:
+			self.weapon, self.armor = "Unarmed", "Unarmored"
+
+
+		print(
+			self.features, 
+			"\n"*2, self.actions, 
+			"\n"*2, self.spellcasting, 
+			"\n"*2, self.bonuses, 
+			"\n"*2, self.defenses, 
+			"\n"*2, self.proficiencies, 
+			"\n"*2, self.traits,
+			"\n"*2, self.feats,
+			# "\n"*2, self.pets,
+			"\n"*5
+			)
 
 	def get_option_value(self, key):
 		return self.options[key].value
+
+	def get_name(self):
+		try:
+			return self.rng.choice(ResourceLoader.get_instance().get_name_list(self.get_option_value('race'), self.get_option_value('sex')))
+		except ValueError as e:
+			print("No names for that race currently. Maybe you didn't update names.xml using name_automator.py.", f'"{e}"')
+			return '???'
 
 	def add_asi_and_feats(self):
 		lvls = np.arange(self.options['level'].value)+1
@@ -485,21 +595,61 @@ class NPC():
 			if lvls[lvl]:
 				choice = self.rng.choice(list(choices.keys()), p=list(choices.values()))
 				if choice == 'feat':
-					for f in self.feats.keys():
-						feat_choices.remove(f)
+					while True:
+						feat = self.rng.choice(feat_choices)
+						if feat not in self.feats.keys():
+							self.feats[feat] = Feat(self, feat)
+							feat_features = ResourceLoader.get_instance().get_features('feats', feat, self.rng)
+							self.add_features(feat_features)
+							break
 
-					feat = Feat(self, self.rng.choice(feat_choices))
+						elif len(self.feats.keys()) >= len(feat_choices):
+							break
 				
 				else:
 					for bonus in choice.split('+'):
 						self.abilities[self.rng.choice(Ability.TYPES)].add_bonus(bonus)
 
+	def apply_race_asi_bonuses(self, race_asi):
+		for key, value in race_asi.items():
+			if key == 'lineage':
+				choice = self.rng.choice(['2+1', '1+1+1'])
+				ability_types = Ability.TYPES.copy()
+
+				for value in choice.split('+'):
+					ability_choice = self.rng.choice(ability_types)
+					self.abilities[ability_choice].add_bonus(value)
+					ability_types.remove(ability_choice)
+
+			elif key == 'choose':
+				ability_types = Ability.TYPES.copy()
+				try:
+					ability_types.remove(list(race_asi.keys())[0])
+				except ValueError:
+					pass
+
+				range_bonus = value.split(';')
+
+				for _ in range(int(range_bonus[0])):
+					ability_choice = self.rng.choice(ability_types)
+					self.abilities[ability_choice].add_bonus(range_bonus[1])
+					ability_types.remove(ability_choice)
+
+			elif key == 'pick':
+				choices = value.split(';')[:2]
+				self.abilities[self.rng.choice(choices)].add_bonus(value.split(';')[2])
+
+			else:
+				self.abilities[key].add_bonus(value)
 
 	def add_features(self, dict_):
 		for feature_id in dict_:
 			feature_dict = dict_[feature_id]
 			if int(feature_dict['lvl_req']) <= self.get_option_value('level'):
 				Feature(self, feature_id, feature_dict['type'], feature_dict['sub_features'])
+
+
+
 
 
 	def get_height_weight_value(self, dict_, t):
@@ -542,17 +692,21 @@ class NPC():
 
 		
 
+
+
+	def get_ac(self):
+		return 10
+
 	def get_proficiency_bonus(self):
 		return 2 + (self.options['level'].value-1)//4
 
 	def get_hit_points(self):
-		die = 8 if self.size == 'medium' else 6
-		hp_arr = np.array(self.rng.choice(die, self.options['level'].value) + 1) + self.abilities['CONSTITUTION'].get_modifier()
-		return max(sum(hp_arr), 1)
+		hp = self.base_hp + self.abilities['CONSTITUTION'].get_modifier()*self.get_option_value('level')
+		return max(hp, 1)
 
 	def get_intiative_bonus(self):
 		dex_mod = self.abilities['DEXTERITY'].get_modifier()
-		initiative = f"+{dex_mod}" if dex_mod > 0 else dex_mod
+		initiative = f"+{dex_mod}" if dex_mod >= 0 else dex_mod
 		return initiative
 
 	def get_speeds(self):
@@ -562,53 +716,18 @@ class NPC():
 
 		return speeds
 
-	def get_skill(self, name):
+	def get_skill(self, skill_name):
 		skill_dict = ResourceLoader.get_instance().get_equipment_list('skill')
 		skill_list = {s['name']:s['ability'] for s in skill_dict}
 
 		for skill in skill_list:
-			if skill == name:
-				value = 10 + self.abilities[skill_list[skill]].get_modifier()
-				value += self.get_proficiency_bonus() if skill in self.proficiencies['skills'] else 0
+			if skill == skill_name:
+				value = self.abilities[skill_list[skill]].get_modifier()
 
 				return value
 
 		return 0
 
-
-
-
-	def apply_race_asi_bonuses(self, race_asi):
-		for key, value in race_asi.items():
-			if key == 'lineage':
-				choice = self.rng.choice(['2+1', '1+1+1'])
-				ability_types = Ability.TYPES.copy()
-
-				for value in choice.split('+'):
-					ability_choice = self.rng.choice(ability_types)
-					self.abilities[ability_choice].add_bonus(value)
-					ability_types.remove(ability_choice)
-
-			elif key == 'choose':
-				ability_types = Ability.TYPES.copy()
-				try:
-					ability_types.remove(list(race_asi.keys())[0])
-				except ValueError:
-					pass
-
-				range_bonus = value.split(';')
-
-				for _ in range(int(range_bonus[0])):
-					ability_choice = self.rng.choice(ability_types)
-					self.abilities[ability_choice].add_bonus(range_bonus[1])
-					ability_types.remove(ability_choice)
-
-			elif key == 'pick':
-				choices = value.split(';')[:2]
-				self.abilities[self.rng.choice(choices)].add_bonus(value.split(';')[2])
-
-			else:
-				self.abilities[key].add_bonus(value)
 
 		#GET HEALTH/AC
 	# def generate_ac_initiative(self):
@@ -633,36 +752,79 @@ class NPC():
 
 		html += '}</style> </head> <body>'
 		## BODY
-
-		# for page_clr in page_colors:
-		# 	clr = page_colors[page_clr]
-		# 	html += f'<div class="page" style="background: {darken_color(clr, 0.6)};border: 4px solid {clr};height: 20%;"></div>'
-
 		### SUMMARY
 		html += '<div class="page">'
 
-		html += '<div class="preview-header"> <div class="preview-header_summary"> <div style="font-size: 32px;font-weight: bold;">'
-		html += self.name
-		html += '</div> <div>'
-		html += f'{self.options["sex"].value} {self.options["race"].value} {self.options["occupation"].value}'
-		html += '</div> <div>'
-		html += f'Level {self.options["level"].value}'
-		html += '</div> <div>'
-		html += f'Feats: '
+		html += '	<div class="preview-header"> <div class="preview-header_summary"> <div style="font-size: 32px;font-weight: bold;">'
+		html += 	self.name
+		html += '	</div> <div>'
+		html += f'	{self.options["sex"].value} {self.options["race"].value} {self.options["occupation"].value}'
+		html += '	</div> <div>'
+		html += f'	Level {self.options["level"].value}'
+		html += '	</div>'
 
-		html += '</div> </div> </div> </div> </div> <div>'
+		if len(self.feats) != 0:
+			html += f'<div>Feats: {", ".join(list(self.feats.keys()))}</div>'
+
+		html += '</div> </div>'
 
 		### STATBLOCK
-		html += '<div class="preview-content"> <div class="preview-content_statblock"> <div style="font-size:40px;font-weight: bold;"> '
-		html += f'{self.name} ({self.options["occupation"].value})'
-		html += '<div style="font-style: italic;"> '
-		html += f'{self.size.title()} humaniod ({self.options["race"].value})'
+		html += '<div class="preview-content">'
+		html += '<div class="preview-content_statblock">'
 
-		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"></polyline> </svg>  <div><span style="font-weight: bold;">Armor Class</span> '
+		html += f'<div style="font-size:40px;font-weight: bold;">{self.name} (Level {self.get_option_value("level")} {f"{self.subclass}," if self.subclass is not None else ""} {self.get_option_value("occupation")})</div>'
+		html += f'<div style="font-style: italic;">{self.size.title()} humaniod ({self.get_option_value("race")})</div>'
+		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"></polyline> </svg>'
+
+		html += f'<div><span style="font-weight: bold;">Armor Class</span>{self.get_ac()} ({self.armor})</div>'
+		html += f'<div><span style="font-weight: bold;">Hit Points:</span><span contenteditable="true">{self.get_hit_points()}</span>/{self.get_hit_points()}</div>'
+		html += f'<div><span style="font-weight: bold;">Speed</span>: {self.get_speeds()["Walking Speed"]} ft.</div>'
+		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"></polyline> </svg>'
+
+		html += '<div class="preview-content_statblock_abilities">'
+
+		for ability_str in self.abilities:
+			html += HF.statblock_abilities(self, ability_str)
+
+		html += '</div>' #preview-content_statblock_abilities
+		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"> </polyline></svg>'
+
+		if len(self.proficiencies['saving_throws']) > 0:
+			html += '<div> <span style="font-weight: bold;">Saving Throws </span>' 
+			for st_ab in self.proficiencies['saving_throws']:
+				html += HF.statblock_saving_throws(self, st_ab)
+			html +='</div>'
 
 
+		html += '<div> <span style="font-weight: bold;">Skills </span>' 
+		for skill_prof in self.proficiencies['skills']:
+			html += HF.statblock_skills(self, skill_prof)
+		html +='</div>'
 
-		# html += '  <div class="preview-content"> <div class="preview-content_statblock"> <div style="font-size:40px;font-weight: bold;"> '
+		html += '<div> <span style="font-weight: bold;">Senses </span>' 
+		html += f'Passive Perception {self.get_skill("Perception") +10}'
+		if self.darkvision is not None:
+			html += f', Darkvision {self.darkvision} ft.'
+		html +='</div>'
+
+		html += '<div> <span style="font-weight: bold;">Languages </span>' 
+		html += ', '.join(self.languages)
+		html +='</div>'
+
+		html += '<div> <span style="font-weight: bold;">Proficiency Bonus </span>' 
+		html += f'+{self.get_proficiency_bonus()}'
+		html +='</div>'
+		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"> </polyline></svg>'
+
+		html += '</div>' #preview-content_statblock
+		
+
+		html += '<div class="preview-content_description">'
+
+		html += '</div>' #preview-content_description
+
+
+		html += '</div>' #preview-content
 
 		## FINISH
 		html += '</body> </html>'
@@ -700,6 +862,9 @@ class MainFrame(tk.Frame):
 			lbl.place(relx=0.1, rely=((0.1 + self.opt_list.index(opt)/10)-0.035), anchor='c')
 
 			string_var = tk.StringVar(self, '--Random--')
+			
+			# if opt == 'Occupation': ### ! REMOVE THIS
+			# 	string_var = tk.StringVar(self, 'Artificer')
 
 			self.opt_string_vars[opt] = string_var
 			
@@ -879,16 +1044,7 @@ class Main():
 		opts["rng_seed"] = self.rng_object.seed
 
 		self.current_npc = NPC(self.rng_object, {k.lower().replace(' ', '_'):v for k, v in opts.items()})
-		child.create_preview(self.current_npc)
-
-
-		# ## APPEARENCE AND TRAITS
-		# appr = self.resource_loader.get_appearances(rng, npc.get_tag('Race'), npc.get_tag('Subrace'))
-
-
-		# npc.set_tag('Appearance', {k:v for k, v in appr.items() if 'base' not in k and 'mod' not in k})
-
-		
+		child.create_preview(self.current_npc)		
 
 
 		# ### TRAITS
@@ -901,8 +1057,6 @@ class Main():
 		# if npc.get_tag('class_bool'):
 
 		# 	## CLASS PROFICIENCIES
-		# 	npc.set_tag("Class Proficiencies", self.resource_loader.get_proficiencies(rng, npc.get_tag('Occupation')))
-
 		# 	## WEAPONS AND ARMOR
 		# 	npc.set_tag("Weapon", self.resource_loader.get_weapon(rng, npc.get_tag('Class Proficiencies')['weapons']))
 

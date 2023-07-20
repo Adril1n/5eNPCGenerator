@@ -21,17 +21,8 @@
 		<description_extension prob="0.01" value="The Gods have granted you an Epic Boon: #!epic_boons#BREAK"/>
 
 		<features>
-			<feature type="add_spell_random" value="Cantrip;Sorcerer"/>
-			<feature type="add_spell_random" value="1st;Sorcerer"/>
+			<feature id="Aberrant Dragonmark Spells"/>
 		</features>
-
-		<!-- <datadict>
-			<dataval key="asi" value="CON,1"/>
-			<dataval key="extended_spell_list" value="CON:1,Cantrip_Sorcerer:1,1st_Sorcerer"/>
-			<dataval key="description" value="When you cast the 1st-level spell through your mark, you can expend one of your Hit Dice and roll it. If you roll an even number, you gain a number of temporary hit points equal to the number rolled. If you roll an odd number, one random creature within 30 feet of you (not including you) takes force damage equal to the number rolled. If no other creatures are in range, you take the damage."/>
-			<dataval key="flavour" value="1;Your mark is a source of constant physical pain.;Your mark whispers to you. Its meaning can be unclear.;When you're stressed, the mark hisses audibly.;The skin around the mark is burned, scaly, or withered.;Animals are uneasy around you.;You have a mood swing any time you use your mark.;Your looks change slightly whenever you use the mark.;You have horrific nightmares after you use your mark."/>
-			<dataval req="10|0.1" key="optional_feature" value="1;Boon of Combat Prowess;Boon of Dimensional Travel;Boon of Fate;Boon of Fortitude;Boon of High Magic;Boon of Immortality;Boon of Invincibility;Boon of Irresistible Offense;Boon of Luck;Boon of Magic Resistance;Boon of Peerless Aim;Boon of Perfect Health;Boon of Planar Travel;Boon of Quick Casting;Boon of Recovery;Boon of Resilience;Boon of Skill Proficiency;Boon of Speed;Boon of Spell Mastery;Boon of Spell Recall;Boon of the Fire Soul;Boon of the Night Spirit;Boon of the Stormborn;Boon of the Unfettered;Boon of Truesight;Boon of Undetectability"/>
-		</datadict> -->
 	</feat>
 	<feat name="Actor">
 		<abilities>
@@ -44,14 +35,6 @@
 			You can mimic the speech of another person or the sounds made by other creatures. You must have heard the person speaking, or heard the creature make the sound, for at least 1 minute. A successful Wisdom (Insight) check contested by your Charisma (Deception) check allows a listener to determine that the effect is faked.
 			"/>
 		<features>
-			<feature type="add_spell_random" value="random;random"/>
 		</features>
-	<!-- 	<datadict>
-			<dataval key="asi" value="CHA,1"/>
-			<dataval key="extended_spell_list" value=""/>
-			<dataval key="description" value="You have advantage on Charisma (Deception) and Charisma (Performance) checks when trying to pass yourself off as a different person. You can mimic the speech of another person or the sounds made by other creatures. You must have heard the person speaking, or heard the creature make the sound, for at least 1 minute. A successful Wisdom (Insight) check contested by your Charisma (Deception) check allows a listener to determine that the effect is faked."/>
-			<dataval key="flavour" value=""/>
-			<dataval req="0|0" key="optional_feature" value=""/>
-		</datadict> -->
 	</feat>
 </feats>

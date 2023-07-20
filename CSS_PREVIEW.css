@@ -1,7 +1,7 @@
 html {
 	background: grey;
 	font-family: Athelas,Roboto,Helvetica,sans-serif;
-	font-size: 20px;
+	font-size: 24px;
 	box-sizing: border-box;
 	color: white;
 }
@@ -61,6 +61,7 @@ html {
 
 .preview-content_statblock {
 	width: 55%;
+	height: 103%;
 
 	margin-right: 5%;
 	overflow-y: scroll;
@@ -76,6 +77,8 @@ html {
 
 .npc_statblock_break {
 	fill: var(--preview-border-color);
+	margin-top: 1%;
+	margin-bottom: 1%;
 }
 
 .preview-content_statblock_action {
@@ -94,6 +97,7 @@ html {
 
 .preview-content_description {
 	width: 40%;
+	height: 101%;
 
 	overflow-y: scroll;
 	padding: 1% 1%;
@@ -153,6 +157,8 @@ a.preview-content_statblock_href {
 	padding-bottom: 1%;
 	border: 4px outset; black;
 	font-size: 22px;
+	height: 55%;
+	margin-top: 1%;
 
 	background: var(--quick-info-background-color);
 	border-color: inherit;	
@@ -217,7 +223,6 @@ a.preview-content_statblock_href {
 .sheet-sections {
 	width: 98%;
 	height: 76%;
-	margin-top: 2%;
 	padding: 1% 1%;
 /*	background: black;*/
 }
@@ -656,13 +661,13 @@ table.skills, th.skills, td.skills {
 	flex-wrap: wrap;
 	justify-content: space-around;
 	padding-top: 2%;
-	margin-top: -5%;
+	margin-top: -8%;
 }
 
 .text-box {
 	overflow-y: scroll;
-	height: 47%;
-	width: 44%;
+	height: 48%;
+	width: 45%;
 	padding: 0 1%;
 
 	border: 5px double black;

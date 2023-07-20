@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <random_tables>
+	<!-- FEATS -->
 	<table name="abberant_dragonmark_flaws">
 		<item value="Your mark is a source of constant physical pain."/>
 		<item value="Your mark whispers to you. Its meaning can be unclear."/>
@@ -38,5 +39,30 @@
 		<item value="Boon of the Unfettered"/>
 		<item value="Boon of Truesight"/>
 		<item value="Boon of Undetectability"/>
+	</table>
+
+
+
+	<!-- CLASSES-->
+	<table name="damage_types">
+		<item value="Acid"/>
+		<item value="Cold"/>
+		<item value="Fire"/>
+		<item value="Force"/>
+		<item value="Lightning"/>
+		<item value="Necrotic"/>
+		<item value="Poison"/>
+		<item value="Psychic"/>
+		<item value="Radiant"/>
+		<item value="Thunder"/>
+	</table>
+
+	<table name="experimental_elixir">
+		<item value="Healing. The drinker regains a number of hit points equal to 2d4 + $!INTELLIGENCE$."/>
+		<item value="Swiftness. The drinker's walking speed increases by 10 feet for 1 hour."/>
+		<item value="Resilience. The drinker gains a +1 bonus to AC for 10 minutes."/>
+		<item value="Boldness. The drinker can roll a d4 and add the number rolled to every attack roll and saving throw they make for the next minute."/>
+		<item value="Flight. The drinker gains a flying speed of 10 feet for 10 minutes."/>
+		<item value="Transformation. The drinker's body is transformed as if by the alter self spell. The drinker determines the transformation caused by the spell, the effects of which last for 10 minutes."/>
 	</table>
 </random_tables>

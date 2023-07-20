@@ -26,7 +26,7 @@ for key in dict_:
 
 	sub_element = ET.SubElement(root, 'pet', name=key, cr=k[20].split(' (')[0])
 	for header in headers:
-		sub_sub_element = ET.SubElement(sub_element, header, value=k[headers.index(header)])
+		sub_sub_element = ET.SubElement(sub_element, 'dataval', key=header.lower().replace(' ', '_'), value=k[headers.index(header)])
 		sub_element.extend(sub_sub_element)
 
 tree = ET.ElementTree(root)

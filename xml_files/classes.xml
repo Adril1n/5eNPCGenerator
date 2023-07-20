@@ -2,35 +2,14 @@
 
 <classes>
 	<class name="Artificer">
-		<!-- <datadict>
-
-			<dataval key="features" value="dict">
-				<feature req="1" key="Spellcasting" value="dict_spellcasting">
-					<property key="Spellcasting Ability" value="INT"/>
-					<property key="max_spell_lvl" value="5"/>
-				</feature>
-
-				<feature req="2" key="Infused Item" value="dict_lvl_choice">
-					<lvl key="0" value="Armor of Magical Strength:Enhanced Arcane Focus:Enhanced Defense:Enhanced Weapon:Homunculus Servant:Mind Sharpener:Repeating Shot:Replicate Magic Item:Returning Weapon"/>
-					<lvl key="6" value="Boots of the Winding:Radiant Weapon:Repulsion Shield:Resistant Armor:Spell-Refueling Ring"/>
-					<lvl key="10" value="Helm of Awereness"/>
-					<lvl key="14" value="Arcane Propulsion Armor"/>
-				</feature>
-
-				<feature req="6" key="Tool Expertise" value="Your proficiency bonus is doubled for any ability check you make that uses your proficiency with a tool."/>
-				<feature req="7" key="Flash of Genius" value="When you or another creature you can see within 30 feet of you makes an ability check or a saving throw, you can use your reaction to add %%INT%% to the roll."/>
-				<feature req="11" key="Spell-Storing Item" value="(%%INT*2%%/day): The NPC's Tinker's tools have one spell stored inside, spell: |1;spell_1;spell_2"/>
-
-				<feature req="20" key="Soul of Artifice" value="If you're reduced to 0 hit points but not killed outright, you can use your reaction to consume you Infused Item which causes you to drop to 1 hit point instead of 0."/>
-			</dataval>
-		</datadict> -->
 		<spellcasting ability="INTELLIGENCE" spells_per_level="0.0216:0.6509:3.3275"/>
+
 		<proficiencies>
-			<armor>
+			<armors>
 				<type value="light"/>
 				<type value="medium"/>
 				<type value="shields"/>
-			</armor>
+			</armors>
 			
 			<weapons>
 				<type value="simple"/>
@@ -39,7 +18,7 @@
 			<tools>
 				<type value="thieves'"/>
 				<type value="tinker's"/>
-				<type value="random"/>
+				<type value="alchemist's"/>
 			</tools>
 
 			<saving_throws>
@@ -51,15 +30,142 @@
 				<type value="2"/>
 			</skills>
 		</proficiencies>
+
+		<features>
+			<feature id="Artificer: Magical Tinkering"/>
+			<feature id="Artificer: Artificer Spellcasting"/>
+			<feature id="Artificer: Tools Required"/>
+			<feature id="Artificer: Artificer Ritual Casting"/>
+
+			<feature id="Artificer: Infuse Item"/>
+			<feature id="Artificer: Artificer Infusions"/>
+
+			<!-- 2nd level infusions -->
+			<feature id="choice" duplicates="0">
+				<choice id="Artificer: Armor of Magical Strength"/>
+				<choice id="Artificer: Enhanced Arcane Focus"/>
+				<choice id="Artificer: Enhanced Defense"/>
+				<choice id="Artificer: Enhanced Weapon"/>
+				<choice id="Artificer: Homunculus Servant"/>
+				<choice id="Artificer: Mind Sharpener"/>
+				<choice id="Artificer: Repeating Shot"/>
+				<choice id="Artificer: Returning Weapon"/>
+			</feature>
+			<feature id="choice" duplicates="0">
+				<choice id="Artificer: Armor of Magical Strength"/>
+				<choice id="Artificer: Enhanced Arcane Focus"/>
+				<choice id="Artificer: Enhanced Defense"/>
+				<choice id="Artificer: Enhanced Weapon"/>
+				<choice id="Artificer: Homunculus Servant"/>
+				<choice id="Artificer: Mind Sharpener"/>
+				<choice id="Artificer: Repeating Shot"/>
+				<choice id="Artificer: Returning Weapon"/>
+			</feature>
+
+			<!-- 6th level infusion -->
+			<feature id="choice" duplicates="0">
+				<choice id="Artificer: Armor of Magical Strength"/>
+				<choice id="Artificer: Enhanced Arcane Focus"/>
+				<choice id="Artificer: Enhanced Defense"/>
+				<choice id="Artificer: Enhanced Weapon"/>
+				<choice id="Artificer: Homunculus Servant"/>
+				<choice id="Artificer: Mind Sharpener"/>
+				<choice id="Artificer: Repeating Shot"/>
+				<choice id="Artificer: Returning Weapon"/>
+
+				<choice id="Artificer: Boots of the Winding Path"/>
+				<choice id="Artificer: Radiant Weapon"/>
+				<choice id="Artificer: Repulsion Shield"/>
+				<choice id="Artificer: Resistant Armor"/>
+				<choice id="Artificer: Spell-Refueling Ring"/>
+			</feature>
+
+			<!-- 10th level infusion -->
+			<feature id="choice" duplicates="0">
+				<choice id="Artificer: Armor of Magical Strength"/>
+				<choice id="Artificer: Enhanced Arcane Focus"/>
+				<choice id="Artificer: Enhanced Defense"/>
+				<choice id="Artificer: Enhanced Weapon"/>
+				<choice id="Artificer: Homunculus Servant"/>
+				<choice id="Artificer: Mind Sharpener"/>
+				<choice id="Artificer: Repeating Shot"/>
+				<choice id="Artificer: Returning Weapon"/>
+
+				<choice id="Artificer: Boots of the Winding Path"/>
+				<choice id="Artificer: Radiant Weapon"/>
+				<choice id="Artificer: Repulsion Shield"/>
+				<choice id="Artificer: Resistant Armor"/>
+				<choice id="Artificer: Spell-Refueling Ring"/>
+
+				<choice id="Artificer: Helm of Awareness"/>
+			</feature>
+
+			<!-- 14th level infusion -->
+			<feature id="choice" duplicates="0">
+				<choice id="Artificer: Armor of Magical Strength"/>
+				<choice id="Artificer: Enhanced Arcane Focus"/>
+				<choice id="Artificer: Enhanced Defense"/>
+				<choice id="Artificer: Enhanced Weapon"/>
+				<choice id="Artificer: Homunculus Servant"/>
+				<choice id="Artificer: Mind Sharpener"/>
+				<choice id="Artificer: Repeating Shot"/>
+				<choice id="Artificer: Returning Weapon"/>
+
+				<choice id="Artificer: Boots of the Winding Path"/>
+				<choice id="Artificer: Radiant Weapon"/>
+				<choice id="Artificer: Repulsion Shield"/>
+				<choice id="Artificer: Resistant Armor"/>
+				<choice id="Artificer: Spell-Refueling Ring"/>
+
+				<choice id="Artificer: Helm of Awareness"/>
+
+				<choice id="Artificer: Arcane Propulsion Armor"/>
+			</feature>
+
+			<!-- 18th level infusion -->
+			<feature id="choice" duplicates="0">
+				<choice id="Artificer: Armor of Magical Strength"/>
+				<choice id="Artificer: Enhanced Arcane Focus"/>
+				<choice id="Artificer: Enhanced Defense"/>
+				<choice id="Artificer: Enhanced Weapon"/>
+				<choice id="Artificer: Homunculus Servant"/>
+				<choice id="Artificer: Mind Sharpener"/>
+				<choice id="Artificer: Repeating Shot"/>
+				<choice id="Artificer: Returning Weapon"/>
+
+				<choice id="Artificer: Boots of the Winding Path"/>
+				<choice id="Artificer: Radiant Weapon"/>
+				<choice id="Artificer: Repulsion Shield"/>
+				<choice id="Artificer: Resistant Armor"/>
+				<choice id="Artificer: Spell-Refueling Ring"/>
+
+				<choice id="Artificer: Helm of Awareness"/>
+
+				<choice id="Artificer: Arcane Propulsion Armor"/>
+			</feature>
+
+			<feature id="Artificer: The Right Tool for the Job"/>
+			<feature id="Artificer: Tool Expertise"/>
+			<feature id="Artificer: Flash of Genius"/>
+
+			<feature id="Artificer: Magic Item Adept"/>
+			<feature id="Artificer: Spell-Storing Item"/>
+			<feature id="Artificer: Magic Item Savant"/>
+			<feature id="Artificer: Magic Item Master"/>
+			
+			<feature id="Artificer: Soul of Artifice"/>
+		</features>
+
 	</class>
 	<class name="Bard">
 		<spellcasting ability="CHARISMA" spells_per_level="-0.05:2.23:1.82"/>
+
 		<proficiencies>
-			<armor>
+			<armors>
 				<type value="light"/>
 				<type value="medium"/>
 				<type value="shields"/>
-			</armor>
+			</armors>
 			
 			<weapons>
 				<type value="simple"/>
@@ -80,5 +186,9 @@
 				<type value="2"/>
 			</skills>
 		</proficiencies>
+
+		<features>
+			<feature/>
+		</features>
 	</class>
 </classes>

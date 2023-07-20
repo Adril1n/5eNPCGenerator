@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 
 <races>
-
 	<!-- AARAKOCRA -->
 	<race name="Aarakocra">
 		<type name="Aarakocra (DMG)">
@@ -12,6 +11,8 @@
 			
 			<size value="medium"/>
 			
+			<darkvision value="60"/>
+
 			<speeds>
 				<speed key="walking" value="20"/>
 				<speed key="flying" value="50"/>
@@ -37,28 +38,14 @@
 				<feature id="Talons (DMG)"/>
 			</features>
 			
-<!--			<dataval key="appearances" value="dict">
-				<appearance key="age" value="3-30"/>
-				<appearance key="size" value="medium"/>
+			<!-- <dataval key="appearances" value="dict">
 				<appearance key="skin_type" value="feathers"/>
 				<appearance key="skin_color" value="exotic"/>
 				<appearance key="eye_color" value="dark_basic"/>
-				
-				<appearance key="height_base" value="132"/>
-				<appearance key="height_mod" value="1-6"/>
-				<appearance key="weight_base" value="41"/>
-				<appearance key="weight_mod" value="1-6"/>
-			</dataval>
-
-			<dataval key="languages" value="dict">
-				<language key="Auran" value="speak, read, and write"/>
-			</dataval>
-
-			<dataval key="speeds" value="dict">
-				<speed key="walking" value="20"/>
-				<speed key="flying" value="50"/>
 			</dataval> -->
+
 		</type>
+
 		<type name="Aarakocra (EEPC)">
 			<abilities>
 				<ability key="DEXTERITY" value="2"/>

@@ -3,8 +3,8 @@
 <skills>
 	<skill name="Athletics" ability="STRENGTH"/>
 
-	<skill name="Acrobatics" ability="DEXTXTERITY"/>
-	<skill name="Sleight of Hand" ability="DEXTXTERITY"/>
+	<skill name="Acrobatics" ability="DEXTERITY"/>
+	<skill name="Sleight of Hand" ability="DEXTERITY"/>
 	<skill name="Stealth" ability="DEXTERITY"/>
 
 	<skill name="Arcana" ability="INTELLIGENCE"/>
