@@ -95,6 +95,14 @@ html {
 	padding-left: 20px;
 }
 
+.preview-content_statblock_description {
+	margin-bottom: 16px;
+	border: 3px double var(--preview-border-color);
+	max-height: 38%;
+	overflow-y: scroll;
+	padding: 1% 1%;
+}
+
 .preview-content_description {
 	width: 40%;
 	height: 101%;
@@ -116,11 +124,10 @@ html {
 }
 
 .preview-content_description_table {
-	width: 99%;
+	width: 102%;
 
 	display: grid;
 	grid-template-columns: 50% 50%;
-	grid-template-rows: auto auto auto auto;
 	text-align: center;
 	font-size: 24px;
 	border-color: var(--preview-border-color);
@@ -129,7 +136,7 @@ html {
 
 .preview-content_description_table_item {
 	padding: 2% 0;
-	border: 2px double white;
+	border: 3px double white;
 	border-color: inherit;
 	margin-bottom: 20px;
 }
@@ -152,13 +159,14 @@ a.preview-content_statblock_href {
 }
 
 .sheet-quick-info_summary {
-	width: 25%;
+	width: 28%;
 	padding: 0 1%;
 	padding-bottom: 1%;
 	border: 4px outset; black;
 	font-size: 22px;
-	height: 55%;
+	max-height: 72%;
 	margin-top: 1%;
+	overflow-y: scroll;
 
 	background: var(--quick-info-background-color);
 	border-color: inherit;	
@@ -250,7 +258,7 @@ a.preview-content_statblock_href {
 .saving-throws_container {
 	width: 35%;
 	height: 20%;
-	border: 5px ridge orange;
+	border: 3px solid orange;
 	margin-top: 1%;
 	display: flex;
 	justify-content: space-between;
@@ -272,6 +280,7 @@ a.preview-content_statblock_href {
 
 .saving-throws_header {
 	font-size: 24px;
+	text-align: center;
 }
 
 .saving-throws_advantage_false {
@@ -299,7 +308,7 @@ a.preview-content_statblock_href {
 	width: 30%;
 	height: 31%;
 	
-	border: 4px ridge; black;
+	border: 4px ridge black;
 	background: var(--sheet-background-color);
 	border-color: var(--sheet-border-color);
 
@@ -339,10 +348,11 @@ a.preview-content_statblock_href {
 	height: 20%;
 	margin-top: 1%;
 	display: flex;
-	border: 3px ridge orange;
+	border: 4px ridge orange;
 	box-sizing: border-box;
 	border-radius: 10%;
 	position: relative;
+	border-color: var(--sheet-border-color);
 }
 
 
@@ -381,7 +391,7 @@ a.preview-content_statblock_href {
 
 .proficiencies-languages_break {
 	margin: 2% 0;
-	border: 2px ridge; black;
+	border: 2px solid black;
 	border-color: var(--sheet-border-color);
 }
 
@@ -416,44 +426,58 @@ a.preview-content_statblock_href {
 	margin-top: 2%;
 	overflow-y: scroll;
 	height: 94%;
+	font-size: 20px;
 }
 
 table.skills, th.skills, td.skills {
-	border: 4px ridge; white;
+	border: 3px ridge; white;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	padding: 0 5px;
+	padding: 0 2px;
+	font-size: 20px;
 	border-color: var(--sheet-border-color);
 }
 
-.skills-advantage-false {
+
+
+.skills-advantage-False {
 	background-color: #c00;
 	border: 2px ridge black;
 	border-radius: 50%;
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 	margin-left: auto;
 	margin-right: auto;
 
 }
 
-.skills-advantage-true {
+.skills-advantage-True {
 	background-color: #0c0;
 	border: 2px ridge black;
 	border-radius: 50%;
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.skills-advantage-None {
+	background-color: white;
+	border: 2px ridge black;
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 .skills-bonus-button {
 	width: 100%;
-	height: 100%;
+	height: 50%;
 	border-radius: 10%;
 
-	margin: 10% 0;
+/*	margin: 10% 0;*/
 
 	background: none;
 
@@ -518,7 +542,7 @@ table.skills, th.skills, td.skills {
 	font-size: 40px;
 	font-family: Roboto;
 	font-weight: normal;
-	color: #888;
+	color: #bbb;
 }
 
 .stats_display_number {
@@ -599,7 +623,7 @@ table.skills, th.skills, td.skills {
 	width: 94%;
 	height: 25px;
 
-	border: 2px ridge; black;
+	border: 4px ridge black;
 	border-color: var(--sheet-border-color);
 
 	align-items: center;
@@ -607,7 +631,7 @@ table.skills, th.skills, td.skills {
 	padding-top: 8px;
 	padding-bottom: 8px;
 
-	font-size: 26px;
+	font-size: 34px;
 
 	margin-bottom: 8px;
 }
@@ -617,34 +641,37 @@ table.skills, th.skills, td.skills {
 }
 
 .defenses_display_icon_immunity {
-	border: 1px ridge #000;
+	border: 3px solid #000;
 	border-radius: 25%;
 	font-size: 32px;
 	width: 32px;
 	height: 32px;
 	text-align: center;
-	background: #0f0;
+
+	border-color: var(--sheet-border-color);
 }
 
 .defenses_display_icon_resistance {
-	border: 1px ridge #000;
+	border: 3px solid #000;
 	border-radius: 25%;
 	font-size: 32px;
 	width: 32px;
 	height: 32px;
 	text-align: center;
-	background: #00f;
+
+	border-color: var(--sheet-border-color);
 }
 
 
 .defenses_display_icon_vulnerability {
-	border: 1px ridge #000;
+	border: 3px solid #000;
 	border-radius: 25%;
 	font-size: 32px;
 	width: 32px;
 	height: 32px;
 	text-align: center;
-	background: #f00;
+
+	border-color: var(--sheet-border-color);
 }
 
 
@@ -656,12 +683,12 @@ table.skills, th.skills, td.skills {
 /*	background: #4db;*/
 /*	border: 2px double black;*/
 	width: 100%;
-	height: 100%;
+	height: 105.5%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	padding-top: 2%;
-	margin-top: -8%;
+	margin-top: -4%;
 }
 
 .text-box {
@@ -740,6 +767,9 @@ table.attack {
 	padding-left: 5px;
 	padding-top: 3px;
 	padding-bottom: 1%;
+
+	max-height: 60%;
+	overflow-y: scroll;
 }
 
 .spell-list-header {
@@ -856,14 +886,25 @@ a {
 .description-character-image {
 	background: var(--text-boxes-darker-background-color);
 	height: 48%;
-	width: 50%;
+	width: 100%;
 	margin-bottom: 2%;
 }
 
 .description-character-feature {
 	margin-bottom: 2%;
 	font-size: 24px;
+	max-height: 50%;
+	padding: 0.8% 0.8%;
+	overflow-y: scroll;
+	background: var(--text-boxes-darker-background-color);
+	border: 2px double black;
+	border-color: var(--text-boxes-border-color);
+}
 
+.description-character-feature-break {
+	fill: var(--text-boxes-spell-href-color);
+	margin-top: 1%;
+	margin-bottom: 2.5%;
 }
 
 .feat_container {
@@ -873,8 +914,8 @@ a {
 	background: var(--text-boxes-darker-background-color);
 	border: 2px double black;
 	border-color: var(--text-boxes-border-color);
-	padding: 1% 2%;
-	margin-bottom: 4%;
+	padding: 0% 2%;
+	margin-bottom: 3%;
 }
 
 .feat_header {
@@ -921,6 +962,7 @@ a {
 }
 
 .pet_block_statblock_feature {
+	margin-bottom: 10px;
 }
 
 .pet_block_statblock_feature_title {

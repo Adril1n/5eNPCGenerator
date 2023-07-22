@@ -32,6 +32,8 @@
 		</proficiencies>
 
 		<features>
+			<feature id="Artificer: Description"/>
+
 			<feature id="Artificer: Magical Tinkering"/>
 			<feature id="Artificer: Artificer Spellcasting"/>
 			<feature id="Artificer: Tools Required"/>
@@ -188,7 +190,7 @@
 		</proficiencies>
 
 		<features>
-			<feature/>
+			<feature id="N/A"/>
 		</features>
 	</class>
 </classes>

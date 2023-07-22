@@ -3,7 +3,7 @@ from numpy.random import default_rng, SeedSequence
 import numpy as np
 from PIL import Image, ImageTk
 import os
-import colorsys
+import webcolors 
 
 from functools import partial
 import tkinter.scrolledtext as scrolledtext
@@ -26,7 +26,7 @@ def darken_color(color, factor):
 	return f"#{r.zfill(2)}{g.zfill(2)}{b.zfill(2)}"
 
 
-def generate_page_colors(main_clr, noise_range=65):
+def generate_page_colors(main_clr, noise_range=60):
 	clrs = {}
 	rng = default_rng()
 
@@ -46,6 +46,29 @@ def generate_page_colors(main_clr, noise_range=65):
 		clrs[page] = "#" + hex(int(c[0]))[2:].zfill(2) + hex(int(c[1]))[2:].zfill(2) + hex(int(c[2]))[2:].zfill(2)
 
 	return clrs
+
+def closest_color(input_color):
+	min_colors = {}
+
+	for key, value in webcolors.CSS3_HEX_TO_NAMES.items():
+		r_c, g_c, b_c = webcolors.hex_to_rgb(key)
+		requested_color = webcolors.hex_to_rgb(input_color)
+		rd = (r_c - requested_color[0]) ** 2
+		gd = (g_c - requested_color[1]) ** 2
+		bd = (b_c - requested_color[2]) ** 2
+		d = rd + gd + bd
+		min_colors[d] = value
+
+	final_color = min_colors[min(min_colors.keys())]
+	
+	return final_color
+
+def random_hex_color(rng):
+	r = rng.random()*255
+	g = rng.random()*255
+	b = rng.random()*255
+
+	return  "#" + hex(int(r))[2:].zfill(2) + hex(int(g))[2:].zfill(2) + hex(int(b))[2:].zfill(2)
 
 
 class Formating():
@@ -92,7 +115,7 @@ class Ability():
 		if self.parent.cls_bool:
 			score = sum(sorted(rng.choice(6, 4)+1)[1:])
 		else:
-			score = sum(rng.choice(6, 3)+1)
+			score = sum(sorted(rng.choice(6, 3)+1)[1:])
 
 		return score ## max score == 18
 
@@ -123,13 +146,17 @@ class Option():
 		self.value = value
 		self.index = index
 
-	def format(self, canvas, x_anchor=350, y_anchor=60, val_dist=225):
+	def format(self, canvas, x_anchor=350, y_anchor=60, val_dist=225, subclass=None):
 		if self.index == 0:
 			canvas.create_text(x_anchor, y_anchor, text=f"{self.key.replace('_', ' ').title()}", anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'option', 'key'])
 		else:
 			canvas.create_text(canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[0]+1, canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[3]+10, text=f"{self.key.replace('_', ' ').title()}", anchor='nw', font=Formating.FONT_DESC_BOLD, tags=['text', 'option', 'key'])
 		
-		canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[1], text=f"{self.value}", anchor='nw', font=('Arial', 16), tags=['text', 'option', 'value'])
+		value = self.value
+		if subclass is not None and self.key == 'occupation':
+			value += f' ({subclass})'
+
+		canvas.create_text(x_anchor+val_dist, canvas.bbox(canvas.find_withtag('text&&option&&key')[-1])[1], text=f"{value}", anchor='nw', font=('Arial', 16), tags=['text', 'option', 'value'])
 
 class Spellcasting():
 	SPELL_TIERS = ['At Will', '2/day each', '1/day each', '3/day', '2/day', '1/day']
@@ -199,14 +226,14 @@ class Spellcasting():
 				lvl = 0
 
 			spl_lvl = int(lvl)
-			std = 0.8 + self.parent.get_option_value('level')*0.05
+			std = 0.9 + self.parent.get_option_value('level')*0.05
 			if max_level == 5:
 				tier = spl_lvl
 			else:
 				tier = np.ceil(spl_lvl/2)
 				
 			n = rng.normal(0, std)
-			new_tier = rng.choice((tier-abs(n), tier), p=[0.35, 0.65])
+			new_tier = rng.choice((tier-abs(n), tier), p=[0.4, 0.6])
 			index = round(min(max(new_tier, 0), len(Spellcasting.SPELL_TIERS)-1)) 
 
 			self.spells[list(self.spells.keys())[index]].append(spell[0])
@@ -227,6 +254,8 @@ class Spellcasting():
 	def add_spell_random(self, lvl, s_l_type=None, specified_tier=None):
 		if s_l_type is None:
 			s_l_type = self.spell_list_type
+		elif not self.parent.get_option_value('only_class_specific_spells'):
+			s_l_type = ','
 
 		if lvl == 0:
 			lvl = 'C' ### because RL looks for first element in string it would be 'C' for 'Cantrip'
@@ -250,13 +279,19 @@ class Spellcasting():
 			self.catagorise_spell(spell, self.max_level, specified_tier)
 
 
+
+
+	def get_features(self, spell_name):
+		return ResourceLoader.get_instance().get_spell_features(spell_name)
+
+
 	def __repr__(self):
 		# return f"Spellcasting Ability: {self.ability}, Spells/Level: {self.spells_per_level}, Spell List: {self.spell_list_type} Spells: {self.spells}"
-		return f'{self.spells}'
+		return f'{self.ability} {self.spells}'
 
 class Feature():
 	ACTION_TYPES = ['action', 'bonus', 'reaction', 'other']
-	BONUS_TYPES = ['attack', 'damage', 'spell_attack', 'ac', 'speed_walking', *[f'{a}_saving_throw' for a in Ability.TYPES], 'extra_attack']
+	BONUS_TYPES = ['attack', 'damage', 'spell_attack', 'ac', 'speed_walking', 'speed_flying', 'speed_swimming', *[f'{a}_saving_throw' for a in Ability.TYPES], 'extra_attack']
 	DEFENSE_TYPES = ['resistance', 'immunity', 'vulnerability']
 
 	def __init__(self, parent, f_id, f_type, sub_features):
@@ -269,7 +304,7 @@ class Feature():
 		getattr(self, f_type)()
 
 	def snippet(self):
-		self.parent.features.append(self)
+		self.parent.features[self.f_id] = self
 
 	def action(self):
 		self.parent.actions[self.sub_features['action_type']].append(self)
@@ -290,7 +325,7 @@ class Feature():
 			self.parent.bonuses[self.sub_features['bonus_type']] += int(self.sub_features['bonus'])
 
 	def defense(self):
-		self.parent.defenses[self.sub_features['defense_type']].append(self)
+		self.parent.defenses[self.sub_features['defense_type']].append([self.get_sub_feature('description'), self.f_id])
 
 	def proficiency(self):
 		type_ = self.sub_features['type']
@@ -327,12 +362,12 @@ class Feature():
 
 	def advantage(self):
 		if self.sub_features['type'] == 'saving_throws':
-			self.parent.advantages['saving_throws'] = self.sub_features['description']
+			self.parent.advantages['saving_throws'] += f"{self.sub_features['description']}BREAK"
 		else:
-			try:
-				self.parent.advantages['skills'][self.sub_features['skill']] += f"{self.sub_features['description']}BREAK"
-			except:
-				self.parent.advantages['skills'][self.sub_features['skill']] = f"{self.sub_features['description']}BREAK"
+			skill = self.sub_features['skill']
+
+			self.parent.advantages['skills'][skill][0] += int(self.sub_features['bonus'])
+			self.parent.advantages['skills'][skill][1] += f"{self.sub_features['description']}BREAK"
 
 	def get_sub_feature(self, key):
 		try:
@@ -354,8 +389,8 @@ class Feature():
 
 		return ''.join(split_desc)
 
-	def __repr__(self):
-		return self.f_id
+	# def __repr__(self):
+	# 	return self.f_id
 
 
 
@@ -382,9 +417,11 @@ class Feat():
 
 		self.description = Feature.apply_description_tables(self.description, self.parent.rng)
 
+	def get_description(self):
+		return self.description
 
-	def __repr__(self):
-		return self.description[:30]
+	# def __repr__(self):
+	# 	return self.description[:30]
 
 
 
@@ -405,24 +442,36 @@ class NPC():
 
 		self.options = {k:Option(k, v, list(options.keys()).index(k)) for k, v in options.items()}
 		self.cls_bool = self.options['occupation'].value in ResourceLoader.get_instance().get_list('classes')
-		
+	
+
+
 		self.abilities = {ability_type:Ability(ability_type, self) for ability_type in Ability.TYPES}
-		self.feats = {}
+		self.speeds = {'walking':30, 'flying':None, 'swimming':None}
+
+
+		self.defenses = {k:[] for k in Feature.DEFENSE_TYPES}
+		self.bonuses = {k:0 for k in Feature.BONUS_TYPES}
+		self.advantages = {'saving_throws':'', 'skills':{k:[0, ''] for k in ResourceLoader.get_instance().get_list('skills')}} 
+
+		
+		self.pronoun = {'Male':'He', 'Female':'She'}[self.get_option_value('sex')]
+
 
 		self.appearances = {}
-		self.speeds = {'walking':'30', 'flying':None, 'swimming':None}
+		self.appearance_details = {}
+		self.worship = {}
+		self.traits = {}
+		self.pets = {}
+
+
+		self.features = {}
+		self.feats = {}
+
+		self.actions = {k:[] for k in Feature.ACTION_TYPES}
 
 		self.spellcasting = None
-		self.features = []
-		self.actions = {k:[] for k in Feature.ACTION_TYPES}
-		self.bonuses = {k:0 for k in Feature.BONUS_TYPES}
-		self.defenses = {k:[] for k in Feature.DEFENSE_TYPES}
-
-		self.advantages = {'saving_throws':[], 'skills':{}} 
 		
-		self.traits = {}
-		self.pronoun = {'Male':'He', 'Female':'She'}[self.get_option_value('sex')]
-		self.pets = {}
+
 
 		self.generate()
 
@@ -475,18 +524,59 @@ class NPC():
 		die = 8 if self.size == 'medium' else 6
 		self.base_hp = sum(np.array(self.rng.choice(die, self.get_option_value('level')) + 1))
 
+		## PETS
+		num_pets = self.rng.choice((0, 1, 2), p=[0.4, 0.5, 0.1])
+		for i in range(num_pets):
+			pet_cr = round(min(self.get_option_value('level') + abs(self.rng.choice([0, self.rng.normal(0, 1), self.rng.normal(0, 3.2)], p=[0.2, 0.4, 0.4])), 28))
+			pet = self.rng.choice(RL.get_instance().get_pet_choices(pet_cr))
+			pet_dict = RL.get_pet_attribs(pet)
+			pet_dict['name'] = self.get_name()
+			self.pets[pet] = pet_dict
 
 
-		## APPEARENCES; HEIGHT, WEIGHT, AGE
+		## APPEARENCES
 		height_weight_dict = RL.get_height_weight(race, self.race_type)
-
+		skin_color = random_hex_color(self.rng)
+		hair_color = random_hex_color(self.rng)
+		eye_color = random_hex_color(self.rng)
+		
 		self.appearances['height'] = self.get_height_weight_value(height_weight_dict, 'height')
-		self.appearances['weight'] = self.get_height_weight_value(height_weight_dict, 'weight')
+		self.appearances['skin'] = RL.get_skin_type(race, self.race_type)
 
+		self.appearances['weight'] = self.get_height_weight_value(height_weight_dict, 'weight')
+		self.appearances['skin color'] = [skin_color, closest_color(skin_color)]
 
 		age_list = RL.get_age(race, self.race_type)
 		self.appearances['age'] = self.rng.integers(int(age_list[0]), high=int(age_list[1])+1)
+		self.appearances['eye color'] = [eye_color, closest_color(eye_color)]
 
+		self.appearances['hair style'] = 'default'
+		self.appearances['hair color'] = [hair_color, closest_color(hair_color)]
+
+		self.appearances['sex'] = sex
+		self.appearances['pets'] = ['No', 'One', 'Two'][num_pets]
+		
+		
+		details = {k:self.rng.choice(v) for k, v in RL.get_appearance_details().items()}
+
+		for detail in details:
+			if detail not in self.appearances:
+				self.appearance_details[detail] = details[detail]
+			else:
+				self.appearances[detail] = details[detail]
+
+
+		## WORSHIP
+		num_gods = self.rng.choice([0, 1, 2], p=[0.1, 0.7, 0.2])
+		gods = RL.get_gods()
+
+		worship_choices = self.rng.choice(list(gods.keys()), size=num_gods, replace=False)
+		for worship in worship_choices:
+			self.worship[f'god_name{list(worship_choices).index(worship)}'] = worship
+			for dataval in gods[worship]:
+				self.worship[f'{dataval}{list(worship_choices).index(worship)}'] = gods[worship][dataval]
+
+ 
 		## BASE CLASS PROFICIENCIES 
 		self.proficiencies = RL.get_base_class_proficiencies(occupation)
 
@@ -528,39 +618,61 @@ class NPC():
 			self.traits[trait] = RL.get_instance().get_trait_description(trait)
 
 
-		## PETS
-		num_pets = self.rng.choice((2, 1, 2), p=[0.4, 0.5, 0.1])
-		for i in range(num_pets):
-			pet_cr = round(min(self.get_option_value('level') + abs(self.rng.choice([0, self.rng.normal(0, 1), self.rng.normal(0, 3.2)], p=[0.2, 0.4, 0.4])), 28))
-			pet = self.rng.choice(RL.get_instance().get_pet_choices(pet_cr))
-			pet_dict = RL.get_pet_attribs(pet)
-			pet_dict['name'] = self.get_name()
-			self.pets[pet] = pet_dict
-
-
 		## WEAPON AND ARMOR
 		if self.cls_bool:
 			weapon_choice = self.rng.choice(RL.get_gear_choices(self.proficiencies, 'weapons'))
 			self.weapon = weapon_choice
 
-			armor_choice = self.rng.choice(RL.get_gear_choices(self.proficiencies, 'armors'))
+			armor_choice = self.rng.choice(RL.get_gear_choices(self.proficiencies, 'armors', self.abilities['STRENGTH'].score))
 			self.armor = armor_choice
 		else:
-			self.weapon, self.armor = "Unarmed", "Unarmored"
+			self.weapon = {'name':'Unarmed', 'damage':'1d1;bludgeoning', 'properties':'', 'type':''}
+			self.armor = {'name':'Unarmored', 'ac':8, 'str_req':'0', 'stealth_mod':'0', 'type':''}
+
+		weapon_ability_choices = ['STRENGTH']
+		if 'Finesse' in self.weapon['properties']:
+			weapon_ability_choices.append('DEXTERITY')
+		self.weapon['ability'] = self.rng.choice(weapon_ability_choices)
+
+		self.advantages['skills']['Stealth'][0] += int(self.armor['stealth_mod'])
+		if int(self.armor['stealth_mod']) < 0:
+			self.advantages['skills']['Stealth'][1] += f"Disadvantage on stealth checks from {self.armor['name']} armor.BREAK"
+
+		
+		## JOB DESCRIPTION
+		if not self.cls_bool:
+			occ = self.get_option_value('occupation')
+			occ_desc = RL.get_occupation_description(occ)
+			Feature(self, f"{occ}: Description", 'snippet', {'description':f'{occ_desc[0]}{occ_desc.lower()[1:]}'})
 
 
+		# self.log()
+		
+
+	def log(self):
 		print(
-			self.features, 
-			"\n"*2, self.actions, 
-			"\n"*2, self.spellcasting, 
-			"\n"*2, self.bonuses, 
-			"\n"*2, self.defenses, 
-			"\n"*2, self.proficiencies, 
-			"\n"*2, self.traits,
-			"\n"*2, self.feats,
-			# "\n"*2, self.pets,
-			"\n"*5
-			)
+			# "\n"*2, self.features, 
+			# "\n"*2, self.feats,
+
+			# "\n"*2, self.actions, 
+			# "\n"*2, self.spellcasting, 
+
+			# "\n"*2, self.bonuses, 
+			# "\n"*2, self.defenses, 
+			# "\n"*2, self.proficiencies, 
+			# "\n"*2, self.advantages,
+			# "\n"*2, self.languages, 
+			# "\n"*2, self.traits,
+			# "\n"*2, self.appearances,
+			# "\n"*2, self.appearance_details,
+			# "\n"*2, self.worship,
+			"\n"*2, self.pets,
+			
+			# "\n"*2, self.weapon,
+			# "\n"*2, self.armor,
+			# "\n"*2, self.darkvision,
+			"\n"*3
+			)	
 
 	def get_option_value(self, key):
 		return self.options[key].value
@@ -668,7 +780,7 @@ class NPC():
 
 
 	def get_weight_bin(self):
-		w_bins = {0.25:'light', 0.7:'medium', 10:'heavy'}
+		w_bins = {0.25:'slim', 0.7:'normal', 10:'large/muscular'}
 		w_bin = ''
 		
 		h_w_dict = ResourceLoader.get_instance().get_height_weight(self.options['race'].value, self.race_type)
@@ -679,23 +791,25 @@ class NPC():
 		w_max = int(h_w_dict['weight_base']) + (h_mod[0]*h_mod[1] * w_mod[0]*w_mod[1])*0.45
 
 		for bin_ in w_bins:
-			if (self.appearances['weight']-int(h_w_dict['weight_base']))/(w_max-int(h_w_dict['weight_base'])) <= bin_:
+			factor = (self.appearances['weight']-int(h_w_dict['weight_base']))/(w_max-int(h_w_dict['weight_base']))
+			if factor <= bin_:
 				return w_bins[bin_]
 				
 
 	def get_age_bin(self):
-		age_bins = {0.35:'Young', 0.75:'Middle Aged', 10:'Elderly'}
+		age_bins = {0.32:'Young', 0.40:'Early Middle Aged', 0.50:'Middle Aged', 0.60:'Late Middle Aged', 0.85:'Old', 10:'Elderly'}
 
 		for bin_ in age_bins:
-			if self.age/int(ResourceLoader.get_instance().get_age(self.options['race'].value, self.race_type)[1]) <= bin_: ## probably a bit wrong since self.age is restricted to [3, 30] for Aarakocra and max_age == 30 
-				return age_bins[bin_]
+			factor = self.appearances['age']/int(ResourceLoader.get_instance().get_age(self.options['race'].value, self.race_type)[1])
+			if factor <= bin_: ## probably a bit wrong since self.age is restricted to [3, 30] for Aarakocra and max_age == 30 
+				return [age_bins[bin_], factor*100]
 
 		
 
 
 
 	def get_ac(self):
-		return 10
+		return int(self.armor['ac']) + self.abilities['DEXTERITY'].get_modifier() + self.bonuses['ac']
 
 	def get_proficiency_bonus(self):
 		return 2 + (self.options['level'].value-1)//4
@@ -713,6 +827,7 @@ class NPC():
 		speeds = {}
 		for k, v in self.speeds.items():
 			speeds[f"{k.title()} Speed"] = v if v is not None else int(self.speeds['walking'])//2
+			speeds[f"{k.title()} Speed"] += self.bonuses[f"speed_{k}"]
 
 		return speeds
 
@@ -720,13 +835,32 @@ class NPC():
 		skill_dict = ResourceLoader.get_instance().get_equipment_list('skill')
 		skill_list = {s['name']:s['ability'] for s in skill_dict}
 
-		for skill in skill_list:
-			if skill == skill_name:
-				value = self.abilities[skill_list[skill]].get_modifier()
+		return self.abilities[skill_list[skill_name]].get_modifier()
 
-				return value
+	def get_skill_ability(self, skill_name):
+		skill_dict = ResourceLoader.get_instance().get_equipment_list('skill')
+		skill_list = {s['name']:s['ability'] for s in skill_dict}
 
-		return 0
+		return skill_list[skill_name]
+
+	def get_weapon_to_hit(self):
+		th = self.abilities[self.weapon['ability']].get_modifier()
+		if self.weapon['name'] != 'Unarmed':
+			th += self.get_proficiency_bonus()
+
+		th += self.bonuses['attack']
+
+		return th
+
+	def get_weapon_damage(self):
+		dmg = self.abilities[self.weapon['ability']].get_modifier()
+		dmg += self.bonuses['damage']
+
+		return dmg
+
+	def get_attacks_per_action(self):
+
+		return 1 + self.bonuses['extra_attack']
 
 
 		#GET HEALTH/AC
@@ -752,79 +886,26 @@ class NPC():
 
 		html += '}</style> </head> <body>'
 		## BODY
-		### SUMMARY
+		### PREVIEW
 		html += '<div class="page">'
+		html += HF.preview_page(self)
+		html += '</div>' #page
 
-		html += '	<div class="preview-header"> <div class="preview-header_summary"> <div style="font-size: 32px;font-weight: bold;">'
-		html += 	self.name
-		html += '	</div> <div>'
-		html += f'	{self.options["sex"].value} {self.options["race"].value} {self.options["occupation"].value}'
-		html += '	</div> <div>'
-		html += f'	Level {self.options["level"].value}'
-		html += '	</div>'
+		### TEXT BOXES
+		html += '<div class="page" style="height: 200vh;margin-top: 40px;">'
+		html += HF.text_boxes_page(self)
+		html += '</div>' #page
 
-		if len(self.feats) != 0:
-			html += f'<div>Feats: {", ".join(list(self.feats.keys()))}</div>'
+		### SHEET
+		html += '<div class="page">'
+		html += HF.sheet_page(self)
+		html += '</div>' #page
 
-		html += '</div> </div>'
-
-		### STATBLOCK
-		html += '<div class="preview-content">'
-		html += '<div class="preview-content_statblock">'
-
-		html += f'<div style="font-size:40px;font-weight: bold;">{self.name} (Level {self.get_option_value("level")} {f"{self.subclass}," if self.subclass is not None else ""} {self.get_option_value("occupation")})</div>'
-		html += f'<div style="font-style: italic;">{self.size.title()} humaniod ({self.get_option_value("race")})</div>'
-		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"></polyline> </svg>'
-
-		html += f'<div><span style="font-weight: bold;">Armor Class</span>{self.get_ac()} ({self.armor})</div>'
-		html += f'<div><span style="font-weight: bold;">Hit Points:</span><span contenteditable="true">{self.get_hit_points()}</span>/{self.get_hit_points()}</div>'
-		html += f'<div><span style="font-weight: bold;">Speed</span>: {self.get_speeds()["Walking Speed"]} ft.</div>'
-		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"></polyline> </svg>'
-
-		html += '<div class="preview-content_statblock_abilities">'
-
-		for ability_str in self.abilities:
-			html += HF.statblock_abilities(self, ability_str)
-
-		html += '</div>' #preview-content_statblock_abilities
-		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"> </polyline></svg>'
-
-		if len(self.proficiencies['saving_throws']) > 0:
-			html += '<div> <span style="font-weight: bold;">Saving Throws </span>' 
-			for st_ab in self.proficiencies['saving_throws']:
-				html += HF.statblock_saving_throws(self, st_ab)
-			html +='</div>'
-
-
-		html += '<div> <span style="font-weight: bold;">Skills </span>' 
-		for skill_prof in self.proficiencies['skills']:
-			html += HF.statblock_skills(self, skill_prof)
-		html +='</div>'
-
-		html += '<div> <span style="font-weight: bold;">Senses </span>' 
-		html += f'Passive Perception {self.get_skill("Perception") +10}'
-		if self.darkvision is not None:
-			html += f', Darkvision {self.darkvision} ft.'
-		html +='</div>'
-
-		html += '<div> <span style="font-weight: bold;">Languages </span>' 
-		html += ', '.join(self.languages)
-		html +='</div>'
-
-		html += '<div> <span style="font-weight: bold;">Proficiency Bonus </span>' 
-		html += f'+{self.get_proficiency_bonus()}'
-		html +='</div>'
-		html += '<svg height="10" width="100%" class="npc_statblock_break"> <polyline points="0,0 670, 5 0,10"> </polyline></svg>'
-
-		html += '</div>' #preview-content_statblock
+		### PETS
+		html += '<div class="page" style="padding: 1% 0;width: 100%;">'
+		html += HF.pets_page(self)
+		html += '</div>' #page
 		
-
-		html += '<div class="preview-content_description">'
-
-		html += '</div>' #preview-content_description
-
-
-		html += '</div>' #preview-content
 
 		## FINISH
 		html += '</body> </html>'
@@ -862,9 +943,6 @@ class MainFrame(tk.Frame):
 			lbl.place(relx=0.1, rely=((0.1 + self.opt_list.index(opt)/10)-0.035), anchor='c')
 
 			string_var = tk.StringVar(self, '--Random--')
-			
-			# if opt == 'Occupation': ### ! REMOVE THIS
-			# 	string_var = tk.StringVar(self, 'Artificer')
 
 			self.opt_string_vars[opt] = string_var
 			
@@ -890,8 +968,24 @@ class MainFrame(tk.Frame):
 		self.reset_opt_btn = tk.Button(self, text='Reset', font=Formating.FONT_DESC_BOLD, fg=darken_color(clr, 0.6), highlightbackground=clr, command=self.reset_opt)
 		self.reset_opt_btn.place(relx=0.15, rely=0.68, anchor='c')
 
+		self.recent_npcs = ResourceLoader.get_instance().get_recent_npcs()
+		
+		recent_npcs_menu_btn = tk.Menubutton(self)
+		recent_npcs_menu_btn.place(relx=0.185, rely=0.85, anchor='c')
+		test = tk.Menu(recent_npcs_menu_btn, tearoff=0)
+		recent_npcs_menu = tk.Menu(test, tearoff=0)
+		recent_npcs_menu_btn.configure(menu=recent_npcs_menu)
+
+		for recent_npc in self.recent_npcs:
+			recent_npcs_menu.add_command(label=str(recent_npc), command=partial(self.npc_rng, self.recent_npcs[recent_npc]))
+
+
 		self.html_btn = tk.Button(self, text='Open Character Sheet in Safari', font=('Good Times', 45), fg=darken_color(clr, 0.6), highlightbackground=clr, command=self.controller.open_html)
 		self.html_btn.place(relx=0.62, rely=0.93, anchor='c')
+
+	def npc_rng(self, value):
+		self.rng_ent.delete(0, tk.END)
+		self.rng_ent.insert(0, value)
 
 
 	def create_preview(self, npc):
@@ -910,7 +1004,7 @@ class MainFrame(tk.Frame):
 
 		## OPTIONS
 		for option in npc.options:
-			npc.options[option].format(self.canvas, x_anchor=400, y_anchor=120, val_dist=225)
+			npc.options[option].format(self.canvas, x_anchor=400, y_anchor=120, val_dist=225, subclass=npc.subclass)
 
 		Formating.create_desc_box(self.canvas, 'option', clr, detail_clr)
 

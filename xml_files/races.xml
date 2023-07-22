@@ -10,8 +10,6 @@
 			</abilities>
 			
 			<size value="medium"/>
-			
-			<darkvision value="60"/>
 
 			<speeds>
 				<speed key="walking" value="20"/>
@@ -22,7 +20,7 @@
 				<language value="Auran"/>
 			</languages>
 
-			<appearences>
+			<appearances>
 				<height_weight>
 					<height_base value="132"/>
 					<height_modifier value="1d6"/>
@@ -31,11 +29,14 @@
 					<weight_modifier value="1d6"/>
 				</height_weight>
 				<age maturity="3" lifespan="30"/>
-			</appearences>
+				<skin_type value="feathers"/>
+			</appearances>
 
 			<features>
-				<feature id="Dive Attack"/>
-				<feature id="Talons (DMG)"/>
+				<feature id="Aarakocra: Description"/>
+
+				<feature id="Aarakocra: Dive Attack"/>
+				<feature id="Aarakocra: Talons (DMG)"/>
 			</features>
 			
 			<!-- <dataval key="appearances" value="dict">
@@ -64,7 +65,7 @@
 				<language value="Auran"/>
 			</languages>
 
-			<appearences>
+			<appearances>
 				<height_weight>
 					<height_base value="132"/>
 					<height_modifier value="1d6"/>
@@ -73,11 +74,14 @@
 					<weight_modifier value="1d6"/>
 				</height_weight>
 				<age maturity="3" lifespan="30"/>
-			</appearences>
+				<skin_type value="feathers"/>
+			</appearances>
 
 			<features>
-				<feature id="Dive Attack"/>
-				<feature id="Talons (DMG)"/>
+				<feature id="Aarakocra: Description"/>
+				
+				<feature id="Aarakocra: Dive Attack"/>
+				<feature id="Aarakocra: Talons (DMG)"/>
 			</features>
 		</type>
 
@@ -97,7 +101,7 @@
 				<language value="random"/>
 			</languages>
 
-			<appearences>
+			<appearances>
 				<height_weight>
 					<height_base value="132"/>
 					<height_modifier value="1d6"/>
@@ -106,11 +110,14 @@
 					<weight_modifier value="1d6"/>
 				</height_weight>
 				<age maturity="3" lifespan="30"/>
-			</appearences>
+				<skin_type value="feathers"/>
+			</appearances>
 
 			<features>
-				<feature id="Dive Attack"/>
-				<feature id="Talons (DMG)"/>
+				<feature id="Aarakocra: Description"/>
+				
+				<feature id="Aarakocra: Dive Attack"/>
+				<feature id="Aarakocra: Talons (DMG)"/>
 			</features>
 		</type>
 	</race>

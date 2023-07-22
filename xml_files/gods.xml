@@ -1,0 +1,1016 @@
+<gods>
+	<god name="Auril">
+		<dataval key="description" value="goddess of winter" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Nature, Tempest" />
+		<dataval key="symbol" value="Six-pointed snowflake" />
+	</god>
+	<god name="Azuth">
+		<dataval key="description" value="god of wizards" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Left hand pointing upward, outlined in fire" />
+	</god>
+	<god name="Bane">
+		<dataval key="description" value="god of tyranny" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Upright black right hand, thumb and fingers together" />
+	</god>
+	<god name="Beshaba">
+		<dataval key="description" value="goddess of misfortune" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Black antlers" />
+	</god>
+	<god name="Bhaal">
+		<dataval key="description" value="god of murder" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Skull surrounded by a ring of blood droplets" />
+	</god>
+	<god name="Chauntea">
+		<dataval key="description" value="goddess of agriculture" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life" />
+		<dataval key="symbol" value="Sheaf of grain or a blooming rose over grain" />
+	</god>
+	<god name="Cyric">
+		<dataval key="description" value="god of lies" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="White jawless skull on black or purple sunburst" />
+	</god>
+	<god name="Deneir">
+		<dataval key="description" value="god of writing" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Lit candle above an open eye" />
+	</god>
+	<god name="Eldath">
+		<dataval key="description" value="goddess of peace" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Nature" />
+		<dataval key="symbol" value="Waterfall plunging into still pool" />
+	</god>
+	<god name="Gond">
+		<dataval key="description" value="god of craft" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Toothed cog with four spokes" />
+	</god>
+	<god name="Helm">
+		<dataval key="description" value="god of protection" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Life, Light" />
+		<dataval key="symbol" value="Staring eye on upright left gauntlet" />
+	</god>
+	<god name="Ilmater">
+		<dataval key="description" value="god of endurance" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Life" />
+		<dataval key="symbol" value="Hands bound at the wrist with red cord" />
+	</god>
+	<god name="Kelemvor">
+		<dataval key="description" value="god of the dead" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Upright skeletal arm holding balanced scales" />
+	</god>
+	<god name="Lathander">
+		<dataval key="description" value="god of birth and renewal" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Light" />
+		<dataval key="symbol" value="Road traveling into a sunrise" />
+	</god>
+	<god name="Leira">
+		<dataval key="description" value="goddess of illusion" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Point-down triangle containing a swirl of mist" />
+	</god>
+	<god name="Lliira">
+		<dataval key="description" value="goddess of joy" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Life" />
+		<dataval key="symbol" value="Triangle of three six-pointed stars" />
+	</god>
+	<god name="Loviatar">
+		<dataval key="description" value="goddess of pain" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Nine-tailed barbed scourge" />
+	</god>
+	<god name="Malar">
+		<dataval key="description" value="god of the hunt" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Clawed paw" />
+	</god>
+	<god name="Mask">
+		<dataval key="description" value="god of thieves" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Black mask" />
+	</god>
+	<god name="Mielikki">
+		<dataval key="description" value="goddess of forests" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Unicorn's head" />
+	</god>
+	<god name="Milil">
+		<dataval key="description" value="god of poetry and song" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Light" />
+		<dataval key="symbol" value="Five-stringed harp made of leaves" />
+	</god>
+	<god name="Myrkul">
+		<dataval key="description" value="god of death" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="White human skull" />
+	</god>
+	<god name="Mystra">
+		<dataval key="description" value="goddess of magic" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Circle of seven stars, or nine stars encircling a flowing red mist, or a single star" />
+	</god>
+	<god name="Oghma">
+		<dataval key="description" value="god of knowledge" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Blank scroll" />
+	</god>
+	<god name="Savras">
+		<dataval key="description" value="god of divination and fate" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Crystal ball containing many kinds of eyes" />
+	</god>
+	<god name="Selûne">
+		<dataval key="description" value="goddess of the moon" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Knowledge, Life" />
+		<dataval key="symbol" value="Pair of eyes surrounded by seven stars" />
+	</god>
+	<god name="Shar">
+		<dataval key="description" value="goddess of darkness and loss" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death, Trickery" />
+		<dataval key="symbol" value="Black disk encircled with a border" />
+	</god>
+	<god name="Silvanus">
+		<dataval key="description" value="god of wild nature" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Oak leaf" />
+	</god>
+	<god name="Sune">
+		<dataval key="description" value="goddess of love and beauty" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Life, Light" />
+		<dataval key="symbol" value="Face of a beautiful red-haired woman" />
+	</god>
+	<god name="Talona">
+		<dataval key="description" value="goddess of disease and poison" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Three teardrops on a triangle" />
+	</god>
+	<god name="Talos">
+		<dataval key="description" value="god of storms" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Tempest" />
+		<dataval key="symbol" value="Three lightning bolts radiating from a central point" />
+	</god>
+	<god name="Tempus">
+		<dataval key="description" value="god of war" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Upright flaming sword" />
+	</god>
+	<god name="Torm">
+		<dataval key="description" value="god of courage and self-sacrifice" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="White right gauntlet" />
+	</god>
+	<god name="Tymora">
+		<dataval key="description" value="goddess of good fortune" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Face-up coin" />
+	</god>
+	<god name="Tyr">
+		<dataval key="description" value="god of justice" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Balanced scales resting on a warhammer" />
+	</god>
+	<god name="Umberlee">
+		<dataval key="description" value="goddess of the sea" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Tempest" />
+		<dataval key="symbol" value="Wave curling left and right" />
+	</god>
+	<god name="Waukeen">
+		<dataval key="description" value="goddess of trade" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge, Trickery" />
+		<dataval key="symbol" value="Upright coin with Waukeen's profile facing left" />
+	</god>
+	<god name="Bahamut">
+		<dataval key="description" value="dragon god of good" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Life, War" />
+		<dataval key="symbol" value="Dragon's head in profile" />
+	</god>
+	<god name="Blibdoolpoolp">
+		<dataval key="description" value="kuo-toa goddess" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Lobster head or black pearl" />
+	</god>
+	<god name="Corellon Larethian">
+		<dataval key="description" value="elf deity of art and magic" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Light" />
+		<dataval key="symbol" value="Quarter moon or starburst" />
+	</god>
+	<god name="Deep Sashelas">
+		<dataval key="description" value="elf god of the sea" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Nature, Tempest" />
+		<dataval key="symbol" value="Dolphin" />
+	</god>
+	<god name="Eadro">
+		<dataval key="description" value="merfolk deity of the sea" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Nature, Tempest" />
+		<dataval key="symbol" value="Spiral design" />
+	</god>
+	<god name="Garl Glittergold">
+		<dataval key="description" value="gnome god of trickery and wiles" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Gold nugget" />
+	</god>
+	<god name="Grolantor">
+		<dataval key="description" value="hill giant god of war" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Wooden club" />
+	</god>
+	<god name="Gruumsh">
+		<dataval key="description" value="orc god of storms and war" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Tempest, War" />
+		<dataval key="symbol" value="Unblinking eye" />
+	</god>
+	<god name="Hruggek">
+		<dataval key="description" value="bugbear god of violence" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Morningstar" />
+	</god>
+	<god name="Kurtulmak">
+		<dataval key="description" value="kobold god of war and mining" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Gnome skull" />
+	</god>
+	<god name="Laogzed">
+		<dataval key="description" value="troglodyte god of hunger" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Image of the lizard/load god" />
+	</god>
+	<god name="Lolth">
+		<dataval key="description" value="drow goddess of spiders" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Spider" />
+	</god>
+	<god name="Maglubiyet">
+		<dataval key="description" value="goblinoid god of war" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Bloody axe" />
+	</god>
+	<god name="Moradin">
+		<dataval key="description" value="dwarf god of creation" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Hammer and anvil" />
+	</god>
+	<god name="Rillifane Rallathil">
+		<dataval key="description" value="wood elf god of nature" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Oak" />
+	</god>
+	<god name="Sehanine Moonbow">
+		<dataval key="description" value="elf goddess of the moon" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Crescent moon" />
+	</god>
+	<god name="Sekolah">
+		<dataval key="description" value="sahuagin god of the hunt" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Nature, Tempest" />
+		<dataval key="symbol" value="Shark" />
+	</god>
+	<god name="Semuanya">
+		<dataval key="description" value="lizardfolk deity of survival" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Life" />
+		<dataval key="symbol" value="Egg" />
+	</god>
+	<god name="Skerrit">
+		<dataval key="description" value="centaur and satyr god of nature" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Oak growing from acorn" />
+	</god>
+	<god name="Skoraeus Stonebones">
+		<dataval key="description" value="god of stone giants and art" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Stalactite" />
+	</god>
+	<god name="Surtur">
+		<dataval key="description" value="god of fire giants and craft" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Knowledge, War" />
+		<dataval key="symbol" value="Flaming sword" />
+	</god>
+	<god name="Thrym">
+		<dataval key="description" value="god of frost giants and strength" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="White double-bladed axe" />
+	</god>
+	<god name="Tiamat">
+		<dataval key="description" value="dragon goddess of evil" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Dragon head with five claw marks" />
+	</god>
+	<god name="Yondalla">
+		<dataval key="description" value="halfling goddess of fertility and protection" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Life" />
+		<dataval key="symbol" value="Shield" />
+	</god>
+	<god name="Beory">
+		<dataval key="description" value="goddess of nature" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Green disk" />
+	</god>
+	<god name="Boccob">
+		<dataval key="description" value="god of magic" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Eye within a pentagram" />
+	</god>
+	<god name="Celestian">
+		<dataval key="description" value="god of stars and wanderers" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Arc of seven stars inside a circle" />
+	</god>
+	<god name="Ehlonna">
+		<dataval key="description" value="goddess of woodlands" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Nature" />
+		<dataval key="symbol" value="Unicorn Horn" />
+	</god>
+	<god name="Erythnul">
+		<dataval key="description" value="god of envy and slaughter" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Blood drop" />
+	</god>
+	<god name="Farlanghn">
+		<dataval key="description" value="god horizons and travel" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Knowledge, Trickery" />
+		<dataval key="symbol" value="Circle crossed by a curved horizon line" />
+	</god>
+	<god name="Heironeous">
+		<dataval key="description" value="god of chivalry and valor" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Lightning bolt" />
+	</god>
+	<god name="Hextor">
+		<dataval key="description" value="god of war and discord" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Six arrows facing downward in a fan" />
+	</god>
+	<god name="Kord">
+		<dataval key="description" value="god of athletics and sport" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Tempest, War" />
+		<dataval key="symbol" value="Four spears and four maces radiating out from a central point" />
+	</god>
+	<god name="Incabulos">
+		<dataval key="description" value="god of plague and famine" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Reptilian eye with a horizontal diamond" />
+	</god>
+	<god name="Istus">
+		<dataval key="description" value="goddess of fate and destiny" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Weaver's spindle with three strands" />
+	</god>
+	<god name="Iuz">
+		<dataval key="description" value="god of pain and oppresion" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Grinning human skull" />
+	</god>
+	<god name="Nerull">
+		<dataval key="description" value="god of death" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Skull with either a sickle or a scythe" />
+	</god>
+	<god name="Obad-Hai">
+		<dataval key="description" value="god of nature" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Oak leaf and acorn" />
+	</god>
+	<god name="Olidammara">
+		<dataval key="description" value="god of revelry" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Laughing mask" />
+	</god>
+	<god name="Pelor">
+		<dataval key="description" value="god of the sun and healing" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Light" />
+		<dataval key="symbol" value="Sun" />
+	</god>
+	<god name="Pholtus">
+		<dataval key="description" value="god of light and law" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Light" />
+		<dataval key="symbol" value="Silver sun or full moon partially eclipsed by a smaller crescent moon" />
+	</god>
+	<god name="Ralishaz">
+		<dataval key="description" value="god of ill luck and insanity" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Three bone fate-casting sticks" />
+	</god>
+	<god name="Rao">
+		<dataval key="description" value="god of peace and reason" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="White heart" />
+	</god>
+	<god name="St. Cuthbert">
+		<dataval key="description" value="god of common sense and zeal" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Circle at the center of a starburst of lines" />
+	</god>
+	<god name="Tharizdun">
+		<dataval key="description" value="god of eternal darkness" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Dark spiral or inverted ziggurat" />
+	</god>
+	<god name="Trithereon">
+		<dataval key="description" value="god of liberty and retribution" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Triskelion" />
+	</god>
+	<god name="Ulaa">
+		<dataval key="description" value="goddess of hills and mountains" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Life, War" />
+		<dataval key="symbol" value="Mountain with a circle at its heart" />
+	</god>
+	<god name="Vecna">
+		<dataval key="description" value="god of evil secrets" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Hand with eye in the palm" />
+	</god>
+	<god name="Wee Jas">
+		<dataval key="description" value="goddess of magic and death" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Death, Knowledge" />
+		<dataval key="symbol" value="Red skull in front of fireball" />
+	</god>
+	<god name="Paladine">
+		<dataval key="description" value="god of rulers and guardians" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Silver triangle" />
+	</god>
+	<god name="Branchala">
+		<dataval key="description" value="god of music" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Light" />
+		<dataval key="symbol" value="Bard's harp" />
+	</god>
+	<god name="Habbakuk">
+		<dataval key="description" value="god of animal life and the sea" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Nature, Tempest" />
+		<dataval key="symbol" value="Blue bird" />
+	</god>
+	<god name="Kiri-Jolith">
+		<dataval key="description" value="god of honor and war" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Bison's horns" />
+	</god>
+	<god name="Majere">
+		<dataval key="description" value="god of meditation and order" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Copper spider" />
+	</god>
+	<god name="Mishakal">
+		<dataval key="description" value="goddess of healing" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Knowledge, Life" />
+		<dataval key="symbol" value="Blue infinity sign" />
+	</god>
+	<god name="Solinari">
+		<dataval key="description" value="god of good magic" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="no clerics" />
+		<dataval key="symbol" value="White circle or sphere" />
+	</god>
+	<god name="Gilean">
+		<dataval key="description" value="god of knowledge" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Open book" />
+	</god>
+	<god name="Chislev">
+		<dataval key="description" value="goddess of nature" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Feather" />
+	</god>
+	<god name="Reorx">
+		<dataval key="description" value="god of craft" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Forging hammer" />
+	</god>
+	<god name="Shinare">
+		<dataval key="description" value="goddess of wealth and trade" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge, Trickery" />
+		<dataval key="symbol" value="Griffon's Wing" />
+	</god>
+	<god name="Sirrion">
+		<dataval key="description" value="god of fire and change" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Multi-colored fire" />
+	</god>
+	<god name="Zivilyn">
+		<dataval key="description" value="god of wisdom" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Great green or gold tree" />
+	</god>
+	<god name="Lunitari">
+		<dataval key="description" value="goddess of neutral magic" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="no clerics" />
+		<dataval key="symbol" value="a red circle or sphere" />
+	</god>
+	<god name="Takhisis">
+		<dataval key="description" value="goddess of night and hatred" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Black crescent" />
+	</god>
+	<god name="Chemosh">
+		<dataval key="description" value="god of the undead" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Yellow Skull" />
+	</god>
+	<god name="Hiddukel">
+		<dataval key="description" value="god of lies and greed" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Broken merchant's scales" />
+	</god>
+	<god name="Morgion">
+		<dataval key="description" value="god of disease and secrecy" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Hood with two red eyes" />
+	</god>
+	<god name="Sargonnas">
+		<dataval key="description" value="god of vengeance and fire" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Stylized red condor" />
+	</god>
+	<god name="Zeboim">
+		<dataval key="description" value="goddess of the sea and storms" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Tempest" />
+		<dataval key="symbol" value="Turtle Shell" />
+	</god>
+	<god name="Nuitari">
+		<dataval key="description" value="god of evil magic" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="no clerics" />
+		<dataval key="symbol" value="Black circle or sphere" />
+	</god>
+	<god name="Arawai">
+		<dataval key="description" value="goddess of fertility" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Nature" />
+		<dataval key="symbol" value="Sheaf of wheat tied with green ribbon" />
+	</god>
+	<god name="Aureon">
+		<dataval key="description" value="god of law and knowledge" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Open tome" />
+	</god>
+	<god name="Balinor">
+		<dataval key="description" value="god of beasts and the hunt" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Life, Nature" />
+		<dataval key="symbol" value="Pair of antlers" />
+	</god>
+	<god name="Boldrei">
+		<dataval key="description" value="goddess of community and home" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Life" />
+		<dataval key="symbol" value="Fire in stone hearth" />
+	</god>
+	<god name="Dol Arrah">
+		<dataval key="description" value="goddess of sunlight and honor" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Light, War" />
+		<dataval key="symbol" value="Rising sun" />
+	</god>
+	<god name="Dol Dorn">
+		<dataval key="description" value="god of strength at arms" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Longsword crossed over a shield" />
+	</god>
+	<god name="Kol Korran">
+		<dataval key="description" value="god of trade and wealth" />
+		<dataval key="alignment" value="Neutral" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Nine-sided gold coin" />
+	</god>
+	<god name="Olladra">
+		<dataval key="description" value="goddess of good fortune" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Trickery" />
+		<dataval key="symbol" value="Domino" />
+	</god>
+	<god name="Onatar">
+		<dataval key="description" value="god of craft" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Crossed hammer and tongs" />
+	</god>
+	<god name="The Devourer">
+		<dataval key="description" value="god of nature's wrath" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Tempest" />
+		<dataval key="symbol" value="Bundle of five sharpened bones" />
+	</god>
+	<god name="The Fury">
+		<dataval key="description" value="goddess of wrath and madness" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Winged wyrm wilh woman's head and upper body" />
+	</god>
+	<god name="The Keeper">
+		<dataval key="description" value="god of greed and death" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death" />
+		<dataval key="symbol" value="Dragonshard stone in the shape of a fang" />
+	</god>
+	<god name="The Mockery">
+		<dataval key="description" value="god of violence and treachery" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Five blood-spattered tools" />
+	</god>
+	<god name="The Shadow">
+		<dataval key="description" value="god of dark magic" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Knowledge" />
+		<dataval key="symbol" value="Obsidian tower" />
+	</god>
+	<god name="The Traveler">
+		<dataval key="description" value="deity of chaos and change" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Knowledge, Trickery" />
+		<dataval key="symbol" value="Four crossed, rune-inscribed bones" />
+	</god>
+	<god name="Avandra">
+		<dataval key="description" value="deity of Change and freedom and luck" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Nature, Trickery" />
+		<dataval key="symbol" value="Woman's profile embossed on a gold coin or pendant" />
+	</god>
+	<god name="Bahamut">
+		<dataval key="description" value="deity of Honor and justice" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Order, War" />
+		<dataval key="symbol" value="Silver dragon's head in profile" />
+	</god>
+	<god name="Corellon">
+		<dataval key="description" value="deity of Art and beauty and elves" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Arcana, Light" />
+		<dataval key="symbol" value="Two crescent moons facing each other atop a four-pointed star" />
+	</god>
+	<god name="Erathis">
+		<dataval key="description" value="deity of Civilization and law and peace" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Knowledge, Order" />
+		<dataval key="symbol" value="Double-headed axe inset with a pattern of scales" />
+	</god>
+	<god name="Ioun">
+		<dataval key="description" value="deity of Knowledge and learning and teaching" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Arcana, Knowledge" />
+		<dataval key="symbol" value="Pair of open eyes crowned with a third open eye" />
+	</god>
+	<god name="Kord">
+		<dataval key="description" value="deity of Battle and competition and storms" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Tempest, War" />
+		<dataval key="symbol" value="Four bolts of lightning radiating from the center of a shield" />
+	</god>
+	<god name="Melora">
+		<dataval key="description" value="deity of Seas and wilderness" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Life, Nature, Tempest" />
+		<dataval key="symbol" value="Wreath of grass and grain affixed to a crook" />
+	</god>
+	<god name="Moradin">
+		<dataval key="description" value="deity of Craft and creation" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Forge, Knowledge, War" />
+		<dataval key="symbol" value="Hammer with ends carved in the likeness of dwarven heads" />
+	</god>
+	<god name="Pelor">
+		<dataval key="description" value="deity of Healing and sun" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Light, Nature" />
+		<dataval key="symbol" value="Bright, eight-pointed star" />
+	</god>
+	<god name="Raei">
+		<dataval key="description" value="deity of Atonement and compassion" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Light" />
+		<dataval key="symbol" value="Humanoid, feminine phoenix" />
+	</god>
+	<god name="The Raven Queen">
+		<dataval key="description" value="deity of Death and fate and winter" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Death, Grave" />
+		<dataval key="symbol" value="White, humanoid mask framed in black feathers" />
+	</god>
+	<god name="Sehanine">
+		<dataval key="description" value="deity of Illusion and moonlight and night" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="Arcana, Nature, Trickery" />
+		<dataval key="symbol" value="Crescent moon turned upward, strung like a bow" />
+	</god>
+	<god name="Asmodeus">
+		<dataval key="description" value="deity of God of the Nine Hells" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Trickery, War" />
+		<dataval key="symbol" value="Crown of spiked onyx and curved horns" />
+	</god>
+	<god name="Bane">
+		<dataval key="description" value="deity of Conquest and tyranny" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Forge, Order, War" />
+		<dataval key="symbol" value="Flail of chains, each ending in shackles" />
+	</god>
+	<god name="Gruumush">
+		<dataval key="description" value="deity of Slaughter and warfare" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Death, Tempest, War" />
+		<dataval key="symbol" value="Single, unblinking eye that bleeds" />
+	</god>
+	<god name="Lolth">
+		<dataval key="description" value="deity of Deceit and spiders" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Knowledge, Trickery" />
+		<dataval key="symbol" value="Jeweled spider" />
+	</god>
+	<god name="Tharizdun">
+		<dataval key="description" value="deity of Darkness and Destruction" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Death, Grave, Trickery" />
+		<dataval key="symbol" value="Crooked, seven-pointed star made of chains" />
+	</god>
+	<god name="Tiamat">
+		<dataval key="description" value="deity of Dragon god of evil" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Order, Trickery, War" />
+		<dataval key="symbol" value="Taloned dragon claw" />
+	</god>
+	<god name="Torog">
+		<dataval key="description" value="deity of Enslavement and torture" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death, Trickery" />
+		<dataval key="symbol" value="Three pale arms clawing from a dark void" />
+	</god>
+	<god name="Vecna">
+		<dataval key="description" value="deity of Necromancy and secrets" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Arcana, Death, Grave, Knowledge" />
+		<dataval key="symbol" value="Desiccated hand with an eye in the palm" />
+	</god>
+	<god name="Zehir">
+		<dataval key="description" value="deity of Assassins and poison and snakes" />
+		<dataval key="alignment" value="CE" />
+		<dataval key="domains" value="Nature, Trickery" />
+		<dataval key="symbol" value="Coiled serpent" />
+	</god>
+	<god name="Arms of the Betrayers">
+		<dataval key="description" value="deity of The Fiend and The Hexblade" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death, War" />
+		<dataval key="symbol" value="Blade thrust downward through an eight-eyed skull" />
+	</god>
+	<god name="Ceratos">
+		<dataval key="description" value="deity of The Great Old One" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Knowledge, Tempest" />
+		<dataval key="symbol" value="Three mismatched eyes surrounded by teeth" />
+	</god>
+	<god name="Desirat">
+		<dataval key="description" value="deity of The Fiend and The Undying" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Light, Trickery" />
+		<dataval key="symbol" value="Burning purple feather" />
+	</god>
+	<god name="Naviask">
+		<dataval key="description" value="deity of The Archfey" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Nature" />
+		<dataval key="symbol" value="Wreath of flowers shaped into demon horns" />
+	</god>
+	<god name="Quajath">
+		<dataval key="description" value="deity of The Fiend and The Great Old One" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Nature, War" />
+		<dataval key="symbol" value="Ring of teeth" />
+	</god>
+	<god name="The Hag Mother">
+		<dataval key="description" value="deity of The Fiend" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Knowledge, Trickery" />
+		<dataval key="symbol" value="Single red horn" />
+	</god>
+	<god name="The Luxon">
+		<dataval key="description" value="deity of –" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Arcana, Light" />
+		<dataval key="symbol" value="Hollow dodecahedron" />
+	</god>
+	<god name="The Traveler">
+		<dataval key="description" value="deity of The Archfey" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Nature, Trickery" />
+		<dataval key="symbol" value="Arched doorway over a road that vanishes into the distance" />
+	</god>
+	<god name="Uk'otoa">
+		<dataval key="description" value="deity of The Great Old One and The Hexblade" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Knowledge, Tempest" />
+		<dataval key="symbol" value="Yellow, slitted eye" />
+	</god>
+	<god name="Vesh">
+		<dataval key="description" value="deity of The Archfey and The Undying" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death, Life" />
+		<dataval key="symbol" value="Crimson ring hanging from a chain" />
+	</god>
+	<god name="Xalicas">
+		<dataval key="description" value="deity of The Archfey and The Celestial" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Life, Light" />
+		<dataval key="symbol" value="Single blackened wing" />
+	</god>
+	<god name="Athreos">
+		<dataval key="description" value="god of passage" />
+		<dataval key="alignment" value="LE" />
+		<dataval key="domains" value="Death, Grave" />
+		<dataval key="symbol" value="Crescent moon" />
+	</god>
+	<god name="Ephara">
+		<dataval key="description" value="god of the polis" />
+		<dataval key="alignment" value="LN" />
+		<dataval key="domains" value="Knowledge, Light" />
+		<dataval key="symbol" value="Urn pouring water" />
+	</god>
+	<god name="Erebos">
+		<dataval key="description" value="god of the dead" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death, Trickery" />
+		<dataval key="symbol" value="Serene face" />
+	</god>
+	<god name="Heliod">
+		<dataval key="description" value="god of the sun" />
+		<dataval key="alignment" value="LG" />
+		<dataval key="domains" value="Light" />
+		<dataval key="symbol" value="Laurel crown" />
+	</god>
+	<god name="Iroas">
+		<dataval key="description" value="god of victory" />
+		<dataval key="alignment" value="CG" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Four-winged helmet" />
+	</god>
+	<god name="Karametra">
+		<dataval key="description" value="god of harvests" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Life, Nature" />
+		<dataval key="symbol" value="Cornucopia" />
+	</god>
+	<god name="Keranos">
+		<dataval key="description" value="god of storms" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Knowledge, Tempest" />
+		<dataval key="symbol" value="Blue eye" />
+	</god>
+	<god name="Klothys">
+		<dataval key="description" value="god of destiny" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge, War" />
+		<dataval key="symbol" value="Drop spindle" />
+	</god>
+	<god name="Kruphix">
+		<dataval key="description" value="god of horizons" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge, Trickery" />
+		<dataval key="symbol" value="Eight-pointed star" />
+	</god>
+	<god name="Mogis">
+		<dataval key="description" value="god of slaughter" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="War" />
+		<dataval key="symbol" value="Four-horned bull's head" />
+	</god>
+	<god name="Nylea">
+		<dataval key="description" value="god of the hunt" />
+		<dataval key="alignment" value="NG" />
+		<dataval key="domains" value="Nature" />
+		<dataval key="symbol" value="Four arrows" />
+	</god>
+	<god name="Pharika">
+		<dataval key="description" value="god of affliction" />
+		<dataval key="alignment" value="NE" />
+		<dataval key="domains" value="Death, Knowledge, Life" />
+		<dataval key="symbol" value="Snakes" />
+	</god>
+	<god name="Phenax">
+		<dataval key="description" value="god of deception" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Trickery" />
+		<dataval key="symbol" value="Winged golden mask" />
+	</god>
+	<god name="Purphoros">
+		<dataval key="description" value="god of the forge" />
+		<dataval key="alignment" value="CN" />
+		<dataval key="domains" value="Forge, Knowledge" />
+		<dataval key="symbol" value="Double crest" />
+	</god>
+	<god name="Thassa">
+		<dataval key="description" value="god of the sea" />
+		<dataval key="alignment" value="N" />
+		<dataval key="domains" value="Knowledge, Tempest" />
+		<dataval key="symbol" value="Waves" />
+	</god>
+</gods>

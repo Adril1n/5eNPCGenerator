@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<appearances>
+	<appearance name="hair style">
+		<option value="Tied up in a pony tail"/>
+		<option value="Bald"/>
+		<option value="Long hair falling over shoulders"/>
+	</appearance>
+
+	<appearance name="skin_detail">
+		<option value="rough"/>
+		<option value="smooth"/>
+	</appearance>
+
+	<appearance name="face_shape">
+		<option value="a round"/>
+		<option value="a square"/>
+	</appearance>
+
+	<appearance name="attractiveness">
+		<option value="pretty"/>
+		<option value="gorgeous"/>
+		<option value="very ugly"/>
+	</appearance>
+
+	<appearance name="extra">
+		<option value="has a scar on their left arm"/>
+		<option value="wears an eye patch over their right eye"/>
+	</appearance>
+
+
+	<appearance name="worship_style">
+		<option value="quietly"/>
+		<option value="proudly"/>
+	</appearance>
+</appearances>

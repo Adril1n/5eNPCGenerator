@@ -3,7 +3,8 @@
 <subclasses>
 	<subclass class="Artificer" name="Alchemist">
 		<features>
-			<feature id="Alchemist: Subclass Description: Alchemist"/>
+			<feature id="Alchemist: Description"/>
+			
 			<feature id="Alchemist: Tool Proficiency"/>
 			<feature id="Alchemist: Alchemist Spells"/>
 			<feature id="Alchemist: Experimental Elixir"/>

@@ -1,0 +1,5 @@
+<npcs>
+	<npc rng="123" name="Bill" race="Aarakocra" occupation="Groundskeeper"/>
+	<npc rng="999" name="Beatrice" race="Bullfrog" occupation="Wizard"/>
+	<npc rng="88554" name="John" race="Zombie" occupation="Baker"/>
+</npcs>

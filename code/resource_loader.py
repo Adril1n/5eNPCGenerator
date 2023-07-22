@@ -93,7 +93,7 @@ class ResourceLoader():
 		speeds = {}
 
 		for speed in race_type.find('speeds'):
-			speeds[speed.get('key')] = speed.get('value')
+			speeds[speed.get('key')] = int(speed.get('value'))
 
 		return speeds
 
@@ -118,14 +118,14 @@ class ResourceLoader():
 	def get_height_weight(self, race_id, race_type_id):
 		race_type = self.get_race_type(race_id, race_type_id)
 
-		h_w_dict = {h_w.tag:h_w.get('value') for h_w in race_type.find('appearences').find('height_weight')}
+		h_w_dict = {h_w.tag:h_w.get('value') for h_w in race_type.find('appearances').find('height_weight')}
 
 		return h_w_dict
 
 	def get_age(self, race_id, race_type_id):
 		race_type = self.get_race_type(race_id, race_type_id)
 		
-		age_elmt = race_type.find('appearences').find('age')
+		age_elmt = race_type.find('appearances').find('age')
 
 		return [age_elmt.get('maturity'), age_elmt.get('lifespan')]
 
@@ -332,53 +332,82 @@ class ResourceLoader():
 
 		return data_dict
 
-	def get_gear_choices(self, prof, xml):
+	def get_gear_choices(self, prof, xml, str_score=0):
 		gears = self.get_xml_root(xml)
 
 		choices = []
 		for gear in gears:
 			if gear.get('type') in prof[xml]:
-				choices.append(gear.get('name'))
+				if xml == 'armors':
+					if int(gear.get('str_req')) <= str_score:
+						choices.append(gear.attrib)
+				else:
+					choices.append(gear.attrib)
 
 		return choices
 
-	# def get_weapon(self, rng, prof):
-	# 	weapons = self.get_xml_root('weapons')
+	def get_skin_type(self, race_id, race_type_id):
+		race_type = self.get_race_type(race_id, race_type_id)
 
-	# 	a = []
-	# 	for weapon in weapons:
-	# 		if weapon.get('type') in prof:
-	# 			a.append(f"{weapon.get('name')} ({weapon.get('damage')}, {weapon.get('properties')})")
+		return race_type.find('appearances').find('skin_type').get('value')
 
-	# 	if len(a) == 0:
-	# 		return f"Unarmed Attack: 1 + STR MOD"
-	# 	else:
-	# 		return rng.choice(a)
+	def get_appearance_details(self):
+		appearances = self.get_xml_root('appearances')
+
+		dict_ = {}
+
+		for appearance in appearances.findall('appearance'):
+			dict_[appearance.get('name')] = [option.get('value') for option in appearance.findall('option')]
+
+		return dict_
+
+	def get_gods(self):
+		gods = self.get_xml_root('gods')
+
+		gods_dict = {}
+
+		for god in gods:
+			gods_dict[god.get('name')] = {dataval.get('key'):dataval.get('value') for dataval in god.findall('dataval')}
+
+		return gods_dict
+
+	def get_spell_features(self, spell_id):
+		spells = self.get_xml_root('spells')
+
+		spell_features = {}
+
+		for spell in spells:
+			if spell.get('name') == spell_id:
+				spell_features['level'] = spell.get('level')
+				spell_features['availability'] = spell.get('availability')
+				spell_features['casting_time'] = spell.get('casting_time')
+				spell_features['duration'] = spell.find('duration').get('value')
+				spell_features['school'] = spell.find('school').get('value')
+				spell_features['range'] = spell.find('range').get('value')
+				spell_features['components'] = spell.find('components').get('value')
+				spell_features['description'] = spell.find('description').get('value')
+				spell_features['higher_levels'] = spell.find('higher_levels').get('value')
 
 
-	# def get_armor(self, rng, prof, str_):
-	# 	b = prof.copy()
-	# 	if 'shield' in b:
-	# 		b.remove('shield')
+		return spell_features
 
-	# 	armors = self.get_xml_root('armors')
- 		
-	# 	a = []
-	# 	for armor in armors:
-	# 		if armor.get('type') in b and int(armor.get('str_req')) <= str_:
-	# 			d = {}
-	# 			for att in armor.attrib:
-	# 				if att != 'stealth_dis':
-	# 					d[att] = armor.attrib[att]
-	# 				else:
-	# 					d[att] = bool(armor.attrib[att])
 
-	# 			a.append(d)
 
-	# 	if len(a) == 0:
-	# 		return {'name':'Unarmored', 'ac':'10', 'stealth_dis':'False'}
-	# 	else:
-	# 		return rng.choice(a)
+
+
+
+
+
+
+	def get_recent_npcs(self):
+		npcs = self.get_xml_root('recent_npcs')
+
+		npcs_dict = {}
+
+		for npc in npcs:
+			npcs_dict[f"{npc.get('name')}, {npc.get('race')} {npc.get('occupation')}"] = npc.get('rng')
+
+		return npcs_dict
 
 
 

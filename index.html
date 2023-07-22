@@ -118,11 +118,10 @@
 				<div style="margin-bottom: 16px;">
 					<span style="font-weight: bold;">Leather Armor. </span>
 				</div>
-				<div>
+				<div class="preview-content_statblock_description">
 					<span style="font-weight: bold;">Alchemist: Description. </span>
 					An Alchemist is an expert at combining reagents to produce mystical effects. Alchemists use their creations to give life and to leech it away. Alchemy is the oldest of Alchemist traditions, and its versatility has long been valued during times of war and peace.
 				</div>
-
 				<svg height="10" width="100%" class="npc_statblock_break">
 					<polyline points="0,0 670, 5 0,10"></polyline>
 				</svg>
@@ -146,9 +145,24 @@
 				</div>
 				<div class="preview-content_description_table">
 					<div class="preview-content_description_table_item" style="margin-right: 10px;">Sex<br>Male</div>
-					<div class="preview-content_description_table_item">Hair Color<br>Brown</div>
-					<div class="preview-content_description_table_item" style="margin-right: 10px;">Eyes<br>Green</div>
-					<div class="preview-content_description_table_item">Skin<br>Red</div>
+					<div class="preview-content_description_table_item">
+						Hair Color
+						<br>
+						Brown
+						<svg width="100" height="20" style="fill:brown;stroke-width: 3px;stroke: black;margin-bottom: -3px;">
+							<rect width="100" height="20"></rect>
+						</svg>
+					</div>
+					<div class="preview-content_description_table_item" style="margin-right: 10px;">
+						Eyes
+						<br>
+						Green
+					</div>
+					<div class="preview-content_description_table_item">
+						Skin
+						<br>
+						Red
+					</div>
 					<div class="preview-content_description_table_item" style="margin-right: 10px;">Size<br>Medium</div>
 					<div class="preview-content_description_table_item">Age<br>83</div>
 					<div class="preview-content_description_table_item" style="margin-right: 5px;">Height<br>177cm</div>
@@ -239,7 +253,7 @@
 					<div class="saving-throws_ability">CHA</div>
 					<div class="saving-throws_modifier">+1</div>
 				</div>
-				<div class="saving-throws_header" style="font-size:18px;">Advantage against being frightened</div>
+				<div class="saving-throws_header" style="font-size:18px;">Advantage will be</div>
 				<div class="saving-throws_header">Saving Throws</div>
 			</div>
 			<div class="sheet-sections_section_senses">
@@ -297,16 +311,16 @@
 							<th class="skills" style="width: 15%;">
 								<abbr title="Modifier">Mod</abbr>
 							</th>
-							<th class="skills" style="width: 50%;font-size: 24px;">Skill</th>
+							<th class="skills" style="width: 50%;">Skill</th>
 							<th class="skills" style="width: 20%;">Bonus</th>
 						</tr>
 
 						<tr class="skills">
 							<td class="skills">
-								<div class="skills-advantage-false"></div>
+								<div class="skills-advantage-False"></div>
 							</td>
 							<td class="skills">STR</td>
-							<td class="skills" style="font-size: 24px;">Athletics</td>
+							<td class="skills">Athletics</td>
 							<td class="skills">
 								<button type="button" onclick="alert(dice_roll(20, 1))" class="skills-bonus-button">+1</button>
 							</td>
@@ -314,12 +328,23 @@
 
 						<tr class="skills">
 							<td class="skills">
-								<div class="skills-advantage-true" title="Advantage when tracking Fiends (Blood Hunter)"></div>
+								<div class="skills-advantage-True" title="Advantage when tracking Fiends (Blood Hunter)"></div>
 							</td>
 							<td class="skills">DEX</td>
-							<td class="skills" style="font-size: 24px;">Acrobatics</td>
+							<td class="skills">Acrobatics</td>
 							<td class="skills">
 								<button type="button" onclick="alert(dice_roll(20, 3))" class="skills-bonus-button">+3</button>
+							</td>
+						</tr>
+
+						<tr class="skills">
+							<td class="skills">
+								<div class="skills-advantage-None" title=""></div>
+							</td>
+							<td class="skills">DEX</td>
+							<td class="skills">Animal Handling</td>
+							<td class="skills">
+								<button type="button" onclick="alert(dice_roll(20, 3))" class="skills-bonus-button">-2</button>
 							</td>
 						</tr>
 					</table>
@@ -378,7 +403,7 @@
 					<span class="defenses_display_header">Defenses</span>
 					<div class="defenses_display_item">
 						<div class="defenses_display_icon_immunity">I</div>
-						<span class="defenses_display_item_name">Magical Sleep</span>
+						<span class="defenses_display_item_name" title="Source: Wood Elf">Magical Sleep</span>
 					</div>
 					<div class="defenses_display_item">
 						<div class="defenses_display_icon_resistance">R</div>
@@ -402,7 +427,9 @@
 		<div class="text-boxes-container">
 			<div class="text-box">
 				<div class="text-box-header" id="Description">Description</div>
-				<div class="description-character-image">IMAGE HERE</div>
+				<div class="description-character-image">
+					IMAGE HERE
+				</div>
 				<div>
 					<div class="description-character-feature">Harley Caskbow is a 50 year old female human Arborist.</div>
 					<div class="description-character-feature">Arborist: Maintains And Cares For Trees, Often By Surgically Removing Dying Limbs.</div>
@@ -411,7 +438,6 @@
 					<div class="description-character-feature">She stands at 177cm (medium) tall and weighs 66kg (slim).</div>
 					<div class="description-character-feature">She has an oblong, average face.</div>
 					<div class="description-character-feature">She wears an eyepatch on her left eye.</div>
-					<div class="description-character-feature">She has a scar on her right shoulder, an infected leg, and a deep slashing scar on her right hand.</div>
 				</div>
 				<div class="text-box-header" id="Personality Traits">Personality Traits</div>
 				<div class="description-character-feature">She proudly claims to worship the demon prince Orcus, but secretly worships Cyric, God of murder, lies, intrigue, strife, deception, illusion. (Chaotic Evil)</div>
@@ -468,25 +494,6 @@
 						Actions | Attacks per Action: 1
 					</div>
 					<div class="list-content">
-						<!-- <div class="attack-table"> 
-							<table class="attack">
-								<tr class="attack">
-									<th class="attack">Attack</th>
-									<th class="attack">Range</th>
-									<th class="attack">Hit/DC</th>
-									<th class="attack">Damage</th>
-									<th class="attack">Notes</th>
-								</tr>
-								<tr class="attack">
-									<td class="attack">Quarterstaff</td>
-									<td class="attack">5 ft.</td>
-									<td class="attack">+ 6</td>
-									<td class="attack">1d6+4</td>
-									<td class="attack">Simple, Versetile</td>
-								</tr>
-							</table>
-						</div> -->
-
 						<div class="list-basic">
 							<span style="font-weight: bold;">Actions in Combat<br></span>
 							<span>Attack, Cast a Spell, Dash, Disengage, Dodge, Grapple, Help, Hide, Improvise, Ready, Search, Shove, Use an Object</span>
@@ -520,24 +527,6 @@
 						Bonus Actions
 					</div>	
 					<div class="list-content">
-						<!-- <div class="attack-table"> 
-							<table class="attack">
-								<tr class="attack">
-									<th class="attack">Attack</th>
-									<th class="attack">Range</th>
-									<th class="attack">Hit/DC</th>
-									<th class="attack">Damage</th>
-									<th class="attack">Notes</th>
-								</tr>
-								<tr class="attack">
-									<td class="attack">Magic Stone</td>
-									<td class="attack">Touch</td>
-									<td class="attack">+ 6</td>
-									<td class="attack">1d6+4</td>
-									<td class="attack">D: 1m, V/S</td>
-								</tr>
-							</table>
-						</div> -->
 
 						<div class="list-basic">
 							<span style="font-weight: bold;">Actions in Combat<br></span>
@@ -611,12 +600,6 @@
 					<div class="spell-group"> 
 						<div class="spell-group_header">
 							3/day each
-							<!-- <div class="spell-group_checkboxes">
-								<input type="checkbox" name="3/day1">
-								<input type="checkbox" name="3/day2">
-								<input type="checkbox" name="3/day3">
-							</div> -->
-							
 						</div>
 						<table class="spell-tables">
 							<tr class="attack">
@@ -705,8 +688,8 @@
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
-		</div>
 	</div>
 
 
